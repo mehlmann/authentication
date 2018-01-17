@@ -1,0 +1,10 @@
+Antworten {antwort}
+Antworten Ist {antwort}
+Antworten Es ist {antwort}
+Rechenloesung {loesung}
+Rechenloesung ist {loesung}
+Rechenloesung ergibt {loesung}
+Rechenloesung ist gleich {loesung}
+Rechenloesung das ist {loesung}
+Rechenloesung das ergibt {loesung}
+Rechenloesung das ergebnis ist {loesung}
