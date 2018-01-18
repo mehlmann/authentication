@@ -3,7 +3,9 @@
 
 
 // globale Variablen
-var sum = 0;
+var sum = -1;
+const questions = require('./data/questions');
+const helpFct = require('./data/help-functions');
 
 /**
     Diese Funktion baut bei übergebenen Parametern eine Ausgabe für Alexa.
@@ -90,6 +92,12 @@ function onLaunch(launchRequest, session, callback) {
     getWelcomeResponse(callback);
 }
 
+/**
+ * Wird bei Beenden des Skills ausgeführt.
+ * @param {*} sessionEndedRequest 
+ * @param {*} session 
+ * @param {*} callback 
+ */
 function onSessionEnded(sessionEndedRequest, session, callback) {
     console.log(`Skill requestId=${sessionEndedRequest.requestId}, sessionId=${session.sessionId} beendet.`);
     getEndResponse(callback);
@@ -98,30 +106,45 @@ function onSessionEnded(sessionEndedRequest, session, callback) {
 function verifyAnswer(intent, callback) {
     const cardTitle = 'Antwort gegeben';
     var speechOutput = '';
+    var repromptText = '';
     const shouldEndSession = false;
     try {
         var answer = intent.slots.antwort.value;
-        speechOutput = `Ihre Anwort war ${answer}`;
-        repromptText = `Ihre Anwort war ${answer}`;
+        speechOutput = `Ihre Anwort war ${answer}. `;
+        repromptText = `Ihre Anwort war ${answer}. `;
     } catch (err) {
         speechOutput = 'Bei Ihrer Antwort ist ein Fehler aufgetreten.';
         repromptText = 'Bei Ihrer Antwort ist ein Fehler aufgetreten.';
+        callback({}, buildSpeechletResponse(cardTitle, speechOutput, repromptText, true));
+    }
+    if (answer == questions[0].answer) {
+        speechOutput += 'Dies ist richtig.';
+    } else {
+        speechOutput += 'Dies ist falsch.';
     }
     callback({}, buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
 }
 
 function verifyCalc(intent, callback) {
+    if (sum < 0) getCalculation(callback);
+
     const cardTitle = 'Aufgabe gelöst';
     var speechOutput = '';
-    const repromptText = ``;
+    var repromptText = ``;
     const shouldEndSession = false;
     try {
         var result = intent.slots.loesung.value;
-        speechOutput = `Ihre Lösung war ${result}`;
-        repromptText = `Ihre Lösung war ${result}`;
+        speechOutput = `Ihre Lösung war ${result}. `;
+        repromptText = `Ihre Lösung war ${result}. `;
     } catch (err) {
         speechOutput = 'Bei Ihrer Antwort ist ein Fehler aufgetreten.';
         repromptText = 'Bei Ihrer Antwort ist ein Fehler aufgetreten.';
+        callback({}, buildSpeechletResponse(cardTitle, speechOutput, repromptText, true));
+    }
+    if (helpFct(result.toLowerCase()) == sum) {
+        speechOutput += 'Dies ist richtig.';
+    } else {
+        speechOutput += 'Dies ist falsch.';
     }
     callback({}, buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
 }
@@ -148,8 +171,10 @@ function getCalculation(callback) {
  * @param {*} callback
  */
 function getQuestion(callback) {
+    console.log(questions);
+    console.log(helpFct('einundzwanzig'));
     const cardTitle = 'Frage gestellt';
-    var speechOutput = `Was ist deine Lieblingsfarbe?`;
+    var speechOutput = questions[0].question;
     const repromptText = `Beantworte mir, was deine Lieblingsfarbe ist.`;
     const shouldEndSession = false;
 

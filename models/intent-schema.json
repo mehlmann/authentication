@@ -19,6 +19,12 @@
       "intent": "Antworten"
     },
     {
+      "intent": "Frage"
+    },
+    {
+      "intent": "Rechenaufgabe"
+    },
+    {
       "slots": [
         {
           "name": "loesung",

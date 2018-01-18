@@ -1,6 +1,14 @@
 Antworten {antwort}
-Antworten Ist {antwort}
-Antworten Es ist {antwort}
+Antworten ist {antwort}
+Antworten es ist {antwort}
+Antworten die antwort ist {antwort}
+Frage frage
+Frage stelle mir eine frage
+Frage Ich will eine frage beantworten
+Frage nochmal
+Rechenaufgabe rechenaufgabe
+Rechenaufgabe aufgabe
+Rechenaufgabe stelle mir eine aufgabe
 Rechenloesung {loesung}
 Rechenloesung ist {loesung}
 Rechenloesung ergibt {loesung}
