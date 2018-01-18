@@ -63,15 +63,31 @@ function getHelpResponse(callback) {
 }
 
 /**
- * handleSessionEndRequest wird ausgeführt, sobald der Skill beendet wird.
+ * getEndResponse wird ausgeführt, sobald der Skill beendet wird.
  * @param {*} callback 
  */
-function handleSessionEndRequest(callback) {
+function getEndResponse(callback) {
     const cardTitle = 'Skill beendet';
     const speechOutput = 'Auf Wiedersehen.';
     const shouldEndSession = true;
 
     callback({}, buildSpeechletResponse(cardTitle, speechOutput, null, shouldEndSession));
+}
+
+/**
+ * Wird bei Start des Skills ausgeführt.
+ * @param {*} launchRequest 
+ * @param {*} session 
+ * @param {*} callback 
+ */
+function onLaunch(launchRequest, session, callback) {
+    console.log(`Skill requestId=${launchRequest.requestId}, sessionId=${session.sessionId} gestartet.`);
+    getWelcomeResponse(callback);
+}
+
+function onSessionEnded(sessionEndedRequest, session, callback) {
+    console.log(`Skill requestId=${sessionEndedRequest.requestId}, sessionId=${session.sessionId} beendet.`);
+    getEndResponse(callback);
 }
 
 /**
@@ -85,8 +101,8 @@ function onIntent(intentRequest, session, callback) {
 
     if (intentName === 'AMAZON.HelpIntent') {
         getHelpResponse(callback);
-    } else if (intentName === 'AMAZON.StopIntent' || intentName === 'AMAZON.CancelIntent' || intentName === 'SessionEndedRequest') {
-        handleSessionEndRequest(callback);
+    } else if (intentName === 'AMAZON.StopIntent' || intentName === 'AMAZON.CancelIntent') {
+        getEndResponse(callback);
     } else if (intentName === 'LaunchRequest') {
         getWelcomeResponse(callback);
     } else {
@@ -102,12 +118,25 @@ function onIntent(intentRequest, session, callback) {
  */
 exports.handler = (event, context, callback) => {
     try {
-        if (event.request.type === 'IntentRequest') {
+        if (event.request.type === 'LaunchRequest') {
+            onLaunch(event.request,
+                event.session,
+                (sessionAttributes, speechletResponse) => {
+                    callback(null, buildResponse(sessionAttributes, speechletResponse));
+                });
+        } else if (event.request.type === 'IntentRequest') {
             onIntent(event.request,
                 event.session,
                 (sessionAttributes, speechletResponse) => {
                     callback(null, buildResponse(sessionAttributes, speechletResponse));
                 });
+        } else if (event.request.type === 'SessionEndedRequest') {
+            onSessionEnded(event.request, 
+                event.session, 
+                (sessionAttributes, speechletResponse) => {
+                    callback(null, buildResponse(sessionAttributes, speechletResponse));
+                });
+            callback();
         }
     } catch (err) {
         callback(err);
