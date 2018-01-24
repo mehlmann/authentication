@@ -1,11 +1,12 @@
 'use strict';
 
 
+const questions = require('./data/questions');
+const helpFct = require('./data/help-functions');
+const alexa = require('./alexa.js');
 
 // globale Variablen
 var sum = -1;
-const questions = require('./data/questions');
-const helpFct = require('./data/help-functions');
 
 /**
     Diese Funktion baut bei übergebenen Parametern eine Ausgabe für Alexa.
@@ -103,6 +104,32 @@ function onSessionEnded(sessionEndedRequest, session, callback) {
     getEndResponse(callback);
 }
 
+/**
+ * Der Benutzer ist bereits authentifiziert.
+ * @param {*} callback
+ */
+function onAuthenticated(callback) {
+    const cardTitle = 'Authentication done.';
+    var speechOutput = 'Die Authentifizierung war bereits erfolgreich.';
+    const repromptText = `Auf Wiedersehen.`;
+    const shouldEndSession = false;
+
+    callback({}, buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
+}
+
+/**
+ * Der Benutzer hat versagt.
+ * @param {*} callback
+ */
+function onFailed(callback) {
+    const cardTitle = 'Authentication failed.';
+    var speechOutput = 'Die Authentifizierung ist bereits fehlgeschlagen.';
+    const repromptText = `Auf Wiedersehen.`;
+    const shouldEndSession = false;
+
+    callback({}, buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
+}
+
 function verifyAnswer(intent, callback) {
     const cardTitle = 'Antwort gegeben';
     var speechOutput = '';
@@ -119,8 +146,10 @@ function verifyAnswer(intent, callback) {
     }
     if (answer == questions[0].answer) {
         speechOutput += 'Dies ist richtig.';
+        alexa.answerCorrect();
     } else {
         speechOutput += 'Dies ist falsch.';
+        alexa.anwerWrong();
     }
     callback({}, buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
 }
@@ -143,8 +172,10 @@ function verifyCalc(intent, callback) {
     }
     if (helpFct(result.toLowerCase()) == sum) {
         speechOutput += 'Dies ist richtig.';
+        alexa.answerCorrect();
     } else {
         speechOutput += 'Dies ist falsch.';
+        alexa.answerWrong();
     }
     callback({}, buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
 }
@@ -171,8 +202,6 @@ function getCalculation(callback) {
  * @param {*} callback
  */
 function getQuestion(callback) {
-    console.log(questions);
-    console.log(helpFct('einundzwanzig'));
     const cardTitle = 'Frage gestellt';
     var speechOutput = questions[0].question;
     const repromptText = `Beantworte mir, was deine Lieblingsfarbe ist.`;
@@ -194,9 +223,21 @@ function onIntent(intentRequest, session, callback) {
     } else if (intent.name === 'AMAZON.HelpIntent') {
         getHelpResponse(callback);
     } else if (intent.name === 'Antworten') {
-        verifyAnswer(intent, callback);
+        if (alexa.is('quest2')) {
+            verifyAnswer(intent, callback);
+        } else if (alexa.is('authenticated')) {
+            onAuthenticated(callback);
+        } else if (alexa.is('abort')) {
+            onFailed(callback);
+        }
     } else if (intent.name === 'Rechenloesung') {
-        verifyCalc(intent, callback);
+        if (alexa.is('quest1')) {
+            verifyCalc(intent, callback);
+        } else if (alexa.is('authenticated')) {
+            onAuthenticated(callback);
+        } else if (alexa.is('abort')) {
+            onFailed(callback);
+        }
     } else if (intent.name === 'Rechenaufgabe') {
         getCalculation(callback);
     } else if (intent.name === 'Frage') {
