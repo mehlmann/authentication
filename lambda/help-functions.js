@@ -2,37 +2,6 @@
 
 var numbers = require('./data/numbers')
 
-/**
-    Diese zwei Funktionen bauen bei übergebenen Parametern eine Ausgabe für Alexa.
-*/
-function buildSpeechletResponse(title, output, repromptText, shouldEndSession) {
-    return {
-        outputSpeech: {
-            type: 'PlainText',
-            text: output,
-        },
-        card: {
-            type: 'Simple',
-            title: `SessionSpeechlet - ${title}`,
-            content: `SessionSpeechlet - ${output}`,
-        },
-        reprompt: {
-            outputSpeech: {
-                type: 'PlainText',
-                text: repromptText,
-            },
-        },
-        shouldEndSession,
-    };
-}
-
-function buildResponse(sessionAttributes, speechletResponse) {
-    return {
-        version: '1.0',
-        sessionAttributes,
-        response: speechletResponse,
-    };
-}
 
 /**
  * Wandelt eine gesprochene Zahl in den dazugehörigen Integer um.
@@ -48,6 +17,5 @@ function stringToInteger(integerStr) {
 
 
 
-module.exports = {stringToInteger,
-                  buildSpeechletResponse,
-                  buildResponse};
+module.exports = {stringToInteger
+                  };

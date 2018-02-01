@@ -1,8 +1,36 @@
 /**
  * Die Standard-Funktionen für Alexa.
+ *
+ * Diese zwei Funktionen bauen bei übergebenen Parametern eine Ausgabe für Alexa.
  */
+function buildSpeechletResponse(title, output, repromptText, shouldEndSession) {
+    return {
+        outputSpeech: {
+            type: 'PlainText',
+            text: output,
+        },
+        card: {
+            type: 'Simple',
+            title: `SessionSpeechlet - ${title}`,
+            content: `SessionSpeechlet - ${output}`,
+        },
+        reprompt: {
+            outputSpeech: {
+                type: 'PlainText',
+                text: repromptText,
+            },
+        },
+        shouldEndSession,
+    };
+}
 
-const helpFct = require('./help-functions')
+function buildResponse(sessionAttributes, speechletResponse) {
+    return {
+        version: '1.0',
+        sessionAttributes,
+        response: speechletResponse,
+    };
+}
 
 /**
  * getWelcomeResponse wird bei starten des Skills ausgeführt und bildet eine Art Begrüssung.
@@ -16,7 +44,7 @@ function getWelcomeResponse(callback) {
     const shouldEndSession = false;
 
     callback(sessionAttributes,
-        helpFct.buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
+        buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
 }
 
 /**
@@ -31,7 +59,7 @@ function getHelpResponse(callback) {
     const shouldEndSession = false;
 
     callback(sessionAttributes,
-        helpFct.buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
+        buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
 }
 
 /**
@@ -43,7 +71,7 @@ function getEndResponse(callback) {
     const speechOutput = 'Auf Wiedersehen.';
     const shouldEndSession = true;
 
-    callback({}, helpFct.buildSpeechletResponse(cardTitle, speechOutput, null, shouldEndSession));
+    callback({}, buildSpeechletResponse(cardTitle, speechOutput, null, shouldEndSession));
 }
 
 /**
@@ -69,7 +97,9 @@ function onSessionEnded(sessionEndedRequest, session, callback) {
 }
 
 
-module.exports = {getWelcomeResponse,
+module.exports = {buildSpeechletResponse,
+                buildResponse,
+                getWelcomeResponse,
                 getHelpResponse,
                 getEndResponse,
                 onLaunch,

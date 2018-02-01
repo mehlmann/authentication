@@ -4,8 +4,6 @@
 
 const alexa = require('./alexa')
 const auth = require('./auth')
-const helpFct = require('./help-functions')
-
 
 /**
  * Ruft die verschiedenen intents auf.
@@ -15,34 +13,29 @@ const helpFct = require('./help-functions')
  */
 function onIntent(intentRequest, session, callback) {
     const intent = intentRequest.intent;
+    console.log(`Authentication in state ${auth.getState()}.`);
     if (intent.name === 'AMAZON.StopIntent' || intent.name === 'AMAZON.CancelIntent') {
+        console.log(`Got a ${intent.name}.`);
         alexa.getEndResponse(callback);
     } else if (intent.name === 'AMAZON.HelpIntent') {
+        console.log(`Got a ${intent.name}.`);
         alexa.getHelpResponse(callback);
     } else if (intent.name === 'Antworten') {
-        if (auth.auth_state.is('quest1')) {
-            auth.verifyCalc(intent, callback);
-        }else if (auth.auth_state.is('quest2')) {
-            auth.verifyAnswer(intent, callback);
-        } else if (auth.auth_state.is('authenticated')) {
-            auth.onAuthenticated(callback);
-        } else if (auth.auth_state.is('abort')) {
-            auth.onFailed(callback);
-        }
+        console.log(`Got a ${intent.name}Intent.`);
+        auth.categorizeRequest(intent, callback);
     } else if (intent.name === 'Rechenloesung') {
-        if (auth.auth_state.is('quest1')) {
-            auth.verifyCalc(intent, callback);
-        } else if (auth.auth_state.is('quest2')) {
-            auth.verifyAnswer(intent, callback);
-        } else if (auth.auth_state.is('authenticated')) {
-            auth.onAuthenticated(callback);
-        } else if (auth.auth_state.is('abort')) {
-            auth.onFailed(callback);
-        }
+        console.log(`Got a ${intent.name}Intent.`);
+        auth.categorizeRequest(intent, callback);
     } else if (intent.name === 'Rechenaufgabe') {
-        auth.getCalculation(callback);
+        console.log(`Got a ${intent.name}Intent.`);
+        auth.categorizeRequest(intent, callback);
     } else if (intent.name === 'Frage') {
-        auth.getQuestion(callback);
+        console.log(`Got a ${intent.name}Intent.`);
+        if (auth.isState('calc')) {
+            auth.getStaticQuestion(callback);
+        } else {
+            auth.getDynamicQuestion(callback);
+        }
     } else {
         throw new Error('Invalid intent');
     }
@@ -57,22 +50,23 @@ function onIntent(intentRequest, session, callback) {
 exports.handler = (event, context, callback) => {
     try {
         if (event.request.type === 'LaunchRequest') {
+            console.log(`Authentication in state ${auth.getState()}.`);
             alexa.onLaunch(event.request,
                 event.session,
                 (sessionAttributes, speechletResponse) => {
-                    callback(null, helpFct.buildResponse(sessionAttributes, speechletResponse));
+                    callback(null, alexa.buildResponse(sessionAttributes, speechletResponse));
                 });
         } else if (event.request.type === 'IntentRequest') {
             onIntent(event.request,
                 event.session,
                 (sessionAttributes, speechletResponse) => {
-                    callback(null, helpFct.buildResponse(sessionAttributes, speechletResponse));
+                    callback(null, alexa.buildResponse(sessionAttributes, speechletResponse));
                 });
         } else if (event.request.type === 'SessionEndedRequest') {
             alexa.onSessionEnded(event.request, 
                 event.session, 
                 (sessionAttributes, speechletResponse) => {
-                    callback(null, helpFct.buildResponse(sessionAttributes, speechletResponse));
+                    callback(null, alexa.buildResponse(sessionAttributes, speechletResponse));
                 });
             callback();
         }
