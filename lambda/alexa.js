@@ -37,14 +37,12 @@ function buildResponse(sessionAttributes, speechletResponse) {
  * @param {*} callback 
  */
 function getWelcomeResponse(callback) {
-    const sessionAttributes = {};
     const cardTitle = 'Willkommen';
     const speechOutput = 'Willkommen';
     const repromptText = 'Willkommen';
     const shouldEndSession = false;
 
-    callback(sessionAttributes,
-        buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
+    callback({}, buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
 }
 
 /**
@@ -52,14 +50,12 @@ function getWelcomeResponse(callback) {
  * @param {*} callback 
  */
 function getHelpResponse(callback) {
-    const sessionAttributes = {};
     const cardTitle = 'Hilfe';
     const speechOutput = 'Sie sollten sich authentifizieren.';
     const repromptText = 'Wollen sie sich nicht authentifizieren?';
     const shouldEndSession = false;
 
-    callback(sessionAttributes,
-        buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
+    callback({}, buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
 }
 
 /**
@@ -96,6 +92,18 @@ function onSessionEnded(sessionEndedRequest, session, callback) {
     getEndResponse(callback);
 }
 
+/**
+ * Sollte ein Intent nicht erfasst worden sein.
+ * @param {*} callback 
+ */
+function onUnknownIntent(callback) {
+    const cardTitle = 'Unknown Intent';
+    const speechOutput = 'Ich habe Sie nicht verstanden. Bitte wiederholen Sie das zuvor gesagte.';
+    const repromptText = 'Bitte wiederholen Sie das zuvor gesagte.';
+    const shouldEndSession = false;
+
+    callback({}, buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
+}
 
 module.exports = {buildSpeechletResponse,
                 buildResponse,
@@ -103,4 +111,5 @@ module.exports = {buildSpeechletResponse,
                 getHelpResponse,
                 getEndResponse,
                 onLaunch,
-                onSessionEnded};
+                onSessionEnded,
+                onUnknownIntent};

@@ -46,25 +46,25 @@ var auth_state = new StateMachine({
         { name: 'answerWrong',      from: 'dynamic', to: 'failed'  }
     ],
     methods: {
-        onStartToCalc: function(question) {
-            console.log('Question is: ' + question + ' Moving from start to calc.');
+        onStartToCalc: function(obj, question) {
+            console.log('Question is: ' + question + '\nMoving from start to calc.');
         },
-        onCalcToStatic: function(claim, real) {
-            console.log('Answer was correct. You said ' + claim + ` , it was ${real}. Moving from calc to static.`);
+        onCalcToStatic: function(obj, claim, real) {
+            console.log(`Answer was correct. You said ${claim}, it was ${real}.\nMoving from calc to static.`);
         },
-        onStaticToStatic: function(claim, real) {
-            console.log('Answer was correct. You said ' + claim + `, it was ${real}. Moving from static to static.`);
+        onStaticToStatic: function(obj, claim, real) {
+            console.log(`Answer was correct. You said ${claim}, it was ${real}.\nMoving from static to static.`);
         },
-        onStaticToDynamic: function(claim, real) {
-            console.log('Answer was correct. You said ' + claim + ` it was ${real}. Moving from static to dynamic.`);
+        onStaticToDynamic: function(obj, claim, real) {
+            console.log(`Answer was correct. You said ${claim}, it was ${real}.\nMoving from static to dynamic.`);
         },
-        onDynamicToDynamic: function(claim, real) {
-            console.log('Answer was correct. You said ' + claim + ` it was ${real}. Moving from dynamic to dynamic.`);
+        onDynamicToDynamic: function(obj, claim, real) {
+            console.log(`Answer was correct. You said ${claim}, it was ${real}.\nMoving from dynamic to dynamic.`);
         },
-        onDynamicToSuccess: function(claim, real) {
-            console.log('Answer was correct. You said ' + claim + ` it was ${real}. Moving from dynamic to success.`);
+        onDynamicToSuccess: function(obj, claim, real) {
+            console.log(`Answer was correct. You said ${claim}, it was ${real}.\nMoving from dynamic to success.`);
         },
-        onAnswerWrong:  function(claim, real) {
+        onAnswerWrong:  function(obj, claim, real) {
             console.log(`Answer was wrong! You said ${claim}, it was ${real}.`);
         }
     }
@@ -93,6 +93,7 @@ function isInState(state) {
  */
 function wrongIntent(intent, callback) {
     const cardTitle = 'Falscher Intent';
+    var speechOutput = '';
     if (auth_state.is('success')) {
         speechOutput = 'Sie haben sich bereits erfolgreich authentifiziert.';
     } else if (auth_state.is('failed')) {
@@ -103,23 +104,6 @@ function wrongIntent(intent, callback) {
     const shouldEndSession = false;
 
     callback({}, alexa.buildSpeechletResponse(cardTitle, speechOutput, speechOutput, shouldEndSession));
-}
-
-function categorizeRequest(intent, callback) {
-    // switch case maybe?  TODO
-    if (auth_state.is('start')) {
-        getCalculation(callback);
-    } else if (auth_state.is('calc')) {
-        verifyCalc(intent, callback);
-    }else if (auth_state.is('static')) {
-        verifyStaticAnswer(intent, callback);
-    } else if (auth_state.is('dynamic')) {
-        verifyDynamicAnswer(intent, callback);
-    } else if (auth_state.is('success')) {
-        onAuthenticated(callback);
-    } else if (auth_state.is('abort')) {
-        onFailed(callback);
-    }
 }
 
 /**
@@ -207,6 +191,7 @@ function getDynamicQuestion(callback) {
  * @param {*} callback 
  */
 function verifyCalc(intent, callback) {
+    console.log('result: ' + result);
     try {
         var result = intent.slots.loesung.value;
     } catch (err) {
@@ -232,6 +217,7 @@ function verifyCalc(intent, callback) {
  * @param {*} callback 
  */
 function verifyStaticAnswer(intent, callback) {
+    console.log('answer: ' + answer);
     try {
         var answer = intent.slots.antwort.value;
     } catch (err) {
@@ -263,11 +249,11 @@ function verifyStaticAnswer(intent, callback) {
  * @param {*} callback 
  */
 function verifyDynamicAnswer(intent, callback) {
+    console.log('answer: ' + answer);
     try {
         var answer = intent.slots.antwort.value;
     } catch (err) {
         var speechOutput = 'Bei Ihrer dynamischen Antwort ist ein Fehler aufgetreten.';
-        var repromptText = 'Bei Ihrer dynamischen Antwort ist ein Fehler aufgetreten.';
         callback({}, alexa.buildSpeechletResponse('DynAnswer Fehler', speechOutput, speechOutput, false));
     }
     if (answer == dynamicQuestions[0].answer) {
@@ -289,8 +275,10 @@ function verifyDynamicAnswer(intent, callback) {
 module.exports = {auth_state,
                 getState,
                 isInState,
-                categorizeRequest,
+                wrongIntent,
+                getCalculation,
+                verifyCalc,
+                verifyStaticAnswer,
+                verifyDynamicAnswer,
                 onAuthenticated,
-                onFailed,
-                getStaticQuestion,
-                getDynamicQuestion};
+                onFailed};

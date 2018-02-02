@@ -14,35 +14,41 @@ const auth = require('./auth')
 function onIntent(intentRequest, session, callback) {
     const intent = intentRequest.intent;
     console.log(`Authentication in state ${auth.getState()}.`);
-
+    console.log(`Got a ${intent.name}Intent.`);
     switch (intent.name) {
         case 'AMAZON.StopIntent':
-            console.log(`Got a ${intent.name}.`);
             alexa.getEndResponse(callback);
+            break;
         case 'AMAZON.CancelIntent':
-            console.log(`Got a ${intent.name}.`);
             alexa.getEndResponse(callback);
+            break;
         case 'AMAZON.HelpIntent':
-            console.log(`Got a ${intent.name}.`);
             alexa.getHelpResponse(callback);
+            break;
         case 'Rechenaufgabe':
-            console.log(`Got a ${intent.name}Intent.`);
-            if (auth.auth_state.is('start')) {
+            if (auth.isInState('start')) {
                 auth.getCalculation(callback);
             } else {
                 auth.wrongIntent(intent, callback);
             }
+            break;
         case 'Rechenloesung':
-            console.log(`Got a ${intent.name}Intent.`);
             if (auth.isInState('calc')) {
-                auth.getStaticQuestion(callback);
+                auth.verifyCalc(intent, callback);
             } else {
-                auth.getDynamicQuestion(callback);
+                auth.wrongIntent(intent, callback);
             }
+            break;
         case 'Antworten':
-            console.log(`Got a ${intent.name}Intent.`);
-            auth.categorizeRequest(intent, callback);
-        default: throw new Error('Invalid intent');
+            if (auth.isInState('static')) {
+                auth.verifyStaticAnswer(intent, callback);
+            } else if (auth.isInState('dynamic')) {
+                auth.verifyDynamicAnswer(intent, callback);
+            } else {
+                auth.wrongIntent(intent, callback);
+            }
+            break;
+        default: alexa.onUnknownIntent(callback); break;
     }
 }
 
