@@ -20,16 +20,17 @@
  *                                                                      ------
  */
 
-var StateMachine = require('./includes/javascript-state-machine')
-const helpFct = require('./help-functions')
-const alexa = require('./alexa')
-const staticQuestions = require('./data/questions').staticQuestions
-const dynamicQuestions = require('./data/questions').dynamicQuestions
+var StateMachine = require('./includes/javascript-state-machine');
+const helpFct = require('./help-functions');
+const alexa = require('./alexa');
+const staticQuestions = require('./data/questions').staticQuestions;
+const dynamicQuestions = require('./data/questions').dynamicQuestions;
 
 // globale Variablen
 var sum = 15;
 var statThreshold = 1;
 var dynThreshold = 1;
+var currentQuest ='';
 
 var auth_state = new StateMachine({
     init : 'start',
@@ -46,32 +47,25 @@ var auth_state = new StateMachine({
     ],
     methods: {
         onStartToCalc: function(question) {
-            console.log(`Question is: ${question}. Moving from start to calc.`);
+            console.log('Question is: ' + question + ' Moving from start to calc.');
         },
         onCalcToStatic: function(claim, real) {
-            console.log(`Answer was correct. You said ${claim}, it was ${real}. Moving from calc to static.`);
+            console.log('Answer was correct. You said ' + claim + ` , it was ${real}. Moving from calc to static.`);
         },
         onStaticToStatic: function(claim, real) {
-            console.log(`Answer was correct. You said ${claim}, it was ${real}. Moving from static to static.`);
+            console.log('Answer was correct. You said ' + claim + `, it was ${real}. Moving from static to static.`);
         },
         onStaticToDynamic: function(claim, real) {
-            console.log(`Answer was correct. You said ${claim}, it was ${real}. Moving from static to dynamic.`);
+            console.log('Answer was correct. You said ' + claim + ` it was ${real}. Moving from static to dynamic.`);
         },
         onDynamicToDynamic: function(claim, real) {
-            console.log(`Answer was correct. You said ${claim}, it was ${real}. Moving from dynamic to dynamic.`);
+            console.log('Answer was correct. You said ' + claim + ` it was ${real}. Moving from dynamic to dynamic.`);
         },
         onDynamicToSuccess: function(claim, real) {
-            console.log(`Answer was correct. You said ${claim}, it was ${real}. Moving from dynamic to success.`);
+            console.log('Answer was correct. You said ' + claim + ` it was ${real}. Moving from dynamic to success.`);
         },
         onAnswerWrong:  function(claim, real) {
             console.log(`Answer was wrong! You said ${claim}, it was ${real}.`);
-        },
-        onInvalidTransition: function(transition, from, to) {
-            const cardTitle = 'Falscher Intent.';
-            var speechOutput = 'Sie sollten die letzte Frage beantworten.';
-            const shouldEndSession = false;
-        
-            callback({}, alexa.buildSpeechletResponse(cardTitle, speechOutput, speechOutput, shouldEndSession));
         }
     }
 });
@@ -87,8 +81,28 @@ function getState() {
  * Vergleicht ob die Maschine sich im übergebenen Zustand befindet.
  * @param {*} state 
  */
-function isState(state) {
+function isInState(state) {
     return auth_state.is(state);
+}
+
+/**
+ * Sollte ein Intent eingehen, welcher nicht dem aktuellen Zustand der State-Machine entspricht,
+ * wird er hier behandelt.
+ * @param {*} intent
+ * @param {*} callback
+ */
+function wrongIntent(intent, callback) {
+    const cardTitle = 'Falscher Intent';
+    if (auth_state.is('success')) {
+        speechOutput = 'Sie haben sich bereits erfolgreich authentifiziert.';
+    } else if (auth_state.is('failed')) {
+        speechOutput = 'Ihre Authentifizierung ist leider bereits fehlgeschlagen.';
+    } else {
+        speechOutput = 'Beantworten Sie bitte die Frage: ' + currentQuest;
+    }
+    const shouldEndSession = false;
+
+    callback({}, alexa.buildSpeechletResponse(cardTitle, speechOutput, speechOutput, shouldEndSession));
 }
 
 function categorizeRequest(intent, callback) {
@@ -148,6 +162,7 @@ function getCalculation(callback) {
     const repromptText = `Lösen Sie bitte die Aufgabe ${summandA} plus ${summandB}.`;
     const shouldEndSession = false;
 
+    currentQuest = speechOutput;
     auth_state.startToCalc(speechOutput);
 
     callback({}, alexa.buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
@@ -163,6 +178,7 @@ function getStaticQuestion(callback) {
     var speechOutput = staticQuestions[0].question;
     const repromptText = staticQuestions[0].question;
     const shouldEndSession = false;
+    currentQuest = speechOutput;
 
     callback({}, alexa.buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
 }
@@ -177,6 +193,7 @@ function getDynamicQuestion(callback) {
     var speechOutput = dynamicQuestions[0].question;
     const repromptText = dynamicQuestions[0].question;
     const shouldEndSession = false;
+    currentQuest = speechOutput;
 
     callback({}, alexa.buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
 }
@@ -271,9 +288,9 @@ function verifyDynamicAnswer(intent, callback) {
 
 module.exports = {auth_state,
                 getState,
-                isState,
+                isInState,
                 categorizeRequest,
                 onAuthenticated,
                 onFailed,
                 getStaticQuestion,
-                getDynamicQuestion}
+                getDynamicQuestion};

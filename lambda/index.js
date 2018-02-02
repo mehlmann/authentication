@@ -14,30 +14,35 @@ const auth = require('./auth')
 function onIntent(intentRequest, session, callback) {
     const intent = intentRequest.intent;
     console.log(`Authentication in state ${auth.getState()}.`);
-    if (intent.name === 'AMAZON.StopIntent' || intent.name === 'AMAZON.CancelIntent') {
-        console.log(`Got a ${intent.name}.`);
-        alexa.getEndResponse(callback);
-    } else if (intent.name === 'AMAZON.HelpIntent') {
-        console.log(`Got a ${intent.name}.`);
-        alexa.getHelpResponse(callback);
-    } else if (intent.name === 'Antworten') {
-        console.log(`Got a ${intent.name}Intent.`);
-        auth.categorizeRequest(intent, callback);
-    } else if (intent.name === 'Rechenloesung') {
-        console.log(`Got a ${intent.name}Intent.`);
-        auth.categorizeRequest(intent, callback);
-    } else if (intent.name === 'Rechenaufgabe') {
-        console.log(`Got a ${intent.name}Intent.`);
-        auth.categorizeRequest(intent, callback);
-    } else if (intent.name === 'Frage') {
-        console.log(`Got a ${intent.name}Intent.`);
-        if (auth.isState('calc')) {
-            auth.getStaticQuestion(callback);
-        } else {
-            auth.getDynamicQuestion(callback);
-        }
-    } else {
-        throw new Error('Invalid intent');
+
+    switch (intent.name) {
+        case 'AMAZON.StopIntent':
+            console.log(`Got a ${intent.name}.`);
+            alexa.getEndResponse(callback);
+        case 'AMAZON.CancelIntent':
+            console.log(`Got a ${intent.name}.`);
+            alexa.getEndResponse(callback);
+        case 'AMAZON.HelpIntent':
+            console.log(`Got a ${intent.name}.`);
+            alexa.getHelpResponse(callback);
+        case 'Rechenaufgabe':
+            console.log(`Got a ${intent.name}Intent.`);
+            if (auth.auth_state.is('start')) {
+                auth.getCalculation(callback);
+            } else {
+                auth.wrongIntent(intent, callback);
+            }
+        case 'Rechenloesung':
+            console.log(`Got a ${intent.name}Intent.`);
+            if (auth.isInState('calc')) {
+                auth.getStaticQuestion(callback);
+            } else {
+                auth.getDynamicQuestion(callback);
+            }
+        case 'Antworten':
+            console.log(`Got a ${intent.name}Intent.`);
+            auth.categorizeRequest(intent, callback);
+        default: throw new Error('Invalid intent');
     }
 }
 

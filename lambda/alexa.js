@@ -103,4 +103,4 @@ module.exports = {buildSpeechletResponse,
                 getHelpResponse,
                 getEndResponse,
                 onLaunch,
-                onSessionEnded}
+                onSessionEnded};
