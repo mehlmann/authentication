@@ -1,18 +1,22 @@
-Antworten {antwort}
-Antworten ist {antwort}
-Antworten es ist {antwort}
-Antworten die antwort ist {antwort}
-Frage frage
-Frage stelle mir eine frage
-Frage Ich will eine frage beantworten
-Frage nochmal
-Rechenaufgabe rechenaufgabe
-Rechenaufgabe aufgabe
-Rechenaufgabe stelle mir eine aufgabe
-Rechenloesung {loesung}
-Rechenloesung ist {loesung}
-Rechenloesung ergibt {loesung}
-Rechenloesung ist gleich {loesung}
-Rechenloesung das ist {loesung}
-Rechenloesung das ergibt {loesung}
-Rechenloesung das ergebnis ist {loesung}
+AntwortenIntent {antwort}
+AntwortenIntent ist {antwort}
+AntwortenIntent es ist {antwort}
+AntwortenIntent die antwort ist {antwort}
+FarbeIntent ist {farbe}
+FarbeIntent {farbe}
+FarbeIntent es ist {farbe}
+GeldsummeIntent {euro} euro {cent} cent
+GeldsummeIntent {euro} {cent}
+GeldsummeIntent {euro} euro {cent}
+GeldsummeIntent {euro} euro
+GeldsummeIntent {cent} cent
+RechenaufgabeIntent rechenaufgabe
+RechenaufgabeIntent aufgabe
+RechenaufgabeIntent stelle mir eine aufgabe
+RechenloesungIntent {loesung}
+RechenloesungIntent ist {loesung}
+RechenloesungIntent ergibt {loesung}
+RechenloesungIntent ist gleich {loesung}
+RechenloesungIntent das ist {loesung}
+RechenloesungIntent das ergibt {loesung}
+RechenloesungIntent das ergebnis ist {loesung}

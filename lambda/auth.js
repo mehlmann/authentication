@@ -27,7 +27,8 @@ const staticQuestions = require('./data/questions').staticQuestions;
 const dynamicQuestions = require('./data/questions').dynamicQuestions;
 
 // globale Variablen
-var sum = 15;
+var sum;
+var currentQuestNr;
 var statThreshold = 1;
 var dynThreshold = 1;
 var currentQuest ='';
@@ -112,9 +113,9 @@ function wrongIntent(intent, callback) {
  */
 function onAuthenticated(callback) {
     const cardTitle = 'Authentication done.';
-    var speechOutput = 'Die Authentifizierung war bereits erfolgreich.';
+    var speechOutput = 'Die Authentifizierung war erfolgreich.';
     const repromptText = `Auf Wiedersehen.`;
-    const shouldEndSession = false;
+    const shouldEndSession = true;
 
     callback({}, alexa.buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
 }
@@ -139,7 +140,7 @@ function onFailed(callback) {
 function getCalculation(callback) {
     var summandA = Math.floor(Math.random() * 20);
     var summandB = Math.floor(Math.random() * 20);
-    sum = 15;//summandA + summandB; TODO
+    sum = summandA + summandB;
 
     const cardTitle = 'Aufgabe gestellt';
     var speechOutput = `Was ist ${summandA} plus ${summandB}?`;
@@ -159,8 +160,9 @@ function getCalculation(callback) {
 function getStaticQuestion(callback) {
     console.log(`Authentication is in state ${auth_state.state}.`);
     const cardTitle = 'Frage gestellt';
-    var speechOutput = staticQuestions[0].question;
-    const repromptText = staticQuestions[0].question;
+    currentQuestNr = Math.floor(Math.random() * staticQuestions.length);
+    var speechOutput = staticQuestions[currentQuestNr].question;
+    const repromptText = staticQuestions[currentQuestNr].question;
     const shouldEndSession = false;
     currentQuest = speechOutput;
 
@@ -174,8 +176,9 @@ function getStaticQuestion(callback) {
 function getDynamicQuestion(callback) {
     console.log(`Authentication is in state ${auth_state.state}.`);
     const cardTitle = 'Frage gestellt';
-    var speechOutput = dynamicQuestions[0].question;
-    const repromptText = dynamicQuestions[0].question;
+    currentQuestNr = Math.floor(Math.random() * staticQuestions.length);
+    var speechOutput = dynamicQuestions[currentQuestNr].question;
+    const repromptText = dynamicQuestions[currentQuestNr].question;
     const shouldEndSession = false;
     currentQuest = speechOutput;
 
@@ -191,12 +194,11 @@ function getDynamicQuestion(callback) {
  * @param {*} callback 
  */
 function verifyCalc(intent, callback) {
-    console.log('result: ' + result);
+    console.log('result: ' + intent.slots.loesung.value);
     try {
         var result = intent.slots.loesung.value;
     } catch (err) {
-        var speechOutput = 'Bei Ihrer Rechen-Antwort ist ein Fehler aufgetreten.';
-        callback({}, alexa.buildSpeechletResponse('Rechenlösung Fehler', speechOutput, speechOutput, false));
+        console.log(err);
     }
     if (helpFct.stringToInteger(result.toLowerCase()) == sum) {
         auth_state.calcToStatic(result, sum);
@@ -217,25 +219,11 @@ function verifyCalc(intent, callback) {
  * @param {*} callback 
  */
 function verifyStaticAnswer(intent, callback) {
-    console.log('answer: ' + answer);
-    try {
-        var answer = intent.slots.antwort.value;
-    } catch (err) {
-        var speechOutput = 'Bei Ihrer statischen Antwort ist ein Fehler aufgetreten.';
-        callback({}, alexa.buildSpeechletResponse('StatAnswer Fehler', speechOutput, speechOutput, false));
-    }
-    if (answer === staticQuestions[0].answer) {
-        statThreshold--;
-        if (statThreshold > 0) {
-            auth_state.staticToStatic(answer, staticQuestions[0].answer);
-            getStaticQuestion(callback);
-        } else {
-            auth_state.staticToDynamic(answer, staticQuestions[0].answer);
-            getDynamicQuestion(callback);
-        }
-    } else {
-        auth_state.answerWrong(answer, staticQuestions[0].answer);
-        onFailed(callback);
+    switch (currentQuestNr) {
+        case 0:
+            verifyColor(intent, callback, staticQuestions[0].answer);
+            break;
+        default: break;
     }
 }
 
@@ -249,24 +237,77 @@ function verifyStaticAnswer(intent, callback) {
  * @param {*} callback 
  */
 function verifyDynamicAnswer(intent, callback) {
-    console.log('answer: ' + answer);
-    try {
-        var answer = intent.slots.antwort.value;
-    } catch (err) {
-        var speechOutput = 'Bei Ihrer dynamischen Antwort ist ein Fehler aufgetreten.';
-        callback({}, alexa.buildSpeechletResponse('DynAnswer Fehler', speechOutput, speechOutput, false));
+    switch (currentQuestNr) {
+        case 0:
+            verifyMoneyAnswer(intent, callback, dynamicQuestions[0].answer);
+            break;
+        default: break;
     }
-    if (answer == dynamicQuestions[0].answer) {
+}
+
+/**
+ * Überprüft eine Farbenantwort.
+ * @param {*} intent 
+ * @param {*} callback 
+ */
+function verifyColor(intent, callback, correctAnswer) {
+    var answer;
+    console.log('Verstandene Farbe: ' + intent.slots.farbe.value);
+    try {
+        answer = intent.slots.farbe.value;
+    } catch (err) {
+        console.log(err);
+    }
+    if (answer === correctAnswer) {
+        statThreshold--;
+        if (statThreshold > 0) {
+            auth_state.staticToStatic(answer, correctAnswer);
+            getStaticQuestion(callback);
+        } else {
+            auth_state.staticToDynamic(answer, correctAnswer);
+            getDynamicQuestion(callback);
+        }
+    } else {
+        auth_state.answerWrong(answer, correctAnswer);
+        onFailed(callback);
+    }
+}
+
+/**
+ * Eine Auswertung eines Geldbetrages.
+ * @param {*} intent 
+ * @param {*} callback 
+ */
+function verifyMoneyAnswer(intent, callback, correctAnswer) {
+    var amountEuro, amountCent, amount;
+    console.log('Amount: ' + intent.slots.euro.value + ', ' + intent.slots.cent.value + '€.' );
+    try {
+        amountEuro = intent.slots.euro.value;
+        amountCent = intent.slots.cent.value;
+    } catch (err) {
+        console.log(err);
+    }
+    if (amountEuro != undefined && amountCent != undefined) {
+        amount = `${amountEuro} euro und ${amountCent} sent`;
+    } else if (amountEuro != undefined && amountCent == undefined) {
+        amount = `${amountEuro} euro`;
+    } else if (amountEuro == undefined && amountCent != undefined) {
+        amount = `${amountCent} sent`;
+    } else {
+        console.log('You have no money?');
+    }
+    console.log(`Answer given: ${amount}.`);
+    if (amount == correctAnswer) {
         dynThreshold--;
         if (dynThreshold > 0) {
-            auth_state.dynamicToDynamic(answer, dynamicQuestions[0].answer);
+            auth_state.dynamicToDynamic(amount, correctAnswer);
             getDynamicQuestion(callback);
         } else {
-            auth_state.dynamicToSuccess(answer, dynamicQuestions[0].answer);
+            auth_state.dynamicToSuccess(amount, correctAnswer);
             onAuthenticated(callback);
         }
     } else {
-        auth_state.answerWrong(answer, dynamicQuestions[0].answer);
+        auth_state.answerWrong(amount, answer);
         onFailed(callback);
     }
 }
@@ -281,4 +322,5 @@ module.exports = {auth_state,
                 verifyStaticAnswer,
                 verifyDynamicAnswer,
                 onAuthenticated,
-                onFailed};
+                onFailed,
+                verifyMoneyAnswer};

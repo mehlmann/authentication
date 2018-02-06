@@ -1,6 +1,6 @@
 wildcard
 
-Rechtsanwaltsverpflegungsdienstleistungen
+humbugeinerseits
 
 
 
@@ -110,4 +110,46 @@ vier
 drei
 zwei
 eins
+einen
+eine
 null
+
+
+farben
+
+schwarz
+blau
+braun
+cyan
+dunkelblau
+dunkelgelb
+dunkelgrau
+dunkelgrün
+dunkelorange
+dunkelrot
+dunkelviolett
+dunkelrosa
+gelb
+gold
+grau
+grün
+grüngelb
+khaki
+hellblau
+hellgelb
+hellgrau
+hellgrün
+hellorange
+hellrot
+hellviolett
+hellrosa
+navy
+orange
+orangerot
+rosa
+lila
+rot
+türkis
+violett
+violettrot
+weiß

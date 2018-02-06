@@ -16,13 +16,32 @@
           "type": "wildcard"
         }
       ],
-      "intent": "Antworten"
+      "intent": "AntwortenIntent"
     },
     {
-      "intent": "Frage"
+      "slots": [
+        {
+          "name": "farbe",
+          "type": "farben"
+        }
+      ],
+      "intent": "FarbeIntent"
     },
     {
-      "intent": "Rechenaufgabe"
+      "slots": [
+        {
+          "name": "euro",
+          "type": "zahl"
+        },
+        {
+          "name": "cent",
+          "type": "zahl"
+        }
+      ],
+      "intent": "GeldsummeIntent"
+    },
+    {
+      "intent": "RechenaufgabeIntent"
     },
     {
       "slots": [
@@ -31,7 +50,7 @@
           "type": "zahl"
         }
       ],
-      "intent": "Rechenloesung"
+      "intent": "RechenloesungIntent"
     }
   ]
 }

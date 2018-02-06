@@ -13,6 +13,10 @@ const numbers = [
         number: 1
     },
     {
+        word: 'ein',
+        number: 1
+    },
+    {
         word: 'zwei',
         number: 2
     },
@@ -208,6 +212,210 @@ const numbers = [
         word: 'fünfzig',
         number: 50
     },
+    {
+        word: 'einundfünfzig',
+        number: 51
+    },
+    {
+        word: 'zweiundfünfzig',
+        number: 52
+    },
+    {
+        word: 'dreiundfünfzig',
+        number: 53
+    },
+    {
+        word: 'vierundfünfzig',
+        number: 54
+    },
+    {
+        word: 'fünfundfünfzig',
+        number: 55
+    },
+    {
+        word: 'sechsundfünfzig',
+        number: 56
+    },
+    {
+        word: 'siebenundfünfzig',
+        number: 57
+    },
+    {
+        word: 'achtundfünfzig',
+        number: 58
+    },
+    {
+        word: 'neunundfünfzig',
+        number: 59
+    },
+    {
+        word: 'sechzig',
+        number: 60
+    },
+    {
+        word: 'einundsechzig',
+        number: 61
+    },
+    {
+        word: 'zweiundsechzig',
+        number: 62
+    },
+    {
+        word: 'dreiundsechzig',
+        number: 63
+    },
+    {
+        word: 'vierundsechzig',
+        number: 64
+    },
+    {
+        word: 'fünfundsechzig',
+        number: 65
+    },
+    {
+        word: 'sechsundsechzig',
+        number: 66
+    },
+    {
+        word: 'siebenundsechzig',
+        number: 67
+    },
+    {
+        word: 'achtundsechzig',
+        number: 68
+    },
+    {
+        word: 'neunundsechzig',
+        number: 69
+    },
+    {
+        word: 'siebzig',
+        number: 70
+    },
+    {
+        word: 'einundsiebzig',
+        number: 71
+    },
+    {
+        word: 'zweiundsiebzig',
+        number: 72
+    },
+    {
+        word: 'dreiundsiebzig',
+        number: 73
+    },
+    {
+        word: 'vierundsiebzig',
+        number: 74
+    },
+    {
+        word: 'fünfundsiebzig',
+        number: 75
+    },
+    {
+        word: 'sechsundsiebzig',
+        number: 76
+    },
+    {
+        word: 'siebenundsiebzig',
+        number: 77
+    },
+    {
+        word: 'achtundsiebzig',
+        number: 78
+    },
+    {
+        word: 'neunundsiebzig',
+        number: 79
+    },
+    {
+        word: 'achtzig',
+        number: 80
+    },
+    {
+        word: 'einundachtzig',
+        number: 81
+    },
+    {
+        word: 'zweiundachtzig',
+        number: 82
+    },
+    {
+        word: 'dreiundachtzig',
+        number: 83
+    },
+    {
+        word: 'vierundachtzig',
+        number: 84
+    },
+    {
+        word: 'fünfundachtzig',
+        number: 85
+    },
+    {
+        word: 'sechsundachtzig',
+        number: 86
+    },
+    {
+        word: 'siebenundachtzig',
+        number: 87
+    },
+    {
+        word: 'achtundachtzig',
+        number: 88
+    },
+    {
+        word: 'neunundachtzig',
+        number: 89
+    },
+    {
+        word: 'neunzig',
+        number: 90
+    },
+    {
+        word: 'einundneunzig',
+        number: 81
+    },
+    {
+        word: 'zweiundneunzig',
+        number: 82
+    },
+    {
+        word: 'dreiundneunzig',
+        number: 93
+    },
+    {
+        word: 'vierundneunzig',
+        number: 94
+    },
+    {
+        word: 'fünfundneunzig',
+        number: 95
+    },
+    {
+        word: 'sechsundneunzig',
+        number: 96
+    },
+    {
+        word: 'siebenundneunzig',
+        number: 97
+    },
+    {
+        word: 'achtundneunzig',
+        number: 98
+    },
+    {
+        word: 'neunundneunzig',
+        number: 99
+    },
+    {
+        word: 'einhundert',
+        number: 100
+    },
+    {
+        word: 'hundert',
+        number: 100
+    }
 ];
 
 module.exports = numbers;

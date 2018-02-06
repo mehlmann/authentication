@@ -14,7 +14,7 @@ const auth = require('./auth')
 function onIntent(intentRequest, session, callback) {
     const intent = intentRequest.intent;
     console.log(`Authentication in state ${auth.getState()}.`);
-    console.log(`Got a ${intent.name}Intent.`);
+    console.log(`Got a ${intent.name}.`);
     switch (intent.name) {
         case 'AMAZON.StopIntent':
             alexa.getEndResponse(callback);
@@ -25,21 +25,13 @@ function onIntent(intentRequest, session, callback) {
         case 'AMAZON.HelpIntent':
             alexa.getHelpResponse(callback);
             break;
-        case 'Rechenaufgabe':
-            if (auth.isInState('start')) {
-                auth.getCalculation(callback);
-            } else {
-                auth.wrongIntent(intent, callback);
-            }
+        case 'RechenaufgabeIntent':
+            (auth.isInState('start')) ? auth.getCalculation(callback) : auth.wrongIntent(intent, callback);
             break;
-        case 'Rechenloesung':
-            if (auth.isInState('calc')) {
-                auth.verifyCalc(intent, callback);
-            } else {
-                auth.wrongIntent(intent, callback);
-            }
+        case 'RechenloesungIntent':
+            (auth.isInState('calc')) ? auth.verifyCalc(intent, callback) : auth.wrongIntent(intent, callback);
             break;
-        case 'Antworten':
+        case 'AntwortenIntent':
             if (auth.isInState('static')) {
                 auth.verifyStaticAnswer(intent, callback);
             } else if (auth.isInState('dynamic')) {
@@ -47,6 +39,12 @@ function onIntent(intentRequest, session, callback) {
             } else {
                 auth.wrongIntent(intent, callback);
             }
+            break;
+        case 'FarbeIntent':
+            (auth.isInState('static')) ? auth.verifyStaticAnswer(intent, callback) : auth.wrongIntent(intent, callback);
+            break;
+        case 'GeldsummeIntent':
+            (auth.isInState('dynamic')) ? auth.verifyDynamicAnswer(intent, callback) : auth.wrongIntent(intent, callback);
             break;
         default: alexa.onUnknownIntent(callback); break;
     }
