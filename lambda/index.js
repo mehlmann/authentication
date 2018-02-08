@@ -4,6 +4,7 @@
 
 const alexa = require('./alexa')
 const auth = require('./auth')
+const quest = require('./data/questions')
 
 /**
  * Ruft die verschiedenen intents auf.
@@ -25,11 +26,18 @@ function onIntent(intentRequest, session, callback) {
         case 'AMAZON.HelpIntent':
             alexa.getHelpResponse(callback);
             break;
+        case 'Reset':
+            if (auth.isInState('failed') || auth.isInState('success')) {
+                auth.resetState(callback);
+            } else {
+                auth.wrongIntent(callback);
+            }
+            break;
         case 'RechenaufgabeIntent':
-            (auth.isInState('start')) ? auth.getCalculation(callback) : auth.wrongIntent(intent, callback);
+            (auth.isInState('start')) ? auth.getCalculation(callback) : auth.wrongIntent(callback);
             break;
         case 'RechenloesungIntent':
-            (auth.isInState('calc')) ? auth.verifyCalc(intent, callback) : auth.wrongIntent(intent, callback);
+            (auth.isInState('calc')) ? auth.verifyCalc(intent, callback) : auth.wrongIntent(callback);
             break;
         case 'AntwortenIntent':
             if (auth.isInState('static')) {
@@ -37,14 +45,17 @@ function onIntent(intentRequest, session, callback) {
             } else if (auth.isInState('dynamic')) {
                 auth.verifyDynamicAnswer(intent, callback);
             } else {
-                auth.wrongIntent(intent, callback);
+                auth.wrongIntent(callback);
             }
             break;
         case 'FarbeIntent':
-            (auth.isInState('static')) ? auth.verifyStaticAnswer(intent, callback) : auth.wrongIntent(intent, callback);
+            (auth.isInState('static')) ? auth.verifyStaticAnswer(intent, callback) : auth.wrongIntent(callback);
             break;
         case 'GeldsummeIntent':
-            (auth.isInState('dynamic')) ? auth.verifyDynamicAnswer(intent, callback) : auth.wrongIntent(intent, callback);
+            (auth.isInState('dynamic')) ? auth.verifyDynamicAnswer(intent, callback) : auth.wrongIntent(callback);
+            break;
+        case 'PLZ':
+            (auth.isInState('static')) ? auth.verifyStaticAnswer(intent, callback) : auth.wrongIntent(callback) ;
             break;
         default: alexa.onUnknownIntent(callback); break;
     }
@@ -60,6 +71,9 @@ exports.handler = (event, context, callback) => {
     try {
         if (event.request.type === 'LaunchRequest') {
             console.log(`Authentication in state ${auth.getState()}.`);
+            var sys = event.context.System;
+            console.log(sys);
+            quest.initAnswers(sys);
             alexa.onLaunch(event.request,
                 event.session,
                 (sessionAttributes, speechletResponse) => {

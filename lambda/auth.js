@@ -44,7 +44,9 @@ var auth_state = new StateMachine({
         { name: 'dynamicToSuccess', from: 'dynamic', to: 'success' },
         { name: 'answerWrong',      from: 'calc',    to: 'failed'  },
         { name: 'answerWrong',      from: 'static',  to: 'failed'  },
-        { name: 'answerWrong',      from: 'dynamic', to: 'failed'  }
+        { name: 'answerWrong',      from: 'dynamic', to: 'failed'  },
+        { name: 'reset',            from: 'failed',  to: 'start'   },
+        { name: 'reset',            from: 'success', to: 'start'   }
     ],
     methods: {
         onStartToCalc: function(obj, question) {
@@ -67,6 +69,9 @@ var auth_state = new StateMachine({
         },
         onAnswerWrong:  function(obj, claim, real) {
             console.log(`Answer was wrong! You said ${claim}, it was ${real}.`);
+        },
+        onReset:  function(obj) {
+            console.log('Going back to start.');
         }
     }
 });
@@ -92,7 +97,7 @@ function isInState(state) {
  * @param {*} intent
  * @param {*} callback
  */
-function wrongIntent(intent, callback) {
+function wrongIntent(callback) {
     const cardTitle = 'Falscher Intent';
     var speechOutput = '';
     if (auth_state.is('success')) {
@@ -115,7 +120,7 @@ function onAuthenticated(callback) {
     const cardTitle = 'Authentication done.';
     var speechOutput = 'Die Authentifizierung war erfolgreich.';
     const repromptText = `Auf Wiedersehen.`;
-    const shouldEndSession = true;
+    const shouldEndSession = false;
 
     callback({}, alexa.buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
 }
@@ -128,7 +133,21 @@ function onFailed(callback) {
     const cardTitle = 'Authentication failed.';
     var speechOutput = 'Die Authentifizierung ist leider fehlgeschlagen.';
     const repromptText = `Auf Wiedersehen.`;
-    const shouldEndSession = true;
+    const shouldEndSession = false;
+
+    callback({}, alexa.buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
+}
+
+/**
+ * Setzt die Authentifizierung zurück.
+ * @param {*} callback 
+ */
+function resetState(callback) {
+    const cardTitle = 'Authentication reset.';
+    var speechOutput = 'Die Authentifizierung ist im Zustand start.';
+    const repromptText = `Fragen Sie nach einer Aufgabe.`;
+    const shouldEndSession = false;
+    auth_state.reset();
 
     callback({}, alexa.buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
 }
@@ -158,9 +177,9 @@ function getCalculation(callback) {
  * @param {*} callback
  */
 function getStaticQuestion(callback) {
-    console.log(`Authentication is in state ${auth_state.state}.`);
     const cardTitle = 'Frage gestellt';
     currentQuestNr = Math.floor(Math.random() * staticQuestions.length);
+    console.log(`Authentication is in state ${auth_state.state}. CurrentQuestNr=${currentQuestNr}.`);
     var speechOutput = staticQuestions[currentQuestNr].question;
     const repromptText = staticQuestions[currentQuestNr].question;
     const shouldEndSession = false;
@@ -174,9 +193,9 @@ function getStaticQuestion(callback) {
  * @param {*} callback
  */
 function getDynamicQuestion(callback) {
-    console.log(`Authentication is in state ${auth_state.state}.`);
     const cardTitle = 'Frage gestellt';
-    currentQuestNr = Math.floor(Math.random() * staticQuestions.length);
+    currentQuestNr = Math.floor(Math.random() * dynamicQuestions.length);
+    console.log(`Authentication is in state ${auth_state.state}. CurrentQuestNr=${currentQuestNr}.`);
     var speechOutput = dynamicQuestions[currentQuestNr].question;
     const repromptText = dynamicQuestions[currentQuestNr].question;
     const shouldEndSession = false;
@@ -194,12 +213,18 @@ function getDynamicQuestion(callback) {
  * @param {*} callback 
  */
 function verifyCalc(intent, callback) {
-    console.log('result: ' + intent.slots.loesung.value);
-    try {
-        var result = intent.slots.loesung.value;
-    } catch (err) {
-        console.log(err);
+    console.log('result: ' + intent);
+    var result = '';
+    var ersteZiffer = intent.slots.ersteZiffer.value;
+    var zweiteZiffer = intent.slots.zweiteZiffer.value;
+
+    if (ersteZiffer) {
+        result += ersteZiffer;
+        if (zweiteZiffer) result += ` und ${zweiteZiffer}`;
+    } else {
+        result = zweiteZiffer;
     }
+
     if (helpFct.stringToInteger(result.toLowerCase()) == sum) {
         auth_state.calcToStatic(result, sum);
         getStaticQuestion(callback);
@@ -222,6 +247,9 @@ function verifyStaticAnswer(intent, callback) {
     switch (currentQuestNr) {
         case 0:
             verifyColor(intent, callback, staticQuestions[0].answer);
+            break;
+        case 1:
+            verifyPLZ(intent, callback, staticQuestions[1].answer);
             break;
         default: break;
     }
@@ -258,7 +286,7 @@ function verifyColor(intent, callback, correctAnswer) {
     } catch (err) {
         console.log(err);
     }
-    if (answer === correctAnswer) {
+    if (answer == correctAnswer) {
         statThreshold--;
         if (statThreshold > 0) {
             auth_state.staticToStatic(answer, correctAnswer);
@@ -307,7 +335,41 @@ function verifyMoneyAnswer(intent, callback, correctAnswer) {
             onAuthenticated(callback);
         }
     } else {
-        auth_state.answerWrong(amount, answer);
+        auth_state.answerWrong(amount, correctAnswer);
+        onFailed(callback);
+    }
+}
+
+/**
+ * Überprüft die übergebene Postleitzahl.
+ * @param {*} intent 
+ * @param {*} callback 
+ * @param {*} correctAnswer 
+ */
+function verifyPLZ(intent, callback, correctAnswer) {
+    var answerPLZ;
+    console.log(`PLZ: ${intent.slots.erste.value}${intent.slots.zweite.value}${intent.slots.dritte.value}${intent.slots.vierte.value}${intent.slots.fuenfte.value}`);
+    var intFirst = helpFct.stringToInteger(intent.slots.erste.value);
+    var intSecond = helpFct.stringToInteger(intent.slots.zweite.value);
+    var intThird = helpFct.stringToInteger(intent.slots.dritte.value);
+    var intFourth = helpFct.stringToInteger(intent.slots.vierte.value);
+    var intFifth = helpFct.stringToInteger(intent.slots.fuenfte.value);
+    try {
+        answerPLZ = `${intFirst}${intSecond}${intThird}${intFourth}${intFifth}`;
+    } catch (err) {
+        console.log(err);
+    }
+    if (answerPLZ == correctAnswer) {
+        statThreshold--;
+        if (statThreshold > 0) {
+            auth_state.staticToStatic(answerPLZ, correctAnswer);
+            getStaticQuestion(callback);
+        } else {
+            auth_state.staticToDynamic(answerPLZ, correctAnswer);
+            getDynamicQuestion(callback);
+        }
+    } else {
+        auth_state.answerWrong(answerPLZ, correctAnswer);
         onFailed(callback);
     }
 }
@@ -317,6 +379,7 @@ module.exports = {auth_state,
                 getState,
                 isInState,
                 wrongIntent,
+                resetState,
                 getCalculation,
                 verifyCalc,
                 verifyStaticAnswer,
