@@ -153,6 +153,35 @@ function resetState(callback) {
 }
 
 /**
+ * Ermittelt abhängig von isStatic und den aktuellen Thresholds den nächsten Zustand der Zustandsmaschine.
+ * @param {*} isStatic 
+ * @param {*} callback 
+ * @param {*} userAnswer
+ * @param {*} correctAnswer
+ */
+function getNextState(isStatic, callback, userAnswer, correctAnswer) {
+    if (isStatic) {
+        statThreshold--;
+        if (statThreshold > 0) {
+            auth_state.staticToStatic(userAnswer, correctAnswer);
+            getStaticQuestion(callback);
+        } else {
+            auth_state.staticToDynamic(userAnswer, correctAnswer);
+            getDynamicQuestion(callback);
+        }
+    } else {
+        dynThreshold--;
+        if (dynThreshold > 0) {
+            auth_state.dynamicToDynamic(userAnswer, correctAnswer);
+            getDynamicQuestion(callback);
+        } else {
+            auth_state.dynamicToSuccess(userAnswer, correctAnswer);
+            onAuthenticated(callback);
+        }
+    }
+}
+
+/**
  * Stellt dem Benutzer eine simple Additions-Aufgabe.
  * @param {*} callback 
  */
@@ -214,18 +243,9 @@ function getDynamicQuestion(callback) {
  */
 function verifyCalc(intent, callback) {
     console.log('result: ' + intent);
-    var result = '';
-    var ersteZiffer = intent.slots.ersteZiffer.value;
-    var zweiteZiffer = intent.slots.zweiteZiffer.value;
-
-    if (ersteZiffer) {
-        result += ersteZiffer;
-        if (zweiteZiffer) result += ` und ${zweiteZiffer}`;
-    } else {
-        result = zweiteZiffer;
-    }
-
-    if (helpFct.stringToInteger(result.toLowerCase()) == sum) {
+    var result = intent.slots.loesung.value;
+    if (!result) console.log('verifyCalc failed! No number was given!');
+    if (result == sum) {
         auth_state.calcToStatic(result, sum);
         getStaticQuestion(callback);
     } else {
@@ -246,10 +266,16 @@ function verifyCalc(intent, callback) {
 function verifyStaticAnswer(intent, callback) {
     switch (currentQuestNr) {
         case 0:
-            verifyColor(intent, callback, staticQuestions[0].answer);
+            verifyColor(intent, callback, staticQuestions[0].answer, true);
             break;
         case 1:
-            verifyPLZ(intent, callback, staticQuestions[1].answer);
+            verifyPLZ(intent, callback, staticQuestions[1].answer, true);
+            break;
+        case 2:
+            verifyCity(intent, callback, staticQuestions[2].answer, true);
+            break;
+        case 3:
+            verifyCity(intent, callback, staticQuestions[3].answer, true);
             break;
         default: break;
     }
@@ -267,7 +293,10 @@ function verifyStaticAnswer(intent, callback) {
 function verifyDynamicAnswer(intent, callback) {
     switch (currentQuestNr) {
         case 0:
-            verifyMoneyAnswer(intent, callback, dynamicQuestions[0].answer);
+            verifyMoney(intent, callback, dynamicQuestions[0].answer, false);
+            break;
+        case 1:
+            verifyMoney(intent, callback, dynamicQuestions[1].answer, false);
             break;
         default: break;
     }
@@ -276,25 +305,15 @@ function verifyDynamicAnswer(intent, callback) {
 /**
  * Überprüft eine Farbenantwort.
  * @param {*} intent 
- * @param {*} callback 
+ * @param {*} callback
+ * @param {*} isStatic
  */
-function verifyColor(intent, callback, correctAnswer) {
-    var answer;
+function verifyColor(intent, callback, correctAnswer, isStatic) {
     console.log('Verstandene Farbe: ' + intent.slots.farbe.value);
-    try {
-        answer = intent.slots.farbe.value;
-    } catch (err) {
-        console.log(err);
-    }
+    var answer = intent.slots.farbe.value;
+    if (!answer) console.log('verifyColor failed! No color was given!');
     if (answer == correctAnswer) {
-        statThreshold--;
-        if (statThreshold > 0) {
-            auth_state.staticToStatic(answer, correctAnswer);
-            getStaticQuestion(callback);
-        } else {
-            auth_state.staticToDynamic(answer, correctAnswer);
-            getDynamicQuestion(callback);
-        }
+        getNextState(isStatic, callback, answer, correctAnswer);
     } else {
         auth_state.answerWrong(answer, correctAnswer);
         onFailed(callback);
@@ -304,38 +323,25 @@ function verifyColor(intent, callback, correctAnswer) {
 /**
  * Eine Auswertung eines Geldbetrages.
  * @param {*} intent 
- * @param {*} callback 
+ * @param {*} callback
+ * @param {*} isStatic 
  */
-function verifyMoneyAnswer(intent, callback, correctAnswer) {
-    var amountEuro, amountCent, amount;
-    console.log('Amount: ' + intent.slots.euro.value + ', ' + intent.slots.cent.value + '€.' );
-    try {
-        amountEuro = intent.slots.euro.value;
-        amountCent = intent.slots.cent.value;
-    } catch (err) {
-        console.log(err);
-    }
-    if (amountEuro != undefined && amountCent != undefined) {
-        amount = `${amountEuro} euro und ${amountCent} sent`;
-    } else if (amountEuro != undefined && amountCent == undefined) {
-        amount = `${amountEuro} euro`;
-    } else if (amountEuro == undefined && amountCent != undefined) {
-        amount = `${amountCent} sent`;
+function verifyMoney(intent, callback, correctAnswer, isStatic) {
+    console.log('Geldmenge: ' + intent.slots.euro.value + ', ' + intent.slots.cent.value + '€.' );
+    var amountEuro = intent.slots.euro.value;
+    var amountCent = intent.slots.cent.value;
+    if (!amountEuro && !amountCent) console.log('verifyMoneyAnswer ');
+    var answer = '';
+    if (amountEuro) answer += `${amountEuro} euro`;
+    if (amountEuro && amountCent) { 
+        answer += ` und ${amountCent} sent`;
     } else {
-        console.log('You have no money?');
+        answer += `${amountCent} sent`;
     }
-    console.log(`Answer given: ${amount}.`);
-    if (amount == correctAnswer) {
-        dynThreshold--;
-        if (dynThreshold > 0) {
-            auth_state.dynamicToDynamic(amount, correctAnswer);
-            getDynamicQuestion(callback);
-        } else {
-            auth_state.dynamicToSuccess(amount, correctAnswer);
-            onAuthenticated(callback);
-        }
+    if (answer == correctAnswer) {
+        getNextState(isStatic, callback, answer, correctAnswer);
     } else {
-        auth_state.answerWrong(amount, correctAnswer);
+        auth_state.answerWrong(answer, correctAnswer);
         onFailed(callback);
     }
 }
@@ -346,30 +352,37 @@ function verifyMoneyAnswer(intent, callback, correctAnswer) {
  * @param {*} callback 
  * @param {*} correctAnswer 
  */
-function verifyPLZ(intent, callback, correctAnswer) {
-    var answerPLZ;
+function verifyPLZ(intent, callback, correctAnswer, isStatic) {
     console.log(`PLZ: ${intent.slots.erste.value}${intent.slots.zweite.value}${intent.slots.dritte.value}${intent.slots.vierte.value}${intent.slots.fuenfte.value}`);
-    var intFirst = helpFct.stringToInteger(intent.slots.erste.value);
-    var intSecond = helpFct.stringToInteger(intent.slots.zweite.value);
-    var intThird = helpFct.stringToInteger(intent.slots.dritte.value);
-    var intFourth = helpFct.stringToInteger(intent.slots.vierte.value);
-    var intFifth = helpFct.stringToInteger(intent.slots.fuenfte.value);
-    try {
-        answerPLZ = `${intFirst}${intSecond}${intThird}${intFourth}${intFifth}`;
-    } catch (err) {
-        console.log(err);
-    }
-    if (answerPLZ == correctAnswer) {
-        statThreshold--;
-        if (statThreshold > 0) {
-            auth_state.staticToStatic(answerPLZ, correctAnswer);
-            getStaticQuestion(callback);
-        } else {
-            auth_state.staticToDynamic(answerPLZ, correctAnswer);
-            getDynamicQuestion(callback);
-        }
+    var intFirst = intent.slots.erste.value;
+    var intSecond = intent.slots.zweite.value;
+    var intThird = intent.slots.dritte.value;
+    var intFourth = intent.slots.vierte.value;
+    var intFifth = intent.slots.fuenfte.value
+    var answer = `${intFirst}${intSecond}${intThird}${intFourth}${intFifth}`;
+    
+    if (answer == correctAnswer) {
+        getNextState(isStatic, callback, answer, correctAnswer);
     } else {
-        auth_state.answerWrong(answerPLZ, correctAnswer);
+        auth_state.answerWrong(answer, correctAnswer);
+        onFailed(callback);
+    }
+}
+
+/**
+ * Überprüft ob eine Städte-Antwort korrekt ist.
+ * @param {*} intent 
+ * @param {*} callback 
+ * @param {*} correctAnswer 
+ * @param {*} isStatic 
+ */
+function verifyCity(intent, callback, correctAnswer, isStatic) {
+    var answer = intent.slots.stadt.value;
+    if (!answer) console.log('VerifyCity failed! No city was given!');
+    if (answer == correctAnswer) {
+        getNextState(isStatic, callback, answer, correctAnswer);
+    } else {
+        auth_state.answerWrong(answer, correctAnswer);
         onFailed(callback);
     }
 }
@@ -385,5 +398,4 @@ module.exports = {auth_state,
                 verifyStaticAnswer,
                 verifyDynamicAnswer,
                 onAuthenticated,
-                onFailed,
-                verifyMoneyAnswer};
+                onFailed};

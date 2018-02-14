@@ -13,14 +13,47 @@ var staticQuestions = [
     {
         question: 'Geben Sie ihre Postleitzahl in einzelnen Ziffern an.',
         answer: ''
-    }/*,
+    },
     {
-        questions: 'In welcher Stadt wohnen Sie?' ,
+        question: 'In welcher Stadt wohnen Sie?' ,
         answer: ''
     },
     {
-        questions: 'In welcher Straße wohnen Sie?' ,
+        question: 'In welcher Stadt wurden Sie geboren?',
+        answer: 'erfurt'
+    }
+    /*,
+    {
+        question: 'In welcher Straße wohnen Sie?' ,
         answer: ''
+    },
+    {
+        question: 'In welcher Hausnummer wohnen Sie?' ,
+        answer: ''
+    },
+    {
+        queston: 'Wie ist ihr Familienname?',
+        answer: 
+    },
+    {
+        queston: 'Was sind die letzten drei Ziffern Ihrer Handynummber?',
+        answer: '099'
+    },
+    {
+        queston: 'Wie ist Ihre Schuhgröße?',
+        answer: '42'
+    },
+    {
+        queston: 'Wie ist Ihre Körpergröße?',
+        answer: '1,70'
+    },
+    {
+        queston: 'Wie ist der Mädchenname Ihrer Mutter?',
+        answer: 'Müller'
+    },
+    {
+        queston: 'Von welcher Marke ist Ihr Handy?',
+        answer: 'Huawei'
     }*/
 ];
 
@@ -29,9 +62,18 @@ var staticQuestions = [
  */
 var dynamicQuestions = [
     {
-        question: 'wieviel haben sie beim letzten Amazon Kauf ausgegeben?',
-        answer: 'zwanzig euro'
+        question: 'Wieviel haben sie beim letzten Amazon Kauf ausgegeben?',
+        answer: '20 euro'
+    },
+    {
+        question: 'Wie hoch war Ihre letzte PayPal-Überweisung?',
+        answer: '32 euro und 65 sent'
+    }/*,
+    {
+        question: 'In welchem Land waren Sie zuletzt im Urlaub?',
+        answer: 'Kroatien'
     }
+    */
 ];
 
 /**
@@ -174,8 +216,8 @@ function initPLZ(sys) {
                     '\n' + address['stateOrRegion'] + 
                     ' (' + address['countryCode'] + ')');
                 staticQuestions[1].answer = address['postalCode'];
-                //staticQuestions[2] = address['stateOrRegion'];
-                //staticQuestions[3] = address['addressLine2'];
+                staticQuestions[2].answer = address['stateOrRegion'];
+                //staticQuestions[3].answer = address['addressLine2'];
                 break;
             case 204:
                 // Adresse leider nicht gesetzt

@@ -52,7 +52,22 @@ function onIntent(intentRequest, session, callback) {
             (auth.isInState('static')) ? auth.verifyStaticAnswer(intent, callback) : auth.wrongIntent(callback);
             break;
         case 'GeldsummeIntent':
-            (auth.isInState('dynamic')) ? auth.verifyDynamicAnswer(intent, callback) : auth.wrongIntent(callback);
+            if (auth.isInState('static')) {
+                auth.verifyStaticAnswer(intent, callback);
+            } else if (auth.isInState('dynamic')) {
+                auth.verifyDynamicAnswer(intent, callback);
+            } else {
+                auth.wrongIntent(callback);
+            }
+            break;
+        case 'StadtIntent':
+            if (auth.isInState('static')) {
+                auth.verifyStaticAnswer(intent, callback);
+            } else if (auth.isInState('dynamic')) {
+                auth.verifyDynamicAnswer(intent, callback);
+            } else {
+                auth.wrongIntent(callback);
+            }
             break;
         case 'PLZ':
             (auth.isInState('static')) ? auth.verifyStaticAnswer(intent, callback) : auth.wrongIntent(callback) ;
