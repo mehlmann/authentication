@@ -5,18 +5,67 @@ AntwortenIntent die antwort ist {antwort}
 FarbeIntent ist {farbe}
 FarbeIntent {farbe}
 FarbeIntent es ist {farbe}
-GeldsummeIntent {euro} euro {cent} cent
+GeldsummeIntent {euro} euro und {cent} cent
 GeldsummeIntent {euro} {cent}
-GeldsummeIntent {euro} euro {cent}
+GeldsummeIntent {euro} euro und {cent}
 GeldsummeIntent {euro} euro
 GeldsummeIntent {cent} cent
 RechenaufgabeIntent rechenaufgabe
 RechenaufgabeIntent aufgabe
 RechenaufgabeIntent stelle mir eine aufgabe
-RechenloesungIntent {loesung}
-RechenloesungIntent ist {loesung}
-RechenloesungIntent ergibt {loesung}
-RechenloesungIntent ist gleich {loesung}
-RechenloesungIntent das ist {loesung}
-RechenloesungIntent das ergibt {loesung}
-RechenloesungIntent das ergebnis ist {loesung}
+Reset reset
+StadtIntent In {stadt}
+StadtIntent Aus {stadt}
+StadtIntent Von {stadt}
+StadtIntent {stadt}
+StadtIntent nach {stadt}
+ZahlIntent {erste}
+ZahlIntent das ist {erste}
+ZahlIntent die lösung ist {erste}
+ZahlIntent die postleitzahl ist {erste}
+ZahlIntent die zahlen sind {erste}
+ZahlIntent ergibt {erste}
+ZahlIntent es sind {erste}
+ZahlIntent ist {erste}
+ZahlIntent meine postleitzahl ist {erste}
+ZahlIntent sind {erste}
+ZahlenZweiIntent {erste} {zweite}
+ZahlenZweiIntent das ist {erste} {zweite}
+ZahlenZweiIntent die lösung ist {erste} {zweite}
+ZahlenZweiIntent die postleitzahl ist {erste} {zweite}
+ZahlenZweiIntent die zahlen sind {erste} {zweite}
+ZahlenZweiIntent ergibt {erste} {zweite}
+ZahlenZweiIntent es sind {erste} {zweite}
+ZahlenZweiIntent ist {erste} {zweite}
+ZahlenZweiIntent meine postleitzahl ist {erste} {zweite}
+ZahlenZweiIntent sind {erste} {zweite}
+ZahlenDreiIntent {erste} {zweite} {dritte}
+ZahlenDreiIntent das ist {erste} {zweite} {dritte}
+ZahlenDreiIntent die lösung ist {erste} {zweite} {dritte}
+ZahlenDreiIntent die postleitzahl ist {erste} {zweite} {dritte}
+ZahlenDreiIntent die zahlen sind {erste} {zweite} {dritte}
+ZahlenDreiIntent ergibt {erste} {zweite} {dritte}
+ZahlenDreiIntent es sind {erste} {zweite} {dritte}
+ZahlenDreiIntent ist {erste} {zweite} {dritte}
+ZahlenDreiIntent meine postleitzahl ist {erste} {zweite} {dritte}
+ZahlenDreiIntent sind {erste} {zweite} {dritte}
+ZahlenVierIntent {erste} {zweite} {dritte} {vierte}
+ZahlenVierIntent das ist {erste} {zweite} {dritte} {vierte}
+ZahlenVierIntent die lösung ist {erste} {zweite} {dritte} {vierte}
+ZahlenVierIntent die postleitzahl ist {erste} {zweite} {dritte} {vierte}
+ZahlenVierIntent die zahlen sind {erste} {zweite} {dritte} {vierte}
+ZahlenVierIntent ergibt {erste} {zweite} {dritte} {vierte}
+ZahlenVierIntent es sind {erste} {zweite} {dritte} {vierte}
+ZahlenVierIntent ist {erste} {zweite} {dritte} {vierte}
+ZahlenVierIntent meine postleitzahl ist {erste} {zweite} {dritte} {vierte}
+ZahlenVierIntent sind {erste} {zweite} {dritte} {vierte}
+ZahlenFuenfIntent {erste} {zweite} {dritte} {vierte} {fuenfte}
+ZahlenFuenfIntent das ist {erste} {zweite} {dritte} {vierte} {fuenfte}
+ZahlenFuenfIntent die lösung ist {erste} {zweite} {dritte} {vierte} {fuenfte}
+ZahlenFuenfIntent die postleitzahl ist {erste} {zweite} {dritte} {vierte} {fuenfte}
+ZahlenFuenfIntent die zahlen sind {erste} {zweite} {dritte} {vierte} {fuenfte}
+ZahlenFuenfIntent ergibt {erste} {zweite} {dritte} {vierte} {fuenfte}
+ZahlenFuenfIntent es sind {erste} {zweite} {dritte} {vierte} {fuenfte}
+ZahlenFuenfIntent ist {erste} {zweite} {dritte} {vierte} {fuenfte}
+ZahlenFuenfIntent meine postleitzahl ist {erste} {zweite} {dritte} {vierte} {fuenfte}
+ZahlenFuenfIntent sind {erste} {zweite} {dritte} {vierte} {fuenfte}

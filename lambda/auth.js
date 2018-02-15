@@ -20,8 +20,9 @@
  *                                                                      ------
  */
 
+'use strict'
+
 var StateMachine = require('./includes/javascript-state-machine');
-const helpFct = require('./help-functions');
 const alexa = require('./alexa');
 const staticQuestions = require('./data/questions').staticQuestions;
 const dynamicQuestions = require('./data/questions').dynamicQuestions;
@@ -85,7 +86,7 @@ function getState() {
 
 /**
  * Vergleicht ob die Maschine sich im übergebenen Zustand befindet.
- * @param {*} state 
+ * @param {string} state aktueller Status  
  */
 function isInState(state) {
     return auth_state.is(state);
@@ -94,8 +95,7 @@ function isInState(state) {
 /**
  * Sollte ein Intent eingehen, welcher nicht dem aktuellen Zustand der State-Machine entspricht,
  * wird er hier behandelt.
- * @param {*} intent
- * @param {*} callback
+ * @param {function} callback Rückgabefunktion
  */
 function wrongIntent(callback) {
     const cardTitle = 'Falscher Intent';
@@ -114,7 +114,7 @@ function wrongIntent(callback) {
 
 /**
  * Der Benutzer ist bereits authentifiziert.
- * @param {*} callback
+ * @param {function} callback Rückgabefunktion
  */
 function onAuthenticated(callback) {
     const cardTitle = 'Authentication done.';
@@ -127,7 +127,7 @@ function onAuthenticated(callback) {
 
 /**
  * Der Benutzer hat versagt.
- * @param {*} callback
+ * @param {function} callback Rückgabefunktion
  */
 function onFailed(callback) {
     const cardTitle = 'Authentication failed.';
@@ -140,7 +140,7 @@ function onFailed(callback) {
 
 /**
  * Setzt die Authentifizierung zurück.
- * @param {*} callback 
+ * @param {function} callback Rückgabefunktion
  */
 function resetState(callback) {
     const cardTitle = 'Authentication reset.';
@@ -154,10 +154,10 @@ function resetState(callback) {
 
 /**
  * Ermittelt abhängig von isStatic und den aktuellen Thresholds den nächsten Zustand der Zustandsmaschine.
- * @param {*} isStatic 
- * @param {*} callback 
- * @param {*} userAnswer
- * @param {*} correctAnswer
+ * @param {boolean} isStatic ist die Zustandsmaschine im Status static?
+ * @param {function} callback Rückgabefunktion
+ * @param {string} userAnswer die Antwort des Benutzers
+ * @param {string} correctAnswer die korrekte Antwort
  */
 function getNextState(isStatic, callback, userAnswer, correctAnswer) {
     if (isStatic) {
@@ -183,7 +183,7 @@ function getNextState(isStatic, callback, userAnswer, correctAnswer) {
 
 /**
  * Stellt dem Benutzer eine simple Additions-Aufgabe.
- * @param {*} callback 
+ * @param {function} callback Rückgabefunktion 
  */
 function getCalculation(callback) {
     var summandA = Math.floor(Math.random() * 20);
@@ -203,7 +203,7 @@ function getCalculation(callback) {
 
 /**
  * Stellt dem Benutzer eine Frage.
- * @param {*} callback
+ * @param {function} callback Rückgabefunktion
  */
 function getStaticQuestion(callback) {
     const cardTitle = 'Frage gestellt';
@@ -219,7 +219,7 @@ function getStaticQuestion(callback) {
 
 /**
  * Stellt dem Benutzer eine Frage.
- * @param {*} callback
+ * @param {function} callback Rückgabefunktion
  */
 function getDynamicQuestion(callback) {
     const cardTitle = 'Frage gestellt';
@@ -239,11 +239,11 @@ function getDynamicQuestion(callback) {
  * War die Antwort richtig, wird mit einer statischen Frage weiterverfahren.
  * War die Antwort falsch, wird die Authentifizierung abgebrochen.
  * @param {*} intent 
- * @param {*} callback 
+ * @param {function} callback Rückgabefunktion
  */
 function verifyCalc(intent, callback) {
-    console.log('result: ' + intent);
-    var result = intent.slots.loesung.value;
+    console.log(`intent`);
+    var result = intent.slots.erste.value;
     if (!result) console.log('verifyCalc failed! No number was given!');
     if (result == sum) {
         auth_state.calcToStatic(result, sum);
@@ -260,8 +260,8 @@ function verifyCalc(intent, callback) {
  * War die Antwort richtig, wird mit einer weiteren Frage verfahren. 
  * Ist hierbei der Schwellwert noch nicht erreicht worden, wird eine weitere statische Frage gestellt. Sonst gehen wir in die dynamischen rüber.
  * War die Antwort falsch, wird die Authentifizierung abgebrochen.
- * @param {*} intent 
- * @param {*} callback 
+ * @param {*} intent der Intent der Anfrage
+ * @param {function} callback Rückgabefunktion
  */
 function verifyStaticAnswer(intent, callback) {
     switch (currentQuestNr) {
@@ -269,7 +269,7 @@ function verifyStaticAnswer(intent, callback) {
             verifyColor(intent, callback, staticQuestions[0].answer, true);
             break;
         case 1:
-            verifyPLZ(intent, callback, staticQuestions[1].answer, true);
+            verifyNumber(intent, callback, staticQuestions[1].answer, true);
             break;
         case 2:
             verifyCity(intent, callback, staticQuestions[2].answer, true);
@@ -287,8 +287,8 @@ function verifyStaticAnswer(intent, callback) {
  * War die Antwort richtig, wird mit einer weiteren Frage verfahren. 
  * Ist hierbei der Schwellwert noch nicht erreicht worden, wird eine weitere dynamische Frage gestellt. Sonst war die Authentifizierung erfolgreich.
  * War die Antwort falsch, wird die Authentifizierung abgebrochen.
- * @param {*} intent 
- * @param {*} callback 
+ * @param {*} intent der Intent der Anfrage
+ * @param {function} callback Rückgabefunktion
  */
 function verifyDynamicAnswer(intent, callback) {
     switch (currentQuestNr) {
@@ -304,9 +304,10 @@ function verifyDynamicAnswer(intent, callback) {
 
 /**
  * Überprüft eine Farbenantwort.
- * @param {*} intent 
- * @param {*} callback
- * @param {*} isStatic
+ * @param {*} intent der Intent der Anfrage 
+ * @param {function} callback Rückgabefunktion
+ * @param {string} correctAnswer korrekte Antwort
+ * @param {boolean} isStatic Ist die Zustandsmaschine im static Status?
  */
 function verifyColor(intent, callback, correctAnswer, isStatic) {
     console.log('Verstandene Farbe: ' + intent.slots.farbe.value);
@@ -322,9 +323,10 @@ function verifyColor(intent, callback, correctAnswer, isStatic) {
 
 /**
  * Eine Auswertung eines Geldbetrages.
- * @param {*} intent 
- * @param {*} callback
- * @param {*} isStatic 
+ * @param {*} intent der Intent der Anfrage 
+ * @param {function} callback Rückgabefunktion
+ * @param {string} correctAnswer korrekte Antwort
+ * @param {boolean} isStatic Ist die Zustandsmaschine im static Status?
  */
 function verifyMoney(intent, callback, correctAnswer, isStatic) {
     console.log('Geldmenge: ' + intent.slots.euro.value + ', ' + intent.slots.cent.value + '€.' );
@@ -335,7 +337,7 @@ function verifyMoney(intent, callback, correctAnswer, isStatic) {
     if (amountEuro) answer += `${amountEuro} euro`;
     if (amountEuro && amountCent) { 
         answer += ` und ${amountCent} sent`;
-    } else {
+    } else if (amountCent) {
         answer += `${amountCent} sent`;
     }
     if (answer == correctAnswer) {
@@ -347,19 +349,19 @@ function verifyMoney(intent, callback, correctAnswer, isStatic) {
 }
 
 /**
- * Überprüft die übergebene Postleitzahl.
- * @param {*} intent 
- * @param {*} callback 
- * @param {*} correctAnswer 
+ * Überprüft die übergebene Zahl.
+ * @param {*} intent der Intent der Anfrage 
+ * @param {function} callback Rückgabefunktion
+ * @param {string} correctAnswer korrekte Antwort
+ * @param {boolean} isStatic Ist die Zustandsmaschine im static Status?
  */
-function verifyPLZ(intent, callback, correctAnswer, isStatic) {
-    console.log(`PLZ: ${intent.slots.erste.value}${intent.slots.zweite.value}${intent.slots.dritte.value}${intent.slots.vierte.value}${intent.slots.fuenfte.value}`);
-    var intFirst = intent.slots.erste.value;
-    var intSecond = intent.slots.zweite.value;
-    var intThird = intent.slots.dritte.value;
-    var intFourth = intent.slots.vierte.value;
-    var intFifth = intent.slots.fuenfte.value
-    var answer = `${intFirst}${intSecond}${intThird}${intFourth}${intFifth}`;
+function verifyNumber(intent, callback, correctAnswer, isStatic) {
+    var answer = '';
+    if (intent.slots.erste) answer += `${intent.slots.erste.value}`;
+    if (intent.slots.zweite) answer += `${intent.slots.erste.value}`;
+    if (intent.slots.dritte) answer += `${intent.slots.erste.value}`;
+    if (intent.slots.vierte) answer += `${intent.slots.erste.value}`;
+    if (intent.slots.fuenfte) answer += `${intent.slots.erste.value}`;
     
     if (answer == correctAnswer) {
         getNextState(isStatic, callback, answer, correctAnswer);
@@ -371,10 +373,10 @@ function verifyPLZ(intent, callback, correctAnswer, isStatic) {
 
 /**
  * Überprüft ob eine Städte-Antwort korrekt ist.
- * @param {*} intent 
- * @param {*} callback 
- * @param {*} correctAnswer 
- * @param {*} isStatic 
+ * @param {*} intent der Intent der Anfrage 
+ * @param {function} callback Rückgabefunktion
+ * @param {string} correctAnswer korrekte Antwort
+ * @param {boolean} isStatic Ist die Zustandsmaschine im static Status?
  */
 function verifyCity(intent, callback, correctAnswer, isStatic) {
     var answer = intent.slots.stadt.value;

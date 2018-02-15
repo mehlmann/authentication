@@ -1,7 +1,13 @@
+'use strict'
+
 /**
  * Die Standard-Funktionen für Alexa.
  *
  * Diese zwei Funktionen bauen bei übergebenen Parametern eine Ausgabe für Alexa.
+ * @param {string} title Titel des Speechlets
+ * @param {string} output Ausgabe von Alexa
+ * @param {string} repromptText Wiederholte Ausgabe von Alexa
+ * @param {boolean} shouldEndSession true - Ende der App 
  */
 function buildSpeechletResponse(title, output, repromptText, shouldEndSession) {
     return {
@@ -34,7 +40,7 @@ function buildResponse(sessionAttributes, speechletResponse) {
 
 /**
  * getWelcomeResponse wird bei starten des Skills ausgeführt und bildet eine Art Begrüssung.
- * @param {*} callback 
+ * @param {function} callback Rückgabe an die App
  */
 function getWelcomeResponse(callback) {
     const cardTitle = 'Willkommen';
@@ -47,7 +53,7 @@ function getWelcomeResponse(callback) {
 
 /**
  * getHelpResponse wird ausgeführt, wenn der Benutzer Hilfe benötigt.
- * @param {*} callback 
+ * @param {function} callback Rückgabe an die App
  */
 function getHelpResponse(callback) {
     const cardTitle = 'Hilfe';
@@ -60,7 +66,7 @@ function getHelpResponse(callback) {
 
 /**
  * getEndResponse wird ausgeführt, sobald der Skill beendet wird.
- * @param {*} callback 
+ * @param {function} callback Rückgabe an die App
  */
 function getEndResponse(callback) {
     const cardTitle = 'Skill beendet';
@@ -72,9 +78,9 @@ function getEndResponse(callback) {
 
 /**
  * Wird bei Start des Skills ausgeführt.
- * @param {*} launchRequest 
- * @param {*} session 
- * @param {*} callback 
+ * @param {*} launchRequest Anfrage
+ * @param {*} session aktuelle Sitzung
+ * @param {function} callback Rückgabe an die App
  */
 function onLaunch(launchRequest, session, callback) {
     console.log(`Skill requestId=${launchRequest.requestId}, sessionId=${session.sessionId} gestartet.`);
@@ -83,9 +89,9 @@ function onLaunch(launchRequest, session, callback) {
 
 /**
  * Wird bei Beenden des Skills ausgeführt.
- * @param {*} sessionEndedRequest 
- * @param {*} session 
- * @param {*} callback 
+ * @param {*} sessionEndedRequest Anfrage
+ * @param {*} session aktuelle Sitzung
+ * @param {function} callback Rückgabe an die App
  */
 function onSessionEnded(sessionEndedRequest, session, callback) {
     console.log(`Skill requestId=${sessionEndedRequest.requestId}, sessionId=${session.sessionId} beendet.`);
@@ -94,7 +100,7 @@ function onSessionEnded(sessionEndedRequest, session, callback) {
 
 /**
  * Sollte ein Intent nicht erfasst worden sein.
- * @param {*} callback 
+ * @param {function} callback Rückgabe an die App
  */
 function onUnknownIntent(callback) {
     const cardTitle = 'Unknown Intent';

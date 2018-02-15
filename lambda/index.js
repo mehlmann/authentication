@@ -1,16 +1,14 @@
 'use strict'
 
-
-
 const alexa = require('./alexa')
 const auth = require('./auth')
 const quest = require('./data/questions')
 
 /**
  * Ruft die verschiedenen intents auf.
- * @param {*} intentRequest 
- * @param {*} session 
- * @param {*} callback 
+ * @param {*} intentRequest Anfrage
+ * @param {*} session aktuelle Sitzung
+ * @param {function} callback Rückgabefunktion
  */
 function onIntent(intentRequest, session, callback) {
     const intent = intentRequest.intent;
@@ -26,6 +24,18 @@ function onIntent(intentRequest, session, callback) {
         case 'AMAZON.HelpIntent':
             alexa.getHelpResponse(callback);
             break;
+        case 'AntwortenIntent':
+            gotKnownIntent(intent, callback);
+            break;
+        case 'FarbeIntent':
+            gotKnownIntent(intent, callback);
+            break;
+        case 'GeldsummeIntent':
+            gotKnownIntent(intent, callback);
+            break;
+        case 'RechenaufgabeIntent':
+            (auth.isInState('start')) ? auth.getCalculation(callback) : auth.wrongIntent(callback);
+            break;
         case 'Reset':
             if (auth.isInState('failed') || auth.isInState('success')) {
                 auth.resetState(callback);
@@ -33,54 +43,50 @@ function onIntent(intentRequest, session, callback) {
                 auth.wrongIntent(callback);
             }
             break;
-        case 'RechenaufgabeIntent':
-            (auth.isInState('start')) ? auth.getCalculation(callback) : auth.wrongIntent(callback);
-            break;
-        case 'RechenloesungIntent':
-            (auth.isInState('calc')) ? auth.verifyCalc(intent, callback) : auth.wrongIntent(callback);
-            break;
-        case 'AntwortenIntent':
-            if (auth.isInState('static')) {
-                auth.verifyStaticAnswer(intent, callback);
-            } else if (auth.isInState('dynamic')) {
-                auth.verifyDynamicAnswer(intent, callback);
-            } else {
-                auth.wrongIntent(callback);
-            }
-            break;
-        case 'FarbeIntent':
-            (auth.isInState('static')) ? auth.verifyStaticAnswer(intent, callback) : auth.wrongIntent(callback);
-            break;
-        case 'GeldsummeIntent':
-            if (auth.isInState('static')) {
-                auth.verifyStaticAnswer(intent, callback);
-            } else if (auth.isInState('dynamic')) {
-                auth.verifyDynamicAnswer(intent, callback);
-            } else {
-                auth.wrongIntent(callback);
-            }
-            break;
         case 'StadtIntent':
-            if (auth.isInState('static')) {
-                auth.verifyStaticAnswer(intent, callback);
-            } else if (auth.isInState('dynamic')) {
-                auth.verifyDynamicAnswer(intent, callback);
-            } else {
-                auth.wrongIntent(callback);
-            }
+            gotKnownIntent(intent, callback);
             break;
-        case 'PLZ':
-            (auth.isInState('static')) ? auth.verifyStaticAnswer(intent, callback) : auth.wrongIntent(callback) ;
+        case 'ZahlIntent':
+            gotKnownIntent(intent, callback);
+            break;
+        case 'ZahlenZweiIntent':
+            gotKnownIntent(intent, callback);
+            break;
+        case 'ZahlenDreiIntent':
+            gotKnownIntent(intent, callback);
+            break;
+        case 'ZahlenVierIntent':
+            gotKnownIntent(intent, callback);
+            break;
+        case 'ZahlenFuenfIntent':
+            gotKnownIntent(intent, callback);
             break;
         default: alexa.onUnknownIntent(callback); break;
     }
 }
 
 /**
+ * Ein bekannter Intent wurde empfangen, leite ihn weiter.
+ * @param {*} intent Intent
+ * @param {function} callback Rückgabefunktion
+ */
+function gotKnownIntent(intent, callback) {
+    if (auth.isInState('calc')) {
+        auth.verifyCalc(intent, callback);
+    } else if (auth.isInState('static')) {
+        auth.verifyStaticAnswer(intent, callback);
+    } else if (auth.isInState('dynamic')) {
+        auth.verifyDynamicAnswer(intent, callback);
+    } else {
+        auth.wrongIntent(callback);
+    }
+}
+
+/**
  * Behandelt die ankommenden Anfragen.
- * @param {*} event 
- * @param {*} context 
- * @param {*} callback 
+ * @param {*} event Ereignis
+ * @param {*} context der aktuelle Kontext
+ * @param {function} callback Rückgabefunktion
  */
 exports.handler = (event, context, callback) => {
     try {

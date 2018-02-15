@@ -22,7 +22,7 @@ var staticQuestions = [
         question: 'In welcher Stadt wurden Sie geboren?',
         answer: 'erfurt'
     }
-    /*,
+    ,
     {
         question: 'In welcher Straße wohnen Sie?' ,
         answer: ''
@@ -33,10 +33,10 @@ var staticQuestions = [
     },
     {
         queston: 'Wie ist ihr Familienname?',
-        answer: 
+        answer: ''
     },
     {
-        queston: 'Was sind die letzten drei Ziffern Ihrer Handynummber?',
+        queston: 'Was sind die letzten drei Ziffern Ihrer Handynummer?',
         answer: '099'
     },
     {
@@ -44,17 +44,17 @@ var staticQuestions = [
         answer: '42'
     },
     {
-        queston: 'Wie ist Ihre Körpergröße?',
+        queston: 'Wie ist Ihre Körpergröße in Zentimetern?',
         answer: '1,70'
     },
     {
         queston: 'Wie ist der Mädchenname Ihrer Mutter?',
-        answer: 'Müller'
+        answer: 'müller'
     },
     {
         queston: 'Von welcher Marke ist Ihr Handy?',
-        answer: 'Huawei'
-    }*/
+        answer: 'huawei'
+    }
 ];
 
 /**
@@ -185,6 +185,10 @@ class AlexaDeviceAddressClient {
     }
 }
 
+/**
+ * Initialisiert die Adresse des Amazon Echo.
+ * @param {*} sys 
+ */
 function initPLZ(sys) {
     const consentToken = sys.user.permissions.consentToken;
     console.log('Important Log:');

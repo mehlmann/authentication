@@ -31,11 +31,11 @@
       "slots": [
         {
           "name": "euro",
-          "type": "zahl"
+          "type": "AMAZON.NUMBER"
         },
         {
           "name": "cent",
-          "type": "zahl"
+          "type": "AMAZON.NUMBER"
         }
       ],
       "intent": "GeldsummeIntent"
@@ -44,13 +44,101 @@
       "intent": "RechenaufgabeIntent"
     },
     {
+      "intent": "Reset"
+    },
+    {
       "slots": [
         {
-          "name": "loesung",
-          "type": "zahl"
+          "name": "stadt",
+          "type": "AMAZON.DE_CITY"
         }
       ],
-      "intent": "RechenloesungIntent"
+      "intent": "StadtIntent"
+    },
+    {
+      "slots": [
+        {
+          "name": "erste",
+          "type": "AMAZON.NUMBER"
+        }
+      ],
+      "intent": "ZahlIntent"
+    },
+    {
+      "slots": [
+        {
+          "name": "erste",
+          "type": "AMAZON.NUMBER"
+        },
+        {
+          "name": "zweite",
+          "type": "AMAZON.NUMBER"
+        }
+      ],
+      "intent": "ZahlenZweiIntent"
+    },
+    {
+      "slots": [
+        {
+          "name": "erste",
+          "type": "AMAZON.NUMBER"
+        },
+        {
+          "name": "zweite",
+          "type": "AMAZON.NUMBER"
+        },
+        {
+          "name": "dritte",
+          "type": "AMAZON.NUMBER"
+        }
+      ],
+      "intent": "ZahlenDreiIntent"
+    },
+    {
+      "slots": [
+        {
+          "name": "erste",
+          "type": "AMAZON.NUMBER"
+        },
+        {
+          "name": "zweite",
+          "type": "AMAZON.NUMBER"
+        },
+        {
+          "name": "dritte",
+          "type": "AMAZON.NUMBER"
+        },
+        {
+          "name": "vierte",
+          "type": "AMAZON.NUMBER"
+        }
+      ],
+      "intent": "ZahlenVierIntent"
+    },
+    {
+      "slots": [
+        {
+          "name": "erste",
+          "type": "AMAZON.NUMBER"
+        },
+        {
+          "name": "zweite",
+          "type": "AMAZON.NUMBER"
+        },
+        {
+          "name": "dritte",
+          "type": "AMAZON.NUMBER"
+        },
+        {
+          "name": "vierte",
+          "type": "AMAZON.NUMBER"
+        },
+        {
+          "name": "fuenfte",
+          "type": "AMAZON.NUMBER"
+        }
+      ],
+      "intent": "ZahlenFuenfIntent"
     }
   ]
 }
