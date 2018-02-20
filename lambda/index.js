@@ -24,6 +24,20 @@ function onIntent(intentRequest, session, callback) {
         case 'AMAZON.HelpIntent':
             alexa.getHelpResponse(callback);
             break;
+        case 'AMAZON.YesIntent':
+            if (auth.isInState('checkDynRefresh')) {
+                auth.endDynRefresh(callback);
+            } else {
+                auth.wrongIntent(callback);
+            }
+            break;
+        case 'AMAZON.NoIntent':
+            if (auth.isInState('checkDynRefresh')) {
+                auth.repromptDynRefresh(callback);
+            } else {
+                auth.wrongIntent(callback);
+            }
+            break;
         case 'AntwortenIntent':
             gotKnownIntent(intent, callback);
             break;
@@ -31,6 +45,9 @@ function onIntent(intentRequest, session, callback) {
             gotKnownIntent(intent, callback);
             break;
         case 'GeldsummeIntent':
+            gotKnownIntent(intent, callback);
+            break;
+        case 'HandyMarkenIntent':
             gotKnownIntent(intent, callback);
             break;
         case 'RechenaufgabeIntent':
@@ -77,6 +94,8 @@ function gotKnownIntent(intent, callback) {
         auth.verifyStaticAnswer(intent, callback);
     } else if (auth.isInState('dynamic')) {
         auth.verifyDynamicAnswer(intent, callback);
+    } else if (auth.isInState('dynRefresh')) {
+        auth.checkRefresh(intent, callback);
     } else {
         auth.wrongIntent(callback);
     }

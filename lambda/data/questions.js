@@ -15,14 +15,29 @@ var staticQuestions = [
         answer: ''
     },
     {
-        question: 'In welcher Stadt wohnen Sie?' ,
+        question: 'In welcher stadt wohnen sie?' ,
         answer: ''
+    }/*,
+    {
+        question: 'in welcher stadt wurden sie geboren?',
+        answer: 'erfurt'
     },
     {
-        question: 'In welcher Stadt wurden Sie geboren?',
-        answer: 'erfurt'
-    }
-    ,
+        question: 'was sind die letzten drei ziffern ihrer handynummer?',
+        answer: '099'
+    },
+    {
+        question: 'wie ist ihre schuhgröße?',
+        answer: '42'
+    },
+    {
+        question: 'wie ist ihre körpergröße in zentimetern?',
+        answer: '179'
+    },
+    {
+        question: 'Von welcher Marke ist Ihr Handy?',
+        answer: 'huawei'
+    },
     {
         question: 'In welcher Straße wohnen Sie?' ,
         answer: ''
@@ -36,25 +51,9 @@ var staticQuestions = [
         answer: ''
     },
     {
-        queston: 'Was sind die letzten drei Ziffern Ihrer Handynummer?',
-        answer: '099'
-    },
-    {
-        queston: 'Wie ist Ihre Schuhgröße?',
-        answer: '42'
-    },
-    {
-        queston: 'Wie ist Ihre Körpergröße in Zentimetern?',
-        answer: '1,70'
-    },
-    {
         queston: 'Wie ist der Mädchenname Ihrer Mutter?',
         answer: 'müller'
-    },
-    {
-        queston: 'Von welcher Marke ist Ihr Handy?',
-        answer: 'huawei'
-    }
+    }*/
 ];
 
 /**
@@ -75,6 +74,70 @@ var dynamicQuestions = [
     }
     */
 ];
+
+/**
+ * Gibt die statische Frage an arrayNumber-Stelle aus.
+ * @param {int} arrayNumber Nummerierung der Frage
+ */
+function getStaticQuestion(arrayNumber) {
+    return staticQuestions[arrayNumber].question;
+}
+
+/**
+ * Gibt die dynamische Frage an arrayNumber-Stelle aus.
+ * @param {int} arrayNumber Nummerierung der Frage
+ */
+function getDynamicQuestion(arrayNumber) {
+    return dynamicQuestions[arrayNumber].question;
+}
+
+/**
+ * Gibt die statische Antwort an arrayNumber-Stelle aus.
+ * @param {int} arrayNumber Nummerierung der Frage
+ */
+function getStaticAnswer(arrayNumber) {
+    return staticQuestions[arrayNumber].answer;
+}
+
+/**
+ * Gibt die dynamische Antwort an arrayNumber-Stelle aus.
+ * @param {int} arrayNumber Nummerierung der Frage
+ */
+function getDynamicAnswer(arrayNumber) {
+    return dynamicQuestions[arrayNumber].answer;
+}
+
+/**
+ * Schreibt in arrayNumber der statischen Fragen die neu Antwort hinein.
+ * @param {int} arrayNumber Nummerierung der Frage
+ * @param {string} newAnswer neue Antwort
+ */
+function setStaticAnswer(arrayNumber, newAnswer) {
+    staticQuestions[arrayNumber].answer = newAnswer;
+}
+
+/**
+ * Schreibt in arrayNumber der dynamischen Fragen die neu Antwort hinein.
+ * @param {int} arrayNumber Nummerierung der Frage
+ * @param {string} newAnswer neue Antwort
+ */
+function setDynamicAnswer(arrayNumber, newAnswer) {
+    dynamicQuestions[arrayNumber].answer = newAnswer;
+}
+
+/**
+ * Gibt die Anzahl an statischen Fragen aus.
+ */
+function getStaticSize() {
+    return staticQuestions.length;
+}
+
+/** 
+ * Gibt die Anzahl an dynamischen Fragen aus.
+ */
+function getDynamicSize() {
+    return dynamicQuestions.length;
+}
 
 /**
  * Diese Funktion soll alle möglichen dynamischen Antworten füllen.
@@ -220,7 +283,7 @@ function initPLZ(sys) {
                     '\n' + address['stateOrRegion'] + 
                     ' (' + address['countryCode'] + ')');
                 staticQuestions[1].answer = address['postalCode'];
-                staticQuestions[2].answer = address['stateOrRegion'];
+                staticQuestions[2].answer = address['city'];
                 //staticQuestions[3].answer = address['addressLine2'];
                 break;
             case 204:
@@ -242,6 +305,12 @@ function initPLZ(sys) {
     });
 }
 
-module.exports = {staticQuestions,
-                dynamicQuestions,
+module.exports = {getStaticQuestion,
+                getStaticAnswer,
+                getDynamicQuestion,
+                getDynamicAnswer,
+                setStaticAnswer,
+                setDynamicAnswer,
+                getStaticSize,
+                getDynamicSize,
                 initAnswers};

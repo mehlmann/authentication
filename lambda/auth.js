@@ -6,48 +6,53 @@
  * 
  * Ein Beispiel einer Fragen-State-Machine könnte sein:
  * 
- *                                      Antwort korrekt            Antwort korrekt
- *                                        counter > 0                counter > 0 
- *                                            ----                       ----
- *                                           |    v   Antwort korrekt   |    v   Antwort korrekt 
- *  -----           ------  Antwort korrekt  ------     counter = 0     -------    counter = 0      -------
- * |start|-------->| calc |---------------->|static|------------------>|dynamic|------------------>|success|
- *  -----           ------                   ------                     -------                     -------
- *                    |                        |                           |
- *                    |                        |                           v
- *                    |                        |      Antwort falsch    ------
- *                    |----------------------------------------------->|failed|
- *                                                                      ------
+ *                                      Antwort korrekt            Antwort korrekt                
+ *                                        counter > 0                counter > 0                  
+ *                                            ----                       ----                         
+ *                                           |    v   Antwort korrekt   |    v   Antwort korrekt               
+ *  -----           ------  Antwort korrekt  ------     counter = 0     -------    counter = 0      ----------      nein       -----
+ * |start|-------->| calc |---------------->|static|------------------>|dynamic|------------------>|dynRefresh|<=============>|check|
+ *  -----           ------                   ------                     -------                     ----------                 -----
+ *                    |                        |                           |                                  Antwort richtig    |
+ *                    |                        |                           v                                   verstanden?       | ja
+ *                    |                        |      Antwort falsch    ------                        -------                    |
+ *                    |----------------------------------------------->|failed|                      |success|<------------------
+ *                                                                      ------                        -------
  */
 
 'use strict'
 
 var StateMachine = require('./includes/javascript-state-machine');
 const alexa = require('./alexa');
-const staticQuestions = require('./data/questions').staticQuestions;
-const dynamicQuestions = require('./data/questions').dynamicQuestions;
+var questions = require('./data/questions');
+const statics = require('./data/statics');
 
 // globale Variablen
-var sum;
-var currentQuestNr;
-var statThreshold = 1;
-var dynThreshold = 1;
-var currentQuest ='';
+var statThreshold = statics.STATIC_THRESHOLD;
+var dynThreshold = statics.DYNAMIC_THRESHOLD;
+var currentQuest ={number: '',
+                    question: '',
+                    answer: ''};
+
+var debug = 0;
 
 var auth_state = new StateMachine({
     init : 'start',
     transitions: [
-        { name: 'startToCalc',      from: 'start',   to: 'calc'    },
-        { name: 'calcToStatic',     from: 'calc',    to: 'static'  },
-        { name: 'staticToStatic',   from: 'static',  to: 'static'  },
-        { name: 'staticToDynamic',  from: 'static',  to: 'dynamic' },
-        { name: 'dynamicToDynamic', from: 'dynamic', to: 'dynamic' },
-        { name: 'dynamicToSuccess', from: 'dynamic', to: 'success' },
-        { name: 'answerWrong',      from: 'calc',    to: 'failed'  },
-        { name: 'answerWrong',      from: 'static',  to: 'failed'  },
-        { name: 'answerWrong',      from: 'dynamic', to: 'failed'  },
-        { name: 'reset',            from: 'failed',  to: 'start'   },
-        { name: 'reset',            from: 'success', to: 'start'   }
+        { name: 'startToCalc',                 from: 'start',           to: 'calc'            },
+        { name: 'calcToStatic',                from: 'calc',            to: 'static'          },
+        { name: 'staticToStatic',              from: 'static',          to: 'static'          },
+        { name: 'staticToDynamic',             from: 'static',          to: 'dynamic'         },
+        { name: 'dynamicToDynamic',            from: 'dynamic',         to: 'dynamic'         },
+        { name: 'dynamicToDynRefresh',         from: 'dynamic',         to: 'dynRefresh'      },
+        { name: 'dynRefreshToCheckDynRefresh', from: 'dynRefresh',      to: 'checkDynRefresh' },
+        { name: 'checkDynRefreshToDynRefresh', from: 'checkDynRefresh', to: 'dynRefresh'      },
+        { name: 'checkDynRefreshToSuccess',    from: 'checkDynRefresh', to: 'success'         },
+        { name: 'answerWrong',                 from: 'calc',            to: 'failed'          },
+        { name: 'answerWrong',                 from: 'static',          to: 'failed'          },
+        { name: 'answerWrong',                 from: 'dynamic',         to: 'failed'          },
+        { name: 'reset',                       from: 'failed',          to: 'start'           },
+        { name: 'reset',                       from: 'success',         to: 'start'           }
     ],
     methods: {
         onStartToCalc: function(obj, question) {
@@ -65,8 +70,17 @@ var auth_state = new StateMachine({
         onDynamicToDynamic: function(obj, claim, real) {
             console.log(`Answer was correct. You said ${claim}, it was ${real}.\nMoving from dynamic to dynamic.`);
         },
-        onDynamicToSuccess: function(obj, claim, real) {
-            console.log(`Answer was correct. You said ${claim}, it was ${real}.\nMoving from dynamic to success.`);
+        onDynamicToDynRefresh: function(obj, claim, real) {
+            console.log(`Answer was correct. You said ${claim}, it was ${real}.\nMoving from dynamic to dynRefresh.`);
+        },
+        onDynRefreshToCheckDynRefresh: function(obj, question, answer) {
+            console.log(`Question: ${question}, users answer was ${answer}.\nMoving from dynRefresh to checkDynRefresh.`);
+        },
+        onCheckDynRefreshToDynRefresh: function(obj, question, answer) {
+            console.log(`Question: ${question}, should not have answer ${answer}.\nMoving from checkDynRefresh to dynRefresh.`);
+        },
+        onCeckDynRefreshToSuccess: function(obj, question, answer) {
+            console.log(`Question: ${question}, has now the answer ${answer}.\nMoving from checkDynRefresh to success.`);
         },
         onAnswerWrong:  function(obj, claim, real) {
             console.log(`Answer was wrong! You said ${claim}, it was ${real}.`);
@@ -81,6 +95,7 @@ var auth_state = new StateMachine({
  * Gibt den aktuellen Zustand der State-Machine aus.
  */
 function getState() {
+    if (debug) console.log(`Current state: ${auth_state.state}.`);
     return auth_state.state;
 }
 
@@ -89,6 +104,7 @@ function getState() {
  * @param {string} state aktueller Status  
  */
 function isInState(state) {
+    if (debug) console.log(`IsInState returns: ${auth_state.is(state)}.`);
     return auth_state.is(state);
 }
 
@@ -98,6 +114,7 @@ function isInState(state) {
  * @param {function} callback Rückgabefunktion
  */
 function wrongIntent(callback) {
+    if (debug) console.log(`Got in wrongIntent. Current state is: ${auth_state.state}.`);
     const cardTitle = 'Falscher Intent';
     var speechOutput = '';
     if (auth_state.is('success')) {
@@ -105,7 +122,7 @@ function wrongIntent(callback) {
     } else if (auth_state.is('failed')) {
         speechOutput = 'Ihre Authentifizierung ist leider bereits fehlgeschlagen.';
     } else {
-        speechOutput = 'Beantworten Sie bitte die Frage: ' + currentQuest;
+        speechOutput = 'Beantworten Sie bitte die Frage: ' + currentQuest.question;
     }
     const shouldEndSession = false;
 
@@ -117,6 +134,7 @@ function wrongIntent(callback) {
  * @param {function} callback Rückgabefunktion
  */
 function onAuthenticated(callback) {
+    if (debug) console.log(`Got in onAuthenticated.`);
     const cardTitle = 'Authentication done.';
     var speechOutput = 'Die Authentifizierung war erfolgreich.';
     const repromptText = `Auf Wiedersehen.`;
@@ -130,6 +148,7 @@ function onAuthenticated(callback) {
  * @param {function} callback Rückgabefunktion
  */
 function onFailed(callback) {
+    if (debug) console.log(`Got in onFailed.`);
     const cardTitle = 'Authentication failed.';
     var speechOutput = 'Die Authentifizierung ist leider fehlgeschlagen.';
     const repromptText = `Auf Wiedersehen.`;
@@ -143,6 +162,7 @@ function onFailed(callback) {
  * @param {function} callback Rückgabefunktion
  */
 function resetState(callback) {
+    if (debug) console.log(`Got in resetState.`);
     const cardTitle = 'Authentication reset.';
     var speechOutput = 'Die Authentifizierung ist im Zustand start.';
     const repromptText = `Fragen Sie nach einer Aufgabe.`;
@@ -160,6 +180,7 @@ function resetState(callback) {
  * @param {string} correctAnswer die korrekte Antwort
  */
 function getNextState(isStatic, callback, userAnswer, correctAnswer) {
+    if (debug) console.log(`Getting next state. \nCurrent state is: ${auth_state.state}. \nstatThr: ${statThreshold} \ndynThr: ${dynThreshold}`);
     if (isStatic) {
         statThreshold--;
         if (statThreshold > 0) {
@@ -175,10 +196,108 @@ function getNextState(isStatic, callback, userAnswer, correctAnswer) {
             auth_state.dynamicToDynamic(userAnswer, correctAnswer);
             getDynamicQuestion(callback);
         } else {
-            auth_state.dynamicToSuccess(userAnswer, correctAnswer);
-            onAuthenticated(callback);
+            auth_state.dynamicToDynRefresh(userAnswer, correctAnswer);
+            startDynamicRefresh(callback);
         }
     }
+}
+
+/**
+ * Fragt den Benutzer die Antwort einer der dynamischen Fragen zu aktualisieren.
+ * @param {function} callback Rückgabefunktion
+ */
+function startDynamicRefresh(callback) {
+    if (debug) console.log(`startDynamicRefresh...`);
+    currentQuest.number = Math.floor(Math.random() * questions.getDynamicSize());
+    currentQuest.question = questions.getDynamicQuestion(currentQuest.number);
+    currentQuest.answer = questions.getDynamicAnswer(currentQuest.number);
+    if (debug) console.log(`[${currentQuest.number}]: ${currentQuest.question} -${currentQuest.answer}.`);
+
+    const cardTitle = 'Dynamische Antwort aktualisieren';
+    var speechOutput = `Die Authentifizierung war erfolgreich. Ich muss die Antwort einer dynamischen Frage aktualisieren. 
+                        Die Frage lautet ${currentQuest.question} und ihre alte Antwort war ${currentQuest.answer}.
+                        Bitte geben Sie mir die aktuelle Antwort auf diese Frage.`;
+    const repromptText = `Aktualisieren Sie bitte die Antwort auf die Frage ${currentQuest.question}.`;
+    const shouldEndSession = false;
+
+    callback({}, alexa.buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
+}
+
+/**
+ * Fragt den Benutzer seine Antwort zu verifizieren.
+ * @param {*} intent Benutzereingabe
+ * @param {function} callback Rückgabefunktion
+ */
+function checkRefresh(intent, callback) {
+    var amountEuro, amountCent;
+    var question = questions.getDynamicQuestion(currentQuest.number);
+    switch(currentQuest.number) {
+        case 0:
+            amountEuro = intent.slots.euro.value;
+            amountCent = intent.slots.cent.value;
+            if (!amountEuro && !amountCent) console.log('verifyMoneyAnswer ');
+            currentQuest.answer = '';
+            if (amountEuro) currentQuest.answer += `${amountEuro} euro`;
+            if (amountEuro && amountCent) { 
+                currentQuest.answer += ` und ${amountCent} sent`;
+            } else if (amountCent) {
+                currentQuest.answer += `${amountCent} sent`;
+            }
+            break;
+        case 1:
+            amountEuro = intent.slots.euro.value;
+            amountCent = intent.slots.cent.value;
+            if (!amountEuro && !amountCent) console.log('verifyMoneyAnswer ');
+            currentQuest.answer = '';
+            if (amountEuro) currentQuest.answer += `${amountEuro} euro`;
+            if (amountEuro && amountCent) { 
+                currentQuest.answer += ` und ${amountCent} sent`;
+            } else if (amountCent) {
+                currentQuest.answer += `${amountCent} sent`;
+            }
+            break;
+        default: break;
+    }
+
+    const cardTitle = 'Refresh erhalten';
+    if (debug) console.log(`Question was: ${question}. Answer is ${currentQuest.answer}.`);
+    currentQuest.question = `Auf die Frage ${question} gaben Sie die Antwort ${currentQuest.answer}. Ist dies richtig?`;
+    const shouldEndSession = false;
+
+    auth_state.dynRefreshToCheckDynRefresh(currentQuest.question, currentQuest.answer);
+    callback({}, alexa.buildSpeechletResponse(cardTitle, currentQuest.question, currentQuest.question, shouldEndSession));
+}
+
+/**
+ * Alexa hat den Benuzer falsch verstanden. Die Antwort muss wiederholt werden.
+ * @param {function} callback Rückgabefunktion
+ */
+function repromptDynRefresh(callback) {
+    if (debug) console.log('repromptDynRefresh');
+    const cardTitle = 'Dynamische Antwort wiederholen';
+    var speechOutput = `Bitte wiederholen Sie die Antwort auf die Frage ${currentQuest.question}`;
+    const repromptText = `Aktualisieren Sie bitte die Antwort auf die Frage ${currentQuest.question}.`;
+    const shouldEndSession = false;
+    auth_state.checkDynRefreshToCheckDynRefresh(currentQuest.question, currentQuest.answer);
+
+    callback({}, alexa.buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
+}
+
+/**
+ * Alexa hat den Benutzer richtig verstanden. Die dynamische Antwort darf aktualisiert werden.
+ * @param {function} callback Rückgabefunktion
+ */
+function endDynRefresh(callback) {
+    if (debug) console.log('repromptDynRefresh');
+    const cardTitle = 'Dynamische Antwort akzeptiert';
+    var speechOutput = `Die dynamische Antwort auf die Frage wurde akzeptiert. Die Authentifizierung ist abgeschlossen.`;
+    const repromptText = `Die Authentifizierung ist beendet.`;
+    const shouldEndSession = false;
+
+    questions.setDynamicAnswer(currentQuest.number, currentQuest.answer);
+    auth_state.checkDynRefreshToSuccess(currentQuest.question, currentQuest.answer);
+
+    callback({}, alexa.buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
 }
 
 /**
@@ -186,19 +305,20 @@ function getNextState(isStatic, callback, userAnswer, correctAnswer) {
  * @param {function} callback Rückgabefunktion 
  */
 function getCalculation(callback) {
+    if (debug) console.log(`getCalculation...`);
     var summandA = Math.floor(Math.random() * 20);
     var summandB = Math.floor(Math.random() * 20);
-    sum = summandA + summandB;
+    if (debug) console.log(`Question: ${summandA} + ${summandB} = ${summandA+summandB}`);
 
     const cardTitle = 'Aufgabe gestellt';
-    var speechOutput = `Was ist ${summandA} plus ${summandB}?`;
+    currentQuest.question = `Was ist ${summandA} plus ${summandB}?`;
     const repromptText = `Lösen Sie bitte die Aufgabe ${summandA} plus ${summandB}.`;
     const shouldEndSession = false;
 
-    currentQuest = speechOutput;
-    auth_state.startToCalc(speechOutput);
+    currentQuest.answer = summandA + summandB;
+    auth_state.startToCalc(currentQuest.question);
 
-    callback({}, alexa.buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
+    callback({}, alexa.buildSpeechletResponse(cardTitle, currentQuest.question, repromptText, shouldEndSession));
 }
 
 /**
@@ -206,15 +326,16 @@ function getCalculation(callback) {
  * @param {function} callback Rückgabefunktion
  */
 function getStaticQuestion(callback) {
+    if (debug) console.log(`getStaticQuestion...`);
     const cardTitle = 'Frage gestellt';
-    currentQuestNr = Math.floor(Math.random() * staticQuestions.length);
-    console.log(`Authentication is in state ${auth_state.state}. CurrentQuestNr=${currentQuestNr}.`);
-    var speechOutput = staticQuestions[currentQuestNr].question;
-    const repromptText = staticQuestions[currentQuestNr].question;
+    currentQuest.number = Math.floor(Math.random() * questions.getStaticSize());
+    currentQuest.question = questions.getStaticQuestion(currentQuest.number);
+    currentQuest.answer = questions.getStaticAnswer(currentQuest.number);
+    if (debug) console.log(`[${currentQuest.number}]: ${currentQuest.question} -${currentQuest.answer}.`);
     const shouldEndSession = false;
-    currentQuest = speechOutput;
+    console.log(`Authentication is in state ${auth_state.state}. CurrentQuestNr=${currentQuest.number}.`);
 
-    callback({}, alexa.buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
+    callback({}, alexa.buildSpeechletResponse(cardTitle, currentQuest.question, currentQuest.question, shouldEndSession));
 }
 
 /**
@@ -222,15 +343,16 @@ function getStaticQuestion(callback) {
  * @param {function} callback Rückgabefunktion
  */
 function getDynamicQuestion(callback) {
+    if (debug) console.log(`getDynamicQuestion...`);
     const cardTitle = 'Frage gestellt';
-    currentQuestNr = Math.floor(Math.random() * dynamicQuestions.length);
-    console.log(`Authentication is in state ${auth_state.state}. CurrentQuestNr=${currentQuestNr}.`);
-    var speechOutput = dynamicQuestions[currentQuestNr].question;
-    const repromptText = dynamicQuestions[currentQuestNr].question;
+    currentQuest.number = Math.floor(Math.random() * questions.getDynamicSize());
+    currentQuest.question = questions.getDynamicQuestion(currentQuest.number);
+    currentQuest.answer = questions.getDynamicAnswer(currentQuest.number);
+    if (debug) console.log(`[${currentQuest.number}]: ${currentQuest.question} -${currentQuest.answer}.`);
     const shouldEndSession = false;
-    currentQuest = speechOutput;
+    console.log(`Authentication is in state ${auth_state.state}. CurrentQuestNr=${currentQuest.number}.`);
 
-    callback({}, alexa.buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
+    callback({}, alexa.buildSpeechletResponse(cardTitle, currentQuest.question, currentQuest.question, shouldEndSession));
 }
 
 /**
@@ -242,14 +364,14 @@ function getDynamicQuestion(callback) {
  * @param {function} callback Rückgabefunktion
  */
 function verifyCalc(intent, callback) {
-    console.log(`intent`);
+    if (debug) console.log(`verifyCalc...\nIntent: ` + intent);
     var result = intent.slots.erste.value;
     if (!result) console.log('verifyCalc failed! No number was given!');
-    if (result == sum) {
-        auth_state.calcToStatic(result, sum);
+    if (result == currentQuest.answer) {
+        auth_state.calcToStatic(result, currentQuest.answer);
         getStaticQuestion(callback);
     } else {
-        auth_state.answerWrong(result, sum);
+        auth_state.answerWrong(result, currentQuest.answer);
         onFailed(callback);
     }
 }
@@ -264,19 +386,32 @@ function verifyCalc(intent, callback) {
  * @param {function} callback Rückgabefunktion
  */
 function verifyStaticAnswer(intent, callback) {
-    switch (currentQuestNr) {
+    if (debug) console.log('verifyStaticAnswer...\nIntent:' + intent);
+    if (debug) console.log(`[${currentQuest.number}]: ${currentQuest.question} -${currentQuest.answer}.`);
+    switch (currentQuest.number) {
         case 0:
-            verifyColor(intent, callback, staticQuestions[0].answer, true);
+            verifyColor(intent, callback, currentQuest.answer, true);
             break;
         case 1:
-            verifyNumber(intent, callback, staticQuestions[1].answer, true);
+            verifyNumber(intent, callback, currentQuest.answer, true);
             break;
         case 2:
-            verifyCity(intent, callback, staticQuestions[2].answer, true);
+            verifyCity(intent, callback, currentQuest.answer, true);
             break;
         case 3:
-            verifyCity(intent, callback, staticQuestions[3].answer, true);
+            verifyCity(intent, callback, currentQuest.answer, true);
             break;
+        case 4:
+            verifyNumber(intent, callback, currentQuest.answer, true);
+            break;
+        case 5:
+            verifyNumber(intent, callback, currentQuest.answer, true);
+            break;
+        case 6:
+            verifyNumber(intent, callback, currentQuest.answer, true);
+            break;
+        case 7:
+            verifyCellphone(intent, callback, currentQuest.answer, true);
         default: break;
     }
 }
@@ -291,12 +426,14 @@ function verifyStaticAnswer(intent, callback) {
  * @param {function} callback Rückgabefunktion
  */
 function verifyDynamicAnswer(intent, callback) {
-    switch (currentQuestNr) {
+    if (debug) console.log('verifyDynamicAnswer...\nIntent:' + intent);
+    if (debug) console.log(`[${currentQuest.number}]: ${currentQuest.question} -${currentQuest.answer}.`);
+    switch (currentQuest.number) {
         case 0:
-            verifyMoney(intent, callback, dynamicQuestions[0].answer, false);
+            verifyMoney(intent, callback, currentQuest.answer, false);
             break;
         case 1:
-            verifyMoney(intent, callback, dynamicQuestions[1].answer, false);
+            verifyMoney(intent, callback, currentQuest.answer, false);
             break;
         default: break;
     }
@@ -310,10 +447,11 @@ function verifyDynamicAnswer(intent, callback) {
  * @param {boolean} isStatic Ist die Zustandsmaschine im static Status?
  */
 function verifyColor(intent, callback, correctAnswer, isStatic) {
-    console.log('Verstandene Farbe: ' + intent.slots.farbe.value);
+    if (debug) console.log('Verstandene Farbe: ' + intent.slots.farbe.value);
     var answer = intent.slots.farbe.value;
     if (!answer) console.log('verifyColor failed! No color was given!');
-    if (answer == correctAnswer) {
+    
+    if (answer == correctAnswer.toLowerCase()) {
         getNextState(isStatic, callback, answer, correctAnswer);
     } else {
         auth_state.answerWrong(answer, correctAnswer);
@@ -340,7 +478,7 @@ function verifyMoney(intent, callback, correctAnswer, isStatic) {
     } else if (amountCent) {
         answer += `${amountCent} sent`;
     }
-    if (answer == correctAnswer) {
+    if (answer == correctAnswer.toLowerCase()) {
         getNextState(isStatic, callback, answer, correctAnswer);
     } else {
         auth_state.answerWrong(answer, correctAnswer);
@@ -357,13 +495,14 @@ function verifyMoney(intent, callback, correctAnswer, isStatic) {
  */
 function verifyNumber(intent, callback, correctAnswer, isStatic) {
     var answer = '';
-    if (intent.slots.erste) answer += `${intent.slots.erste.value}`;
-    if (intent.slots.zweite) answer += `${intent.slots.erste.value}`;
-    if (intent.slots.dritte) answer += `${intent.slots.erste.value}`;
-    if (intent.slots.vierte) answer += `${intent.slots.erste.value}`;
-    if (intent.slots.fuenfte) answer += `${intent.slots.erste.value}`;
+    if (!intent.slots.erste) console.log('verifyNumber failed! No number was given!');
+    if (intent.slots.erste && intent.slots.erste.value) answer += `${intent.slots.erste.value}`;
+    if (intent.slots.zweite && intent.slots.zweite.value) answer += `${intent.slots.zweite.value}`;
+    if (intent.slots.dritte && intent.slots.dritte.value) answer += `${intent.slots.dritte.value}`;
+    if (intent.slots.vierte && intent.slots.vierte.value) answer += `${intent.slots.vierte.value}`;
+    if (intent.slots.fuenfte && intent.slots.fuenfte.value) answer += `${intent.slots.fuenfte.value}`;
     
-    if (answer == correctAnswer) {
+    if (answer == correctAnswer.toLowerCase()) {
         getNextState(isStatic, callback, answer, correctAnswer);
     } else {
         auth_state.answerWrong(answer, correctAnswer);
@@ -381,7 +520,25 @@ function verifyNumber(intent, callback, correctAnswer, isStatic) {
 function verifyCity(intent, callback, correctAnswer, isStatic) {
     var answer = intent.slots.stadt.value;
     if (!answer) console.log('VerifyCity failed! No city was given!');
-    if (answer == correctAnswer) {
+    if (answer == correctAnswer.toLowerCase()) {
+        getNextState(isStatic, callback, answer, correctAnswer);
+    } else {
+        auth_state.answerWrong(answer, correctAnswer);
+        onFailed(callback);
+    }
+}
+
+/**
+ * Überprüft ob eine Handy-Marken-Antwort korrekt ist.
+ * @param {*} intent der Intent der Anfrage 
+ * @param {function} callback Rückgabefunktion
+ * @param {string} correctAnswer korrekte Antwort
+ * @param {boolean} isStatic Ist die Zustandsmaschine im static Status?
+ */
+function verifyCellphone(intent, callback, correctAnswer, isStatic) {
+    var answer = intent.slots.marke.value;
+    if (!answer) console.log('verifyCellphone failed! No brand was given!');
+    if (answer == correctAnswer.toLowerCase()) {
         getNextState(isStatic, callback, answer, correctAnswer);
     } else {
         auth_state.answerWrong(answer, correctAnswer);
@@ -395,6 +552,9 @@ module.exports = {auth_state,
                 isInState,
                 wrongIntent,
                 resetState,
+                checkRefresh,
+                endDynRefresh,
+                repromptDynRefresh,
                 getCalculation,
                 verifyCalc,
                 verifyStaticAnswer,
