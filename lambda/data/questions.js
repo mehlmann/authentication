@@ -6,51 +6,47 @@ const Https = require('https');
  * Eine Sammlung von statischen Fragen und den dazugehörigen Antworten.
  */
 var staticQuestions = [
-    {
+    {//0
         question: 'was ist ihre lieblingsfarbe?',
         answer: 'blau'
     },
-    {
+    {//1
         question: 'Geben Sie ihre Postleitzahl in einzelnen Ziffern an.',
-        answer: ''
-    },
-    {
-        question: 'In welcher stadt wohnen sie?' ,
-        answer: ''
+        answer: '76744'
     }/*,
-    {
+    {//2
+        question: 'In welcher stadt wohnen sie?' ,
+        answer: 'wörth am rhein'
+    },
+    {//3
         question: 'in welcher stadt wurden sie geboren?',
         answer: 'erfurt'
     },
-    {
+    {//4
         question: 'was sind die letzten drei ziffern ihrer handynummer?',
         answer: '099'
     },
-    {
+    {//5
         question: 'wie ist ihre schuhgröße?',
         answer: '42'
     },
-    {
+    {//6
         question: 'wie ist ihre körpergröße in zentimetern?',
         answer: '179'
     },
-    {
+    {//7
         question: 'Von welcher Marke ist Ihr Handy?',
         answer: 'huawei'
     },
-    {
-        question: 'In welcher Straße wohnen Sie?' ,
-        answer: ''
-    },
-    {
+    {//8
         question: 'In welcher Hausnummer wohnen Sie?' ,
-        answer: ''
+        answer: '8a'
     },
-    {
+    {//9
         queston: 'Wie ist ihr Familienname?',
-        answer: ''
+        answer: 'mehlmann'
     },
-    {
+    {//10
         queston: 'Wie ist der Mädchenname Ihrer Mutter?',
         answer: 'müller'
     }*/
@@ -60,19 +56,18 @@ var staticQuestions = [
  * Eine Sammlung von dynamischen Fragen und den dazugehörigen Antworten.
  */
 var dynamicQuestions = [
-    {
+    {//0
         question: 'Wieviel haben sie beim letzten Amazon Kauf ausgegeben?',
-        answer: '20 euro'
+        answer: '20,00€'
     },
-    {
+    {//1
         question: 'Wie hoch war Ihre letzte PayPal-Überweisung?',
-        answer: '32 euro und 65 sent'
+        answer: '32,65€'
     }/*,
-    {
+    {//2
         question: 'In welchem Land waren Sie zuletzt im Urlaub?',
         answer: 'Kroatien'
-    }
-    */
+    }*/
 ];
 
 /**
@@ -144,7 +139,7 @@ function getDynamicSize() {
  * @param {*} sys 
  */
 function initAnswers(sys) {
-    initPLZ(sys);  //staticQuestions[1] staticQuestions[2] staticQuestions[3]
+    initPLZ(sys);
 }
 
 /**

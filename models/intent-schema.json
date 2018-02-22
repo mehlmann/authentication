@@ -7,7 +7,13 @@
       "intent": "AMAZON.HelpIntent"
     },
     {
+      "intent": "AMAZON.NoIntent"
+    },
+    {
       "intent": "AMAZON.StopIntent"
+    },
+    {
+      "intent": "AMAZON.YesIntent"
     },
     {
       "slots": [
@@ -41,6 +47,24 @@
       "intent": "GeldsummeIntent"
     },
     {
+      "slots": [
+        {
+          "name": "marke",
+          "type": "handyMarke"
+        }
+      ],
+      "intent": "HandyMarkenIntent"
+    },
+    {
+      "slots": [
+        {
+          "name": "landName",
+          "type": "Land"
+        }
+      ],
+      "intent": "LandIntent"
+    },
+    {
       "intent": "RechenaufgabeIntent"
     },
     {
@@ -54,28 +78,6 @@
         }
       ],
       "intent": "StadtIntent"
-    },
-    {
-      "slots": [
-        {
-          "name": "erste",
-          "type": "AMAZON.NUMBER"
-        }
-      ],
-      "intent": "ZahlIntent"
-    },
-    {
-      "slots": [
-        {
-          "name": "erste",
-          "type": "AMAZON.NUMBER"
-        },
-        {
-          "name": "zweite",
-          "type": "AMAZON.NUMBER"
-        }
-      ],
-      "intent": "ZahlenZweiIntent"
     },
     {
       "slots": [
@@ -111,9 +113,13 @@
         {
           "name": "vierte",
           "type": "AMAZON.NUMBER"
+        },
+        {
+          "name": "fuenfte",
+          "type": "AMAZON.NUMBER"
         }
       ],
-      "intent": "ZahlenVierIntent"
+      "intent": "ZahlenFuenfIntent"
     },
     {
       "slots": [
@@ -132,13 +138,31 @@
         {
           "name": "vierte",
           "type": "AMAZON.NUMBER"
+        }
+      ],
+      "intent": "ZahlenVierIntent"
+    },
+    {
+      "slots": [
+        {
+          "name": "erste",
+          "type": "AMAZON.NUMBER"
         },
         {
-          "name": "fuenfte",
+          "name": "zweite",
           "type": "AMAZON.NUMBER"
         }
       ],
-      "intent": "ZahlenFuenfIntent"
+      "intent": "ZahlenZweiIntent"
+    },
+    {
+      "slots": [
+        {
+          "name": "erste",
+          "type": "AMAZON.NUMBER"
+        }
+      ],
+      "intent": "ZahlIntent"
     }
   ]
 }

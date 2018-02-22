@@ -1,5 +1,7 @@
 'use strict'
 
+const fct = require('./help-functions');
+
 /**
  * Die Standard-Funktionen für Alexa.
  *
@@ -83,7 +85,7 @@ function getEndResponse(callback) {
  * @param {function} callback Rückgabe an die App
  */
 function onLaunch(launchRequest, session, callback) {
-    console.log(`Skill requestId=${launchRequest.requestId}, sessionId=${session.sessionId} gestartet.`);
+    fct.printLog(`Skill requestId=${launchRequest.requestId}, sessionId=${session.sessionId} gestartet.`);
     getWelcomeResponse(callback);
 }
 
@@ -94,7 +96,7 @@ function onLaunch(launchRequest, session, callback) {
  * @param {function} callback Rückgabe an die App
  */
 function onSessionEnded(sessionEndedRequest, session, callback) {
-    console.log(`Skill requestId=${sessionEndedRequest.requestId}, sessionId=${session.sessionId} beendet.`);
+    fct.printLog(`Skill requestId=${sessionEndedRequest.requestId}, sessionId=${session.sessionId} beendet.`);
     getEndResponse(callback);
 }
 

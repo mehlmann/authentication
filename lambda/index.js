@@ -1,8 +1,9 @@
 'use strict'
 
-const alexa = require('./alexa')
-const auth = require('./auth')
-const quest = require('./data/questions')
+const alexa = require('./alexa');
+const auth = require('./auth');
+const fct = require('./help-functions');
+const quest = require('./data/questions');
 
 /**
  * Ruft die verschiedenen intents auf.
@@ -12,8 +13,8 @@ const quest = require('./data/questions')
  */
 function onIntent(intentRequest, session, callback) {
     const intent = intentRequest.intent;
-    console.log(`Authentication in state ${auth.getState()}.`);
-    console.log(`Got a ${intent.name}.`);
+    fct.printLog(`Authentication in state ${auth.getState()}.`);
+    fct.printLog(`Got a ${intent.name}.`);
     switch (intent.name) {
         case 'AMAZON.StopIntent':
             alexa.getEndResponse(callback);
@@ -48,6 +49,9 @@ function onIntent(intentRequest, session, callback) {
             gotKnownIntent(intent, callback);
             break;
         case 'HandyMarkenIntent':
+            gotKnownIntent(intent, callback);
+            break;
+        case 'LandIntent':
             gotKnownIntent(intent, callback);
             break;
         case 'RechenaufgabeIntent':
@@ -110,9 +114,9 @@ function gotKnownIntent(intent, callback) {
 exports.handler = (event, context, callback) => {
     try {
         if (event.request.type === 'LaunchRequest') {
-            console.log(`Authentication in state ${auth.getState()}.`);
+            fct.printLog(`Authentication in state ${auth.getState()}.`);
             var sys = event.context.System;
-            console.log(sys);
+            fct.printLog(sys);
             quest.initAnswers(sys);
             alexa.onLaunch(event.request,
                 event.session,
@@ -134,6 +138,7 @@ exports.handler = (event, context, callback) => {
             callback();
         }
     } catch (err) {
+        fct.printError(err);
         callback(err);
     }
 };
