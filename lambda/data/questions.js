@@ -8,35 +8,43 @@ const Https = require('https');
 var staticQuestions = [
     {//0
         question: 'was ist ihre lieblingsfarbe?',
-        answer: 'blau'
+        answer: 'blau',
+        use: 1
     },
     {//1
         question: 'Geben Sie ihre Postleitzahl in einzelnen Ziffern an.',
-        answer: '76744'
-    }/*,
+        answer: '76744',
+        use: 1
+    },
     {//2
         question: 'In welcher stadt wohnen sie?' ,
-        answer: 'wörth am rhein'
+        answer: 'wörth am rhein',
+        use: 0
     },
     {//3
         question: 'in welcher stadt wurden sie geboren?',
-        answer: 'erfurt'
+        answer: 'erfurt',
+        use: 0
     },
     {//4
         question: 'was sind die letzten drei ziffern ihrer handynummer?',
-        answer: '099'
+        answer: '099',
+        use: 0
     },
     {//5
         question: 'wie ist ihre schuhgröße?',
-        answer: '42'
+        answer: '42',
+        use: 0
     },
     {//6
         question: 'wie ist ihre körpergröße in zentimetern?',
-        answer: '179'
+        answer: '179',
+        use: 0
     },
     {//7
         question: 'Von welcher Marke ist Ihr Handy?',
-        answer: 'huawei'
+        answer: 'huawei',
+        use: 0
     },
     {//8
         question: 'In welcher Hausnummer wohnen Sie?' ,
@@ -44,12 +52,129 @@ var staticQuestions = [
     },
     {//9
         queston: 'Wie ist ihr Familienname?',
-        answer: 'mehlmann'
+        answer: 'mehlmann',
+        use: 0
     },
     {//10
         queston: 'Wie ist der Mädchenname Ihrer Mutter?',
-        answer: 'müller'
-    }*/
+        answer: 'müller',
+        use: 0
+    },
+    {//11
+        queston: 'Was war Ihr erstes Haustier?',
+        answer: 'hund',
+        use: 0
+    },
+    {//12
+        queston: 'Was war Ihr letztes Haustier?',
+        answer: 'katze',
+        use: 0
+    },
+    {//13
+        queston: 'Wieviele Haustiere haben Sie?',
+        answer: '1',
+        use: 0
+    },
+    {//14
+        queston: 'Was war der Name ihres ersten Haustieres?',
+        answer: 'timmy',
+        use: 0
+    },
+    {//15
+        queston: 'Was ist Ihr Lieblingsbuch?',
+        answer: 'krabat',
+        use: 0
+    },
+    {//16
+        queston: 'Was ist Ihr Lieblingsfilm?',
+        answer: 'der herr der ringe',
+        use: 0
+    },
+    {//17
+        queston: 'Was war Ihr Lieblingsfach in der Schule?',
+        answer: 'mathematik',
+        use: 0
+    },
+    {//18
+        queston: 'Welches Fach mochten Sie am wenigsten in der Schule?',
+        answer: 'sozialkunde',
+        use: 0
+    },
+    {//19
+        queston: 'Was ist Ihr Lieblingssport?',
+        answer: 'basketball',
+        use: 0
+    },
+    {//20
+        queston: 'Was ist Ihre Lieblingsfußballmannschaft?',
+        answer: 'ksc',
+        use: 0
+    },
+    {//21
+        queston: 'Wie war der Vorname Ihres väterlichen Großvaters?',
+        answer: 'anton',
+        use: 0
+    },
+    {//22
+        queston: 'Wie war der Vorname Ihrer mütterlichen Großmutter?',
+        answer: 'nina',
+        use: 0
+    },
+    {//23
+        queston: 'Von welcher Marke ist Ihr Auto?',
+        answer: 'VW',
+        use: 0
+    },
+    {//24
+        queston: 'Welche Marke hatte ihr erstes Auto?',
+        answer: 'Toyota',
+        use: 0
+    },
+    {//25
+        queston: 'Wie war der Name Ihres ersten Freundes, ihrer ersten Freundin?',
+        answer: 'maria',
+        use: 0
+    },
+    {//26
+        queston: 'Wie lautet Ihr Lieblingsinterpret?',
+        answer: 'rammstein',
+        use: 0
+    },
+    {//27
+        queston: 'Was war Ihr erstes Urlaubsland?',
+        answer: 'türkei',
+        use: 0
+    },
+    {//28
+        queston: 'Was ist Ihr Lieblingsurlaubsland?',
+        answer: 'spanien',
+        use: 0
+    },
+    {//29
+        queston: 'Von welcher Marke ist Ihr Laptop?',
+        answer: 'acer',
+        use: 0
+    },
+    {//30
+        queston: 'Von welcher Marke ist Ihr Tablet?',
+        answer: 'samsung',
+        use: 0
+    },
+    {//31
+        queston: 'Was war ihr erstes Musikinstrument?',
+        answer: 'gitarre',
+        use: 0
+    },
+    {//32
+        queston: 'Welches Bier trinken Sie am liebsten?',
+        answer: 'bitburger',
+        use: 0
+    },
+    {//33
+        queston: 'Was ist Ihre Lieblingsspeise?',
+        answer: 'lasagne',
+        use: 0
+    }
 ];
 
 /**
@@ -65,8 +190,36 @@ var dynamicQuestions = [
         answer: '32,65€'
     }/*,
     {//2
-        question: 'In welchem Land waren Sie zuletzt im Urlaub?',
-        answer: 'Kroatien'
+        question: 'Welches Festival oder Konzert haben Sie zuletzt besucht?',
+        answer: 'rock am ring'
+    },
+    {//3
+        question: 'Was war das letzte Buch, welches Sie gelesen haben?',
+        answer: 'zeit der krähen'
+    },
+    {//4
+        question: 'Welchen Film haben Sie zuletzt gesehen?',
+        answer: 'Matrix'
+    },
+    {//5
+        question: 'Welche Serie haben Sie zuletzt gesehen?',
+        answer: 'black mirror'
+    },
+    {//6
+        question: 'Welchen Radiosender haben Sie zuletzt gehört?',
+        answer: 'swr3'
+    },
+    {//7
+        question: 'Was war die letzte installierte App auf Ihrem Smartphone?',
+        answer: 'jodel'
+    },
+    {//8
+        question: 'Was war die zuletzt installierte App auf Ihrem Tablet?',
+        answer: 'candy crush'
+    },
+    {//9
+        question: 'Was haben Sie zuletzt über Amazon bestellt?',
+        answer: 'klopapier'
     }*/
 ];
 
@@ -132,6 +285,23 @@ function getStaticSize() {
  */
 function getDynamicSize() {
     return dynamicQuestions.length;
+}
+
+/**
+ * Gibt aus, ob eine statische Frage benutzt wird.
+ * @param {int} arrayNumber Nummer der Frage
+ */
+function isStaticUsed(arrayNumber) {
+    return staticQuestions[arrayNumber].use;
+}
+
+/**
+ * Setzt, ob eine Frage benutzer werden soll.
+ * @param {int} arrayNumber Nummer der Frage
+ * @param {int} used wird die Frage benutzt? 
+ */
+function setStaticUsed(arrayNumber, used) {
+    (used) ? staticQuestions[arrayNumber].use = 1 : staticQuestions[arrayNumber].use = 0;
 }
 
 /**
@@ -308,4 +478,6 @@ module.exports = {getStaticQuestion,
                 setDynamicAnswer,
                 getStaticSize,
                 getDynamicSize,
+                isStaticUsed,
+                setStaticUsed,
                 initAnswers};

@@ -4,7 +4,7 @@
  * 
  * Docs: https://github.com/jakesgordon/javascript-state-machine
  * 
- * Ein Beispiel einer Fragen-State-Machine könnte sein:
+ * Die aktuelle State-Machine sieht folgendermaßen aus:
  * 
  *                                      Antwort korrekt            Antwort korrekt                
  *                                        counter > 0                counter > 0                  
@@ -319,6 +319,9 @@ function getStaticQuestion(callback) {
     if (debug) fct.printLog(`getStaticQuestion...`);
     const cardTitle = 'Frage gestellt';
     currentQuest.number = Math.floor(Math.random() * questions.getStaticSize());
+    while (!questions.isStaticUsed(currentQuest.number)) {
+        currentQuest.number = Math.floor(Math.random() * questions.getStaticSize());
+    }
     currentQuest.question = questions.getStaticQuestion(currentQuest.number);
     currentQuest.answer = questions.getStaticAnswer(currentQuest.number);
     if (debug) fct.printLog(`[${currentQuest.number}]: ${currentQuest.question} -${currentQuest.answer}.`);
