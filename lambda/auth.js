@@ -204,6 +204,20 @@ function getNextState(isStatic, callback, userAnswer, correctAnswer) {
 }
 
 /**
+ * Überprüft, ob der übergebene Text mit der aktuellen Antwort übereinstimmt.
+ * @param {string} answer Antwort des Benutzers
+ * @param {function} callback Rückgabefunktion
+ */
+function verifyAnswer(answer, isStatic, callback) {
+    if (answer == currentQuest.answer) {
+        getNextState(isStatic, callback, answer, currentQuest.answer);
+    } else {
+        auth_state.answerWrong(answer, currentQuest.answer);
+        onFailed(callback);
+    }
+}
+
+/**
  * Fragt den Benutzer die Antwort einer der dynamischen Fragen zu aktualisieren.
  * @param {function} callback Rückgabefunktion
  */
@@ -383,28 +397,28 @@ function verifyStaticAnswer(intent, callback) {
     if (debug) fct.printLog(`[${currentQuest.number}]: ${currentQuest.question} -${currentQuest.answer}.`);
     switch (currentQuest.number) {
         case 0:
-            verifyColor(intent, callback, currentQuest.answer, true);
+            verifyColor(intent, callback, true);
             break;
         case 1:
-            verifyNumber(intent, callback, currentQuest.answer, true);
+            verifyNumber(intent, callback, true);
             break;
         case 2:
-            verifyCity(intent, callback, currentQuest.answer, true);
+            verifyCity(intent, callback, true);
             break;
         case 3:
-            verifyCity(intent, callback, currentQuest.answer, true);
+            verifyCity(intent, callback, true);
             break;
         case 4:
-            verifyNumber(intent, callback, currentQuest.answer, true);
+            verifyNumber(intent, callback, true);
             break;
         case 5:
-            verifyNumber(intent, callback, currentQuest.answer, true);
+            verifyNumber(intent, callback, true);
             break;
         case 6:
-            verifyNumber(intent, callback, currentQuest.answer, true);
+            verifyNumber(intent, callback, true);
             break;
         case 7:
-            verifyCellphone(intent, callback, currentQuest.answer, true);
+            verifyCellphone(intent, callback, true);
         default: break;
     }
 }
@@ -423,13 +437,13 @@ function verifyDynamicAnswer(intent, callback) {
     if (debug) fct.printLog(`[${currentQuest.number}]: ${currentQuest.question} -${currentQuest.answer}.`);
     switch (currentQuest.number) {
         case 0:
-            verifyMoney(intent, callback, currentQuest.answer, false);
+            verifyMoney(intent, callback, false);
             break;
         case 1:
-            verifyMoney(intent, callback, currentQuest.answer, false);
+            verifyMoney(intent, callback, false);
             break;
         case 2:
-            verifyLand(intent, callback, currentQuest.answer, false);
+            verifyLand(intent, callback, false);
             break;
         default: break;
     }
@@ -439,48 +453,34 @@ function verifyDynamicAnswer(intent, callback) {
  * Überprüft eine Farbenantwort.
  * @param {*} intent der Intent der Anfrage 
  * @param {function} callback Rückgabefunktion
- * @param {string} correctAnswer korrekte Antwort
  * @param {boolean} isStatic Ist die Zustandsmaschine im static Status?
  */
-function verifyColor(intent, callback, correctAnswer, isStatic) {
+function verifyColor(intent, callback, isStatic) {
     if (debug) fct.printLog('Verstandene Farbe: ' + intent.slots.farbe.value);
     var answer = intent.slots.farbe.value;
     if (!answer) fct.printError('verifyColor failed! No color was given!');
-    
-    if (answer == correctAnswer.toLowerCase()) {
-        getNextState(isStatic, callback, answer, correctAnswer);
-    } else {
-        auth_state.answerWrong(answer, correctAnswer);
-        onFailed(callback);
-    }
+    verifyAnswer(answer, isStatic, callback);
 }
 
 /**
  * Überprüft ob ein Land richtig ist.
  * @param {*} intent der Intent der Anfrage 
  * @param {function} callback Rückgabefunktion
- * @param {string} correctAnswer korrekte Antwort
  * @param {boolean} isStatic Ist die Zustandsmaschine im static Status?
  */
-function verifyLand(intent, callback, correctAnswer, isStatic) {
+function verifyLand(intent, callback, isStatic) {
     var answer = intent.slots.landName.value;
     if (debug) fct.printLog(`Land: ${answer}`);
-    if (answer == correctAnswer.toLowerCase()) {
-        getNextState(isStatic, callback, answer, correctAnswer);
-    } else {
-        auth_state.answerWrong(answer, correctAnswer);
-        onFailed(callback);
-    }
+    verifyAnswer(answer, isStatic, callback);
 }
 
 /**
  * Eine Auswertung eines Geldbetrages.
  * @param {*} intent der Intent der Anfrage 
  * @param {function} callback Rückgabefunktion
- * @param {string} correctAnswer korrekte Antwort
  * @param {boolean} isStatic Ist die Zustandsmaschine im static Status?
  */
-function verifyMoney(intent, callback, correctAnswer, isStatic) {
+function verifyMoney(intent, callback, isStatic) {
     if (debug) fct.printLog(`Geldmenge: ${intent.slots.euro.value},${intent.slots.cent.value} €.`);
     var amountEuro = intent.slots.euro.value;
     var amountCent = intent.slots.cent.value;
@@ -488,22 +488,16 @@ function verifyMoney(intent, callback, correctAnswer, isStatic) {
 
     var answer = fct.formatMoneyAmount(amountEuro, amountCent);
 
-    if (answer == correctAnswer.toLowerCase()) {
-        getNextState(isStatic, callback, answer, correctAnswer);
-    } else {
-        auth_state.answerWrong(answer, correctAnswer);
-        onFailed(callback);
-    }
+    verifyAnswer(answer, isStatic, callback);
 }
 
 /**
  * Überprüft die übergebene Zahl.
  * @param {*} intent der Intent der Anfrage 
  * @param {function} callback Rückgabefunktion
- * @param {string} correctAnswer korrekte Antwort
  * @param {boolean} isStatic Ist die Zustandsmaschine im static Status?
  */
-function verifyNumber(intent, callback, correctAnswer, isStatic) {
+function verifyNumber(intent, callback, isStatic) {
     var answer = '';
     if (!intent.slots.erste) fct.printError('verifyNumber failed! No number was given!');
     if (intent.slots.erste && intent.slots.erste.value) answer += `${intent.slots.erste.value}`;
@@ -513,50 +507,33 @@ function verifyNumber(intent, callback, correctAnswer, isStatic) {
     if (intent.slots.fuenfte && intent.slots.fuenfte.value) answer += `${intent.slots.fuenfte.value}`;
     if (debug) fct.printLog(`Number: ${answer}`);
     
-    if (answer == correctAnswer.toLowerCase()) {
-        getNextState(isStatic, callback, answer, correctAnswer);
-    } else {
-        auth_state.answerWrong(answer, correctAnswer);
-        onFailed(callback);
-    }
+    verifyAnswer(answer, isStatic, callback);
 }
 
 /**
  * Überprüft ob eine Städte-Antwort korrekt ist.
  * @param {*} intent der Intent der Anfrage 
  * @param {function} callback Rückgabefunktion
- * @param {string} correctAnswer korrekte Antwort
  * @param {boolean} isStatic Ist die Zustandsmaschine im static Status?
  */
-function verifyCity(intent, callback, correctAnswer, isStatic) {
+function verifyCity(intent, callback, isStatic) {
     var answer = intent.slots.stadt.value;
     if (debug) fct.printLog(`City: ${answer}`);
     if (!answer) fct.printError('VerifyCity failed! No city was given!');
-    if (answer == correctAnswer.toLowerCase()) {
-        getNextState(isStatic, callback, answer, correctAnswer);
-    } else {
-        auth_state.answerWrong(answer, correctAnswer);
-        onFailed(callback);
-    }
+    verifyAnswer(answer, isStatic, callback);
 }
 
 /**
  * Überprüft ob eine Handy-Marken-Antwort korrekt ist.
  * @param {*} intent der Intent der Anfrage 
  * @param {function} callback Rückgabefunktion
- * @param {string} correctAnswer korrekte Antwort
  * @param {boolean} isStatic Ist die Zustandsmaschine im static Status?
  */
-function verifyCellphone(intent, callback, correctAnswer, isStatic) {
+function verifyCellphone(intent, callback, isStatic) {
     var answer = intent.slots.marke.value;
     if (debug) fct.printLog(`City: ${answer}`);
     if (!answer) fct.printError('verifyCellphone failed! No brand was given!');
-    if (answer == correctAnswer.toLowerCase()) {
-        getNextState(isStatic, callback, answer, correctAnswer);
-    } else {
-        auth_state.answerWrong(answer, correctAnswer);
-        onFailed(callback);
-    }
+    verifyAnswer(answer, isStatic, callback);
 }
 
 
