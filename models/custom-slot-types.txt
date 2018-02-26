@@ -1,12 +1,460 @@
+automarken
+
+alfa romeo
+abarth
+aston martin
+audi
+b m w
+citroen
+fiat
+ford
+jaguar
+jeep
+land rover
+nissan
+maserati
+mercedes-benz
+mercedes
+benz
+mini
+opel
+peugeot
+porsche
+renault
+seat
+skoda
+smart
+subaru
+tesla
+toyota
+volvo
+v w
+bentley
+bugatti
+cadillac
+chevrolet
+chrysler
+dacia
+delorean
+dodge
+ferrari
+honda
+hyundai
+lada
+lamborghini
+lotus
+maybach
+mazda
+mitsubishi
+rolls-royce
+rover
+suzuki
+
+
+
+biersorten
+
+abteibier
+altbier
+ale
+berliner weisse
+berliner weißbier
+blond ale
+braunbier
+dampfbier
+doppelbock
+dunkelbier
+export
+faro
+glühbier
+haferbier
+hanfbier
+hefe
+helles
+honigbier
+kellerbier
+kölsch
+kwas
+malz
+malzbier
+münchner dunkel
+pils
+pilsner
+rauchbier
+roggenbier
+schwarzesbier
+weißbier
+weizen
+wiener export
+astra
+becks
+bitburger
+jever
+karlsberg
+karlsberg urpils
+könig pilsner
+köstritzer
+köstritzer schwarzbier
+krombacher
+licher
+mixery
+ratskrone
+sanwald
+büble
+berliner kindle
+corona
+edelweiss
+budweiser
+heineken
+rothaus
+tannenzäpfle
+
+
+
+fussballClubs
+
+f c augsburg
+hertha b s c
+werder bremen
+s v darmstadt
+s v darmstadt 98
+borussia dortmund
+dortmund
+eintracht frankfurt
+s c freiburg
+hamburger s v
+t s g 1899 hoffenheim
+f c ingolstadt 0 4
+erster f c köln
+r b leipzig
+bayern leverkusen
+bayern 0 4 leverkusen
+erster f s v mainz 0 5
+erster f s v mainz
+borussia mönchengladbach
+f c bayern münchen
+bayern münchen
+f c schalke
+f c schalke 0 4
+v f l wolfsburg
+f c erzgebirge aue
+erzgebirge aue
+erster f c union berlin
+union berlin
+f c union berlin
+aminia bielefeld
+v f l bochum
+eintracht braunschweig
+dynamo dresden
+fortuna düsseldorf
+s p v g g greuther fürth
+greuther fürth
+hannover 96
+erster f c heidenheim
+f c heidenheim
+erster f c kaiserslautern
+f c kaiserslautern
+lautern
+karlsruher s c
+k s c
+t s v 1860 münchen
+1860 münchen
+erster f c nürnberg
+f c nürnberg
+s v sandhausen
+v f b stuttgart
+f c sankt pauli
+sankt pauli
+würzburger kickers
+
+
+
+haustiere
+
+hund
+katze
+vogel
+spinne
+vogelspinne
+papagai
+wellensittich
+kanarienvogel
+hamster
+zwerghamster
+meerschweinchen
+frettchen
+lama
+kaninchen
+karnickel
+esel
+alpaka
+falke
+schildkröte
+frosch
+kröte
+goldhamster
+maus
+spitzmaus
+rennmaus
+goldfisch
+fisch
+fische
+haushund
+hauskatze
+schwein
+rind
+hauskaninchen
+pferd
+schlange
+bulldogge
+pitbull
+pitbull terrier
+schäferhund
+dackel
+dalmatiner
+dobermann
+golden retriever
+husky
+pudel
+rottweiler
+
+
+
+musikinstrumente
+
+akkordeon
+akustische bassgitarre
+balalaika
+banjo
+baritonsaxophon
+barockposaune
+barocktrompete
+bassgitarre
+bassposaune
+basstrompete
+basstuba
+becken
+blockflöte
+bongos
+cello
+dudelsack
+e-bass
+e-gitarre
+fidel
+flügel
+gitarre
+glocke
+hackbrett
+harfe
+horn
+kazoo
+keyboard
+klarinette
+klavier
+kontrabass
+mandoline
+mundharmonika
+harmonika
+mundorgel
+oboe
+okarina
+orgel
+panflöte
+pfeife
+piano
+querflöte
+saxophon
+schlagzeug
+sopransaxophon
+tuba
+ukulele
+violine
+
+
+
+schulfaecher
+
+deutsch
+mathematik
+mathe
+englisch
+französisch
+latein
+lateinisch
+spanisch
+physik
+biologie
+bio
+chemie
+sport
+musik
+kunst
+kunstunterricht
+bildende kunst
+geschichte
+reli
+religion
+religionslehre
+erdkunde
+geographie
+geo
+sozialkunde
+gesellschaftslehre
+gemeinschaftskunde
+wirtschaftskunde
+wirtschaft und politik
+wirtschaft
+politik
+rechtskunde
+wirtschaft und recht
+literatur
+astronomie
+informatik
+textverarbeitung
+E D V
+I T
+philosophie
+psychologie
+hauswirtschaft
+technik
+werken
+theater
+sachkunde
+
+
+
+sportarten
+
+aerobic
+aikido
+air hockey
+akrobatik
+turnen
+football
+american football
+angeln
+angelsport
+armdrücken
+ausdruckstanz
+automobilsport
+axtwerfen
+baseball
+basketball
+baumstammwerfen
+beachvolleyball
+bergsteigen
+billiard
+biathlon
+bodybuilding
+bogenschießen
+bouldern
+bowling
+boxen
+breakdance
+bungee-jumping
+cheerleading
+cricket
+crossfit
+darts
+dodgeball
+eishockey
+eiskunstlauf
+e-sport
+falknerei
+faustball
+fechten
+federball
+fußball
+fußballtennis
+geocaching
+gerätturnen
+gewichtheben
+go
+golf
+gymnastik
+hallenfußball
+hallenhockey
+handball
+hochsprung
+hockey
+feldhockey
+hunderennen
+hürdenlauf
+indoorcycling
+inlineskating
+judo
+jiu-jitsu
+ju-jutsu
+karate
+kegeln
+kickboxen
+kitesurfen
+klettern
+klippenspringen
+kugelstoßen
+kung fu
+turmspringen
+lacrosse
+lasertag
+leichtathletik
+minigolf
+mittelstreckenlauf
+motorbootsport
+motorradsport
+mountainbike
+muay thai
+nordic walking
+paintball
+parkour
+pferderennen
+pilates
+quidditch
+rafting
+ringen
+rodeo
+rugby
+sandbahnrennen
+schach
+schnorcheln
+schwimmen
+scrabble
+segeln
+seilspringen
+skat
+skateboarding
+skispringen
+slackline
+snooker
+snowboard
+snowboarden
+snowboarding
+schießen
+sprint
+squash
+stabhochsprung
+staffellauf
+sumo
+taekwondo
+tauchen
+tauziehen
+tennis
+tischtennis
+völkerball
+volleyball
+wakeboarding
+weitsprung
+wing tsun
+yoga
+
+
+
 wildcard
 
 humbugeinerseits
 
 
 
-
-
-handyMarke
+elektronikMarke
 
 samsung
 ha te ze
@@ -77,6 +525,7 @@ türkis
 violett
 violettrot
 weiß
+
 
 
 Land

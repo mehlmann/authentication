@@ -2,18 +2,44 @@ AntwortenIntent {antwort}
 AntwortenIntent ist {antwort}
 AntwortenIntent es ist {antwort}
 AntwortenIntent die antwort ist {antwort}
+BierIntent ich trinke gern {bier}
+BierIntent ich mag gern {bier}
+BierIntent mir schmeckt {bier}
+BierIntent {bier}
+FahrzeugIntent war ein {auto}
+FahrzeugIntent ist ein {auto}
+FahrzeugIntent ich fuhr einen {auto}
+FahrzeugIntent ich fahre einen {auto}
+FahrzeugIntent ich fuhr ein {auto}
+FahrzeugIntent ich fahr einen {auto}
+FahrzeugIntent ich fahre ein {auto}
+FahrzeugIntent {auto}
+FahrzeugIntent ist {auto}
+FahrzeugIntent war {auto}
 FarbeIntent ist {farbe}
 FarbeIntent {farbe}
 FarbeIntent es ist {farbe}
+FussballIntent ich bin für {verein}
+FussballIntent ich mag {verein}
+FussballIntent {verein}
 GeldsummeIntent {euro} euro und {cent} cent
 GeldsummeIntent {euro} {cent}
 GeldsummeIntent {euro} euro und {cent}
 GeldsummeIntent {euro} euro
 GeldsummeIntent {cent} cent
-HandyMarkenIntent die marke ist {marke}
-HandyMarkenIntent ist {marke}
-HandyMarkenIntent {marke}
-HandyMarkenIntent es ist {marke}
+ElektronikMarkenIntent die marke ist {marke}
+ElektronikMarkenIntent ist {marke}
+ElektronikMarkenIntent {marke}
+ElektronikMarkenIntent es ist {marke}
+InstumentIntent ich hatte ein {instrument}
+InstumentIntent ist hatte einen {instrument}
+InstumentIntent ich spiele ein {instrument}
+InstumentIntent ich spielte ein {instrument}
+InstumentIntent ich spiele eine {instrument}
+InstumentIntent ich spielte eine {instrument}
+InstumentIntent {instrument}
+InstumentIntent es war ein {instrument}
+InstumentIntent es war eine {instrument}
 LandIntent {landName}
 LandIntent in {landName}
 LandIntent auf {landName}
@@ -27,11 +53,37 @@ RechenaufgabeIntent rechenaufgabe
 RechenaufgabeIntent aufgabe
 RechenaufgabeIntent stelle mir eine aufgabe
 Reset reset
+SportIntent ist {sport}
+SportIntent war {sport}
+SportIntent {sport}
+SportIntent ich mag {sport}
+SportIntent ich hasse {sport}
+SportIntent ich mochte {sport}
+SportIntent ich machte {sport}
 StadtIntent In {stadt}
 StadtIntent Aus {stadt}
 StadtIntent Von {stadt}
 StadtIntent {stadt}
 StadtIntent nach {stadt}
+TierIntent ist ein {tier}
+TierIntent war ein {tier}
+TierIntent ich hatte einen {tier}
+TierIntent ist hab einen {tier}
+TierIntent {tier}
+UnterrichtIntent das war {unterricht}
+UnterrichtIntent war {unterricht}
+UnterrichtIntent {unterricht}
+UnterrichtIntent ich mochte {unterricht}
+UnterrichtIntent ich hasste {unterricht}
+UnterrichtIntent ich mag {unterricht}
+UnterrichtIntent ich mag {unterricht} nicht
+VornameIntent der name ist {name}
+VornameIntent ihr name ist {name}
+VornameIntent sein name ist {name}
+VornameIntent ihr name war {name}
+VornameIntent sein name war {name}
+VornameIntent {name}
+VornameIntent ist {name}
 ZahlenDreiIntent {erste} {zweite} {dritte}
 ZahlenDreiIntent das ist {erste} {zweite} {dritte}
 ZahlenDreiIntent die lösung ist {erste} {zweite} {dritte}

@@ -174,15 +174,14 @@ function resetState(callback) {
 }
 
 /**
- * Ermittelt abhängig von isStatic und den aktuellen Thresholds den nächsten Zustand der Zustandsmaschine.
- * @param {boolean} isStatic ist die Zustandsmaschine im Status static?
- * @param {function} callback Rückgabefunktion
+ * Ermittelt abhängig vom Zustand (static, dynamic) und den aktuellen Thresholds den nächsten Zustand der Zustandsmaschine.
  * @param {string} userAnswer die Antwort des Benutzers
  * @param {string} correctAnswer die korrekte Antwort
+ * @param {function} callback Rückgabefunktion
  */
-function getNextState(isStatic, callback, userAnswer, correctAnswer) {
+function getNextState(userAnswer, correctAnswer, callback) {
     if (debug) fct.printLog(`Getting next state. \nCurrent state is: ${auth_state.state}. \nstatThr: ${statThreshold} \ndynThr: ${dynThreshold}`);
-    if (isStatic) {
+    if (isInState('static')) {
         statThreshold--;
         if (statThreshold > 0) {
             auth_state.staticToStatic(userAnswer, correctAnswer);
@@ -208,12 +207,17 @@ function getNextState(isStatic, callback, userAnswer, correctAnswer) {
  * @param {string} answer Antwort des Benutzers
  * @param {function} callback Rückgabefunktion
  */
-function verifyAnswer(answer, isStatic, callback) {
-    if (answer == currentQuest.answer) {
-        getNextState(isStatic, callback, answer, currentQuest.answer);
+function verifyAnswer(answer, callback) {
+    if (isInState('dynRefresh')) {
+        checkRefresh(answer, callback);
     } else {
-        auth_state.answerWrong(answer, currentQuest.answer);
-        onFailed(callback);
+        if (answer == currentQuest.answer) {
+            getNextState(answer, currentQuest.answer, callback);
+        } else {
+            auth_state.answerWrong(answer, currentQuest.answer);
+            onFailed(callback);
+        }
+
     }
 }
 
@@ -240,32 +244,14 @@ function startDynamicRefresh(callback) {
 
 /**
  * Fragt den Benutzer seine Antwort zu verifizieren.
- * @param {*} intent Benutzereingabe
+ * @param {string} answer Benutzereingabe
  * @param {function} callback Rückgabefunktion
  */
-function checkRefresh(intent, callback) {
-    var amountEuro, amountCent;
-    var question = questions.getDynamicQuestion(currentQuest.number);
-    switch(currentQuest.number) {
-        case 0:
-            amountEuro = intent.slots.euro.value;
-            amountCent = intent.slots.cent.value;
-            currentQuest.answer = fct.formatMoneyAmount(amountEuro, amountCent);
-            break;
-        case 1:
-            amountEuro = intent.slots.euro.value;
-            amountCent = intent.slots.cent.value;
-            currentQuest.answer = fct.formatMoneyAmount(amountEuro, amountCent);
-            break;
-        case 2:
-            currentQuest.answer = intent.slots.landName.value;
-            break;
-        default: break;
-    }
-
+function checkRefresh(answer, callback) {
+    currentQuest.answer = answer;
     const cardTitle = 'Refresh erhalten';
-    if (debug) fct.printLog(`Question was: ${question}. Answer is ${currentQuest.answer}.`);
-    currentQuest.question = `Auf die Frage ${question} gaben Sie die Antwort ${currentQuest.answer}. Ist dies richtig?`;
+    if (debug) fct.printLog(`Question was: ${questions.getDynamicQuestion(currentQuest.number)}. Answer is ${currentQuest.answer}.`);
+    currentQuest.question = `Auf die Frage ${questions.getDynamicQuestion(currentQuest.number)} gaben Sie die Antwort ${currentQuest.answer}. Ist dies richtig?`;
     const shouldEndSession = false;
 
     auth_state.dynRefreshToCheckDynRefresh(currentQuest.question, currentQuest.answer);
@@ -384,103 +370,34 @@ function verifyCalc(intent, callback) {
 }
 
 /**
- * Verifiziert die statische Antwort.
- * Trat beim Argument ein Fehler auf wird eine Antwort ausgegeben.
- * War die Antwort richtig, wird mit einer weiteren Frage verfahren. 
- * Ist hierbei der Schwellwert noch nicht erreicht worden, wird eine weitere statische Frage gestellt. Sonst gehen wir in die dynamischen rüber.
- * War die Antwort falsch, wird die Authentifizierung abgebrochen.
- * @param {*} intent der Intent der Anfrage
- * @param {function} callback Rückgabefunktion
- */
-function verifyStaticAnswer(intent, callback) {
-    if (debug) fct.printLog('verifyStaticAnswer...\nIntent:' + intent);
-    if (debug) fct.printLog(`[${currentQuest.number}]: ${currentQuest.question} -${currentQuest.answer}.`);
-    switch (currentQuest.number) {
-        case 0:
-            verifyColor(intent, callback, true);
-            break;
-        case 1:
-            verifyNumber(intent, callback, true);
-            break;
-        case 2:
-            verifyCity(intent, callback, true);
-            break;
-        case 3:
-            verifyCity(intent, callback, true);
-            break;
-        case 4:
-            verifyNumber(intent, callback, true);
-            break;
-        case 5:
-            verifyNumber(intent, callback, true);
-            break;
-        case 6:
-            verifyNumber(intent, callback, true);
-            break;
-        case 7:
-            verifyCellphone(intent, callback, true);
-        default: break;
-    }
-}
-
-/**
- * Verifiziert die dynamische Antwort.
- * Trat beim Argument ein Fehler auf wird eine Antwort ausgegeben.
- * War die Antwort richtig, wird mit einer weiteren Frage verfahren. 
- * Ist hierbei der Schwellwert noch nicht erreicht worden, wird eine weitere dynamische Frage gestellt. Sonst war die Authentifizierung erfolgreich.
- * War die Antwort falsch, wird die Authentifizierung abgebrochen.
- * @param {*} intent der Intent der Anfrage
- * @param {function} callback Rückgabefunktion
- */
-function verifyDynamicAnswer(intent, callback) {
-    if (debug) fct.printLog('verifyDynamicAnswer...\nIntent:' + intent);
-    if (debug) fct.printLog(`[${currentQuest.number}]: ${currentQuest.question} -${currentQuest.answer}.`);
-    switch (currentQuest.number) {
-        case 0:
-            verifyMoney(intent, callback, false);
-            break;
-        case 1:
-            verifyMoney(intent, callback, false);
-            break;
-        case 2:
-            verifyLand(intent, callback, false);
-            break;
-        default: break;
-    }
-}
-
-/**
  * Überprüft eine Farbenantwort.
  * @param {*} intent der Intent der Anfrage 
  * @param {function} callback Rückgabefunktion
- * @param {boolean} isStatic Ist die Zustandsmaschine im static Status?
  */
-function verifyColor(intent, callback, isStatic) {
+function verifyColor(intent, callback) {
     if (debug) fct.printLog('Verstandene Farbe: ' + intent.slots.farbe.value);
     var answer = intent.slots.farbe.value;
     if (!answer) fct.printError('verifyColor failed! No color was given!');
-    verifyAnswer(answer, isStatic, callback);
+    verifyAnswer(answer, callback);
 }
 
 /**
  * Überprüft ob ein Land richtig ist.
  * @param {*} intent der Intent der Anfrage 
  * @param {function} callback Rückgabefunktion
- * @param {boolean} isStatic Ist die Zustandsmaschine im static Status?
  */
-function verifyLand(intent, callback, isStatic) {
+function verifyLand(intent, callback) {
     var answer = intent.slots.landName.value;
     if (debug) fct.printLog(`Land: ${answer}`);
-    verifyAnswer(answer, isStatic, callback);
+    verifyAnswer(answer, callback);
 }
 
 /**
  * Eine Auswertung eines Geldbetrages.
  * @param {*} intent der Intent der Anfrage 
  * @param {function} callback Rückgabefunktion
- * @param {boolean} isStatic Ist die Zustandsmaschine im static Status?
  */
-function verifyMoney(intent, callback, isStatic) {
+function verifyMoney(intent, callback) {
     if (debug) fct.printLog(`Geldmenge: ${intent.slots.euro.value},${intent.slots.cent.value} €.`);
     var amountEuro = intent.slots.euro.value;
     var amountCent = intent.slots.cent.value;
@@ -488,16 +405,15 @@ function verifyMoney(intent, callback, isStatic) {
 
     var answer = fct.formatMoneyAmount(amountEuro, amountCent);
 
-    verifyAnswer(answer, isStatic, callback);
+    verifyAnswer(answer, callback);
 }
 
 /**
  * Überprüft die übergebene Zahl.
  * @param {*} intent der Intent der Anfrage 
  * @param {function} callback Rückgabefunktion
- * @param {boolean} isStatic Ist die Zustandsmaschine im static Status?
  */
-function verifyNumber(intent, callback, isStatic) {
+function verifyNumber(intent, callback) {
     var answer = '';
     if (!intent.slots.erste) fct.printError('verifyNumber failed! No number was given!');
     if (intent.slots.erste && intent.slots.erste.value) answer += `${intent.slots.erste.value}`;
@@ -507,33 +423,31 @@ function verifyNumber(intent, callback, isStatic) {
     if (intent.slots.fuenfte && intent.slots.fuenfte.value) answer += `${intent.slots.fuenfte.value}`;
     if (debug) fct.printLog(`Number: ${answer}`);
     
-    verifyAnswer(answer, isStatic, callback);
+    verifyAnswer(answer, callback);
 }
 
 /**
  * Überprüft ob eine Städte-Antwort korrekt ist.
  * @param {*} intent der Intent der Anfrage 
  * @param {function} callback Rückgabefunktion
- * @param {boolean} isStatic Ist die Zustandsmaschine im static Status?
  */
-function verifyCity(intent, callback, isStatic) {
+function verifyCity(intent, callback) {
     var answer = intent.slots.stadt.value;
     if (debug) fct.printLog(`City: ${answer}`);
     if (!answer) fct.printError('VerifyCity failed! No city was given!');
-    verifyAnswer(answer, isStatic, callback);
+    verifyAnswer(answer, callback);
 }
 
 /**
  * Überprüft ob eine Handy-Marken-Antwort korrekt ist.
  * @param {*} intent der Intent der Anfrage 
  * @param {function} callback Rückgabefunktion
- * @param {boolean} isStatic Ist die Zustandsmaschine im static Status?
  */
-function verifyCellphone(intent, callback, isStatic) {
+function verifyCellphone(intent, callback) {
     var answer = intent.slots.marke.value;
     if (debug) fct.printLog(`City: ${answer}`);
     if (!answer) fct.printError('verifyCellphone failed! No brand was given!');
-    verifyAnswer(answer, isStatic, callback);
+    verifyAnswer(answer, callback);
 }
 
 
@@ -547,7 +461,11 @@ module.exports = {auth_state,
                 repromptDynRefresh,
                 getCalculation,
                 verifyCalc,
-                verifyStaticAnswer,
-                verifyDynamicAnswer,
+                verifyColor,
+                verifyLand,
+                verifyMoney,
+                verifyNumber,
+                verifyCity,
+                verifyCellphone,
                 onAuthenticated,
                 onFailed};

@@ -182,7 +182,7 @@ var staticQuestions = [
  */
 var dynamicQuestions = [
     {//0
-        question: 'Wieviel haben sie beim letzten Amazon Kauf ausgegeben?',
+        question: 'Wieviel Geld haben sie beim letzten Amazon Kauf ausgegeben?',
         answer: '20,00€'
     },
     {//1

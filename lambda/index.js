@@ -26,82 +26,51 @@ function onIntent(intentRequest, session, callback) {
             alexa.getHelpResponse(callback);
             break;
         case 'AMAZON.YesIntent':
-            if (auth.isInState('checkDynRefresh')) {
-                auth.endDynRefresh(callback);
-            } else {
-                auth.wrongIntent(callback);
-            }
+            (auth.isInState('checkDynRefresh')) ? auth.endDynRefresh(callback) : auth.wrongIntent(callback);
             break;
         case 'AMAZON.NoIntent':
-            if (auth.isInState('checkDynRefresh')) {
-                auth.repromptDynRefresh(callback);
-            } else {
-                auth.wrongIntent(callback);
-            }
+            (auth.isInState('checkDynRefresh')) ? auth.repromptDynRefresh(callback) : auth.wrongIntent(callback);
             break;
         case 'AntwortenIntent':
-            gotKnownIntent(intent, callback);
+            fct.printLog('Got a AntwortIntent.'); // TODO
+            break;
+        case 'ElektronikMarkenIntent':
+            auth.verifyCellphone(intent, callback);
             break;
         case 'FarbeIntent':
-            gotKnownIntent(intent, callback);
+            auth.verifyColor(intent, callback);
             break;
         case 'GeldsummeIntent':
-            gotKnownIntent(intent, callback);
-            break;
-        case 'HandyMarkenIntent':
-            gotKnownIntent(intent, callback);
+            auth.verifyMoney(intent, callback);
             break;
         case 'LandIntent':
-            gotKnownIntent(intent, callback);
+            auth.verifyLand(intent, callback);
             break;
         case 'RechenaufgabeIntent':
             (auth.isInState('start')) ? auth.getCalculation(callback) : auth.wrongIntent(callback);
             break;
         case 'Reset':
-            if (auth.isInState('failed') || auth.isInState('success')) {
-                auth.resetState(callback);
-            } else {
-                auth.wrongIntent(callback);
-            }
+            (auth.isInState('failed') || auth.isInState('success')) ? auth.resetState(callback) : auth.wrongIntent(callback);
             break;
         case 'StadtIntent':
-            gotKnownIntent(intent, callback);
+            auth.verifyCity(intent, callback);
             break;
         case 'ZahlIntent':
-            gotKnownIntent(intent, callback);
+            (auth.isInState('calc')) ? auth.verifyCalc(intent, callback) : auth.verifyNumber(intent, callback);
             break;
         case 'ZahlenZweiIntent':
-            gotKnownIntent(intent, callback);
+            auth.verifyNumber(intent, callback);
             break;
         case 'ZahlenDreiIntent':
-            gotKnownIntent(intent, callback);
+            auth.verifyNumber(intent, callback);
             break;
         case 'ZahlenVierIntent':
-            gotKnownIntent(intent, callback);
+            auth.verifyNumber(intent, callback);
             break;
         case 'ZahlenFuenfIntent':
-            gotKnownIntent(intent, callback);
+            auth.verifyNumber(intent, callback);
             break;
         default: alexa.onUnknownIntent(callback); break;
-    }
-}
-
-/**
- * Ein bekannter Intent wurde empfangen, leite ihn weiter.
- * @param {*} intent Intent
- * @param {function} callback Rückgabefunktion
- */
-function gotKnownIntent(intent, callback) {
-    if (auth.isInState('calc')) {
-        auth.verifyCalc(intent, callback);
-    } else if (auth.isInState('static')) {
-        auth.verifyStaticAnswer(intent, callback);
-    } else if (auth.isInState('dynamic')) {
-        auth.verifyDynamicAnswer(intent, callback);
-    } else if (auth.isInState('dynRefresh')) {
-        auth.checkRefresh(intent, callback);
-    } else {
-        auth.wrongIntent(callback);
     }
 }
 

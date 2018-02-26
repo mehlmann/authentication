@@ -27,11 +27,38 @@
     {
       "slots": [
         {
+          "name": "bier",
+          "type": "biersorten"
+        }
+      ],
+      "intent": "BierIntent"
+    },
+    {
+      "slots": [
+        {
+          "name": "auto",
+          "type": "automarken"
+        }
+      ],
+      "intent": "FahrzeugIntent"
+    },
+    {
+      "slots": [
+        {
           "name": "farbe",
           "type": "farben"
         }
       ],
       "intent": "FarbeIntent"
+    },
+    {
+      "slots": [
+        {
+          "name": "verein",
+          "type": "fussballClubs"
+        }
+      ],
+      "intent": "FussballIntent"
     },
     {
       "slots": [
@@ -50,10 +77,19 @@
       "slots": [
         {
           "name": "marke",
-          "type": "handyMarke"
+          "type": "elektronikMarken"
         }
       ],
-      "intent": "HandyMarkenIntent"
+      "intent": "ElektronikMarkenIntent"
+    },
+    {
+      "slots": [
+        {
+          "name": "instrument",
+          "type": "musikinstrumente"
+        }
+      ],
+      "intent": "InstumentIntent"
     },
     {
       "slots": [
@@ -73,11 +109,47 @@
     {
       "slots": [
         {
+          "name": "sport",
+          "type": "sportarten"
+        }
+      ],
+      "intent": "SportIntent"
+    },
+    {
+      "slots": [
+        {
           "name": "stadt",
           "type": "AMAZON.DE_CITY"
         }
       ],
       "intent": "StadtIntent"
+    },
+    {
+      "slots": [
+        {
+          "name": "tier",
+          "type": "haustiere"
+        }
+      ],
+      "intent": "TierIntent"
+    },
+    {
+      "slots": [
+        {
+          "name": "unterricht",
+          "type": "schulfaecher"
+        }
+      ],
+      "intent": "UnterrichtIntent"
+    },
+    {
+      "slots": [
+        {
+          "name": "name",
+          "type": "AMAZON.DE_FIRST_NAME"
+        }
+      ],
+      "intent": "VornameIntent"
     },
     {
       "slots": [
