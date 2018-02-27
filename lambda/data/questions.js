@@ -14,7 +14,7 @@ var staticQuestions = [
     {//1
         question: 'Geben Sie ihre Postleitzahl in einzelnen Ziffern an.',
         answer: '76744',
-        use: 1
+        use: 0
     },
     {//2
         question: 'In welcher stadt wohnen sie?' ,
@@ -183,44 +183,54 @@ var staticQuestions = [
 var dynamicQuestions = [
     {//0
         question: 'Wieviel Geld haben sie beim letzten Amazon Kauf ausgegeben?',
-        answer: '20,00€'
+        answer: '20,00€',
+        use: 1
     },
     {//1
         question: 'Wie hoch war Ihre letzte PayPal-Überweisung?',
-        answer: '32,65€'
-    }/*,
+        answer: '32,65€',
+        use: 0
+    },
     {//2
         question: 'Welches Festival oder Konzert haben Sie zuletzt besucht?',
-        answer: 'rock am ring'
+        answer: 'rock am ring',
+        use: 0
     },
     {//3
         question: 'Was war das letzte Buch, welches Sie gelesen haben?',
-        answer: 'zeit der krähen'
+        answer: 'zeit der krähen',
+        use: 0
     },
     {//4
         question: 'Welchen Film haben Sie zuletzt gesehen?',
-        answer: 'Matrix'
+        answer: 'Matrix',
+        use: 0
     },
     {//5
         question: 'Welche Serie haben Sie zuletzt gesehen?',
-        answer: 'black mirror'
+        answer: 'black mirror',
+        use: 0
     },
     {//6
         question: 'Welchen Radiosender haben Sie zuletzt gehört?',
-        answer: 'swr3'
+        answer: 'swr3',
+        use: 0
     },
     {//7
         question: 'Was war die letzte installierte App auf Ihrem Smartphone?',
-        answer: 'jodel'
+        answer: 'jodel',
+        use: 0
     },
     {//8
         question: 'Was war die zuletzt installierte App auf Ihrem Tablet?',
-        answer: 'candy crush'
+        answer: 'candy crush',
+        use: 0
     },
     {//9
         question: 'Was haben Sie zuletzt über Amazon bestellt?',
-        answer: 'klopapier'
-    }*/
+        answer: 'klopapier',
+        use: 0
+    }
 ];
 
 /**
@@ -296,12 +306,29 @@ function isStaticUsed(arrayNumber) {
 }
 
 /**
- * Setzt, ob eine Frage benutzer werden soll.
+ * Setzt, ob eine statische Frage benutzet werden soll.
  * @param {int} arrayNumber Nummer der Frage
  * @param {int} used wird die Frage benutzt? 
  */
 function setStaticUsed(arrayNumber, used) {
     (used) ? staticQuestions[arrayNumber].use = 1 : staticQuestions[arrayNumber].use = 0;
+}
+
+/**
+ * Gibt aus, ob eine dynamische Frage benutzt wird.
+ * @param {int} arrayNumber Nummer der Frage
+ */
+function isDynamicUsed(arrayNumber) {
+    return dynamicQuestions[arrayNumber].use;
+}
+
+/**
+ * Setzt, ob eine dynamische Frage benutzet werden soll.
+ * @param {int} arrayNumber Nummer der Frage
+ * @param {int} used wird die Frage benutzt? 
+ */
+function setDynamicUsed(arrayNumber, used) {
+    (used) ? dynamicQuestions[arrayNumber].use = 1 : dynamicQuestions[arrayNumber].use = 0;
 }
 
 /**
@@ -480,4 +507,6 @@ module.exports = {getStaticQuestion,
                 getDynamicSize,
                 isStaticUsed,
                 setStaticUsed,
+                isDynamicUsed,
+                setDynamicUsed,
                 initAnswers};

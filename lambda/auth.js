@@ -12,11 +12,11 @@
  *                                           |    v   Antwort korrekt   |    v   Antwort korrekt               
  *  -----           ------  Antwort korrekt  ------     counter = 0     -------    counter = 0      ----------      nein       -----
  * |start|-------->| calc |---------------->|static|------------------>|dynamic|------------------>|dynRefresh|<=============>|check|
- *  -----           ------                   ------                     -------                     ----------                 -----
- *                    |                        |                           |                                  Antwort richtig    |
- *                    |                        |                           v                                   verstanden?       | ja
- *                    |                        |      Antwort falsch    ------                        -------                    |
- *                    |----------------------------------------------->|failed|                      |success|<------------------
+ *  -----           ------                   ------                     -------         | useRfsh?  ----------                 -----
+ *                    |                        |                           |            |                         Antwort richtig|
+ *                    |                        |                           v            |                          verstanden?   | ja
+ *                    |                        |      Antwort falsch    ------          |             -------                    |
+ *                    |----------------------------------------------->|failed|         |----------->|success|<------------------
  *                                                                      ------                        -------
  */
 
@@ -28,13 +28,17 @@ const statics = require('./data/statics');
 const fct = require('./help-functions');
 var questions = require('./data/questions');
 
-// globale Variablen
+/* globale Variablen */
+// die Thresholds speichern wieviele Fragen der jeweiligen Kategorien beantwortet werden müssen
 var statThreshold = statics.STATIC_THRESHOLD;
 var dynThreshold = statics.DYNAMIC_THRESHOLD;
+// hält die aktuelle Frage 
 var currentQuest ={number: '',
                     question: '',
                     answer: ''};
-
+// 1 = Refresh, 0 = kein Refresh nach Authentifizierung
+var useRfrsh = 0;
+// erweiterte Ausgaben in der Konsole
 var debug = 0;
 
 var auth_state = new StateMachine({
@@ -46,6 +50,7 @@ var auth_state = new StateMachine({
         { name: 'staticToDynamic',             from: 'static',          to: 'dynamic'         },
         { name: 'dynamicToDynamic',            from: 'dynamic',         to: 'dynamic'         },
         { name: 'dynamicToDynRefresh',         from: 'dynamic',         to: 'dynRefresh'      },
+        { name: 'dynamicToSuccess',            from: 'dynamic',         to: 'success'         },
         { name: 'dynRefreshToCheckDynRefresh', from: 'dynRefresh',      to: 'checkDynRefresh' },
         { name: 'checkDynRefreshToDynRefresh', from: 'checkDynRefresh', to: 'dynRefresh'      },
         { name: 'checkDynRefreshToSuccess',    from: 'checkDynRefresh', to: 'success'         },
@@ -73,6 +78,9 @@ var auth_state = new StateMachine({
         },
         onDynamicToDynRefresh: function(obj, claim, real) {
             fct.printLog(`Answer was correct. You said ${claim}, it was ${real}.\nMoving from dynamic to dynRefresh.`);
+        },
+        onDynamicToSuccess: function(obj, claim, real) {
+            fct.printLog(`Answer was correct. You said ${claim}, it was ${real}.\nMoving from dynamic to success.`);
         },
         onDynRefreshToCheckDynRefresh: function(obj, question, answer) {
             fct.printLog(`Question: ${question}, users answer was ${answer}.\nMoving from dynRefresh to checkDynRefresh.`);
@@ -196,8 +204,13 @@ function getNextState(userAnswer, correctAnswer, callback) {
             auth_state.dynamicToDynamic(userAnswer, correctAnswer);
             getDynamicQuestion(callback);
         } else {
-            auth_state.dynamicToDynRefresh(userAnswer, correctAnswer);
-            startDynamicRefresh(callback);
+            if (useRfrsh) {
+                auth_state.dynamicToDynRefresh(userAnswer, correctAnswer);
+                startDynamicRefresh(callback);
+            } else {
+                auth_state.dynamicToSuccess(currentQuest.question, currentQuest.answer);
+                onAuthenticated(callback);
+            }
         }
     }
 }
@@ -217,7 +230,6 @@ function verifyAnswer(answer, callback) {
             auth_state.answerWrong(answer, currentQuest.answer);
             onFailed(callback);
         }
-
     }
 }
 
@@ -338,7 +350,9 @@ function getStaticQuestion(callback) {
 function getDynamicQuestion(callback) {
     if (debug) fct.printLog(`getDynamicQuestion...`);
     const cardTitle = 'Frage gestellt';
-    currentQuest.number = Math.floor(Math.random() * questions.getDynamicSize());
+    while (!questions.isDynamicUsed(currentQuest.number)) {
+        currentQuest.number = Math.floor(Math.random() * questions.getDynamicSize());
+    }
     currentQuest.question = questions.getDynamicQuestion(currentQuest.number);
     currentQuest.answer = questions.getDynamicAnswer(currentQuest.number);
     if (debug) fct.printLog(`[${currentQuest.number}]: ${currentQuest.question} -${currentQuest.answer}.`);
@@ -370,6 +384,48 @@ function verifyCalc(intent, callback) {
 }
 
 /**
+ * Überprüft eine allgemeine Antwort.
+ * @param {*} intent 
+ * @param {function} callback Rückgabefunktion 
+ */
+function verifyCommonAnswer(intent, callback) {
+    var answer = '';
+    if (!intent.slots.antwortEins) fct.printError('verifyCommonAnswer failed! No answer was given!');
+    if (intent.slots.antwortEins && intent.slots.antwortEins.value) answer += `${intent.slots.antwortEins.value}`;
+    if (intent.slots.antwortZwei && intent.slots.antwortZwei.value) answer += ` ${intent.slots.antwortZwei.value}`;
+    if (intent.slots.antwortDrei && intent.slots.antwortDrei.value) answer += ` ${intent.slots.antwortDrei.value}`;
+    if (intent.slots.antwortVier && intent.slots.antwortVier.value) answer += ` ${intent.slots.antwortVier.value}`;
+    if (intent.slots.antwortFuenf && intent.slots.antwortFuenf.value) answer += ` ${intent.slots.antwortFuenf.value}`;
+    if (debug) fct.printLog(`Answer: ${answer}`);
+    
+    verifyAnswer(answer, callback);
+}
+
+/**
+ * Überprüft eine Bierantwort.
+ * @param {*} intent der Intent der Anfrage 
+ * @param {function} callback Rückgabefunktion
+ */
+function verifyBeer(intent, callback) {
+    if (debug) fct.printLog('Verstandenes Bier: ' + intent.slots.bier.value);
+    var answer = intent.slots.bier.value;
+    if (!answer) fct.printError('verifyBeer failed! No beer was given!');
+    verifyAnswer(answer, callback);
+}
+
+/**
+ * Überprüft eine Fahrzeugantwort.
+ * @param {*} intent der Intent der Anfrage 
+ * @param {function} callback Rückgabefunktion
+ */
+function verifyVehicle(intent, callback) {
+    if (debug) fct.printLog('Verstandenes Fahrzeug: ' + intent.slots.auto.value);
+    var answer = intent.slots.auto.value;
+    if (!answer) fct.printError('verifyVehicle failed! No vehicle was given!');
+    verifyAnswer(answer, callback);
+}
+
+/**
  * Überprüft eine Farbenantwort.
  * @param {*} intent der Intent der Anfrage 
  * @param {function} callback Rückgabefunktion
@@ -387,8 +443,21 @@ function verifyColor(intent, callback) {
  * @param {function} callback Rückgabefunktion
  */
 function verifyLand(intent, callback) {
+    if (debug) fct.printLog('Verstandenes Land: ' + intent.slots.landName.value);
     var answer = intent.slots.landName.value;
-    if (debug) fct.printLog(`Land: ${answer}`);
+    if (!answer) fct.printError('verifyLand failed! No land was given!');
+    verifyAnswer(answer, callback);
+}
+
+/**
+ * Überprüft ob ein Fußball-Verein richtig ist.
+ * @param {*} intent der Intent der Anfrage 
+ * @param {function} callback Rückgabefunktion
+ */
+function verifySoccer(intent, callback) {
+    if (debug) fct.printLog('Verein: ' + intent.slots.verein.value);
+    var answer = intent.slots.verein.value;
+    if (!answer) fct.printError('verifySoccer failed! No Soccer-Team was given!');
     verifyAnswer(answer, callback);
 }
 
@@ -405,6 +474,18 @@ function verifyMoney(intent, callback) {
 
     var answer = fct.formatMoneyAmount(amountEuro, amountCent);
 
+    verifyAnswer(answer, callback);
+}
+
+/**
+ * Überprüft ob ein Instrument richtig ist.
+ * @param {*} intent der Intent der Anfrage 
+ * @param {function} callback Rückgabefunktion
+ */
+function verifyInstrument(intent, callback) {
+    if (debug) fct.printLog('Instrument: ' + intent.slots.instrument.value);
+    var answer = intent.slots.instrument.value;
+    if (!answer) fct.printError('verifyInstrument failed! No instrument was given!');
     verifyAnswer(answer, callback);
 }
 
@@ -432,9 +513,57 @@ function verifyNumber(intent, callback) {
  * @param {function} callback Rückgabefunktion
  */
 function verifyCity(intent, callback) {
+    if (debug) fct.printLog(`City: ${intent.slots.stadt.value}`);
     var answer = intent.slots.stadt.value;
-    if (debug) fct.printLog(`City: ${answer}`);
     if (!answer) fct.printError('VerifyCity failed! No city was given!');
+    verifyAnswer(answer, callback);
+}
+
+/**
+ * Überprüft ob eine Sport-Antwort korrekt ist.
+ * @param {*} intent der Intent der Anfrage 
+ * @param {function} callback Rückgabefunktion
+ */
+function verifySport(intent, callback) {
+    if (debug) fct.printLog(`Sport: ${intent.slots.sport.value}`);
+    var answer = intent.slots.sport.value;
+    if (!answer) fct.printError('VerifySport failed! No sport was given!');
+    verifyAnswer(answer, callback);
+}
+
+/**
+ * Überprüft ob eine Sport-Antwort korrekt ist.
+ * @param {*} intent der Intent der Anfrage 
+ * @param {function} callback Rückgabefunktion
+ */
+function verifyAnimal(intent, callback) {
+    if (debug) fct.printLog(`Tier: ${intent.slots.tier.value}`);
+    var answer = intent.slots.tier.value;
+    if (!answer) fct.printError('VerifyAnimal failed! No animal was given!');
+    verifyAnswer(answer, callback);
+}
+
+/**
+ * Überprüft ob eine Sport-Antwort korrekt ist.
+ * @param {*} intent der Intent der Anfrage 
+ * @param {function} callback Rückgabefunktion
+ */
+function verifySchoolSubject(intent, callback) {
+    if (debug) fct.printLog(`Subject: ${intent.slots.unterricht.value}`);
+    var answer = intent.slots.unterricht.value;
+    if (!answer) fct.printError('VerifySchoolSubject failed! No subject was given!');
+    verifyAnswer(answer, callback);
+}
+
+/**
+ * Überprüft ob eine Sport-Antwort korrekt ist.
+ * @param {*} intent der Intent der Anfrage 
+ * @param {function} callback Rückgabefunktion
+ */
+function verifyFirstname(intent, callback) {
+    if (debug) fct.printLog(`Name: ${intent.slots.name.value}`);
+    var answer = intent.slots.name.value;
+    if (!answer) fct.printError('VerifyFirstname failed! No name was given!');
     verifyAnswer(answer, callback);
 }
 
@@ -461,11 +590,20 @@ module.exports = {auth_state,
                 repromptDynRefresh,
                 getCalculation,
                 verifyCalc,
+                verifyCommonAnswer,
+                verifyBeer,
+                verifyVehicle,
                 verifyColor,
                 verifyLand,
+                verifySoccer,
                 verifyMoney,
+                verifyInstrument,
                 verifyNumber,
                 verifyCity,
+                verifySport,
+                verifyAnimal,
+                verifySchoolSubject,
                 verifyCellphone,
+                verifyFirstname,
                 onAuthenticated,
                 onFailed};
