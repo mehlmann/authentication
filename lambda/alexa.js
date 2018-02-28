@@ -59,7 +59,7 @@ function getWelcomeResponse(callback) {
  */
 function getHelpResponse(callback) {
     const cardTitle = 'Hilfe';
-    const speechOutput = 'Sie sollten sich authentifizieren.';
+    const speechOutput = 'Sie sollten sich authentifizieren. Starten Sie mit dem Befehl, Aufgabe.';
     const repromptText = 'Wollen sie sich nicht authentifizieren?';
     const shouldEndSession = false;
 

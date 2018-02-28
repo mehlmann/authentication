@@ -6,18 +6,24 @@
  * 
  * Die aktuelle State-Machine sieht folgendermaßen aus:
  * 
- *                                      Antwort korrekt            Antwort korrekt                
- *                                        counter > 0                counter > 0                  
- *                                            ----                       ----                         
- *                                           |    v   Antwort korrekt   |    v   Antwort korrekt               
- *  -----           ------  Antwort korrekt  ------     counter = 0     -------    counter = 0      ----------      nein       -----
- * |start|-------->| calc |---------------->|static|------------------>|dynamic|------------------>|dynRefresh|<=============>|check|
- *  -----           ------                   ------                     -------         | useRfsh?  ----------                 -----
- *                    |                        |                           |            |                         Antwort richtig|
- *                    |                        |                           v            |                          verstanden?   | ja
- *                    |                        |      Antwort falsch    ------          |             -------                    |
- *                    |----------------------------------------------->|failed|         |----------->|success|<------------------
- *                                                                      ------                        -------
+ *                                   Antwort korrekt            Antwort korrekt                
+ *                                     counter > 0                counter > 0                  
+ *                                         ----                       ----                         
+ *                                        |    v   Antwort korrekt   |    v   Antwort korrekt               
+ *  -----        ------  Antwort korrekt  ------     counter = 0     -------    counter = 0      ----------      nein       -----
+ * |start|----->| calc |---------------->|static|------------------>|dynamic|------------------>|dynRefresh|<=============>|check|
+ *  -----        ------                   ------                     -------         | useRfsh?  ----------                 -----
+ *                 |                        |                           |            |                       Antwort richtig| ^|^
+ *                 |                        |                           v            |                        verstanden?   | |||
+ *                 |                        |      Antwort falsch    ------          |             -------                  | |||
+ *                 |----------------------------------------------->|failed|         |----------->|success|<----------------| |||
+ *                                                                   ------                        -------                    |||
+ *                                                                                                    |                       |||
+ *                                                                                                    v                       |||
+ *                                                                                                 --------                   |||-> ---------
+ *                                                                                                |addQuest|<-----------------||   |addAnswer|
+ *                                                                                                 --------                    |--> ---------
+ * 
  */
 
 'use strict'
@@ -40,25 +46,31 @@ var currentQuest ={number: '',
 var useRfrsh = 0;
 // erweiterte Ausgaben in der Konsole
 var debug = 0;
+var tmp;
 
 var auth_state = new StateMachine({
     init : 'start',
     transitions: [
-        { name: 'startToCalc',                 from: 'start',           to: 'calc'            },
-        { name: 'calcToStatic',                from: 'calc',            to: 'static'          },
-        { name: 'staticToStatic',              from: 'static',          to: 'static'          },
-        { name: 'staticToDynamic',             from: 'static',          to: 'dynamic'         },
-        { name: 'dynamicToDynamic',            from: 'dynamic',         to: 'dynamic'         },
-        { name: 'dynamicToDynRefresh',         from: 'dynamic',         to: 'dynRefresh'      },
-        { name: 'dynamicToSuccess',            from: 'dynamic',         to: 'success'         },
-        { name: 'dynRefreshToCheckDynRefresh', from: 'dynRefresh',      to: 'checkDynRefresh' },
-        { name: 'checkDynRefreshToDynRefresh', from: 'checkDynRefresh', to: 'dynRefresh'      },
-        { name: 'checkDynRefreshToSuccess',    from: 'checkDynRefresh', to: 'success'         },
-        { name: 'answerWrong',                 from: 'calc',            to: 'failed'          },
-        { name: 'answerWrong',                 from: 'static',          to: 'failed'          },
-        { name: 'answerWrong',                 from: 'dynamic',         to: 'failed'          },
-        { name: 'reset',                       from: 'failed',          to: 'start'           },
-        { name: 'reset',                       from: 'success',         to: 'start'           }
+        { name: 'startToCalc',         from: 'start',      to: 'calc'       },
+        { name: 'calcToStatic',        from: 'calc',       to: 'static'     },
+        { name: 'staticToStatic',      from: 'static',     to: 'static'     },
+        { name: 'staticToDynamic',     from: 'static',     to: 'dynamic'    },
+        { name: 'dynamicToDynamic',    from: 'dynamic',    to: 'dynamic'    },
+        { name: 'dynamicToDynRefresh', from: 'dynamic',    to: 'dynRefresh' },
+        { name: 'dynamicToSuccess',    from: 'dynamic',    to: 'success'    },
+        { name: 'dynRefreshToCheck',   from: 'dynRefresh', to: 'check'      },
+        { name: 'checkToDynRefresh',   from: 'check',      to: 'dynRefresh' },
+        { name: 'checkToSuccess',      from: 'check',      to: 'success'    },
+        { name: 'answerWrong',         from: 'calc',       to: 'failed'     },
+        { name: 'answerWrong',         from: 'static',     to: 'failed'     },
+        { name: 'answerWrong',         from: 'dynamic',    to: 'failed'     },
+        { name: 'reset',               from: 'failed',     to: 'start'      },
+        { name: 'reset',               from: 'success',    to: 'start'      },
+        { name: 'addQuestion',         from: 'success',    to: 'addQuest'   },
+        { name: 'checkQuestion',       from: 'addQuest',   to: 'check'      },
+        { name: 'addAnswer',           from: 'check',      to: 'addAnswer'  },
+        { name: 'checkAnswer',         from: 'addAnswer',  to: 'check'      },
+        { name: 'endAddQuest',         from: 'check',      to: 'success'    }
     ],
     methods: {
         onStartToCalc: function(obj, question) {
@@ -82,20 +94,35 @@ var auth_state = new StateMachine({
         onDynamicToSuccess: function(obj, claim, real) {
             fct.printLog(`Answer was correct. You said ${claim}, it was ${real}.\nMoving from dynamic to success.`);
         },
-        onDynRefreshToCheckDynRefresh: function(obj, question, answer) {
-            fct.printLog(`Question: ${question}, users answer was ${answer}.\nMoving from dynRefresh to checkDynRefresh.`);
+        onDynRefreshToCheck: function(obj, question, answer) {
+            fct.printLog(`Question: ${question}, users answer was ${answer}.\nMoving from dynRefresh to check.`);
         },
-        onCheckDynRefreshToDynRefresh: function(obj, question, answer) {
-            fct.printLog(`Question: ${question}, should not have answer ${answer}.\nMoving from checkDynRefresh to dynRefresh.`);
+        onCheckToDynRefresh: function(obj, question, answer) {
+            fct.printLog(`Question: ${question}, should not have answer ${answer}.\nMoving from check to dynRefresh.`);
         },
         onCeckDynRefreshToSuccess: function(obj, question, answer) {
-            fct.printLog(`Question: ${question}, has now the answer ${answer}.\nMoving from checkDynRefresh to success.`);
+            fct.printLog(`Question: ${question}, has now the answer ${answer}.\nMoving from check to success.`);
         },
         onAnswerWrong:  function(obj, claim, real) {
             fct.printLog(`Answer was wrong! You said ${claim}, it was ${real}.`);
         },
         onReset:  function(obj) {
             fct.printLog('Going back to start.');
+        },
+        onAddQuestion: function(obj) {
+            fct.printLog(`User wants to add a question.\nMoving from success to addQuest.`);
+        },
+        onCheckQuestion: function(obj, question) {
+            fct.printLog(`Question: ${question} added.\nMoving from addQuest to check.`);
+        },
+        onAddAnswer: function(obj) {
+            fct.printLog(`Question: ${question} confirmed.\nMoving from check to addAnswer.`);
+        },
+        onCheckAnswer: function(obj, question, answer) {
+            fct.printLog(`Question: ${question}, will have the answer ${answer}.\nMoving from addAnswer to check.`);
+        },
+        onEndAddQuest: function(obj, question, answer) {
+            fct.printLog(`Question: ${question}, has now the answer ${answer}.\nMoving from check to success.`);
         }
     }
 });
@@ -222,7 +249,7 @@ function getNextState(userAnswer, correctAnswer, callback) {
  */
 function verifyAnswer(answer, callback) {
     if (isInState('dynRefresh')) {
-        checkRefresh(answer, callback);
+        checkAnswer(answer, callback);
     } else {
         if (answer == currentQuest.answer) {
             getNextState(answer, currentQuest.answer, callback);
@@ -259,14 +286,30 @@ function startDynamicRefresh(callback) {
  * @param {string} answer Benutzereingabe
  * @param {function} callback Rückgabefunktion
  */
-function checkRefresh(answer, callback) {
+function checkAnswer(answer, callback) {
     currentQuest.answer = answer;
-    const cardTitle = 'Refresh erhalten';
-    if (debug) fct.printLog(`Question was: ${questions.getDynamicQuestion(currentQuest.number)}. Answer is ${currentQuest.answer}.`);
-    currentQuest.question = `Auf die Frage ${questions.getDynamicQuestion(currentQuest.number)} gaben Sie die Antwort ${currentQuest.answer}. Ist dies richtig?`;
+    const cardTitle = 'Check Answer';
+    if (debug) fct.printLog(`Answer is ${currentQuest.answer}.`);
+    currentQuest.question = `Sie gaben die Antwort ${currentQuest.answer}. Ist dies richtig?`;
     const shouldEndSession = false;
 
-    auth_state.dynRefreshToCheckDynRefresh(currentQuest.question, currentQuest.answer);
+    auth_state.dynRefreshToCheck(currentQuest.question, currentQuest.answer);
+    callback({}, alexa.buildSpeechletResponse(cardTitle, currentQuest.question, currentQuest.question, shouldEndSession));
+}
+
+/**
+ * Fragt den Benutzer seine Antwort zu verifizieren.
+ * @param {string} question Benutzereingabe
+ * @param {function} callback Rückgabefunktion
+ */
+function checkQuestion(question, callback) {
+    const cardTitle = 'Check Question';
+    if (debug) fct.printLog(`Question was: ${question}.`);
+    currentQuest.question = `Die Frage lautet ${question}. Ist dies richtig?`;
+    tmp = question;
+    const shouldEndSession = false;
+
+    auth_state.checkQuestion(currentQuest.question);
     callback({}, alexa.buildSpeechletResponse(cardTitle, currentQuest.question, currentQuest.question, shouldEndSession));
 }
 
@@ -280,7 +323,7 @@ function repromptDynRefresh(callback) {
     var speechOutput = `Bitte wiederholen Sie die Antwort auf die Frage ${questions.getDynamicQuestion(currentQuest.number)}`;
     const repromptText = `Aktualisieren Sie bitte die Antwort auf die Frage ${questions.getDynamicQuestion(currentQuest.number)}.`;
     const shouldEndSession = false;
-    auth_state.checkDynRefreshToDynRefresh(currentQuest.question, currentQuest.answer);
+    auth_state.checkToDynRefresh(currentQuest.question, currentQuest.answer);
 
     callback({}, alexa.buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
 }
@@ -297,7 +340,7 @@ function endDynRefresh(callback) {
     const shouldEndSession = false;
 
     questions.setDynamicAnswer(currentQuest.number, currentQuest.answer);
-    auth_state.checkDynRefreshToSuccess(currentQuest.question, currentQuest.answer);
+    auth_state.checkToSuccess(currentQuest.question, currentQuest.answer);
 
     callback({}, alexa.buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
 }
@@ -579,13 +622,50 @@ function verifyCellphone(intent, callback) {
     verifyAnswer(answer, callback);
 }
 
+/**
+ * Der Benutzer möchte eine Frage hinzufügen.
+ * @param {function} callback Rückgabe
+ */
+function addQuestion(callback) {
+    if (debug) fct.printLog(`addQuestion...`);
+    currentQuest.question = "Nennen Sie mir die Frage, welche Sie hinzufügen möchten.";
+
+    const cardTitle = 'Frage hinzufügen';
+    var speechOutput = currentQuest.question;
+    const shouldEndSession = false;
+
+    auth_state.addQuestion();
+
+    callback({}, alexa.buildSpeechletResponse(cardTitle, speechOutput, speechOutput, shouldEndSession));
+}
+
+/**
+ * Bereitet die Frage, welche vom Benutzer gegebn wurde vor.
+ * fragewort} {verb} {wortEins} {wortZwei} {wortDrei} {wortVier} {wortFuenf} {wortSechs
+ * @param {*} intent Intent
+ * @param {function} callback Callback
+ */
+function verifyQuestion(intent, callback) {
+    var quest = '';
+    if (intent.slots.fragewort.value) quest += `${intent.slots.fragewort.value}`;
+    if (intent.slots.verb.value)      quest += ` ${intent.slots.verb.value}`;
+    if (intent.slots.wortEins.value)  quest += ` ${intent.slots.wortEins.value}`;
+    if (intent.slots.wortZwei.value)  quest += ` ${intent.slots.wortZwei.value}`;
+    if (intent.slots.wortDrei.value)  quest += ` ${intent.slots.wortDrei.value}`;
+    if (intent.slots.wortVier.value)  quest += ` ${intent.slots.wortVier.value}`;
+    if (intent.slots.wortFuenf.value) quest += ` ${intent.slots.wortFuenf.value}`;
+    if (intent.slots.wortSechs.value) quest += ` ${intent.slots.wortSechs.value}`;
+    quest += '?';
+    if (debug) fct.printLog(`${quest}`);
+    checkQuestion(quest, callback);
+}
+
 
 module.exports = {auth_state,
                 getState,
                 isInState,
                 wrongIntent,
                 resetState,
-                checkRefresh,
                 endDynRefresh,
                 repromptDynRefresh,
                 getCalculation,
@@ -606,4 +686,5 @@ module.exports = {auth_state,
                 verifyCellphone,
                 verifyFirstname,
                 onAuthenticated,
-                onFailed};
+                onFailed,
+                addQuestion};

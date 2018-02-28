@@ -10,7 +10,7 @@ const quest = require('./data/questions');
  * @param {function} callback Callback
  */
 function handleStartIntents(intent, callback) {
-    (intent.name == 'RechenaufgabeIntent') ? auth.getCalculation(callback) : auth.wrongIntent(callback);
+    (intent.name == 'RechenaufgabeIntent') ? auth.getCalculation(callback) : alexa.getHelpResponse(callback);
 }
 
 /**
@@ -98,7 +98,7 @@ function handleQuestIntents(intent, callback) {
         case 'ZahlenFuenfIntent':
             auth.verifyNumber(intent, callback);
             break;
-        default: fct.printError(`handleQuestIntents failed. Intentname: ${intent.name} unknown.`);
+        default: auth.wrongIntent(callback);
     }
 }
 
@@ -123,7 +123,11 @@ function handleConfirmIntents(intent, callback) {
  * @param {function} callback Callback
  */
 function handleSuccessIntents(intent, callback) {
-    if (intent.name == 'Reset') auth.resetState(callback);
+    if (intent.name == 'Reset') {
+        auth.resetState(callback);
+    } else if (intent.name == 'FrageHinzufuegen') {
+        auth.addQuestion(callback);
+    }
 }
 
 /**
@@ -134,6 +138,16 @@ function handleSuccessIntents(intent, callback) {
 function handleFailedIntents(intent, callback) {
     if (intent.name == 'Reset') auth.resetState(callback);
 }
+
+/**
+ * Nachdem das Hinzufügen einer Frage verlangt wurde, kann auch nur eine Frage angenommen werden.
+ * @param {*} intent Intent 
+ * @param {*} callback Callback
+ */
+function handleAddQuestIntents(intent, callback) {
+    (intent.name == 'FrageIntent') ? auth.verifyQuestion(intent, callback) : auth.wrongIntent(callback) ; 
+}
+
 
 /**
  * Ruft die verschiedenen intents auf.
@@ -168,7 +182,7 @@ function onIntent(intentRequest, session, callback) {
         case 'dynRefresh':
             handleQuestIntents(intent, callback);
             break;
-        case 'checkDynRefresh':
+        case 'check':
             handleConfirmIntents(intent, callback);
             break;
         case 'success':
@@ -176,6 +190,12 @@ function onIntent(intentRequest, session, callback) {
             break;
         case 'failed':
             handleFailedIntents(intent, callback);
+            break;
+        case 'addQuest':
+            handleAddQuestIntents(intent, callback);
+            break;
+        case 'addAnswer':
+            handleAddAnswerIntents(intent, callback);
             break;
         default: fct.printError(`onIntent failed. State ${auth.getState()} unknown.`); break;
     }
