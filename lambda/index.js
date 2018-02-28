@@ -107,11 +107,26 @@ function handleQuestIntents(intent, callback) {
  * @param {*} intent Intent
  * @param {function} callback Callback
  */
-function handleConfirmIntents(intent, callback) {
+function handleConfirmQuestIntents(intent, callback) {
     if (intent.name == 'AMAZON.YesIntent') {
-        auth.endDynRefresh(callback)
+        auth.endAddQuest(callback)
     } else if (intent.name == 'AMAZON.NoIntent') {
-        auth.repromptDynRefresh(callback)
+        auth.repromptCheck(callback)
+    } else {
+        auth.wrongIntent(callback);
+    }
+}
+
+/**
+ * Nachdem eine Ja/Nein-Frage gestellt wurde, sollte man auch mit Ja oder Nein antworten.
+ * @param {*} intent Intent
+ * @param {function} callback Callback
+ */
+function handleConfirmAnswerIntents(intent, callback) {
+    if (intent.name == 'AMAZON.YesIntent') {
+        auth.endAddAnswer(callback)
+    } else if (intent.name == 'AMAZON.NoIntent') {
+        auth.repromptCheck(callback)
     } else {
         auth.wrongIntent(callback);
     }
@@ -179,23 +194,23 @@ function onIntent(intentRequest, session, callback) {
         case 'dynamic':
             handleQuestIntents(intent, callback);
             break;
-        case 'dynRefresh':
+        case 'addQuest':
+            handleAddQuestIntents(intent, callback);
+            break;
+        case 'addAnswer':
             handleQuestIntents(intent, callback);
             break;
-        case 'check':
-            handleConfirmIntents(intent, callback);
+        case 'checkQuest':
+            handleConfirmQuestIntents(intent, callback);
+            break;
+        case 'checkAnswer':
+            handleConfirmAnswerIntents(intent, callback);
             break;
         case 'success':
             handleSuccessIntents(intent, callback);
             break;
         case 'failed':
             handleFailedIntents(intent, callback);
-            break;
-        case 'addQuest':
-            handleAddQuestIntents(intent, callback);
-            break;
-        case 'addAnswer':
-            handleAddAnswerIntents(intent, callback);
             break;
         default: fct.printError(`onIntent failed. State ${auth.getState()} unknown.`); break;
     }

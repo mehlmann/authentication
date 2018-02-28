@@ -10,9 +10,9 @@
  *                                     counter > 0                counter > 0                  
  *                                         ----                       ----                         
  *                                        |    v   Antwort korrekt   |    v   Antwort korrekt               
- *  -----        ------  Antwort korrekt  ------     counter = 0     -------    counter = 0      ----------      nein       -----
- * |start|----->| calc |---------------->|static|------------------>|dynamic|------------------>|dynRefresh|<=============>|check|
- *  -----        ------                   ------                     -------         | useRfsh?  ----------                 -----
+ *  -----        ------  Antwort korrekt  ------     counter = 0     -------    counter = 0      ---------      nein       -----
+ * |start|----->| calc |---------------->|static|------------------>|dynamic|------------------>|addAnswer|<=============>|check|
+ *  -----        ------                   ------                     -------         | useRfsh?  ---------                 -----
  *                 |                        |                           |            |                       Antwort richtig| ^|^
  *                 |                        |                           v            |                        verstanden?   | |||
  *                 |                        |      Antwort falsch    ------          |             -------                  | |||
@@ -42,35 +42,38 @@ var dynThreshold = statics.DYNAMIC_THRESHOLD;
 var currentQuest ={number: '',
                     question: '',
                     answer: ''};
+// das letzte was ALexa sagte, sollte es wiederholt werden
+var lastSaid = '';
 // 1 = Refresh, 0 = kein Refresh nach Authentifizierung
-var useRfrsh = 0;
+var useRfrsh = 1;
 // erweiterte Ausgaben in der Konsole
 var debug = 0;
-var tmp;
+var checkTmp;
 
 var auth_state = new StateMachine({
     init : 'start',
     transitions: [
-        { name: 'startToCalc',         from: 'start',      to: 'calc'       },
-        { name: 'calcToStatic',        from: 'calc',       to: 'static'     },
-        { name: 'staticToStatic',      from: 'static',     to: 'static'     },
-        { name: 'staticToDynamic',     from: 'static',     to: 'dynamic'    },
-        { name: 'dynamicToDynamic',    from: 'dynamic',    to: 'dynamic'    },
-        { name: 'dynamicToDynRefresh', from: 'dynamic',    to: 'dynRefresh' },
-        { name: 'dynamicToSuccess',    from: 'dynamic',    to: 'success'    },
-        { name: 'dynRefreshToCheck',   from: 'dynRefresh', to: 'check'      },
-        { name: 'checkToDynRefresh',   from: 'check',      to: 'dynRefresh' },
-        { name: 'checkToSuccess',      from: 'check',      to: 'success'    },
-        { name: 'answerWrong',         from: 'calc',       to: 'failed'     },
-        { name: 'answerWrong',         from: 'static',     to: 'failed'     },
-        { name: 'answerWrong',         from: 'dynamic',    to: 'failed'     },
-        { name: 'reset',               from: 'failed',     to: 'start'      },
-        { name: 'reset',               from: 'success',    to: 'start'      },
-        { name: 'addQuestion',         from: 'success',    to: 'addQuest'   },
-        { name: 'checkQuestion',       from: 'addQuest',   to: 'check'      },
-        { name: 'addAnswer',           from: 'check',      to: 'addAnswer'  },
-        { name: 'checkAnswer',         from: 'addAnswer',  to: 'check'      },
-        { name: 'endAddQuest',         from: 'check',      to: 'success'    }
+        { name: 'startToCalc',            from: 'start',       to: 'calc'        },
+        { name: 'calcToStatic',           from: 'calc',        to: 'static'      },
+        { name: 'staticToStatic',         from: 'static',      to: 'static'      },
+        { name: 'staticToDynamic',        from: 'static',      to: 'dynamic'     },
+        { name: 'dynamicToDynamic',       from: 'dynamic',     to: 'dynamic'     },
+        { name: 'dynamicToAddAnswer',     from: 'dynamic',     to: 'addAnswer'   },
+        { name: 'dynamicToSuccess',       from: 'dynamic',     to: 'success'     },
+        { name: 'answerWrong',            from: 'calc',        to: 'failed'      },
+        { name: 'answerWrong',            from: 'static',      to: 'failed'      },
+        { name: 'answerWrong',            from: 'dynamic',     to: 'failed'      },
+        { name: 'reset',                  from: 'failed',      to: 'start'       },
+        { name: 'reset',                  from: 'success',     to: 'start'       },
+
+        { name: 'addToCheck',             from: 'addAnswer',   to: 'checkAnswer' },
+        { name: 'checkToAdd',             from: 'checkAnswer', to: 'addAnswer'   },
+        { name: 'checkAnswerToSuccess',   from: 'checkAnswer', to: 'success'     },
+
+        { name: 'addQuestion',            from: 'success',     to: 'addQuest'    },
+        { name: 'addToCheck',             from: 'addQuest',    to: 'checkQuest'  },
+        { name: 'checkToAdd',             from: 'checkQuest',  to: 'addQuest'    },
+        { name: 'addQuestToAddAnswer',    from: 'addQuest',    to: 'addAnswer'   }
     ],
     methods: {
         onStartToCalc: function(obj, question) {
@@ -88,20 +91,11 @@ var auth_state = new StateMachine({
         onDynamicToDynamic: function(obj, claim, real) {
             fct.printLog(`Answer was correct. You said ${claim}, it was ${real}.\nMoving from dynamic to dynamic.`);
         },
-        onDynamicToDynRefresh: function(obj, claim, real) {
+        onDynamicToAddAnswer: function(obj, claim, real) {
             fct.printLog(`Answer was correct. You said ${claim}, it was ${real}.\nMoving from dynamic to dynRefresh.`);
         },
         onDynamicToSuccess: function(obj, claim, real) {
             fct.printLog(`Answer was correct. You said ${claim}, it was ${real}.\nMoving from dynamic to success.`);
-        },
-        onDynRefreshToCheck: function(obj, question, answer) {
-            fct.printLog(`Question: ${question}, users answer was ${answer}.\nMoving from dynRefresh to check.`);
-        },
-        onCheckToDynRefresh: function(obj, question, answer) {
-            fct.printLog(`Question: ${question}, should not have answer ${answer}.\nMoving from check to dynRefresh.`);
-        },
-        onCeckDynRefreshToSuccess: function(obj, question, answer) {
-            fct.printLog(`Question: ${question}, has now the answer ${answer}.\nMoving from check to success.`);
         },
         onAnswerWrong:  function(obj, claim, real) {
             fct.printLog(`Answer was wrong! You said ${claim}, it was ${real}.`);
@@ -109,20 +103,20 @@ var auth_state = new StateMachine({
         onReset:  function(obj) {
             fct.printLog('Going back to start.');
         },
+        onAddToCheck: function(obj, answer) {
+            fct.printLog(`User said: ${answer}.\nMoving from addAnswer to checkAnswer.`);
+        },
+        onCheckToAdd: function(obj, answer) {
+            fct.printLog(`User discarded answer: ${answer}.\nMoving from checkAnswer to addAnswer.`);
+        },
+        onCheckAnswerToSuccess: function(obj, answer) {
+            fct.printLog(`User confirmed answer: ${answer}.\nMoving from checkAnswer to success.`);
+        },
         onAddQuestion: function(obj) {
             fct.printLog(`User wants to add a question.\nMoving from success to addQuest.`);
         },
-        onCheckQuestion: function(obj, question) {
-            fct.printLog(`Question: ${question} added.\nMoving from addQuest to check.`);
-        },
-        onAddAnswer: function(obj) {
-            fct.printLog(`Question: ${question} confirmed.\nMoving from check to addAnswer.`);
-        },
-        onCheckAnswer: function(obj, question, answer) {
-            fct.printLog(`Question: ${question}, will have the answer ${answer}.\nMoving from addAnswer to check.`);
-        },
-        onEndAddQuest: function(obj, question, answer) {
-            fct.printLog(`Question: ${question}, has now the answer ${answer}.\nMoving from check to success.`);
+        onAddQuestToAddAnswer: function(obj, answer) {
+            fct.printLog(`User confirmed answer: ${answer}.\nMoving from addQuest to addAnswer.`);
         }
     }
 });
@@ -146,23 +140,14 @@ function isInState(state) {
 
 /**
  * Sollte ein Intent eingehen, welcher nicht dem aktuellen Zustand der State-Machine entspricht,
- * wird er hier behandelt.
+ * wird das zuletzt gesagte wiederholt.
  * @param {function} callback Rückgabefunktion
  */
 function wrongIntent(callback) {
     if (debug) fct.printLog(`Got in wrongIntent. Current state is: ${auth_state.state}.`);
     const cardTitle = 'Falscher Intent';
-    var speechOutput = '';
-    if (auth_state.is('success')) {
-        speechOutput = 'Sie haben sich bereits erfolgreich authentifiziert.';
-    } else if (auth_state.is('failed')) {
-        speechOutput = 'Ihre Authentifizierung ist leider bereits fehlgeschlagen.';
-    } else {
-        speechOutput = 'Beantworten Sie bitte die Frage: ' + currentQuest.question;
-    }
     const shouldEndSession = false;
-
-    callback({}, alexa.buildSpeechletResponse(cardTitle, speechOutput, speechOutput, shouldEndSession));
+    callback({}, alexa.buildSpeechletResponse(cardTitle, lastSaid, lastSaid, shouldEndSession));
 }
 
 /**
@@ -172,11 +157,11 @@ function wrongIntent(callback) {
 function onAuthenticated(callback) {
     if (debug) fct.printLog(`Got in onAuthenticated.`);
     const cardTitle = 'Authentication done.';
-    var speechOutput = 'Die Authentifizierung war erfolgreich.';
+    lastSaid = 'Die Authentifizierung war erfolgreich.';
     const repromptText = `Auf Wiedersehen.`;
     const shouldEndSession = false;
 
-    callback({}, alexa.buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
+    callback({}, alexa.buildSpeechletResponse(cardTitle, lastSaid, repromptText, shouldEndSession));
 }
 
 /**
@@ -186,11 +171,11 @@ function onAuthenticated(callback) {
 function onFailed(callback) {
     if (debug) fct.printLog(`Got in onFailed.`);
     const cardTitle = 'Authentication failed.';
-    var speechOutput = 'Die Authentifizierung ist leider fehlgeschlagen.';
+    lastSaid = 'Die Authentifizierung ist leider fehlgeschlagen.';
     const repromptText = `Auf Wiedersehen.`;
     const shouldEndSession = false;
 
-    callback({}, alexa.buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
+    callback({}, alexa.buildSpeechletResponse(cardTitle, lastSaid, repromptText, shouldEndSession));
 }
 
 /**
@@ -200,12 +185,12 @@ function onFailed(callback) {
 function resetState(callback) {
     if (debug) fct.printLog(`Got in resetState.`);
     const cardTitle = 'Authentication reset.';
-    var speechOutput = 'Die Authentifizierung ist im Zustand start.';
+    lastSaid = 'Die Authentifizierung ist im Zustand start.';
     const repromptText = `Fragen Sie nach einer Aufgabe.`;
     const shouldEndSession = false;
     auth_state.reset();
 
-    callback({}, alexa.buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
+    callback({}, alexa.buildSpeechletResponse(cardTitle, lastSaid, repromptText, shouldEndSession));
 }
 
 /**
@@ -232,7 +217,7 @@ function getNextState(userAnswer, correctAnswer, callback) {
             getDynamicQuestion(callback);
         } else {
             if (useRfrsh) {
-                auth_state.dynamicToDynRefresh(userAnswer, correctAnswer);
+                auth_state.dynamicToAddAnswer(userAnswer, correctAnswer);
                 startDynamicRefresh(callback);
             } else {
                 auth_state.dynamicToSuccess(currentQuest.question, currentQuest.answer);
@@ -248,8 +233,8 @@ function getNextState(userAnswer, correctAnswer, callback) {
  * @param {function} callback Rückgabefunktion
  */
 function verifyAnswer(answer, callback) {
-    if (isInState('dynRefresh')) {
-        checkAnswer(answer, callback);
+    if (isInState('addAnswer')) {
+        checkInput(answer, callback);
     } else {
         if (answer == currentQuest.answer) {
             getNextState(answer, currentQuest.answer, callback);
@@ -266,83 +251,88 @@ function verifyAnswer(answer, callback) {
  */
 function startDynamicRefresh(callback) {
     if (debug) fct.printLog(`startDynamicRefresh...`);
-    currentQuest.number = Math.floor(Math.random() * questions.getDynamicSize());
+    while (!questions.isDynamicUsed(currentQuest.number)) {
+        currentQuest.number = Math.floor(Math.random() * questions.getDynamicSize());
+    }
     currentQuest.question = questions.getDynamicQuestion(currentQuest.number);
     currentQuest.answer = questions.getDynamicAnswer(currentQuest.number);
     if (debug) fct.printLog(`[${currentQuest.number}]: ${currentQuest.question} -${currentQuest.answer}.`);
 
     const cardTitle = 'Dynamische Antwort aktualisieren';
-    var speechOutput = `Die Authentifizierung war erfolgreich. Ich muss die Antwort einer dynamischen Frage aktualisieren. 
-                        Die Frage lautet ${currentQuest.question} und ihre alte Antwort war ${currentQuest.answer}.
-                        Bitte geben Sie mir die aktuelle Antwort auf diese Frage.`;
-    const repromptText = `Aktualisieren Sie bitte die Antwort auf die Frage ${currentQuest.question}.`;
+    var speechOutput = `Die Authentifizierung war erfolgreich. Ich muss die Antwort einer dynamischen Frage aktualisieren.
+                        Bitte geben Sie mir die aktuelle Antwort auf die Frage, ${currentQuest.question}.`;
+    lastSaid = `Bitte geben Sie mir die Antwort auf die Frage, ${currentQuest.question}.`;
     const shouldEndSession = false;
 
-    callback({}, alexa.buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
+    callback({}, alexa.buildSpeechletResponse(cardTitle, speechOutput, lastSaid, shouldEndSession));
 }
 
 /**
  * Fragt den Benutzer seine Antwort zu verifizieren.
- * @param {string} answer Benutzereingabe
+ * @param {string} input Benutzereingabe
  * @param {function} callback Rückgabefunktion
  */
-function checkAnswer(answer, callback) {
-    currentQuest.answer = answer;
-    const cardTitle = 'Check Answer';
-    if (debug) fct.printLog(`Answer is ${currentQuest.answer}.`);
-    currentQuest.question = `Sie gaben die Antwort ${currentQuest.answer}. Ist dies richtig?`;
+function checkInput(input, callback) {
+    const cardTitle = 'Check Input';
+    if (debug) fct.printLog(`Input is ${input}.`);
+    lastSaid = `Sie sagten ${input}. Ist das richtig?`;
+    checkTmp = input;
     const shouldEndSession = false;
 
-    auth_state.dynRefreshToCheck(currentQuest.question, currentQuest.answer);
-    callback({}, alexa.buildSpeechletResponse(cardTitle, currentQuest.question, currentQuest.question, shouldEndSession));
-}
-
-/**
- * Fragt den Benutzer seine Antwort zu verifizieren.
- * @param {string} question Benutzereingabe
- * @param {function} callback Rückgabefunktion
- */
-function checkQuestion(question, callback) {
-    const cardTitle = 'Check Question';
-    if (debug) fct.printLog(`Question was: ${question}.`);
-    currentQuest.question = `Die Frage lautet ${question}. Ist dies richtig?`;
-    tmp = question;
-    const shouldEndSession = false;
-
-    auth_state.checkQuestion(currentQuest.question);
-    callback({}, alexa.buildSpeechletResponse(cardTitle, currentQuest.question, currentQuest.question, shouldEndSession));
+    auth_state.addToCheck(input);
+    callback({}, alexa.buildSpeechletResponse(cardTitle, lastSaid, lastSaid, shouldEndSession));
 }
 
 /**
  * Alexa hat den Benuzer falsch verstanden. Die Antwort muss wiederholt werden.
  * @param {function} callback Rückgabefunktion
  */
-function repromptDynRefresh(callback) {
-    if (debug) fct.printLog('repromptDynRefresh');
-    const cardTitle = 'Dynamische Antwort wiederholen';
-    var speechOutput = `Bitte wiederholen Sie die Antwort auf die Frage ${questions.getDynamicQuestion(currentQuest.number)}`;
-    const repromptText = `Aktualisieren Sie bitte die Antwort auf die Frage ${questions.getDynamicQuestion(currentQuest.number)}.`;
+function repromptCheck(callback) {
+    if (debug) fct.printLog('repromptCheck');
+    const cardTitle = 'Check-Frage wiederholen';
+    lastSaid = `Geben Sie mir bitte die aktuelle Antwort auf die Frage, ${currentQuest.question}`;
     const shouldEndSession = false;
-    auth_state.checkToDynRefresh(currentQuest.question, currentQuest.answer);
+    auth_state.checkToAdd(checkTmp);
 
-    callback({}, alexa.buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
+    callback({}, alexa.buildSpeechletResponse(cardTitle, lastSaid, lastSaid, shouldEndSession));
 }
 
 /**
  * Alexa hat den Benutzer richtig verstanden. Die dynamische Antwort darf aktualisiert werden.
  * @param {function} callback Rückgabefunktion
  */
-function endDynRefresh(callback) {
-    if (debug) fct.printLog('repromptDynRefresh');
-    const cardTitle = 'Dynamische Antwort akzeptiert';
-    var speechOutput = `Die dynamische Antwort auf die Frage wurde akzeptiert. Die Authentifizierung ist abgeschlossen.`;
-    const repromptText = `Die Authentifizierung ist beendet.`;
+function endAddAnswer(callback) {
+    if (debug) fct.printLog('endAddAnswer');
+    const cardTitle = 'Antwort akzeptiert';
+    var speechOutput = `Die Antwort auf die Frage wurde akzeptiert. Die Authentifizierung ist abgeschlossen.`;
+    lastSaid = `Die Authentifizierung ist beendet.`;
     const shouldEndSession = false;
+    currentQuest.answer = checkTmp;
+    if (currentQuest.number == questions.getStaticSize()) {
+        questions.addStaticQuestion(currentQuest.question, currentQuest.answer);
+    } else {
+        questions.setDynamicAnswer(currentQuest.number, currentQuest.answer);
+    }
+    auth_state.checkAnswerToSuccess(currentQuest.answer);
 
-    questions.setDynamicAnswer(currentQuest.number, currentQuest.answer);
-    auth_state.checkToSuccess(currentQuest.question, currentQuest.answer);
+    callback({}, alexa.buildSpeechletResponse(cardTitle, speechOutput, lastSaid, shouldEndSession));
+}
 
-    callback({}, alexa.buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
+/**
+ * Alexa hat den Benutzer richtig verstanden. Die dynamische Antwort darf aktualisiert werden.
+ * @param {function} callback Rückgabefunktion
+ */
+function endAddQuest(callback) {
+    if (debug) fct.printLog('endAddQuest');
+    currentQuest.number = questions.getStaticSize();
+    currentQuest.question = checkTmp;
+    const cardTitle = 'Frage akzeptiert';
+    var speechOutput = `Die Frage wurde akzeptiert. Bitte geben Sie mir nun die Antwort auf die Frage, ${currentQuest.question}.`;
+    lastSaid = `Bitte geben Sie mir die Antwort auf die Frage, ${currentQuest.question}.`;
+    const shouldEndSession = false;
+    auth_state.addQuestToAddAnswer(currentQuest.answer);
+
+    callback({}, alexa.buildSpeechletResponse(cardTitle, speechOutput, lastSaid, shouldEndSession));
 }
 
 /**
@@ -358,6 +348,7 @@ function getCalculation(callback) {
     const cardTitle = 'Aufgabe gestellt';
     currentQuest.question = `Was ist ${summandA} plus ${summandB}?`;
     const repromptText = `Lösen Sie bitte die Aufgabe ${summandA} plus ${summandB}.`;
+    lastSaid = repromptText;
     const shouldEndSession = false;
 
     currentQuest.answer = summandA + summandB;
@@ -379,6 +370,7 @@ function getStaticQuestion(callback) {
     }
     currentQuest.question = questions.getStaticQuestion(currentQuest.number);
     currentQuest.answer = questions.getStaticAnswer(currentQuest.number);
+    lastSaid = currentQuest.question;
     if (debug) fct.printLog(`[${currentQuest.number}]: ${currentQuest.question} -${currentQuest.answer}.`);
     const shouldEndSession = false;
     fct.printLog(`Authentication is in state ${auth_state.state}. CurrentQuestNr=${currentQuest.number}.`);
@@ -398,6 +390,7 @@ function getDynamicQuestion(callback) {
     }
     currentQuest.question = questions.getDynamicQuestion(currentQuest.number);
     currentQuest.answer = questions.getDynamicAnswer(currentQuest.number);
+    lastSaid = currentQuest.question;
     if (debug) fct.printLog(`[${currentQuest.number}]: ${currentQuest.question} -${currentQuest.answer}.`);
     const shouldEndSession = false;
     fct.printLog(`Authentication is in state ${auth_state.state}. CurrentQuestNr=${currentQuest.number}.`);
@@ -628,15 +621,13 @@ function verifyCellphone(intent, callback) {
  */
 function addQuestion(callback) {
     if (debug) fct.printLog(`addQuestion...`);
-    currentQuest.question = "Nennen Sie mir die Frage, welche Sie hinzufügen möchten.";
-
     const cardTitle = 'Frage hinzufügen';
-    var speechOutput = currentQuest.question;
+    lastSaid = "Nennen Sie mir die Frage, welche Sie hinzufügen möchten.";
     const shouldEndSession = false;
 
     auth_state.addQuestion();
 
-    callback({}, alexa.buildSpeechletResponse(cardTitle, speechOutput, speechOutput, shouldEndSession));
+    callback({}, alexa.buildSpeechletResponse(cardTitle, lastSaid, lastSaid, shouldEndSession));
 }
 
 /**
@@ -657,7 +648,7 @@ function verifyQuestion(intent, callback) {
     if (intent.slots.wortSechs.value) quest += ` ${intent.slots.wortSechs.value}`;
     quest += '?';
     if (debug) fct.printLog(`${quest}`);
-    checkQuestion(quest, callback);
+    checkInput(quest, callback);
 }
 
 
@@ -666,8 +657,8 @@ module.exports = {auth_state,
                 isInState,
                 wrongIntent,
                 resetState,
-                endDynRefresh,
-                repromptDynRefresh,
+                endAddAnswer,
+                repromptCheck,
                 getCalculation,
                 verifyCalc,
                 verifyCommonAnswer,

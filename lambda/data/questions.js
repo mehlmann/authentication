@@ -51,127 +51,127 @@ var staticQuestions = [
         answer: '8a'
     },
     {//9
-        queston: 'Wie ist ihr Familienname?',
+        question: 'Wie ist ihr Familienname?',
         answer: 'mehlmann',
         use: 0
     },
     {//10
-        queston: 'Wie ist der Mädchenname Ihrer Mutter?',
+        question: 'Wie ist der Mädchenname Ihrer Mutter?',
         answer: 'müller',
         use: 0
     },
     {//11
-        queston: 'Was war Ihr erstes Haustier?',
+        question: 'Was war Ihr erstes Haustier?',
         answer: 'hund',
         use: 0
     },
     {//12
-        queston: 'Was war Ihr letztes Haustier?',
+        question: 'Was war Ihr letztes Haustier?',
         answer: 'katze',
         use: 0
     },
     {//13
-        queston: 'Wieviele Haustiere haben Sie?',
+        question: 'Wieviele Haustiere haben Sie?',
         answer: '1',
         use: 0
     },
     {//14
-        queston: 'Was war der Name ihres ersten Haustieres?',
+        question: 'Was war der Name ihres ersten Haustieres?',
         answer: 'timmy',
         use: 0
     },
     {//15
-        queston: 'Was ist Ihr Lieblingsbuch?',
+        question: 'Was ist Ihr Lieblingsbuch?',
         answer: 'krabat',
         use: 0
     },
     {//16
-        queston: 'Was ist Ihr Lieblingsfilm?',
+        question: 'Was ist Ihr Lieblingsfilm?',
         answer: 'der herr der ringe',
         use: 0
     },
     {//17
-        queston: 'Was war Ihr Lieblingsfach in der Schule?',
+        question: 'Was war Ihr Lieblingsfach in der Schule?',
         answer: 'mathematik',
         use: 0
     },
     {//18
-        queston: 'Welches Fach mochten Sie am wenigsten in der Schule?',
+        question: 'Welches Fach mochten Sie am wenigsten in der Schule?',
         answer: 'sozialkunde',
         use: 0
     },
     {//19
-        queston: 'Was ist Ihr Lieblingssport?',
+        question: 'Was ist Ihr Lieblingssport?',
         answer: 'basketball',
         use: 0
     },
     {//20
-        queston: 'Was ist Ihre Lieblingsfußballmannschaft?',
+        question: 'Was ist Ihre Lieblingsfußballmannschaft?',
         answer: 'ksc',
         use: 0
     },
     {//21
-        queston: 'Wie war der Vorname Ihres väterlichen Großvaters?',
+        question: 'Wie war der Vorname Ihres väterlichen Großvaters?',
         answer: 'anton',
         use: 0
     },
     {//22
-        queston: 'Wie war der Vorname Ihrer mütterlichen Großmutter?',
+        question: 'Wie war der Vorname Ihrer mütterlichen Großmutter?',
         answer: 'nina',
         use: 0
     },
     {//23
-        queston: 'Von welcher Marke ist Ihr Auto?',
+        question: 'Von welcher Marke ist Ihr Auto?',
         answer: 'VW',
         use: 0
     },
     {//24
-        queston: 'Welche Marke hatte ihr erstes Auto?',
+        question: 'Welche Marke hatte ihr erstes Auto?',
         answer: 'Toyota',
         use: 0
     },
     {//25
-        queston: 'Wie war der Name Ihres ersten Freundes, ihrer ersten Freundin?',
+        question: 'Wie war der Name Ihres ersten Freundes, ihrer ersten Freundin?',
         answer: 'maria',
         use: 0
     },
     {//26
-        queston: 'Wie lautet Ihr Lieblingsinterpret?',
+        question: 'Wie lautet Ihr Lieblingsinterpret?',
         answer: 'rammstein',
         use: 0
     },
     {//27
-        queston: 'Was war Ihr erstes Urlaubsland?',
+        question: 'Was war Ihr erstes Urlaubsland?',
         answer: 'türkei',
         use: 0
     },
     {//28
-        queston: 'Was ist Ihr Lieblingsurlaubsland?',
+        question: 'Was ist Ihr Lieblingsurlaubsland?',
         answer: 'spanien',
         use: 0
     },
     {//29
-        queston: 'Von welcher Marke ist Ihr Laptop?',
+        question: 'Von welcher Marke ist Ihr Laptop?',
         answer: 'acer',
         use: 0
     },
     {//30
-        queston: 'Von welcher Marke ist Ihr Tablet?',
+        question: 'Von welcher Marke ist Ihr Tablet?',
         answer: 'samsung',
         use: 0
     },
     {//31
-        queston: 'Was war ihr erstes Musikinstrument?',
+        question: 'Was war ihr erstes Musikinstrument?',
         answer: 'gitarre',
         use: 0
     },
     {//32
-        queston: 'Welches Bier trinken Sie am liebsten?',
+        question: 'Welches Bier trinken Sie am liebsten?',
         answer: 'bitburger',
         use: 0
     },
     {//33
-        queston: 'Was ist Ihre Lieblingsspeise?',
+        question: 'Was ist Ihre Lieblingsspeise?',
         answer: 'lasagne',
         use: 0
     }
@@ -281,6 +281,15 @@ function setStaticAnswer(arrayNumber, newAnswer) {
  */
 function setDynamicAnswer(arrayNumber, newAnswer) {
     dynamicQuestions[arrayNumber].answer = newAnswer;
+}
+
+/**
+ * Fügt den statischen Fragen eine neue Frage hinzu.
+ * @param {string} newQuestion neue Frage
+ * @param {string} newAnswer neue Antwort
+ */
+function addStaticQuestion(newQuestion, newAnswer) {
+    staticQuestions.push({question: newQuestion, answer: newAnswer, use: 1});
 }
 
 /**
@@ -503,6 +512,7 @@ module.exports = {getStaticQuestion,
                 getDynamicAnswer,
                 setStaticAnswer,
                 setDynamicAnswer,
+                addStaticQuestion,
                 getStaticSize,
                 getDynamicSize,
                 isStaticUsed,
