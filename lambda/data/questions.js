@@ -9,7 +9,7 @@ var staticQuestions = [
     {//0
         question: 'was ist ihre lieblingsfarbe?',
         answer: 'blau',
-        use: 1
+        use: 0
     },
     {//1
         question: 'Geben Sie ihre Postleitzahl in einzelnen Ziffern an.',
@@ -174,6 +174,11 @@ var staticQuestions = [
         question: 'Was ist Ihre Lieblingsspeise?',
         answer: 'lasagne',
         use: 0
+    },
+    {
+        question: 'Was ist Ihre Lieblingsserie?',
+        answer: 'The End of the Fucking World',
+        use: 1
     }
 ];
 
@@ -184,7 +189,7 @@ var dynamicQuestions = [
     {//0
         question: 'Wieviel Geld haben sie beim letzten Amazon Kauf ausgegeben?',
         answer: '20,00€',
-        use: 1
+        use: 0
     },
     {//1
         question: 'Wie hoch war Ihre letzte PayPal-Überweisung?',
@@ -208,7 +213,7 @@ var dynamicQuestions = [
     },
     {//5
         question: 'Welche Serie haben Sie zuletzt gesehen?',
-        answer: 'black mirror',
+        answer: 'Altered Carbon',
         use: 0
     },
     {//6

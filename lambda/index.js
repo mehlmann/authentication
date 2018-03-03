@@ -3,7 +3,6 @@
 const alexa = require('./alexa');
 const auth = require('./auth');
 const fct = require('./help-functions');
-const quest = require('./data/questions');
 
 /**
  * Beim Start ist nur Aufgabe erlaubt.
@@ -71,6 +70,9 @@ function handleQuestIntents(intent, callback) {
         case 'SportIntent':
             auth.verifySport(intent, callback);
             break;
+        case 'SerienIntent':
+            auth.verifyShow(intent, callback);
+            break;
         case 'StadtIntent':
             auth.verifyCity(intent, callback);
             break;
@@ -109,9 +111,9 @@ function handleQuestIntents(intent, callback) {
  */
 function handleConfirmQuestIntents(intent, callback) {
     if (intent.name == 'AMAZON.YesIntent') {
-        auth.endAddQuest(callback)
+        auth.endAddQuest(callback);
     } else if (intent.name == 'AMAZON.NoIntent') {
-        auth.repromptCheck(callback)
+        auth.repromptCheck(callback);
     } else {
         auth.wrongIntent(callback);
     }
@@ -124,9 +126,9 @@ function handleConfirmQuestIntents(intent, callback) {
  */
 function handleConfirmAnswerIntents(intent, callback) {
     if (intent.name == 'AMAZON.YesIntent') {
-        auth.endAddAnswer(callback)
+        auth.endAddAnswer(callback);
     } else if (intent.name == 'AMAZON.NoIntent') {
-        auth.repromptCheck(callback)
+        auth.repromptCheck(callback);
     } else {
         auth.wrongIntent(callback);
     }
@@ -142,6 +144,8 @@ function handleSuccessIntents(intent, callback) {
         auth.resetState(callback);
     } else if (intent.name == 'FrageHinzufuegen') {
         auth.addQuestion(callback);
+    } else {
+        auth.wrongIntent(callback);
     }
 }
 
@@ -151,7 +155,7 @@ function handleSuccessIntents(intent, callback) {
  * @param {function} callback Callback
  */
 function handleFailedIntents(intent, callback) {
-    if (intent.name == 'Reset') auth.resetState(callback);
+    (intent.name == 'Reset') ? auth.resetState(callback) : auth.wrongIntent(callback);
 }
 
 /**
@@ -160,7 +164,8 @@ function handleFailedIntents(intent, callback) {
  * @param {*} callback Callback
  */
 function handleAddQuestIntents(intent, callback) {
-    (intent.name == 'FrageIntent') ? auth.verifyQuestion(intent, callback) : auth.wrongIntent(callback) ; 
+    //(intent.name == 'FrageIntent') ? auth.verifyQuestion(intent, callback) : auth.wrongIntent(callback);
+    handleQuestIntents(intent, callback); 
 }
 
 

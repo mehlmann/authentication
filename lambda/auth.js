@@ -47,7 +47,7 @@ var lastSaid = '';
 // 1 = Refresh, 0 = kein Refresh nach Authentifizierung
 var useRfrsh = 1;
 // erweiterte Ausgaben in der Konsole
-var debug = 0;
+var debug = 1;
 var checkTmp;
 
 var auth_state = new StateMachine({
@@ -73,7 +73,7 @@ var auth_state = new StateMachine({
         { name: 'addQuestion',            from: 'success',     to: 'addQuest'    },
         { name: 'addToCheck',             from: 'addQuest',    to: 'checkQuest'  },
         { name: 'checkToAdd',             from: 'checkQuest',  to: 'addQuest'    },
-        { name: 'addQuestToAddAnswer',    from: 'addQuest',    to: 'addAnswer'   }
+        { name: 'checkQuestToAddAnswer',  from: 'checkQuest',  to: 'addAnswer'   }
     ],
     methods: {
         onStartToCalc: function(obj, question) {
@@ -115,7 +115,7 @@ var auth_state = new StateMachine({
         onAddQuestion: function(obj) {
             fct.printLog(`User wants to add a question.\nMoving from success to addQuest.`);
         },
-        onAddQuestToAddAnswer: function(obj, answer) {
+        onCheckQuestToAddAnswer: function(obj, answer) {
             fct.printLog(`User confirmed answer: ${answer}.\nMoving from addQuest to addAnswer.`);
         }
     }
@@ -235,8 +235,10 @@ function getNextState(userAnswer, correctAnswer, callback) {
 function verifyAnswer(answer, callback) {
     if (isInState('addAnswer')) {
         checkInput(answer, callback);
+    } else if (isInState('addQuest')) {
+        checkInput(answer, callback);   //HAXOR
     } else {
-        if (answer == currentQuest.answer) {
+        if (answer.toLowerCase() == currentQuest.answer.toLowerCase()) {
             getNextState(answer, currentQuest.answer, callback);
         } else {
             auth_state.answerWrong(answer, currentQuest.answer);
@@ -251,6 +253,7 @@ function verifyAnswer(answer, callback) {
  */
 function startDynamicRefresh(callback) {
     if (debug) fct.printLog(`startDynamicRefresh...`);
+    currentQuest.number = Math.floor(Math.random() * questions.getDynamicSize());
     while (!questions.isDynamicUsed(currentQuest.number)) {
         currentQuest.number = Math.floor(Math.random() * questions.getDynamicSize());
     }
@@ -330,7 +333,7 @@ function endAddQuest(callback) {
     var speechOutput = `Die Frage wurde akzeptiert. Bitte geben Sie mir nun die Antwort auf die Frage, ${currentQuest.question}.`;
     lastSaid = `Bitte geben Sie mir die Antwort auf die Frage, ${currentQuest.question}.`;
     const shouldEndSession = false;
-    auth_state.addQuestToAddAnswer(currentQuest.answer);
+    auth_state.checkQuestToAddAnswer(currentQuest.answer);
 
     callback({}, alexa.buildSpeechletResponse(cardTitle, speechOutput, lastSaid, shouldEndSession));
 }
@@ -385,6 +388,7 @@ function getStaticQuestion(callback) {
 function getDynamicQuestion(callback) {
     if (debug) fct.printLog(`getDynamicQuestion...`);
     const cardTitle = 'Frage gestellt';
+    currentQuest.number = Math.floor(Math.random() * questions.getDynamicSize());
     while (!questions.isDynamicUsed(currentQuest.number)) {
         currentQuest.number = Math.floor(Math.random() * questions.getDynamicSize());
     }
@@ -592,6 +596,18 @@ function verifySchoolSubject(intent, callback) {
 }
 
 /**
+ * Überprüfe ob eine Show-Antwort korrekt ist.
+ * @param {*} intent Intent
+ * @param {function} callback Rückgabe
+ */
+function verifyShow(intent, callback) {
+    if (debug) fct.printLog(`Show: ${intent.slots.serie.value}`);
+    var answer = intent.slots.serie.value;
+    if (!answer) fct.printError('VerifyShow failed! No show was given!');
+    verifyAnswer(answer, callback);
+}
+
+/**
  * Überprüft ob eine Sport-Antwort korrekt ist.
  * @param {*} intent der Intent der Anfrage 
  * @param {function} callback Rückgabefunktion
@@ -622,7 +638,8 @@ function verifyCellphone(intent, callback) {
 function addQuestion(callback) {
     if (debug) fct.printLog(`addQuestion...`);
     const cardTitle = 'Frage hinzufügen';
-    lastSaid = "Nennen Sie mir die Frage, welche Sie hinzufügen möchten.";
+    currentQuest.question = "Nennen Sie mir die Frage, welche Sie hinzufügen möchten.";
+    lastSaid = currentQuest.question;
     const shouldEndSession = false;
 
     auth_state.addQuestion();
@@ -658,6 +675,7 @@ module.exports = {auth_state,
                 wrongIntent,
                 resetState,
                 endAddAnswer,
+                endAddQuest,
                 repromptCheck,
                 getCalculation,
                 verifyCalc,
@@ -672,6 +690,7 @@ module.exports = {auth_state,
                 verifyNumber,
                 verifyCity,
                 verifySport,
+                verifyShow,
                 verifyAnimal,
                 verifySchoolSubject,
                 verifyCellphone,
