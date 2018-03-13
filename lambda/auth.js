@@ -6,24 +6,26 @@
  * 
  * Die aktuelle State-Machine sieht folgendermaßen aus:
  * 
- *                                   Antwort korrekt            Antwort korrekt                
- *                                     counter > 0                counter > 0                  
- *                                         ----                       ----                         
- *                                        |    v   Antwort korrekt   |    v   Antwort korrekt               
- *  -----        ------  Antwort korrekt  ------     counter = 0     -------    counter = 0      ---------      nein       -----
- * |start|----->| calc |---------------->|static|------------------>|dynamic|------------------>|addAnswer|<=============>|check|
- *  -----        ------                   ------                     -------         | useRfsh?  ---------                 -----
- *                 |                        |                           |            |                       Antwort richtig| ^|^
- *                 |                        |                           v            |                        verstanden?   | |||
- *                 |                        |      Antwort falsch    ------          |             -------                  | |||
- *                 |----------------------------------------------->|failed|         |----------->|success|<----------------| |||
- *                                                                   ------                        -------                    |||
- *                                                                                                    |                       |||
- *                                                                                                    v                       |||
- *                                                                                                 --------                   |||-> ---------
- *                                                                                                |addQuest|<-----------------||   |addAnswer|
- *                                                                                                 --------                    |--> ---------
  * 
+ *    ------------------------------------------------------------------
+ *   |                                                  korrekt        v                                                         
+ *  -----                                               ctr = 0     ---------            ----------                             
+ * |setup|                    korrekt         korrekt   ---------->|addAnswer|<---------|checkQuest|                            
+ *  -----                     ctr > 0         ctr > 0  |            ---------            ----------                             
+ *   ^ |                         --              --    |              |   ^                |   ^                                
+ *   | v                        |  v    korrekt |  v   |              v   |                v   |                                
+ *  -----      ------  korrekt  ------  ctr = 0  -------           -----------            --------                              
+ * |start|--->| calc |-------->|static|-------->|dynamic|         |checkAnswer|          |addQuest|                             
+ *  -----      ------           ------           -------           -----------            --------                              
+ *    ^          |                |               |  |                 |                     ^                                  
+ *    |          |                |               |  |                 |                     |                                  
+ *    |          |                v               |  |                 v                     |                                  
+ *    |          |   falsch     ------   falsch   |  |              -------                  |                                  
+ *    |           ------------>|failed|<----------    ------------>|success|-----------------                                   
+ *    |                         ------                              -------                                                     
+ *    |                           |                                    |                                                        
+ *     ----------------------------------------------------------------                                                         
+ *                               reset                                                                                          
  */
 
 'use strict'
@@ -42,18 +44,23 @@ var dynThreshold = statics.DYNAMIC_THRESHOLD;
 var currentQuest ={number: '',
                     question: '',
                     answer: ''};
-// das letzte was ALexa sagte, sollte es wiederholt werden
+// das letzte was Alexa sagte, sollte es wiederholt werden
 var lastSaid = '';
 // 1 = Refresh, 0 = kein Refresh nach Authentifizierung
-var useRfrsh = 1;
-// erweiterte Ausgaben in der Konsole
-var debug = 1;
+var useRfrsh = true;
+var debug = true;
+var setup = false;
+// for research purpose
+var test = false;
 var checkTmp;
+var setupQuestCtr = 0;
 
 var auth_state = new StateMachine({
     init : 'start',
     transitions: [
         { name: 'startToCalc',            from: 'start',       to: 'calc'        },
+        { name: 'startToSetup',           from: 'start',       to: 'setup'       },
+        { name: 'checkToAdd',             from: 'setup',       to: 'addAnswer'   },
         { name: 'calcToStatic',           from: 'calc',        to: 'static'      },
         { name: 'staticToStatic',         from: 'static',      to: 'static'      },
         { name: 'staticToDynamic',        from: 'static',      to: 'dynamic'     },
@@ -76,8 +83,11 @@ var auth_state = new StateMachine({
         { name: 'checkQuestToAddAnswer',  from: 'checkQuest',  to: 'addAnswer'   }
     ],
     methods: {
-        onStartToCalc: function(obj, question) {
-            fct.printLog('Question is: ' + question + '\nMoving from start to calc.');
+        onStartToCalc: function() {
+            fct.printLog('\nMoving from start to calc.');
+        },
+        onStartToSetup: function(obj) {
+            fct.printLog('Performing setup. \nMoving from start to setup.');
         },
         onCalcToStatic: function(obj, claim, real) {
             fct.printLog(`Answer was correct. You said ${claim}, it was ${real}.\nMoving from calc to static.`);
@@ -136,6 +146,52 @@ function getState() {
 function isInState(state) {
     if (debug) fct.printLog(`IsInState returns: ${auth_state.is(state)}.`);
     return auth_state.is(state);
+}
+
+/** 
+ * Sind wir beim Setup?
+ */
+function needSetup() {
+    if (setup) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+/**
+ * Startet den Setup der Applikation.
+ * @param {function} callback Rückgabefunktion
+ */
+function startSetup(callback) {
+    if (debug) fct.printLog('Starting to setup the application.');
+    const cardTitle = 'Starte Setup';
+    const shouldEndSession = false;
+    currentQuest.question = questions.getStaticQuestion[setupQuestCtr].question;
+    var speechOutput = 'Ihre Authentifizierungsfragen müssen erst eingestellt werden. '
+            + 'Ich werden Ihnen alle statischen Fragen nun aufzählen. '
+            + 'Sagen Sie mir mit Ja oder Nein, ob Sie die Frage verwenden möchten und geben Sie mir anschließend die Antwort auf die Frage. '
+            + 'Die erste Frage ist. '
+            + currentQuest.question
+            + 'Wollen Sie diese Frage verwenden?';
+    lastSaid = 'Die erste Frage ist. '
+            + currentQuest.question
+            + 'Wollen Sie diese Frage verwenden?';
+    auth.auth_state.startToSetup();
+    callback({}, alexa.buildSpeechletResponse(cardTitle, speechOutput, lastSaid, shouldEndSession));
+}
+
+function getNextQuestion(callback) {
+    if (debug) fct.printLog('Fetching next Question.');
+    setupQuestCtr++;
+    const cardTitle = 'Hole nächste Frage';
+    const shouldEndSession = false;
+    currentQuest.question = questions.getStaticQuestion[setupQuestCtr].question;
+    lastSaid = 'Wollen Sie die Frage '
+            + currentQuest.question
+            + ' benutzen?';
+
+    callback({}, alexa.buildSpeechletResponse(cardTitle, lastSaid, lastSaid, shouldEndSession));
 }
 
 /**
@@ -560,6 +616,18 @@ function verifyCity(intent, callback) {
 }
 
 /**
+ * Überprüft ob eine Film-Antwort korrekt ist.
+ * @param {*} intent der Intent der Anfrage 
+ * @param {function} callback Rückgabefunktion
+ */
+function verifyMovie(intent, callback) {
+    if (debug) fct.printLog(`Movie: ${intent.slots.film.value}`);
+    var answer = intent.slots.film.value;
+    if (!answer) fct.printError('VerifyMovie failed! No movie was given!');
+    verifyAnswer(answer, callback);
+}
+
+/**
  * Überprüft ob eine Sport-Antwort korrekt ist.
  * @param {*} intent der Intent der Anfrage 
  * @param {function} callback Rückgabefunktion
@@ -649,7 +717,7 @@ function addQuestion(callback) {
 
 /**
  * Bereitet die Frage, welche vom Benutzer gegebn wurde vor.
- * fragewort} {verb} {wortEins} {wortZwei} {wortDrei} {wortVier} {wortFuenf} {wortSechs
+ * {fragewort} {verb} {wortEins} {wortZwei} {wortDrei} {wortVier} {wortFuenf} {wortSechs}
  * @param {*} intent Intent
  * @param {function} callback Callback
  */
@@ -672,6 +740,8 @@ function verifyQuestion(intent, callback) {
 module.exports = {auth_state,
                 getState,
                 isInState,
+                needSetup,
+                startSetup,
                 wrongIntent,
                 resetState,
                 endAddAnswer,
@@ -686,6 +756,7 @@ module.exports = {auth_state,
                 verifyLand,
                 verifySoccer,
                 verifyMoney,
+                verifyMovie,
                 verifyInstrument,
                 verifyNumber,
                 verifyCity,

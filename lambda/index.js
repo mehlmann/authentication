@@ -55,6 +55,9 @@ function handleQuestIntents(intent, callback) {
         case 'FarbeIntent':
             auth.verifyColor(intent, callback);
             break;
+        case 'FilmIntent':
+            auth.verifyMovie(intent, callback);
+            break;
         case 'FussballIntent':
             auth.verifySoccer(intent, callback);
             break;
@@ -126,7 +129,7 @@ function handleConfirmQuestIntents(intent, callback) {
  */
 function handleConfirmAnswerIntents(intent, callback) {
     if (intent.name == 'AMAZON.YesIntent') {
-        auth.endAddAnswer(callback);
+        (auth.needSetup()) ? auth.getNextQuestion(callback) : auth.endAddAnswer(callback); ;
     } else if (intent.name == 'AMAZON.NoIntent') {
         auth.repromptCheck(callback);
     } else {
@@ -168,6 +171,15 @@ function handleAddQuestIntents(intent, callback) {
     handleQuestIntents(intent, callback); 
 }
 
+function handleYesNoIntent(intent, callback) {
+    if (intent.name == 'AMAZON.YesIntent') {
+        auth.repromptCheck(callback);
+    } else if (intent.name == 'AMAZON.NoIntent') {
+        auth.getNextQuestion(callback);
+    } else {
+        auth.wrongIntent(callback);
+    }
+}
 
 /**
  * Ruft die verschiedenen intents auf.
@@ -189,6 +201,9 @@ function onIntent(intentRequest, session, callback) {
     switch (auth.getState()) {
         case 'start':
             handleStartIntents(intent, callback);
+            break;
+        case 'setup':
+            handleYesNoIntent(intent, callback);
             break;
         case 'calc':
             handleCalcIntents(intent, callback);

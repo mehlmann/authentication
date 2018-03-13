@@ -1,6 +1,7 @@
 'use strict'
 
 const fct = require('./help-functions');
+const auth = require('./auth');
 
 /**
  * Die Standard-Funktionen für Alexa.
@@ -40,17 +41,24 @@ function buildResponse(sessionAttributes, speechletResponse) {
     };
 }
 
+/** 
+ * Setup endet.
+ */
+function endSetup() {
+    setup = 0;
+}
+
 /**
  * getWelcomeResponse wird bei starten des Skills ausgeführt und bildet eine Art Begrüssung.
  * @param {function} callback Rückgabe an die App
  */
 function getWelcomeResponse(callback) {
     const cardTitle = 'Willkommen';
-    const speechOutput = 'Willkommen';
-    const repromptText = 'Willkommen';
+    const speechOutput = 'Willkommen.';
+    const repromptText = 'Willkommen.';
     const shouldEndSession = false;
 
-    callback({}, buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
+    (auth.needSetup()) ? auth.startSetup(callback) : callback({}, buildSpeechletResponse(cardTitle, 'Willkommen', 'Willkommen', shouldEndSession));    
 }
 
 /**
@@ -115,6 +123,7 @@ function onUnknownIntent(callback) {
 
 module.exports = {buildSpeechletResponse,
                 buildResponse,
+                endSetup,
                 getWelcomeResponse,
                 getHelpResponse,
                 getEndResponse,

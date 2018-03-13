@@ -51,134 +51,124 @@ var staticQuestions = [
         answer: '8a'
     },
     {//9
-        question: 'Wie ist ihr Familienname?',
-        answer: 'mehlmann',
-        use: 0
-    },
-    {//10
         question: 'Wie ist der Mädchenname Ihrer Mutter?',
         answer: 'müller',
         use: 0
     },
-    {//11
+    {//10
         question: 'Was war Ihr erstes Haustier?',
         answer: 'hund',
         use: 0
     },
-    {//12
+    {//11
         question: 'Was war Ihr letztes Haustier?',
         answer: 'katze',
         use: 0
     },
-    {//13
+    {//12
         question: 'Wieviele Haustiere haben Sie?',
         answer: '1',
         use: 0
     },
-    {//14
+    {//13
         question: 'Was war der Name ihres ersten Haustieres?',
         answer: 'timmy',
         use: 0
     },
-    {//15
+    {//14
         question: 'Was ist Ihr Lieblingsbuch?',
         answer: 'krabat',
         use: 0
     },
-    {//16
+    {//15
         question: 'Was ist Ihr Lieblingsfilm?',
         answer: 'der herr der ringe',
-        use: 0
+        use: 1
     },
-    {//17
+    {//16
         question: 'Was war Ihr Lieblingsfach in der Schule?',
         answer: 'mathematik',
         use: 0
     },
-    {//18
+    {//17
         question: 'Welches Fach mochten Sie am wenigsten in der Schule?',
         answer: 'sozialkunde',
         use: 0
     },
-    {//19
+    {//18
         question: 'Was ist Ihr Lieblingssport?',
         answer: 'basketball',
         use: 0
     },
-    {//20
+    {//19
         question: 'Was ist Ihre Lieblingsfußballmannschaft?',
         answer: 'ksc',
         use: 0
     },
-    {//21
+    {//20
         question: 'Wie war der Vorname Ihres väterlichen Großvaters?',
         answer: 'anton',
         use: 0
     },
-    {//22
+    {//21
         question: 'Wie war der Vorname Ihrer mütterlichen Großmutter?',
         answer: 'nina',
         use: 0
     },
-    {//23
+    {//22
         question: 'Von welcher Marke ist Ihr Auto?',
         answer: 'VW',
         use: 0
     },
-    {//24
+    {//23
         question: 'Welche Marke hatte ihr erstes Auto?',
         answer: 'Toyota',
         use: 0
     },
-    {//25
+    {//24
         question: 'Wie war der Name Ihres ersten Freundes, ihrer ersten Freundin?',
         answer: 'maria',
         use: 0
     },
-    {//26
+    {//25
         question: 'Wie lautet Ihr Lieblingsinterpret?',
         answer: 'rammstein',
         use: 0
     },
-    {//27
+    {//26
         question: 'Was war Ihr erstes Urlaubsland?',
         answer: 'türkei',
         use: 0
     },
-    {//28
+    {//27
         question: 'Was ist Ihr Lieblingsurlaubsland?',
         answer: 'spanien',
         use: 0
     },
-    {//29
+    {//28
         question: 'Von welcher Marke ist Ihr Laptop?',
         answer: 'acer',
         use: 0
     },
-    {//30
+    {//29
         question: 'Von welcher Marke ist Ihr Tablet?',
         answer: 'samsung',
         use: 0
     },
-    {//31
+    {//30
         question: 'Was war ihr erstes Musikinstrument?',
         answer: 'gitarre',
         use: 0
     },
-    {//32
+    {//31
         question: 'Welches Bier trinken Sie am liebsten?',
         answer: 'bitburger',
         use: 0
     },
-    {//33
-        question: 'Was ist Ihre Lieblingsspeise?',
-        answer: 'lasagne',
-        use: 0
-    },
-    {
+    {//32
         question: 'Was ist Ihre Lieblingsserie?',
         answer: 'The End of the Fucking World',
-        use: 1
+        use: 0
     }
 ];
 
@@ -208,8 +198,8 @@ var dynamicQuestions = [
     },
     {//4
         question: 'Welchen Film haben Sie zuletzt gesehen?',
-        answer: 'Matrix',
-        use: 0
+        answer: 'Chihiros Reise ins Zauberland',
+        use: 1
     },
     {//5
         question: 'Welche Serie haben Sie zuletzt gesehen?',
