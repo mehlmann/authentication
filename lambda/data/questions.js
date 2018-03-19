@@ -20,7 +20,7 @@ var staticQuestions = [
         question: 'In welcher stadt wohnen sie?' ,
         answer: 'wörth am rhein',
         use: 0
-    },
+    }/*,
     {//3
         question: 'in welcher stadt wurden sie geboren?',
         answer: 'erfurt',
@@ -169,7 +169,7 @@ var staticQuestions = [
         question: 'Was ist Ihre Lieblingsserie?',
         answer: 'The End of the Fucking World',
         use: 0
-    }
+    }*/
 ];
 
 /**
@@ -190,7 +190,7 @@ var dynamicQuestions = [
         question: 'Welches Festival oder Konzert haben Sie zuletzt besucht?',
         answer: 'rock am ring',
         use: 0
-    },
+    }/*,
     {//3
         question: 'Was war das letzte Buch, welches Sie gelesen haben?',
         answer: 'zeit der krähen',
@@ -212,7 +212,7 @@ var dynamicQuestions = [
         use: 0
     },
     {//7
-        question: 'Was war die letzte installierte App auf Ihrem Smartphone?',
+        question: 'Was war die zuletzt installierte App auf Ihrem Smartphone?',
         answer: 'jodel',
         use: 0
     },
@@ -225,7 +225,7 @@ var dynamicQuestions = [
         question: 'Was haben Sie zuletzt über Amazon bestellt?',
         answer: 'klopapier',
         use: 0
-    }
+    }*/
 ];
 
 /**

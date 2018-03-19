@@ -129,7 +129,7 @@ function handleConfirmQuestIntents(intent, callback) {
  */
 function handleConfirmAnswerIntents(intent, callback) {
     if (intent.name == 'AMAZON.YesIntent') {
-        (auth.needSetup()) ? auth.getNextQuestion(callback) : auth.endAddAnswer(callback); ;
+        (auth.needSetup()) ? auth.addAnswer(callback, intent) : auth.endAddAnswer(callback);
     } else if (intent.name == 'AMAZON.NoIntent') {
         auth.repromptCheck(callback);
     } else {
@@ -246,14 +246,21 @@ exports.handler = (event, context, callback) => {
     try {
         if (event.request.type === 'LaunchRequest') {
             fct.printLog(`Authentication in state ${auth.getState()}.`);
-            var sys = event.context.System;
-            fct.printLog(sys);
+            //var sys = event.context.System;
+            //fct.printLog(sys);
             //quest.initAnswers(sys);
+            console.log('Setup needed:' + auth.needSetup());
+            if (auth.needSetup()) {
+                auth.startSetup((sessionAttributes, speechletResponse) => {
+                    callback(null, alexa.buildResponse(sessionAttributes, speechletResponse));
+                });
+            } else {
             alexa.onLaunch(event.request,
                 event.session,
                 (sessionAttributes, speechletResponse) => {
                     callback(null, alexa.buildResponse(sessionAttributes, speechletResponse));
                 });
+            }
         } else if (event.request.type === 'IntentRequest') {
             onIntent(event.request,
                 event.session,

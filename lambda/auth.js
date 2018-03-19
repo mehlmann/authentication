@@ -9,9 +9,9 @@
  * 
  *    ------------------------------------------------------------------
  *   |                                                  korrekt        v                                                         
- *  -----                                               ctr = 0     ---------            ----------                             
- * |setup|                    korrekt         korrekt   ---------->|addAnswer|<---------|checkQuest|                            
- *  -----                     ctr > 0         ctr > 0  |            ---------            ----------                             
+ *  ----- ---                                           ctr = 0     ---------            ----------                             
+ * |setup|   |                korrekt         korrekt   ---------->|addAnswer|<---------|checkQuest|                            
+ *  ----- <--                 ctr > 0         ctr > 0  |            ---------            ----------                             
  *   ^ |                         --              --    |              |   ^                |   ^                                
  *   | v                        |  v    korrekt |  v   |              v   |                v   |                                
  *  -----      ------  korrekt  ------  ctr = 0  -------           -----------            --------                              
@@ -49,7 +49,7 @@ var lastSaid = '';
 // 1 = Refresh, 0 = kein Refresh nach Authentifizierung
 var useRfrsh = true;
 var debug = true;
-var setup = false;
+var setup = true;
 // for research purpose
 var test = false;
 var checkTmp;
@@ -60,7 +60,10 @@ var auth_state = new StateMachine({
     transitions: [
         { name: 'startToCalc',            from: 'start',       to: 'calc'        },
         { name: 'startToSetup',           from: 'start',       to: 'setup'       },
+        { name: 'setupToStart',           from: 'setup',       to: 'start'       },
         { name: 'checkToAdd',             from: 'setup',       to: 'addAnswer'   },
+        { name: 'toSetup',                from: 'checkAnswer', to: 'setup'       },
+        { name: 'toSetup',                from: 'setup',       to: 'setup'       },
         { name: 'calcToStatic',           from: 'calc',        to: 'static'      },
         { name: 'staticToStatic',         from: 'static',      to: 'static'      },
         { name: 'staticToDynamic',        from: 'static',      to: 'dynamic'     },
@@ -86,7 +89,7 @@ var auth_state = new StateMachine({
         onStartToCalc: function() {
             fct.printLog('\nMoving from start to calc.');
         },
-        onStartToSetup: function(obj) {
+        onStartToSetup: function() {
             fct.printLog('Performing setup. \nMoving from start to setup.');
         },
         onCalcToStatic: function(obj, claim, real) {
@@ -110,7 +113,7 @@ var auth_state = new StateMachine({
         onAnswerWrong:  function(obj, claim, real) {
             fct.printLog(`Answer was wrong! You said ${claim}, it was ${real}.`);
         },
-        onReset:  function(obj) {
+        onReset:  function() {
             fct.printLog('Going back to start.');
         },
         onAddToCheck: function(obj, answer) {
@@ -122,7 +125,7 @@ var auth_state = new StateMachine({
         onCheckAnswerToSuccess: function(obj, answer) {
             fct.printLog(`User confirmed answer: ${answer}.\nMoving from checkAnswer to success.`);
         },
-        onAddQuestion: function(obj) {
+        onAddQuestion: function() {
             fct.printLog(`User wants to add a question.\nMoving from success to addQuest.`);
         },
         onCheckQuestToAddAnswer: function(obj, answer) {
@@ -167,30 +170,73 @@ function startSetup(callback) {
     if (debug) fct.printLog('Starting to setup the application.');
     const cardTitle = 'Starte Setup';
     const shouldEndSession = false;
-    currentQuest.question = questions.getStaticQuestion[setupQuestCtr].question;
-    var speechOutput = 'Ihre Authentifizierungsfragen müssen erst eingestellt werden. '
-            + 'Ich werden Ihnen alle statischen Fragen nun aufzählen. '
+    currentQuest.question = questions.getStaticQuestion(setupQuestCtr);
+    var speechOutput = 'Willkommen. Ihre Authentifizierungsfragen müssen erst eingerichtet werden. '
+            + 'Ich werde Ihnen alle Fragen nun aufzählen. '
             + 'Sagen Sie mir mit Ja oder Nein, ob Sie die Frage verwenden möchten und geben Sie mir anschließend die Antwort auf die Frage. '
             + 'Die erste Frage ist. '
             + currentQuest.question
-            + 'Wollen Sie diese Frage verwenden?';
+            + ' Wollen Sie diese Frage verwenden?';
     lastSaid = 'Die erste Frage ist. '
             + currentQuest.question
-            + 'Wollen Sie diese Frage verwenden?';
-    auth.auth_state.startToSetup();
+            + ' Wollen Sie diese Frage verwenden?';
+    auth_state.startToSetup();
     callback({}, alexa.buildSpeechletResponse(cardTitle, speechOutput, lastSaid, shouldEndSession));
 }
 
+/**
+ * Fügt eine bestätigte Antwort der Frage hinzu.
+ * @param {function} callback Rückgabe 
+ * @param {*} intent Intent 
+ */
+function addAnswer(callback, intent) {
+    if (setupQuestCtr < questions.getStaticSize()) {
+        questions.setStaticAnswer(setupQuestCtr, checkTmp);
+        questions.setStaticUsed(setupQuestCtr, true);
+    } else {
+        var arrayNumber = setupQuestCtr - questions.getStaticSize();
+        questions.setDynamicAnswer(arrayNumber, checkTmp);
+        questions.setDynamicUsed(arrayNumber, true);
+    }
+    getNextQuestion(callback);
+}
+
+/**
+ * Gibt die nächste Frage für die Einrichtung aus. 
+ * Sobald der Counter über der Summe der Fragen ist, ist die Einrichtung beendet.
+ * @param {function} callback Rückgabefunktion 
+ */
 function getNextQuestion(callback) {
-    if (debug) fct.printLog('Fetching next Question.');
     setupQuestCtr++;
+    if (debug) fct.printLog(`Fetching next Question. SetupQuestCtr=${setupQuestCtr}`);
     const cardTitle = 'Hole nächste Frage';
     const shouldEndSession = false;
-    currentQuest.question = questions.getStaticQuestion[setupQuestCtr].question;
+    if (setupQuestCtr < questions.getStaticSize()) {
+        currentQuest.question = questions.getStaticQuestion(setupQuestCtr);
+    } else if (setupQuestCtr < (questions.getStaticSize() + questions.getDynamicSize())) {
+        currentQuest.question = questions.getDynamicQuestion(setupQuestCtr-questions.getStaticSize());
+    } else {
+        auth_state.toSetup();
+        endSetup(callback);
+    }
     lastSaid = 'Wollen Sie die Frage '
             + currentQuest.question
             + ' benutzen?';
+    auth_state.toSetup();
+    callback({}, alexa.buildSpeechletResponse(cardTitle, lastSaid, lastSaid, shouldEndSession));
+}
 
+/**
+ * Beendet die Einrichtung.
+ * @param {function} callback Rückgabe
+ */
+function endSetup(callback) {
+    const cardTitle = 'Setup beendet';
+    const shouldEndSession = false;
+    lastSaid = 'Die Einrichtung ist abgeschlossen. Sie können sich nun authentifizieren.';
+    setup = false;
+
+    auth_state.setupToStart();
     callback({}, alexa.buildSpeechletResponse(cardTitle, lastSaid, lastSaid, shouldEndSession));
 }
 
@@ -334,7 +380,7 @@ function startDynamicRefresh(callback) {
 function checkInput(input, callback) {
     const cardTitle = 'Check Input';
     if (debug) fct.printLog(`Input is ${input}.`);
-    lastSaid = `Sie sagten ${input}. Ist das richtig?`;
+    lastSaid = `Sie sagten ${input}, Ist das richtig?`;
     checkTmp = input;
     const shouldEndSession = false;
 
@@ -742,6 +788,8 @@ module.exports = {auth_state,
                 isInState,
                 needSetup,
                 startSetup,
+                addAnswer,
+                getNextQuestion,
                 wrongIntent,
                 resetState,
                 endAddAnswer,
