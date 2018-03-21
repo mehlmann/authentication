@@ -17,13 +17,13 @@
  *  -----      ------  korrekt  ------  ctr = 0  -------           -----------            --------                              
  * |start|--->| calc |-------->|static|-------->|dynamic|         |checkAnswer|          |addQuest|                             
  *  -----      ------           ------           -------           -----------            --------                              
- *    ^          |                |               |  |                 |                     ^                                  
- *    |          |                |               |  |                 |                     |                                  
- *    |          |                v               |  |                 v                     |                                  
- *    |          |   falsch     ------   falsch   |  |              -------                  |                                  
- *    |           ------------>|failed|<----------    ------------>|success|-----------------                                   
- *    |                         ------                              -------                                                     
- *    |                           |                                    |                                                        
+ *    ^         ^ |               |               |  |                 |                     ^                                  
+ *    |         | |               |               |  |                 |                     |                                  
+ *    |         | |               v               |  |                 v                     |                                  
+ *    |         | |  falsch     ------   falsch   |  |              -------                  |                                  
+ *    |         | |----------->|failed|<----------    ------------>|success|-----------------                                   
+ *    |         |                ------                              -------                                                     
+ *    |         |test              |                                    |                                                        
  *     ----------------------------------------------------------------                                                         
  *                               reset                                                                                          
  */
@@ -47,11 +47,13 @@ var currentQuest ={number: '',
 // das letzte was Alexa sagte, sollte es wiederholt werden
 var lastSaid = '';
 // 1 = Refresh, 0 = kein Refresh nach Authentifizierung
-var useRfrsh = true;
+var useRfrsh = false;
+var useRfrshCrt = statics.USE_REFRESH_COUNTER;
 var debug = true;
-var setup = true;
+var setup = false;
 // for research purpose
 var test = false;
+var testRun = 1;
 var checkTmp;
 var setupQuestCtr = 0;
 
@@ -263,6 +265,21 @@ function onAuthenticated(callback) {
     const repromptText = `Auf Wiedersehen.`;
     const shouldEndSession = false;
 
+    if (testRun > 5) {
+        const speechOutput = 'Der Authentifizierungsversuch war erfolgreich.'
+        + 'Die Testreihe endet hiermit. Ich danke Ihnen für die Teilnahme. Auf Wiedersehen.';
+        shouldEndSession = true;
+        callback({}, alexa.buildSpeechletResponse(cardTitle, speechOutput, shouldEndSession));
+    }
+
+    if (test) {
+        const speechOutput = 'Der Authentifizierungsversuch war erfolgreich. Wir beginnen nun mit dem nächsten Testfall.'
+
+        testRun++;
+        auth_state.reset();
+        startTesting(callback, speechOutput);
+    }
+
     callback({}, alexa.buildSpeechletResponse(cardTitle, lastSaid, repromptText, shouldEndSession));
 }
 
@@ -275,7 +292,22 @@ function onFailed(callback) {
     const cardTitle = 'Authentication failed.';
     lastSaid = 'Die Authentifizierung ist leider fehlgeschlagen.';
     const repromptText = `Auf Wiedersehen.`;
-    const shouldEndSession = false;
+    var shouldEndSession = false;
+
+    if (testRun > 5) {
+        const speechOutput = 'Der Authentifizierungsversuch ist leider fehlgeschlagen.'
+        + 'Die Testreihe endet hiermit. Ich danke Ihnen für die Teilnahme. Auf Wiedersehen.';
+        shouldEndSession = true;
+        callback({}, alexa.buildSpeechletResponse(cardTitle, speechOutput, shouldEndSession));
+    }
+
+    if (test) {
+        const speechOutput = 'Der Authentifizierungsversuch ist leider fehlgeschlagen. Wir beginnen nun mit dem nächsten Testfall.';
+
+        testRun++;
+        auth_state.reset();
+        startTesting(callback, speechOutput);
+    }
 
     callback({}, alexa.buildSpeechletResponse(cardTitle, lastSaid, repromptText, shouldEndSession));
 }
@@ -318,10 +350,14 @@ function getNextState(userAnswer, correctAnswer, callback) {
             auth_state.dynamicToDynamic(userAnswer, correctAnswer);
             getDynamicQuestion(callback);
         } else {
+            if (useRfrshCrt < 2) useRfrsh = true; 
             if (useRfrsh) {
                 auth_state.dynamicToAddAnswer(userAnswer, correctAnswer);
+                useRfrshCrt = statics.getUseRefreshCounter();
+                useRfrsh = false;
                 startDynamicRefresh(callback);
             } else {
+                useRfrshCrt--;
                 auth_state.dynamicToSuccess(currentQuest.question, currentQuest.answer);
                 onAuthenticated(callback);
             }
@@ -420,6 +456,8 @@ function endAddAnswer(callback) {
     }
     auth_state.checkAnswerToSuccess(currentQuest.answer);
 
+    if (test) onAuthenticated(callback);
+
     callback({}, alexa.buildSpeechletResponse(cardTitle, speechOutput, lastSaid, shouldEndSession));
 }
 
@@ -452,14 +490,13 @@ function getCalculation(callback) {
 
     const cardTitle = 'Aufgabe gestellt';
     currentQuest.question = `Was ist ${summandA} plus ${summandB}?`;
-    const repromptText = `Lösen Sie bitte die Aufgabe ${summandA} plus ${summandB}.`;
-    lastSaid = repromptText;
+    lastSaid = `Lösen Sie bitte die Aufgabe ${summandA} plus ${summandB}.`;
     const shouldEndSession = false;
 
     currentQuest.answer = summandA + summandB;
     auth_state.startToCalc(currentQuest.question);
 
-    callback({}, alexa.buildSpeechletResponse(cardTitle, currentQuest.question, repromptText, shouldEndSession));
+    callback({}, alexa.buildSpeechletResponse(cardTitle, currentQuest.question, lastSaid, shouldEndSession));
 }
 
 /**
@@ -502,6 +539,30 @@ function getDynamicQuestion(callback) {
     fct.printLog(`Authentication is in state ${auth_state.state}. CurrentQuestNr=${currentQuest.number}.`);
 
     callback({}, alexa.buildSpeechletResponse(cardTitle, currentQuest.question, currentQuest.question, shouldEndSession));
+}
+
+/**
+ * Startet die Authentifizierungsreihe.
+ * @param {function} callback Rückgabefunktion
+ * @param {string} speechOutput Ausgabe, welche den letzten Durchgang beschreiben soll
+ */
+function startTesting(callback, speechOutput) {
+    if (debug) fct.printLog('Starting Test-Phase...');
+    if(!test) testRun = 0;
+    test = true;
+    const cardTitle = 'Test Anfang';
+    const shouldEndSession = false;
+
+    var summandA = Math.floor(Math.random() * 20);
+    var summandB = Math.floor(Math.random() * 20);
+    if (debug) fct.printLog(`Question: ${summandA} + ${summandB} = ${summandA+summandB}`);
+    currentQuest.question = `Was ist ${summandA} plus ${summandB}?`;
+    lastSaid = `Lösen Sie bitte die Aufgabe ${summandA} plus ${summandB}.`;
+    speechOutput += currentQuest.question;
+    currentQuest.answer = summandA + summandB;
+    auth_state.startToCalc(currentQuest.question);
+
+    callback({}, alexa.buildSpeechletResponse(cardTitle, speechOutput, lastSaid, shouldEndSession));
 }
 
 /**
@@ -796,6 +857,7 @@ module.exports = {auth_state,
                 endAddQuest,
                 repromptCheck,
                 getCalculation,
+                startTesting,
                 verifyCalc,
                 verifyCommonAnswer,
                 verifyBeer,

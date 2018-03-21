@@ -21,7 +21,6 @@ Matrix
 Die sieben Samurai
 Krieg der Sterne
 City of God
-Sieben
 Das Schweigen der Lämmer
 Ist das Leben nicht schön
 Das Leben ist schön
@@ -106,7 +105,7 @@ Wer die Nachtigall stört
 Du sollst mein Glücksstern sein
 2001 Odyssee im Weltraum
 2001
-3 Idiots
+three Idiots
 Full Metal Jacket
 Toy Story
 Der Clou
@@ -232,7 +231,7 @@ Stalker
 Persona
 Jurassic Park
 Memories of Murder
-12 Years a Slave
+twelve Years a Slave
 Million Dollar Baby
 Sie küßten und sie schlugen ihn
 Die Truman Show
@@ -283,7 +282,7 @@ In the Mood for Love Der Klang der Liebe
 In the Mood for Love
 Infernal Affairs Die achte Hölle
 Infernal Affairs
-12 Monkeys
+twelve Monkeys
 Paris Texas
 Gangs of Wasseypur
 Die Schöne und das Biest
@@ -495,7 +494,7 @@ Körper und Seele
 Paddington 2
 Das Streben nach Glück
 Central Station
-96 Hours
+ninety six Hours
 My Sassy Girl
 Apocalypto
 Cast Away Verschollen
@@ -516,7 +515,7 @@ Deadpool
 Vaiana Das Paradies hat einen Haken
 Vaiana
 Split
-10 Cloverfield Lane
+ten Cloverfield Lane
 X-Men Apocalypse
 Sing
 Doctor Strange
@@ -539,8 +538,8 @@ Die glorreichen Sieben
 Star Trek Beyond
 Gods of Egypt
 Passengers
-13 Hours The Secret Soldiers of Benghazi
-13 Hours
+thirteen Hours The Secret Soldiers of Benghazi
+thirteen Hours
 Legend of Tarzan
 Warcraft The Beginning
 Warcraft
@@ -704,7 +703,7 @@ Gänsehaut
 The Gift
 The Stanford Prison Experiment
 Chappie
-45 Years
+fourty five Years
 Im Herzen der See
 Last Knights Die Ritter des 7. Ordens
 Last Knights

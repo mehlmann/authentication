@@ -9,7 +9,7 @@ var staticQuestions = [
     {//0
         question: 'was ist ihre lieblingsfarbe?',
         answer: 'blau',
-        use: 0
+        use: 1
     },
     {//1
         question: 'Geben Sie ihre Postleitzahl in einzelnen Ziffern an.',
@@ -20,11 +20,11 @@ var staticQuestions = [
         question: 'In welcher stadt wohnen sie?' ,
         answer: 'wörth am rhein',
         use: 0
-    }/*,
+    },
     {//3
         question: 'in welcher stadt wurden sie geboren?',
         answer: 'erfurt',
-        use: 0
+        use: 1
     },
     {//4
         question: 'was sind die letzten drei ziffern ihrer handynummer?',
@@ -35,7 +35,7 @@ var staticQuestions = [
         question: 'wie ist ihre schuhgröße?',
         answer: '42',
         use: 0
-    },
+    }/*,
     {//6
         question: 'wie ist ihre körpergröße in zentimetern?',
         answer: '179',
@@ -48,124 +48,119 @@ var staticQuestions = [
     },
     {//8
         question: 'In welcher Hausnummer wohnen Sie?' ,
-        answer: '8a'
+        answer: '8'
     },
     {//9
-        question: 'Wie ist der Mädchenname Ihrer Mutter?',
-        answer: 'müller',
-        use: 0
-    },
-    {//10
         question: 'Was war Ihr erstes Haustier?',
         answer: 'hund',
         use: 0
     },
-    {//11
+    {//10
         question: 'Was war Ihr letztes Haustier?',
         answer: 'katze',
         use: 0
     },
-    {//12
+    {//11
         question: 'Wieviele Haustiere haben Sie?',
         answer: '1',
         use: 0
     },
-    {//13
+    {//12
         question: 'Was war der Name ihres ersten Haustieres?',
         answer: 'timmy',
         use: 0
     },
-    {//14
+    {//13
         question: 'Was ist Ihr Lieblingsbuch?',
         answer: 'krabat',
         use: 0
     },
-    {//15
+    {//14
         question: 'Was ist Ihr Lieblingsfilm?',
         answer: 'der herr der ringe',
-        use: 1
+        use: 0
     },
-    {//16
+    {//15
         question: 'Was war Ihr Lieblingsfach in der Schule?',
         answer: 'mathematik',
         use: 0
     },
-    {//17
+    {//16
         question: 'Welches Fach mochten Sie am wenigsten in der Schule?',
         answer: 'sozialkunde',
         use: 0
     },
-    {//18
+    {//17
         question: 'Was ist Ihr Lieblingssport?',
         answer: 'basketball',
         use: 0
     },
-    {//19
+    {//18
         question: 'Was ist Ihre Lieblingsfußballmannschaft?',
         answer: 'ksc',
         use: 0
     },
-    {//20
-        question: 'Wie war der Vorname Ihres väterlichen Großvaters?',
+    {//19
+        question: 'Wie war der Vorname des Vaters ihres Vaters?',
         answer: 'anton',
         use: 0
     },
-    {//21
-        question: 'Wie war der Vorname Ihrer mütterlichen Großmutter?',
+    {//20
+        question: 'Wie war der Vorname der Mutter Ihrer Mutter?',
         answer: 'nina',
         use: 0
     },
-    {//22
+    {//21
         question: 'Von welcher Marke ist Ihr Auto?',
         answer: 'VW',
         use: 0
     },
-    {//23
+    {//22
         question: 'Welche Marke hatte ihr erstes Auto?',
         answer: 'Toyota',
         use: 0
     },
-    {//24
-        question: 'Wie war der Name Ihres ersten Freundes, ihrer ersten Freundin?',
+    {//23
+        question: 'Wie war der Name Ihres ersten Freundes oder ihrer ersten Freundin?',
         answer: 'maria',
         use: 0
     },
-    {//25
+    {//24
         question: 'Wie lautet Ihr Lieblingsinterpret?',
         answer: 'rammstein',
         use: 0
     },
-    {//26
+    {//25
         question: 'Was war Ihr erstes Urlaubsland?',
         answer: 'türkei',
         use: 0
     },
-    {//27
+    {//26
         question: 'Was ist Ihr Lieblingsurlaubsland?',
         answer: 'spanien',
         use: 0
     },
-    {//28
+    {//27
         question: 'Von welcher Marke ist Ihr Laptop?',
         answer: 'acer',
         use: 0
     },
-    {//29
+    {//28
         question: 'Von welcher Marke ist Ihr Tablet?',
         answer: 'samsung',
         use: 0
     },
-    {//30
+    {//29
         question: 'Was war ihr erstes Musikinstrument?',
         answer: 'gitarre',
         use: 0
     },
-    {//31
+    {//30
         question: 'Welches Bier trinken Sie am liebsten?',
         answer: 'bitburger',
         use: 0
     },
-    {//32
+    {//31
         question: 'Was ist Ihre Lieblingsserie?',
         answer: 'The End of the Fucking World',
         use: 0
@@ -179,7 +174,7 @@ var dynamicQuestions = [
     {//0
         question: 'Wieviel Geld haben sie beim letzten Amazon Kauf ausgegeben?',
         answer: '20,00€',
-        use: 0
+        use: 1
     },
     {//1
         question: 'Wie hoch war Ihre letzte PayPal-Überweisung?',
@@ -189,8 +184,8 @@ var dynamicQuestions = [
     {//2
         question: 'Welches Festival oder Konzert haben Sie zuletzt besucht?',
         answer: 'rock am ring',
-        use: 0
-    }/*,
+        use: 1
+    },
     {//3
         question: 'Was war das letzte Buch, welches Sie gelesen haben?',
         answer: 'zeit der krähen',
@@ -199,13 +194,13 @@ var dynamicQuestions = [
     {//4
         question: 'Welchen Film haben Sie zuletzt gesehen?',
         answer: 'Chihiros Reise ins Zauberland',
-        use: 1
+        use: 0
     },
     {//5
         question: 'Welche Serie haben Sie zuletzt gesehen?',
         answer: 'Altered Carbon',
         use: 0
-    },
+    }/*,
     {//6
         question: 'Welchen Radiosender haben Sie zuletzt gehört?',
         answer: 'swr3',

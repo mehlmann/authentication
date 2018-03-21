@@ -9,7 +9,19 @@ const fct = require('./help-functions');
  * @param {function} callback Callback
  */
 function handleStartIntents(intent, callback) {
-    (intent.name == 'RechenaufgabeIntent') ? auth.getCalculation(callback) : alexa.getHelpResponse(callback);
+    if (intent.name == 'RechenaufgabeIntent') {
+          auth.getCalculation(callback);
+    } else if (intent.name == 'TestIntent') {
+        const speechOutput = 'Es wird nun eine Testreihe von fünf Authentifizierungsversuchen gestartet, '
+        + 'in welcher die Erfolgswahrscheinlichkeit und Nutzerfreundlichkeit der Authentifizierung getestet werden soll.'
+        + 'Es gibt jeweils einen Rechen, statischen und dynamischen Frageblock.'
+        + 'Nach jeder Authentifizierung wird die Anzahl der statischen oder dynamischen Fragen erhöht, '
+        + 'um zu ermitteln, was die angenehmste Variante für einen Benutzer ist.'
+        + 'Beginnen wir mit dem ersten Durchlauf. Ihre erste Aufgabe lautet, ';
+         auth.startTesting(callback, speechOutput);
+    } else {
+        alexa.getHelpResponse(callback);
+    }
 }
 
 /**
