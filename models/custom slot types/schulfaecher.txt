@@ -1,0 +1,46 @@
+astronomie
+bildende kunst
+bio
+biologie
+chemie
+deutsch
+E D V
+englisch
+erdkunde
+französisch
+gemeinschaftskunde
+geo
+geographie
+geschichte
+gesellschaftslehre
+hauswirtschaft
+I T
+informatik
+kunst
+kunstunterricht
+latein
+lateinisch
+literatur
+mathe
+mathematik
+musik
+philosophie
+physik
+politik
+psychologie
+rechtskunde
+reli
+religion
+religionslehre
+sachkunde
+sozialkunde
+spanisch
+sport
+technik
+textverarbeitung
+theater
+werken
+wirtschaft
+wirtschaft und politik
+wirtschaft und recht
+wirtschaftskunde

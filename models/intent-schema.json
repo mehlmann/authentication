@@ -18,20 +18,20 @@
     {
       "slots": [
         {
-          "name": "antwort",
-          "type": "wildcard"
-        }
-      ],
-      "intent": "AntwortenIntent"
-    },
-    {
-      "slots": [
-        {
           "name": "bier",
           "type": "biersorten"
         }
       ],
       "intent": "BierIntent"
+    },
+    {
+      "slots": [
+        {
+          "name": "marke",
+          "type": "elektronikMarken"
+        }
+      ],
+      "intent": "ElektronikMarkenIntent"
     },
     {
       "slots": [
@@ -50,6 +50,27 @@
         }
       ],
       "intent": "FarbeIntent"
+    },
+    {
+      "slots": [
+        {
+          "name": "festival",
+          "type": "festivals"
+        }
+      ],
+      "intent": "FestivalIntent"
+    },
+    {
+      "slots": [
+        {
+          "name": "film",
+          "type": "filme"
+        }
+      ],
+      "intent": "FilmIntent"
+    },
+    {
+      "intent": "FrageHinzufuegen"
     },
     {
       "slots": [
@@ -76,26 +97,17 @@
     {
       "slots": [
         {
-          "name": "marke",
-          "type": "elektronikMarken"
-        }
-      ],
-      "intent": "ElektronikMarkenIntent"
-    },
-    {
-      "slots": [
-        {
           "name": "instrument",
           "type": "musikinstrumente"
         }
       ],
-      "intent": "InstumentIntent"
+      "intent": "InstrumentIntent"
     },
     {
       "slots": [
         {
           "name": "landName",
-          "type": "Land"
+          "type": "laenderNamen"
         }
       ],
       "intent": "LandIntent"
@@ -109,6 +121,15 @@
     {
       "slots": [
         {
+          "name": "serie",
+          "type": "serien"
+        }
+      ],
+      "intent": "SerienIntent"
+    },
+    {
+      "slots": [
+        {
           "name": "sport",
           "type": "sportarten"
         }
@@ -118,11 +139,14 @@
     {
       "slots": [
         {
-          "name": "stadt",
-          "type": "AMAZON.DE_CITY"
+          "name": "stadtName",
+          "type": "staedterNamen"
         }
       ],
       "intent": "StadtIntent"
+    },
+    {
+      "intent": "TestIntent"
     },
     {
       "slots": [

@@ -33,6 +33,7 @@
 var StateMachine = require('./includes/javascript-state-machine');
 const alexa = require('./alexa');
 const statics = require('./data/statics');
+const phrases = require('./data/phrases');
 const fct = require('./help-functions');
 var questions = require('./data/questions');
 
@@ -50,10 +51,10 @@ var lastSaid = '';
 var useRfrsh = false;
 var useRfrshCrt = statics.USE_REFRESH_COUNTER;
 var debug = true;
-var setup = false;
+var setup = true;
 // for research purpose
 var test = false;
-var testRun = 1;
+var testRun = 0;
 var checkTmp;
 var setupQuestCtr = 0;
 
@@ -221,9 +222,8 @@ function getNextQuestion(callback) {
         auth_state.toSetup();
         endSetup(callback);
     }
-    lastSaid = 'Wollen Sie die Frage '
-            + currentQuest.question
-            + ' benutzen?';
+    var verwenden = phrases.VERWENDEN[Math.floor(Math.random() * phrases.VERWENDEN.length)];
+    lastSaid = 'Wollen Sie ' + currentQuest.question + verwenden + '?';
     auth_state.toSetup();
     callback({}, alexa.buildSpeechletResponse(cardTitle, lastSaid, lastSaid, shouldEndSession));
 }
@@ -259,23 +259,26 @@ function wrongIntent(callback) {
  * @param {function} callback Rückgabefunktion
  */
 function onAuthenticated(callback) {
-    if (debug) fct.printLog(`Got in onAuthenticated.`);
+    if (debug) fct.printLog(`Got in onAuthenticated. testRun=${testRun}`);
     const cardTitle = 'Authentication done.';
     lastSaid = 'Die Authentifizierung war erfolgreich.';
     const repromptText = `Auf Wiedersehen.`;
-    const shouldEndSession = false;
+    var shouldEndSession = false;
 
-    if (testRun > 5) {
-        const speechOutput = 'Der Authentifizierungsversuch war erfolgreich.'
+    if (testRun > 4) {
+        const speechOutput = 'Der Authentifizierungsversuch ist zu Ende. '
         + 'Die Testreihe endet hiermit. Ich danke Ihnen für die Teilnahme. Auf Wiedersehen.';
         shouldEndSession = true;
         callback({}, alexa.buildSpeechletResponse(cardTitle, speechOutput, shouldEndSession));
     }
 
     if (test) {
-        const speechOutput = 'Der Authentifizierungsversuch war erfolgreich. Wir beginnen nun mit dem nächsten Testfall.'
-
+        (testRun%2 == 0) ? statics.increaseStaticThreshold() : statics.increaseDynamicThreshold() ;
         testRun++;
+        var ordinal = fct.numberToOrdinal(testRun);
+        const speechOutput = `Der Authentifizierungsversuch war erfolgreich. Wir beginnen mit dem ${ordinal} Testfall. `
+            + `Nun sind es ${statThreshold} statische und ${dynThreshold} dynamische Fragen. `;
+
         auth_state.reset();
         startTesting(callback, speechOutput);
     }
@@ -288,26 +291,11 @@ function onAuthenticated(callback) {
  * @param {function} callback Rückgabefunktion
  */
 function onFailed(callback) {
-    if (debug) fct.printLog(`Got in onFailed.`);
+    if (debug) fct.printLog(`Got in onFailed. testRun=${testRun}`);
     const cardTitle = 'Authentication failed.';
     lastSaid = 'Die Authentifizierung ist leider fehlgeschlagen.';
     const repromptText = `Auf Wiedersehen.`;
     var shouldEndSession = false;
-
-    if (testRun > 5) {
-        const speechOutput = 'Der Authentifizierungsversuch ist leider fehlgeschlagen.'
-        + 'Die Testreihe endet hiermit. Ich danke Ihnen für die Teilnahme. Auf Wiedersehen.';
-        shouldEndSession = true;
-        callback({}, alexa.buildSpeechletResponse(cardTitle, speechOutput, shouldEndSession));
-    }
-
-    if (test) {
-        const speechOutput = 'Der Authentifizierungsversuch ist leider fehlgeschlagen. Wir beginnen nun mit dem nächsten Testfall.';
-
-        testRun++;
-        auth_state.reset();
-        startTesting(callback, speechOutput);
-    }
 
     callback({}, alexa.buildSpeechletResponse(cardTitle, lastSaid, repromptText, shouldEndSession));
 }
@@ -371,16 +359,29 @@ function getNextState(userAnswer, correctAnswer, callback) {
  * @param {function} callback Rückgabefunktion
  */
 function verifyAnswer(answer, callback) {
+    if (debug) fct.printLog('Type: ' + (typeof answer) + ', answer= ' + answer);
     if (isInState('addAnswer')) {
         checkInput(answer, callback);
     } else if (isInState('addQuest')) {
         checkInput(answer, callback);   //HAXOR
     } else {
-        if (answer.toLowerCase() == currentQuest.answer.toLowerCase()) {
-            getNextState(answer, currentQuest.answer, callback);
+        if (typeof answer == 'number') {
+            if ((test) || (answer == currentQuest.answer)) {
+                if (test) fct.printLog(`Wrong Answer!!! Answer was: ${answer}, but it should have been: ${currentQuest.answer}!!!`);
+                auth_state.calcToStatic(answer, currentQuest.answer);
+                getStaticQuestion(callback);
+            } else {
+                auth_state.answerWrong(answer, currentQuest.answer);
+                onFailed(callback);
+            }
         } else {
-            auth_state.answerWrong(answer, currentQuest.answer);
-            onFailed(callback);
+            if ((test) || (answer.toLowerCase() == currentQuest.answer.toLowerCase())) {
+                if (test) fct.printLog(`Wrong Answer!!! Answer was: ${answer}, but it should have been: ${currentQuest.answer}!!!`);
+                getNextState(answer, currentQuest.answer, callback);
+            } else {
+                auth_state.answerWrong(answer, currentQuest.answer);
+                onFailed(callback);
+            }
         }
     }
 }
@@ -431,7 +432,12 @@ function checkInput(input, callback) {
 function repromptCheck(callback) {
     if (debug) fct.printLog('repromptCheck');
     const cardTitle = 'Check-Frage wiederholen';
-    lastSaid = `Geben Sie mir bitte die aktuelle Antwort auf die Frage, ${currentQuest.question}`;
+    if (setup) {
+        lastSaid = currentQuest.question;
+    } else {
+        lastSaid = `Geben Sie mir bitte die aktuelle Antwort auf die Frage, ${currentQuest.question}`;
+    }
+    
     const shouldEndSession = false;
     auth_state.checkToAdd(checkTmp);
 
@@ -484,6 +490,8 @@ function endAddQuest(callback) {
  */
 function getCalculation(callback) {
     if (debug) fct.printLog(`getCalculation...`);
+    statThreshold = statics.getStaticThreshold();
+    dynThreshold = statics.getDynamicThreshold();
     var summandA = Math.floor(Math.random() * 20);
     var summandB = Math.floor(Math.random() * 20);
     if (debug) fct.printLog(`Question: ${summandA} + ${summandB} = ${summandA+summandB}`);
@@ -507,7 +515,7 @@ function getStaticQuestion(callback) {
     if (debug) fct.printLog(`getStaticQuestion...`);
     const cardTitle = 'Frage gestellt';
     currentQuest.number = Math.floor(Math.random() * questions.getStaticSize());
-    while (!questions.isStaticUsed(currentQuest.number)) {
+    while (!questions.isStaticUsed(currentQuest.number) || (currentQuest.question == questions.getStaticQuestion(currentQuest.number))) {
         currentQuest.number = Math.floor(Math.random() * questions.getStaticSize());
     }
     currentQuest.question = questions.getStaticQuestion(currentQuest.number);
@@ -528,7 +536,7 @@ function getDynamicQuestion(callback) {
     if (debug) fct.printLog(`getDynamicQuestion...`);
     const cardTitle = 'Frage gestellt';
     currentQuest.number = Math.floor(Math.random() * questions.getDynamicSize());
-    while (!questions.isDynamicUsed(currentQuest.number)) {
+    while (!questions.isDynamicUsed(currentQuest.number) || (currentQuest.question == questions.getDynamicQuestion(currentQuest.number))) {
         currentQuest.number = Math.floor(Math.random() * questions.getDynamicSize());
     }
     currentQuest.question = questions.getDynamicQuestion(currentQuest.number);
@@ -553,6 +561,8 @@ function startTesting(callback, speechOutput) {
     const cardTitle = 'Test Anfang';
     const shouldEndSession = false;
 
+    statThreshold = statics.getStaticThreshold();
+    dynThreshold = statics.getDynamicThreshold();
     var summandA = Math.floor(Math.random() * 20);
     var summandB = Math.floor(Math.random() * 20);
     if (debug) fct.printLog(`Question: ${summandA} + ${summandB} = ${summandA+summandB}`);
@@ -577,7 +587,8 @@ function verifyCalc(intent, callback) {
     if (debug) fct.printLog(`verifyCalc...\nIntent: ` + intent);
     var result = intent.slots.erste.value;
     if (!result) fct.printError('verifyCalc failed! No number was given!');
-    if (result == currentQuest.answer) {
+    if ((test) || (result == currentQuest.answer)) {
+        if (test) fct.printLog(`Wrong Answer!!! Answer was: ${result}, but it should have been: ${currentQuest.answer}!!!`);
         auth_state.calcToStatic(result, currentQuest.answer);
         getStaticQuestion(callback);
     } else {
@@ -605,6 +616,30 @@ function verifyCommonAnswer(intent, callback) {
 }
 
 /**
+ * Überprüft eine App-antwort.
+ * @param {*} intent der Intent der Anfrage 
+ * @param {function} callback Rückgabefunktion
+ */
+function verifyApp(intent, callback) {
+    if (debug) fct.printLog('Verstandene App: ' + intent.slots.app.value);
+    var answer = intent.slots.app.value;
+    if (!answer) fct.printError('verifyApp failed! No app was given!');
+    verifyAnswer(answer, callback);
+}
+
+/**
+ * Überprüft eine Interpretantwort.
+ * @param {*} intent der Intent der Anfrage 
+ * @param {function} callback Rückgabefunktion
+ */
+function verifyArtist(intent, callback) {
+    if (debug) fct.printLog('Verstandener Interpret: ' + intent.slots.interpret.value);
+    var answer = intent.slots.interpret.value;
+    if (!answer) fct.printError('verifyArtist failed! No artist was given!');
+    verifyAnswer(answer, callback);
+}
+
+/**
  * Überprüft eine Bierantwort.
  * @param {*} intent der Intent der Anfrage 
  * @param {function} callback Rückgabefunktion
@@ -613,6 +648,18 @@ function verifyBeer(intent, callback) {
     if (debug) fct.printLog('Verstandenes Bier: ' + intent.slots.bier.value);
     var answer = intent.slots.bier.value;
     if (!answer) fct.printError('verifyBeer failed! No beer was given!');
+    verifyAnswer(answer, callback);
+}
+
+/**
+ * Überprüft eine Buchantwort.
+ * @param {*} intent der Intent der Anfrage 
+ * @param {function} callback Rückgabefunktion
+ */
+function verifyBook(intent, callback) {
+    if (debug) fct.printLog('Verstandenes Buch: ' + intent.slots.buch.value);
+    var answer = intent.slots.buch.value;
+    if (!answer) fct.printError('verifyBook failed! No book was given!');
     verifyAnswer(answer, callback);
 }
 
@@ -637,6 +684,18 @@ function verifyColor(intent, callback) {
     if (debug) fct.printLog('Verstandene Farbe: ' + intent.slots.farbe.value);
     var answer = intent.slots.farbe.value;
     if (!answer) fct.printError('verifyColor failed! No color was given!');
+    verifyAnswer(answer, callback);
+}
+
+/**
+ * Überprüft eine Festivalantwort.
+ * @param {*} intent der Intent der Anfrage 
+ * @param {function} callback Rückgabefunktion
+ */
+function verifyFestival(intent, callback) {
+    if (debug) fct.printLog('Verstandenes Festival: ' + intent.slots.festival.value);
+    var answer = intent.slots.festival.value;
+    if (!answer) fct.printError('verifyFestival failed! No festival was given!');
     verifyAnswer(answer, callback);
 }
 
@@ -716,8 +775,8 @@ function verifyNumber(intent, callback) {
  * @param {function} callback Rückgabefunktion
  */
 function verifyCity(intent, callback) {
-    if (debug) fct.printLog(`City: ${intent.slots.stadt.value}`);
-    var answer = intent.slots.stadt.value;
+    if (debug) fct.printLog(`City: ${intent.slots.stadtName.value}`);
+    var answer = intent.slots.stadtName.value;
     if (!answer) fct.printError('VerifyCity failed! No city was given!');
     verifyAnswer(answer, callback);
 }
@@ -863,6 +922,7 @@ module.exports = {auth_state,
                 verifyBeer,
                 verifyVehicle,
                 verifyColor,
+                verifyFestival,
                 verifyLand,
                 verifySoccer,
                 verifyMoney,

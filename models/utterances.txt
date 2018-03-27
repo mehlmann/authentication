@@ -1,152 +1,34 @@
-AntwortenEinsIntent {antwortEins}
-AntwortenEinsIntent ist {antwortEins}
-AntwortenEinsIntent es ist {antwortEins}
-AntwortenEinsIntent die antwort ist {antwortEins}
-AntwortenZweiIntent {antwortEins} {antwortZwei}
-AntwortenZweiIntent ist {antwortEins} {antwortZwei}
-AntwortenZweiIntent es ist {antwortEins} {antwortZwei}
-AntwortenZweiIntent die antwort ist {antwortEins} {antwortZwei}
-AntwortenDreiIntent {antwortEins} {antwortZwei} {antwortDrei}
-AntwortenDreiIntent ist {antwortEins} {antwortZwei} {antwortDrei}
-AntwortenDreiIntent es ist {antwortEins} {antwortZwei} {antwortDrei}
-AntwortenDreiIntent die antwort ist {antwortEins} {antwortZwei} {antwortDrei}
-AntwortenVierIntent {antwortEins} {antwortZwei} {antwortDrei} {antwortVier}
-AntwortenVierIntent ist {antwortEins} {antwortZwei} {antwortDrei} {antwortVier}
-AntwortenVierIntent es ist {antwortEins} {antwortZwei} {antwortDrei} {antwortVier}
-AntwortenVierIntent die antwort ist {antwortEins} {antwortZwei} {antwortDrei} {antwortVier}
-AntwortenFuenfIntent {antwortEins} {antwortZwei} {antwortDrei} {antwortVier} {antwortFuenf}
-AntwortenFuenfIntent ist {antwortEins} {antwortZwei} {antwortDrei} {antwortVier} {antwortFuenf}
-AntwortenFuenfIntent es ist {antwortEins} {antwortZwei} {antwortDrei} {antwortVier} {antwortFuenf}
-AntwortenFuenfIntent die antwort ist {antwortEins} {antwortZwei} {antwortDrei} {antwortVier} {antwortFuenf}
-BierIntent ich trinke gern {bier}
-BierIntent ich mag gern {bier}
-BierIntent mir schmeckt {bier}
 BierIntent {bier}
-ElektronikMarkenIntent die marke ist {marke}
-ElektronikMarkenIntent ist {marke}
 ElektronikMarkenIntent {marke}
-ElektronikMarkenIntent es ist {marke}
-FahrzeugIntent war ein {auto}
-FahrzeugIntent ist ein {auto}
-FahrzeugIntent ich fuhr einen {auto}
-FahrzeugIntent ich fahre einen {auto}
-FahrzeugIntent ich fuhr ein {auto}
-FahrzeugIntent ich fahr einen {auto}
-FahrzeugIntent ich fahre ein {auto}
 FahrzeugIntent {auto}
-FahrzeugIntent ist {auto}
-FahrzeugIntent war {auto}
-FarbeIntent ist {farbe}
 FarbeIntent {farbe}
-FarbeIntent es ist {farbe}
-FussballIntent ich bin für {verein}
-FussballIntent ich mag {verein}
+FestivalIntent {festival}
+FilmIntent {film}
+FrageHinzufuegen ich möchte eine frage hinzufügen
+FrageHinzufuegen lass mich eine frage hinzufügen
+FrageHinzufuegen frage hinzufügen
+FrageHinzufuegen ich will eine frage hinzufügen
 FussballIntent {verein}
-GeldsummeIntent {euro} euro und {cent} cent
-GeldsummeIntent {euro} {cent}
-GeldsummeIntent {euro} euro und {cent}
 GeldsummeIntent {euro} euro
-GeldsummeIntent {cent} cent
-InstumentIntent ich hatte ein {instrument}
-InstumentIntent ist hatte einen {instrument}
-InstumentIntent ich spiele ein {instrument}
-InstumentIntent ich spielte ein {instrument}
-InstumentIntent ich spiele eine {instrument}
-InstumentIntent ich spielte eine {instrument}
-InstumentIntent {instrument}
-InstumentIntent es war ein {instrument}
-InstumentIntent es war eine {instrument}
+InstrumentIntent ein {instrument}
+InstrumentIntent einen {instrument}
+InstrumentIntent eine {instrument}
+InstrumentIntent {instrument}
 LandIntent {landName}
 LandIntent in {landName}
 LandIntent auf {landName}
-LandIntent nach {landName}
-LandIntent Urlaub in {landName}
-LandIntent Urlaub auf {landName}
-LandIntent Urlaub nach {landName}
-LandIntent der Urlaub war auf {landName}
-LandIntent der Urlaub war in {landName}
 RechenaufgabeIntent rechenaufgabe
 RechenaufgabeIntent aufgabe
 RechenaufgabeIntent stelle mir eine aufgabe
 Reset reset
-SportIntent ist {sport}
-SportIntent war {sport}
+SerienIntent {serie}
 SportIntent {sport}
-SportIntent ich mag {sport}
-SportIntent ich hasse {sport}
-SportIntent ich mochte {sport}
-SportIntent ich machte {sport}
-StadtIntent In {stadt}
-StadtIntent Aus {stadt}
-StadtIntent Von {stadt}
-StadtIntent {stadt}
-StadtIntent nach {stadt}
-TierIntent ist ein {tier}
-TierIntent war ein {tier}
-TierIntent ich hatte einen {tier}
-TierIntent ist hab einen {tier}
+StadtIntent {stadtName}
+TestIntent test
+TierIntent ein {tier}
+TierIntent einen {tier}
 TierIntent {tier}
-UnterrichtIntent das war {unterricht}
-UnterrichtIntent war {unterricht}
 UnterrichtIntent {unterricht}
-UnterrichtIntent ich mochte {unterricht}
-UnterrichtIntent ich hasste {unterricht}
-UnterrichtIntent ich mag {unterricht}
-UnterrichtIntent ich mag {unterricht} nicht
-VornameIntent der name ist {name}
-VornameIntent ihr name ist {name}
-VornameIntent sein name ist {name}
-VornameIntent ihr name war {name}
-VornameIntent sein name war {name}
 VornameIntent {name}
-VornameIntent ist {name}
-ZahlenDreiIntent {erste} {zweite} {dritte}
-ZahlenDreiIntent das ist {erste} {zweite} {dritte}
-ZahlenDreiIntent die lösung ist {erste} {zweite} {dritte}
-ZahlenDreiIntent die postleitzahl ist {erste} {zweite} {dritte}
-ZahlenDreiIntent die zahlen sind {erste} {zweite} {dritte}
-ZahlenDreiIntent ergibt {erste} {zweite} {dritte}
-ZahlenDreiIntent es sind {erste} {zweite} {dritte}
-ZahlenDreiIntent ist {erste} {zweite} {dritte}
-ZahlenDreiIntent meine postleitzahl ist {erste} {zweite} {dritte}
-ZahlenDreiIntent sind {erste} {zweite} {dritte}
 ZahlenFuenfIntent {erste} {zweite} {dritte} {vierte} {fuenfte}
-ZahlenFuenfIntent das ist {erste} {zweite} {dritte} {vierte} {fuenfte}
-ZahlenFuenfIntent die lösung ist {erste} {zweite} {dritte} {vierte} {fuenfte}
-ZahlenFuenfIntent die postleitzahl ist {erste} {zweite} {dritte} {vierte} {fuenfte}
-ZahlenFuenfIntent die zahlen sind {erste} {zweite} {dritte} {vierte} {fuenfte}
-ZahlenFuenfIntent ergibt {erste} {zweite} {dritte} {vierte} {fuenfte}
-ZahlenFuenfIntent es sind {erste} {zweite} {dritte} {vierte} {fuenfte}
-ZahlenFuenfIntent ist {erste} {zweite} {dritte} {vierte} {fuenfte}
-ZahlenFuenfIntent meine postleitzahl ist {erste} {zweite} {dritte} {vierte} {fuenfte}
-ZahlenFuenfIntent sind {erste} {zweite} {dritte} {vierte} {fuenfte}
-ZahlenVierIntent {erste} {zweite} {dritte} {vierte}
-ZahlenVierIntent das ist {erste} {zweite} {dritte} {vierte}
-ZahlenVierIntent die lösung ist {erste} {zweite} {dritte} {vierte}
-ZahlenVierIntent die postleitzahl ist {erste} {zweite} {dritte} {vierte}
-ZahlenVierIntent die zahlen sind {erste} {zweite} {dritte} {vierte}
-ZahlenVierIntent ergibt {erste} {zweite} {dritte} {vierte}
-ZahlenVierIntent es sind {erste} {zweite} {dritte} {vierte}
-ZahlenVierIntent ist {erste} {zweite} {dritte} {vierte}
-ZahlenVierIntent meine postleitzahl ist {erste} {zweite} {dritte} {vierte}
-ZahlenVierIntent sind {erste} {zweite} {dritte} {vierte}
-ZahlenZweiIntent {erste} {zweite}
-ZahlenZweiIntent das ist {erste} {zweite}
-ZahlenZweiIntent die lösung ist {erste} {zweite}
-ZahlenZweiIntent die postleitzahl ist {erste} {zweite}
-ZahlenZweiIntent die zahlen sind {erste} {zweite}
-ZahlenZweiIntent ergibt {erste} {zweite}
-ZahlenZweiIntent es sind {erste} {zweite}
-ZahlenZweiIntent ist {erste} {zweite}
-ZahlenZweiIntent meine postleitzahl ist {erste} {zweite}
-ZahlenZweiIntent sind {erste} {zweite}
 ZahlIntent {erste}
-ZahlIntent das ist {erste}
-ZahlIntent die lösung ist {erste}
-ZahlIntent die postleitzahl ist {erste}
-ZahlIntent die zahlen sind {erste}
-ZahlIntent ergibt {erste}
-ZahlIntent es sind {erste}
-ZahlIntent ist {erste}
-ZahlIntent meine postleitzahl ist {erste}
-ZahlIntent sind {erste}

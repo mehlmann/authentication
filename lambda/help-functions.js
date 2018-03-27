@@ -1,18 +1,47 @@
 'use strict'
 
-/**
- * Ergänzt ein Integer mit vorangehenden 0'en.
- * @param {int} number zu formatierende Zahl
- * @param {int} length Länge der Ausgabe
- */
-function formatNumberLength(number, length) {
-    if (!number) return undefined;
-    var tmp = '' + number;
-    while (tmp.length < length) {
-        tmp = '0' + tmp;
-    }
-    return tmp;
-}
+const ordinals = [
+    {
+        number: 1,
+        ordinal: 'ersten'
+    },
+    {
+        number: 2,
+        ordinal: 'zweiten'
+    },
+    {
+        number: 3,
+        ordinal: 'dritten'
+    },
+    {
+        number: 4,
+        ordinal: 'vierten'
+    },
+    {
+        number: 5,
+        ordinal: 'fünften'
+    },
+    {
+        number: 6,
+        ordinal: 'sechsten'
+    },
+    {
+        number: 7,
+        ordinal: 'siebten'
+    },
+    {
+        number: 8,
+        ordinal: 'achten'
+    },
+    {
+        number: 9,
+        ordinal: 'neunten'
+    },
+    {
+        number: 10,
+        ordinal: 'zenten'
+    },
+];
 
 /**
  * Erstellt aus zwei Zahlen eine Geldbetrag des Formats x,yy€.
@@ -37,6 +66,32 @@ function formatMoneyAmount(euro, cent) {
 }
 
 /**
+ * Ergänzt ein Integer mit vorangehenden 0'en.
+ * @param {int} number zu formatierende Zahl
+ * @param {int} length Länge der Ausgabe
+ */
+function formatNumberLength(number, length) {
+    if (!number) return undefined;
+    var tmp = '' + number;
+    while (tmp.length < length) {
+        tmp = '0' + tmp;
+    }
+    return tmp;
+}
+
+/**
+ * Wandelt eine Zahl zu ihrer Ordnung um.
+ * @param {int} number Zahl von 1-10
+ */
+function numberToOrdinal(number) {
+    if (number > 10) return 'NaN';
+    if (number < 0) return 'NaN';
+    for (var i = 0; i < ordinals.length; i++) {
+        if (ordinals[i].number == number) return ordinals[i].ordinal;
+    }
+}
+
+/**
  * Gibt einen Text in der Konsole aus.
  * @param {string} string Text
  */
@@ -53,8 +108,9 @@ function printError(error) {
 }
 
 module.exports = {
-    formatNumberLength,
     formatMoneyAmount,
+    formatNumberLength,
+    numberToOrdinal,
     printLog,
     printError
 };

@@ -13,10 +13,10 @@ function handleStartIntents(intent, callback) {
           auth.getCalculation(callback);
     } else if (intent.name == 'TestIntent') {
         const speechOutput = 'Es wird nun eine Testreihe von fünf Authentifizierungsversuchen gestartet, '
-        + 'in welcher die Erfolgswahrscheinlichkeit und Nutzerfreundlichkeit der Authentifizierung getestet werden soll.'
-        + 'Es gibt jeweils einen Rechen, statischen und dynamischen Frageblock.'
+        + 'in welcher die Erfolgswahrscheinlichkeit und Nutzerfreundlichkeit der Authentifizierung getestet werden soll. '
+        + 'Es gibt jeweils einen Rechen, statischen und dynamischen Frageblock. '
         + 'Nach jeder Authentifizierung wird die Anzahl der statischen oder dynamischen Fragen erhöht, '
-        + 'um zu ermitteln, was die angenehmste Variante für einen Benutzer ist.'
+        + 'um zu ermitteln, was die angenehmste Variante für einen Benutzer ist. '
         + 'Beginnen wir mit dem ersten Durchlauf. Ihre erste Aufgabe lautet, ';
          auth.startTesting(callback, speechOutput);
     } else {
@@ -30,7 +30,7 @@ function handleStartIntents(intent, callback) {
  * @param {function} callback Callback
  */
 function handleCalcIntents(intent, callback) {
-    (intent.name == 'ZahlIntent') ? auth.verifyCalc(intent, callback) : auth.wrongIntent(callback);
+    (intent.name == 'ZahlIntent') ? auth.verifyCalc(intent, callback) : handleQuestIntents(intent, callback);
 }
 
 /**
@@ -55,8 +55,14 @@ function handleQuestIntents(intent, callback) {
         case 'AntwortenFuenfIntent':
             auth.verifyCommonAnswer(intent, callback);
             break;
+        case 'AppIntent':
+            auth.verifyApp(intent, callback);
+            break;
         case 'BierIntent':
             auth.verifyBeer(intent, callback);
+            break;
+        case 'BuchIntent':
+            auth.verifyBook(intent, callback);
             break;
         case 'FahrzeugIntent':
             auth.verifyVehicle(intent, callback);
@@ -66,6 +72,9 @@ function handleQuestIntents(intent, callback) {
             break;
         case 'FarbeIntent':
             auth.verifyColor(intent, callback);
+            break;
+        case 'FestivalIntent':
+            auth.verifyFestival(intent, callback);
             break;
         case 'FilmIntent':
             auth.verifyMovie(intent, callback);

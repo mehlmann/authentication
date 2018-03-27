@@ -9,160 +9,160 @@ var staticQuestions = [
     {//0
         question: 'was ist ihre lieblingsfarbe?',
         answer: 'blau',
-        use: 1
-    },
-    {//1
-        question: 'Geben Sie ihre Postleitzahl in einzelnen Ziffern an.',
-        answer: '76744',
         use: 0
     },
-    {//2
+    {//1
         question: 'In welcher stadt wohnen sie?' ,
         answer: 'wörth am rhein',
         use: 0
-    },
-    {//3
+    }/*,
+    {//2
         question: 'in welcher stadt wurden sie geboren?',
         answer: 'erfurt',
-        use: 1
-    },
-    {//4
-        question: 'was sind die letzten drei ziffern ihrer handynummer?',
-        answer: '099',
         use: 0
-    },
-    {//5
+    }*/,
+    {//3
         question: 'wie ist ihre schuhgröße?',
         answer: '42',
         use: 0
-    }/*,
-    {//6
+    },
+    {//4
         question: 'wie ist ihre körpergröße in zentimetern?',
-        answer: '179',
+        answer: '',
         use: 0
     },
-    {//7
+    {//5
         question: 'Von welcher Marke ist Ihr Handy?',
-        answer: 'huawei',
+        answer: '',
+        use: 0
+    },
+    {//6
+        question: 'In welcher Hausnummer wohnen Sie?' ,
+        answer: ''
+    }/*,
+    {//7
+        question: 'Was war Ihr erstes Haustier?',
+        answer: '',
         use: 0
     },
     {//8
-        question: 'In welcher Hausnummer wohnen Sie?' ,
-        answer: '8'
+        question: 'Was war Ihr letztes Haustier?',
+        answer: '',
+        use: 0
     },
     {//9
-        question: 'Was war Ihr erstes Haustier?',
-        answer: 'hund',
+        question: 'Wieviele Haustiere haben Sie?',
+        answer: '',
         use: 0
     },
     {//10
-        question: 'Was war Ihr letztes Haustier?',
-        answer: 'katze',
+        question: 'Was war der Name ihres ersten Haustieres?',
+        answer: '',
         use: 0
-    },
+    }*/,
     {//11
-        question: 'Wieviele Haustiere haben Sie?',
-        answer: '1',
+        question: 'Was ist Ihr Lieblingsbuch?',
+        answer: '',
         use: 0
     },
     {//12
-        question: 'Was war der Name ihres ersten Haustieres?',
-        answer: 'timmy',
+        question: 'Was ist Ihr Lieblingsfilm?',
+        answer: '',
         use: 0
     },
     {//13
-        question: 'Was ist Ihr Lieblingsbuch?',
-        answer: 'krabat',
+        question: 'Was war Ihr Lieblingsfach in der Schule?',
+        answer: '',
         use: 0
     },
     {//14
-        question: 'Was ist Ihr Lieblingsfilm?',
-        answer: 'der herr der ringe',
+        question: 'Welches Fach mochten Sie am wenigsten in der Schule?',
+        answer: '',
         use: 0
     },
     {//15
-        question: 'Was war Ihr Lieblingsfach in der Schule?',
-        answer: 'mathematik',
-        use: 0
-    },
-    {//16
-        question: 'Welches Fach mochten Sie am wenigsten in der Schule?',
-        answer: 'sozialkunde',
-        use: 0
-    },
-    {//17
         question: 'Was ist Ihr Lieblingssport?',
-        answer: 'basketball',
+        answer: '',
         use: 0
-    },
-    {//18
+    }/*,
+    {//16
         question: 'Was ist Ihre Lieblingsfußballmannschaft?',
-        answer: 'ksc',
+        answer: '',
         use: 0
-    },
-    {//19
+    }*/,
+    {//17
         question: 'Wie war der Vorname des Vaters ihres Vaters?',
-        answer: 'anton',
+        answer: '',
         use: 0
-    },
-    {//20
+    }/*,
+    {//18
         question: 'Wie war der Vorname der Mutter Ihrer Mutter?',
-        answer: 'nina',
+        answer: '',
+        use: 0
+    }*/,
+    {//19
+        question: 'Von welcher Marke ist Ihr Auto?',
+        answer: '',
+        use: 0
+    }/*,
+    {//20
+        question: 'Welche Marke hatte ihr erstes Auto?',
+        answer: '',
         use: 0
     },
     {//21
-        question: 'Von welcher Marke ist Ihr Auto?',
-        answer: 'VW',
+        question: 'Wie war der Name Ihres ersten Freundes oder ihrer ersten Freundin?',
+        answer: '',
         use: 0
-    },
+    }*/,
     {//22
-        question: 'Welche Marke hatte ihr erstes Auto?',
-        answer: 'Toyota',
+        question: 'Was war Ihr erstes Urlaubsland?',
+        answer: '',
         use: 0
     },
     {//23
-        question: 'Wie war der Name Ihres ersten Freundes oder ihrer ersten Freundin?',
-        answer: 'maria',
+        question: 'Was ist Ihr Lieblingsurlaubsland?',
+        answer: '',
         use: 0
     },
     {//24
-        question: 'Wie lautet Ihr Lieblingsinterpret?',
-        answer: 'rammstein',
+        question: 'Von welcher Marke ist Ihr Laptop?',
+        answer: '',
         use: 0
     },
     {//25
-        question: 'Was war Ihr erstes Urlaubsland?',
-        answer: 'türkei',
-        use: 0
-    },
-    {//26
-        question: 'Was ist Ihr Lieblingsurlaubsland?',
-        answer: 'spanien',
-        use: 0
-    },
-    {//27
-        question: 'Von welcher Marke ist Ihr Laptop?',
-        answer: 'acer',
-        use: 0
-    },
-    {//28
         question: 'Von welcher Marke ist Ihr Tablet?',
         answer: 'samsung',
         use: 0
-    },
-    {//29
+    }/*,
+    {//26
         question: 'Was war ihr erstes Musikinstrument?',
-        answer: 'gitarre',
+        answer: '',
+        use: 0
+    }*/,
+    {//27
+        question: 'Welches Bier trinken Sie am liebsten?',
+        answer: '',
+        use: 0
+    },
+    {//28
+        question: 'Was ist Ihre Lieblingsserie?',
+        answer: '',
+        use: 0
+    }/*,
+    {//29
+        question: 'Wie lautet Ihr Lieblingsinterpret?',
+        answer: '',
         use: 0
     },
     {//30
-        question: 'Welches Bier trinken Sie am liebsten?',
-        answer: 'bitburger',
+        question: 'Geben Sie ihre Postleitzahl in einzelnen Ziffern an.',
+        answer: '',
         use: 0
     },
     {//31
-        question: 'Was ist Ihre Lieblingsserie?',
-        answer: 'The End of the Fucking World',
+        question: 'was sind die letzten drei ziffern ihrer handynummer?',
+        answer: '',
         use: 0
     }*/
 ];
@@ -172,55 +172,55 @@ var staticQuestions = [
  */
 var dynamicQuestions = [
     {//0
-        question: 'Wieviel Geld haben sie beim letzten Amazon Kauf ausgegeben?',
+        question: 'Wieviel Geld in vollen Euro haben sie beim letzten Amazon Kauf ausgegeben?',
         answer: '20,00€',
-        use: 1
+        use: 0
     },
     {//1
-        question: 'Wie hoch war Ihre letzte PayPal-Überweisung?',
-        answer: '32,65€',
+        question: 'Wie hoch war Ihre letzte PayPal-Überweisung in vollen Euro?',
+        answer: '13,00€',
         use: 0
     },
     {//2
         question: 'Welches Festival oder Konzert haben Sie zuletzt besucht?',
         answer: 'rock am ring',
-        use: 1
+        use: 0
     },
     {//3
-        question: 'Was war das letzte Buch, welches Sie gelesen haben?',
-        answer: 'zeit der krähen',
+        question: 'Welchen Film haben Sie zuletzt gesehen?',
+        answer: 'Die Verurteilten',
         use: 0
     },
     {//4
-        question: 'Welchen Film haben Sie zuletzt gesehen?',
-        answer: 'Chihiros Reise ins Zauberland',
+        question: 'Welche Serie haben Sie zuletzt gesehen?',
+        answer: 'Malcolm mittendrin',
         use: 0
     },
     {//5
-        question: 'Welche Serie haben Sie zuletzt gesehen?',
-        answer: 'Altered Carbon',
-        use: 0
-    }/*,
-    {//6
         question: 'Welchen Radiosender haben Sie zuletzt gehört?',
-        answer: 'swr3',
+        answer: '',
+        use: 0
+    },
+    {//6
+        question: 'Was war die zuletzt installierte App auf Ihrem Smartphone?',
+        answer: '',
         use: 0
     },
     {//7
-        question: 'Was war die zuletzt installierte App auf Ihrem Smartphone?',
-        answer: 'jodel',
+        question: 'Was war die zuletzt installierte App auf Ihrem Tablet?',
+        answer: '',
         use: 0
     },
     {//8
-        question: 'Was war die zuletzt installierte App auf Ihrem Tablet?',
-        answer: 'candy crush',
+        question: 'Was haben Sie zuletzt über Amazon bestellt?',
+        answer: '',
         use: 0
     },
     {//9
-        question: 'Was haben Sie zuletzt über Amazon bestellt?',
-        answer: 'klopapier',
+        question: 'Was war das letzte Buch, welches Sie gelesen haben?',
+        answer: 'zeit der krähen',
         use: 0
-    }*/
+    }
 ];
 
 /**

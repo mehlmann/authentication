@@ -45,6 +45,20 @@ function resetDynamicThreshold() {
 }
 
 /**
+ * Gibt die Anzahl an statischen Fragen aus.
+ */
+function getStaticThreshold() {
+        return STATIC_THRESHOLD;
+}
+
+/**
+ * Gibt die Anzahl an dynamischen Fragen aus.
+ */
+function getDynamicThreshold() {
+        return DYNAMIC_THRESHOLD;
+}
+
+/**
  * Gibt die Anzahl an Authentifizierungen aus, nach welchen ein Refresh ausgeführt werden soll.
  */
 function getUseRefreshCounter() {
@@ -61,5 +75,7 @@ module.exports = {
         increaseDynamicThreshold,
         decreaseDynamicThreshold,
         resetDynamicThreshold,
+        getStaticThreshold,
+        getDynamicThreshold,
         getUseRefreshCounter
 };
