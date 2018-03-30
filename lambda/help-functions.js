@@ -43,6 +43,173 @@ const ordinals = [
     },
 ];
 
+const numbers = [
+    {
+        word: 'null',
+        number: '0'
+    },
+    {
+        word: 'eins',
+        number: '1'
+    },
+    {
+        word: 'zwei',
+        number: '2'
+    },
+    {
+        word: 'drei',
+        number: '3'
+    },
+    {
+        word: 'vier',
+        number: '4'
+    },
+    {
+        word: 'fünf',
+        number: '5'
+    },
+    {
+        word: 'sechs',
+        number: '6'
+    },
+    {
+        word: 'sieben',
+        number: '7'
+    },
+    {
+        word: 'acht',
+        number: '8'
+    },
+    {
+        word: 'neun',
+        number: '9'
+    },
+    {
+        word: 'zehn',
+        number: '10'
+    },
+    {
+        word: 'elf',
+        number: '11'
+    },
+    {
+        word: 'zwölf',
+        number: '12'
+    },
+    {
+        word: 'dreizehn',
+        number: '13'
+    },
+    {
+        word: 'vierzehn',
+        number: '14'
+    },
+    {
+        word: 'fünfzehn',
+        number: '15'
+    },
+    {
+        word: 'sechzehn',
+        number: '16'
+    },
+    {
+        word: 'siebzehn',
+        number: '17'
+    },
+    {
+        word: 'achtzehn',
+        number: '18'
+    },
+    {
+        word: 'neunzehn',
+        number: '19'
+    },
+    {
+        word: 'zwanzig',
+        number: '20'
+    },
+    {
+        word: 'einundzwanzig',
+        number: '21'
+    },
+    {
+        word: 'zweiundzwanzig',
+        number: '22'
+    },
+    {
+        word: 'dreiundzwanzig',
+        number: '23'
+    },
+    {
+        word: 'vierundzwanzig',
+        number: '24'
+    },
+    {
+        word: 'fünfundzwanzig',
+        number: '25'
+    },
+    {
+        word: 'sechundzwanzig',
+        number: '26'
+    },
+    {
+        word: 'siebundzwanzig',
+        number: '27'
+    },
+    {
+        word: 'achtundzwanzig',
+        number: '28'
+    },
+    {
+        word: 'neunundzwanzig',
+        number: '29'
+    },
+    {
+        word: 'dreiundzwanzig',
+        number: '30'
+    },
+    {
+        word: 'einunddreizig',
+        number: '31'
+    },
+    {
+        word: 'zweiunddreizig',
+        number: '32'
+    },
+    {
+        word: 'dreiunddreizig',
+        number: '33'
+    },
+    {
+        word: 'vierunddreizig',
+        number: '34'
+    },
+    {
+        word: 'fünfunddreizig',
+        number: '35'
+    },
+    {
+        word: 'sechundzwanzig',
+        number: '36'
+    },
+    {
+        word: 'siebunddreizig',
+        number: '37'
+    },
+    {
+        word: 'achtunddreizig',
+        number: '38'
+    },
+    {
+        word: 'neununddreizig',
+        number: '39'
+    },
+    {
+        word: 'vierzig',
+        number: '40'
+    }
+];
+
 /**
  * Erstellt aus zwei Zahlen eine Geldbetrag des Formats x,yy€.
  * Sollten entweder euro oder cent nicht definiert (undefined) sein, so werden sie zu 0 ausgewertet.
@@ -107,10 +274,22 @@ function printError(error) {
     console.error(error);
 }
 
+/**
+ * Wandelt ein Wort von null bis vierzig in die dazugehörige Zahl um.
+ * @param {string} word 
+ */
+function wordToNumber(word) {
+    for (var i = 0; i < numbers.length; i++) {
+        if (numbers[i].word == word) return numbers[i].number;
+    }
+    return '0';
+ }
+
 module.exports = {
     formatMoneyAmount,
     formatNumberLength,
     numberToOrdinal,
     printLog,
-    printError
+    printError,
+    wordToNumber
 };

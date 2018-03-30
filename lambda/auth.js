@@ -51,10 +51,10 @@ var lastSaid = '';
 var useRfrsh = false;
 var useRfrshCrt = statics.USE_REFRESH_COUNTER;
 var debug = true;
-var setup = true;
+var setup = false;
 // for research purpose
 var test = false;
-var testRun = 0;
+var testRun = 1;
 var checkTmp;
 var setupQuestCtr = 0;
 
@@ -273,9 +273,12 @@ function onAuthenticated(callback) {
     }
 
     if (test) {
-        (testRun%2 == 0) ? statics.increaseStaticThreshold() : statics.increaseDynamicThreshold() ;
+        (testRun%2 == 1) ? statics.increaseStaticThreshold() : statics.increaseDynamicThreshold() ;
         testRun++;
+        statThreshold = statics.getStaticThreshold();
+        dynThreshold = statics.getDynamicThreshold();
         var ordinal = fct.numberToOrdinal(testRun);
+        if (debug) fct.printLog(`testRun: ${testRun}, ordinal: ${ordinal}, statThreshold: ${statThreshold}, dynThreshold: ${dynThreshold}`);
         const speechOutput = `Der Authentifizierungsversuch war erfolgreich. Wir beginnen mit dem ${ordinal} Testfall. `
             + `Nun sind es ${statThreshold} statische und ${dynThreshold} dynamische Fragen. `;
 
@@ -367,7 +370,7 @@ function verifyAnswer(answer, callback) {
     } else {
         if (typeof answer == 'number') {
             if ((test) || (answer == currentQuest.answer)) {
-                if (test) fct.printLog(`Wrong Answer!!! Answer was: ${answer}, but it should have been: ${currentQuest.answer}!!!`);
+                if (answer != currentQuest.answer) fct.printLog(`Wrong Answer!!! Answer was: ${answer}, but it should have been: ${currentQuest.answer}!!!`);
                 auth_state.calcToStatic(answer, currentQuest.answer);
                 getStaticQuestion(callback);
             } else {
@@ -376,7 +379,7 @@ function verifyAnswer(answer, callback) {
             }
         } else {
             if ((test) || (answer.toLowerCase() == currentQuest.answer.toLowerCase())) {
-                if (test) fct.printLog(`Wrong Answer!!! Answer was: ${answer}, but it should have been: ${currentQuest.answer}!!!`);
+                if (answer != currentQuest.answer) fct.printLog(`Wrong Answer!!! Answer was: ${answer}, but it should have been: ${currentQuest.answer}!!!`);
                 getNextState(answer, currentQuest.answer, callback);
             } else {
                 auth_state.answerWrong(answer, currentQuest.answer);
@@ -556,7 +559,7 @@ function getDynamicQuestion(callback) {
  */
 function startTesting(callback, speechOutput) {
     if (debug) fct.printLog('Starting Test-Phase...');
-    if(!test) testRun = 0;
+    if(!test) testRun = 1;
     test = true;
     const cardTitle = 'Test Anfang';
     const shouldEndSession = false;
@@ -584,11 +587,12 @@ function startTesting(callback, speechOutput) {
  * @param {function} callback Rückgabefunktion
  */
 function verifyCalc(intent, callback) {
-    if (debug) fct.printLog(`verifyCalc...\nIntent: ` + intent);
-    var result = intent.slots.erste.value;
+    if (debug) fct.printLog(`verifyCalc...\nIntent: ${intent}`);
+    var result;
+    (intent.name == 'CalcIntent') ? result = fct.wordToNumber(intent.slots.zahl.value) : result = intent.slots.erste.value;
     if (!result) fct.printError('verifyCalc failed! No number was given!');
     if ((test) || (result == currentQuest.answer)) {
-        if (test) fct.printLog(`Wrong Answer!!! Answer was: ${result}, but it should have been: ${currentQuest.answer}!!!`);
+        if (result != currentQuest.answer) fct.printLog(`Wrong Answer!!! Answer was: ${result}, but it should have been: ${currentQuest.answer}!!!`);
         auth_state.calcToStatic(result, currentQuest.answer);
         getStaticQuestion(callback);
     } else {
@@ -917,6 +921,9 @@ module.exports = {auth_state,
                 repromptCheck,
                 getCalculation,
                 startTesting,
+                verifyApp,
+                verifyArtist,
+                verifyBook,
                 verifyCalc,
                 verifyCommonAnswer,
                 verifyBeer,

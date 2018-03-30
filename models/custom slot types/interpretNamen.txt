@@ -1,7 +1,7 @@
 1 8 7 Strassenbande
 Two Chainz
 Two Unlimited
-21 Savage
+Twentyone Savage
 2 5 siebeners
 TwoPac
 Zweiraumwohnung
@@ -721,6 +721,7 @@ Kalenna
 Kanye West
 Karat
 Karel Gott
+Karol i Schut
 Karmah
 Kate Bush
 Kate Ryan
@@ -753,6 +754,7 @@ Kim Wilde
 Kimbra
 Kincade
 Kings Of Leon
+Kino
 Kiss
 Klangkarussell
 Klaus und Klaus
@@ -1300,6 +1302,7 @@ Sebastien Drums
 Secret Service
 Seeed
 Selena Gomez
+Sektor Gaza
 Sergio Mendes
 Severine
 Shaggy
@@ -1369,6 +1372,7 @@ Stereoact
 Steve Edwards
 Stevie Wonder
 Sting
+Story of the Year
 Stromae
 Styx
 Sugababes

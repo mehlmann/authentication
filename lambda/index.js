@@ -30,7 +30,7 @@ function handleStartIntents(intent, callback) {
  * @param {function} callback Callback
  */
 function handleCalcIntents(intent, callback) {
-    (intent.name == 'ZahlIntent') ? auth.verifyCalc(intent, callback) : handleQuestIntents(intent, callback);
+    (intent.name == 'CalcIntent' || intent.name == 'ZahlIntent') ? auth.verifyCalc(intent, callback) : auth.wrongIntent(callback);
 }
 
 /**
@@ -87,6 +87,9 @@ function handleQuestIntents(intent, callback) {
             break;
         case 'InstrumentIntent':
             auth.verifyInstrument(intent, callback);
+            break;
+        case 'InterpretIntent':
+            auth.verifyArtist(intent, callback);
             break;
         case 'LandIntent':
             auth.verifyLand(intent, callback);

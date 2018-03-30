@@ -60,6 +60,18 @@
                     ]
                 },
                 {
+                    "name": "CalcIntent",
+                    "slots": [
+                        {
+                            "name": "zahl",
+                            "type": "zahlen"
+                        }
+                    ],
+                    "samples": [
+                        "{zahl}"
+                    ]
+                },
+                {
                     "name": "ElektronikMarkenIntent",
                     "slots": [
                         {
@@ -11301,7 +11313,7 @@
                         },
                         {
                             "name": {
-                                "value": "21 Savage"
+                                "value": "Twentyone Savage"
                             }
                         },
                         {
@@ -14901,6 +14913,11 @@
                         },
                         {
                             "name": {
+                                "value": "Karol i Schut"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "Karmah"
                             }
                         },
@@ -15057,6 +15074,11 @@
                         {
                             "name": {
                                 "value": "Kings Of Leon"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Kino"
                             }
                         },
                         {
@@ -17796,6 +17818,11 @@
                         },
                         {
                             "name": {
+                                "value": "Sektor Gaza"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "Sergio Mendes"
                             }
                         },
@@ -18137,6 +18164,11 @@
                         {
                             "name": {
                                 "value": "Sting"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Story of the Year"
                             }
                         },
                         {
@@ -19352,11 +19384,6 @@
                         {
                             "name": {
                                 "value": "Zara Larsson"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "Zayn"
                             }
                         },
                         {
@@ -38432,6 +38459,211 @@
                         {
                             "name": {
                                 "value": "Zattoo Live TV"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "zahlen",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "null"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "eins"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "zwei"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "drei"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "vier"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "fünf"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "sechs"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "sieben"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "acht"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "neun"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "zehn"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "elf"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "zwölf"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "dreizehn"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "vierzehn"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "fünfzehn"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "sechzehn"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "siebzehn"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "achtzehn"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "neunzehn"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "einundzwanzig"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "zweiundzwanzig"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "dreiundzwanzig"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "vierundzwanzig"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "fünfundzwanzig"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "sechundzwanzig"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "siebundzwanzig"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "achtundzwanzig"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "neunundzwanzig"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "dreizig"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "einunddreizig"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "zweiunddreizig"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "dreiunddreizig"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "vierunddreizig"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "fünfunddreizig"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "sechunddreizig"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "siebunddreizig"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "achtunddreizig"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "neununddreizig"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "vierzig"
                             }
                         }
                     ]

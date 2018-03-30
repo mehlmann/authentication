@@ -9,18 +9,18 @@ var staticQuestions = [
     {//0
         question: 'was ist ihre lieblingsfarbe?',
         answer: 'blau',
-        use: 0
+        use: 1
     },
     {//1
         question: 'In welcher stadt wohnen sie?' ,
         answer: 'wörth am rhein',
-        use: 0
+        use: 1
     }/*,
     {//2
         question: 'in welcher stadt wurden sie geboren?',
         answer: 'erfurt',
         use: 0
-    }*/,
+    },
     {//3
         question: 'wie ist ihre schuhgröße?',
         answer: '42',
@@ -39,7 +39,7 @@ var staticQuestions = [
     {//6
         question: 'In welcher Hausnummer wohnen Sie?' ,
         answer: ''
-    }/*,
+    },
     {//7
         question: 'Was war Ihr erstes Haustier?',
         answer: '',
@@ -59,7 +59,7 @@ var staticQuestions = [
         question: 'Was war der Name ihres ersten Haustieres?',
         answer: '',
         use: 0
-    }*/,
+    },
     {//11
         question: 'Was ist Ihr Lieblingsbuch?',
         answer: '',
@@ -84,27 +84,27 @@ var staticQuestions = [
         question: 'Was ist Ihr Lieblingssport?',
         answer: '',
         use: 0
-    }/*,
+    },
     {//16
         question: 'Was ist Ihre Lieblingsfußballmannschaft?',
         answer: '',
         use: 0
-    }*/,
+    },
     {//17
         question: 'Wie war der Vorname des Vaters ihres Vaters?',
         answer: '',
         use: 0
-    }/*,
+    },
     {//18
         question: 'Wie war der Vorname der Mutter Ihrer Mutter?',
         answer: '',
         use: 0
-    }*/,
+    },
     {//19
         question: 'Von welcher Marke ist Ihr Auto?',
         answer: '',
         use: 0
-    }/*,
+    },
     {//20
         question: 'Welche Marke hatte ihr erstes Auto?',
         answer: '',
@@ -114,7 +114,7 @@ var staticQuestions = [
         question: 'Wie war der Name Ihres ersten Freundes oder ihrer ersten Freundin?',
         answer: '',
         use: 0
-    }*/,
+    },
     {//22
         question: 'Was war Ihr erstes Urlaubsland?',
         answer: '',
@@ -134,12 +134,12 @@ var staticQuestions = [
         question: 'Von welcher Marke ist Ihr Tablet?',
         answer: 'samsung',
         use: 0
-    }/*,
+    },
     {//26
         question: 'Was war ihr erstes Musikinstrument?',
         answer: '',
         use: 0
-    }*/,
+    },
     {//27
         question: 'Welches Bier trinken Sie am liebsten?',
         answer: '',
@@ -149,7 +149,7 @@ var staticQuestions = [
         question: 'Was ist Ihre Lieblingsserie?',
         answer: '',
         use: 0
-    }/*,
+    },
     {//29
         question: 'Wie lautet Ihr Lieblingsinterpret?',
         answer: '',
@@ -174,13 +174,13 @@ var dynamicQuestions = [
     {//0
         question: 'Wieviel Geld in vollen Euro haben sie beim letzten Amazon Kauf ausgegeben?',
         answer: '20,00€',
-        use: 0
+        use: 1
     },
     {//1
         question: 'Wie hoch war Ihre letzte PayPal-Überweisung in vollen Euro?',
         answer: '13,00€',
-        use: 0
-    },
+        use: 1
+    }/*,
     {//2
         question: 'Welches Festival oder Konzert haben Sie zuletzt besucht?',
         answer: 'rock am ring',
@@ -220,7 +220,7 @@ var dynamicQuestions = [
         question: 'Was war das letzte Buch, welches Sie gelesen haben?',
         answer: 'zeit der krähen',
         use: 0
-    }
+    }*/
 ];
 
 /**
