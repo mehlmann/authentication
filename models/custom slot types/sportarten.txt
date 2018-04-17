@@ -9,6 +9,7 @@ armdrücken
 ausdruckstanz
 automobilsport
 axtwerfen
+badminton
 baseball
 basketball
 baumstammwerfen
@@ -57,6 +58,7 @@ inlineskating
 jiu-jitsu
 judo
 ju-jutsu
+kampfsport
 karate
 kegeln
 kickboxen

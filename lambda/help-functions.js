@@ -129,79 +129,79 @@ const numbers = [
         number: '20'
     },
     {
-        word: 'einundzwanzig',
+        word: 'ein und zwanzig',
         number: '21'
     },
     {
-        word: 'zweiundzwanzig',
+        word: 'zwei und zwanzig',
         number: '22'
     },
     {
-        word: 'dreiundzwanzig',
+        word: 'drei und zwanzig',
         number: '23'
     },
     {
-        word: 'vierundzwanzig',
+        word: 'vier und zwanzig',
         number: '24'
     },
     {
-        word: 'fünfundzwanzig',
+        word: 'fünf und zwanzig',
         number: '25'
     },
     {
-        word: 'sechundzwanzig',
+        word: 'sechs und zwanzig',
         number: '26'
     },
     {
-        word: 'siebundzwanzig',
+        word: 'sieben und zwanzig',
         number: '27'
     },
     {
-        word: 'achtundzwanzig',
+        word: 'acht und zwanzig',
         number: '28'
     },
     {
-        word: 'neunundzwanzig',
+        word: 'neun und zwanzig',
         number: '29'
     },
     {
-        word: 'dreiundzwanzig',
+        word: 'dreizig',
         number: '30'
     },
     {
-        word: 'einunddreizig',
+        word: 'ein und dreizig',
         number: '31'
     },
     {
-        word: 'zweiunddreizig',
+        word: 'zwei und dreizig',
         number: '32'
     },
     {
-        word: 'dreiunddreizig',
+        word: 'drei und dreizig',
         number: '33'
     },
     {
-        word: 'vierunddreizig',
+        word: 'vier und dreizig',
         number: '34'
     },
     {
-        word: 'fünfunddreizig',
+        word: 'fünf und dreizig',
         number: '35'
     },
     {
-        word: 'sechundzwanzig',
+        word: 'sechs und dreizig',
         number: '36'
     },
     {
-        word: 'siebunddreizig',
+        word: 'sieben und dreizig',
         number: '37'
     },
     {
-        word: 'achtunddreizig',
+        word: 'acht und dreizig',
         number: '38'
     },
     {
-        word: 'neununddreizig',
+        word: 'neun und dreizig',
         number: '39'
     },
     {

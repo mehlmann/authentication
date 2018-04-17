@@ -1,6 +1,7 @@
 'use strict';
 
 const Https = require('https');
+const fct = require('../help-functions');
 
 /**
  * Eine Sammlung von statischen Fragen und den dazugehörigen Antworten.
@@ -9,13 +10,13 @@ var staticQuestions = [
     {//0
         question: 'was ist ihre lieblingsfarbe?',
         answer: 'blau',
-        use: 1
+        use: 0
     },
     {//1
         question: 'In welcher stadt wohnen sie?' ,
         answer: 'wörth am rhein',
-        use: 1
-    }/*,
+        use: 0
+    },
     {//2
         question: 'in welcher stadt wurden sie geboren?',
         answer: 'erfurt',
@@ -38,7 +39,8 @@ var staticQuestions = [
     },
     {//6
         question: 'In welcher Hausnummer wohnen Sie?' ,
-        answer: ''
+        answer: '',
+        use: 0
     },
     {//7
         question: 'Was war Ihr erstes Haustier?',
@@ -51,120 +53,95 @@ var staticQuestions = [
         use: 0
     },
     {//9
-        question: 'Wieviele Haustiere haben Sie?',
-        answer: '',
-        use: 0
-    },
-    {//10
-        question: 'Was war der Name ihres ersten Haustieres?',
-        answer: '',
-        use: 0
-    },
-    {//11
         question: 'Was ist Ihr Lieblingsbuch?',
         answer: '',
         use: 0
     },
-    {//12
+    {//10
         question: 'Was ist Ihr Lieblingsfilm?',
         answer: '',
         use: 0
     },
-    {//13
+    {//11
         question: 'Was war Ihr Lieblingsfach in der Schule?',
         answer: '',
         use: 0
     },
-    {//14
+    {//12
         question: 'Welches Fach mochten Sie am wenigsten in der Schule?',
         answer: '',
         use: 0
     },
-    {//15
+    {//13
         question: 'Was ist Ihr Lieblingssport?',
         answer: '',
         use: 0
     },
-    {//16
-        question: 'Was ist Ihre Lieblingsfußballmannschaft?',
-        answer: '',
-        use: 0
-    },
-    {//17
+    {//14
         question: 'Wie war der Vorname des Vaters ihres Vaters?',
         answer: '',
         use: 0
     },
-    {//18
+    {//15
         question: 'Wie war der Vorname der Mutter Ihrer Mutter?',
         answer: '',
         use: 0
     },
-    {//19
+    {//16
         question: 'Von welcher Marke ist Ihr Auto?',
         answer: '',
         use: 0
     },
-    {//20
+    {//17
         question: 'Welche Marke hatte ihr erstes Auto?',
         answer: '',
         use: 0
     },
-    {//21
+    {//18
         question: 'Wie war der Name Ihres ersten Freundes oder ihrer ersten Freundin?',
         answer: '',
         use: 0
     },
-    {//22
-        question: 'Was war Ihr erstes Urlaubsland?',
-        answer: '',
-        use: 0
-    },
-    {//23
+    {//19
         question: 'Was ist Ihr Lieblingsurlaubsland?',
         answer: '',
         use: 0
     },
-    {//24
+    {//20
         question: 'Von welcher Marke ist Ihr Laptop?',
         answer: '',
         use: 0
     },
-    {//25
+    {//21
         question: 'Von welcher Marke ist Ihr Tablet?',
         answer: 'samsung',
         use: 0
     },
-    {//26
+    {//22
         question: 'Was war ihr erstes Musikinstrument?',
         answer: '',
         use: 0
     },
-    {//27
+    {//23
         question: 'Welches Bier trinken Sie am liebsten?',
         answer: '',
         use: 0
     },
-    {//28
+    {//24
         question: 'Was ist Ihre Lieblingsserie?',
         answer: '',
         use: 0
     },
-    {//29
+    {//25
         question: 'Wie lautet Ihr Lieblingsinterpret?',
         answer: '',
         use: 0
     },
-    {//30
-        question: 'Geben Sie ihre Postleitzahl in einzelnen Ziffern an.',
+    {//26
+        question: 'was ist die letzte ziffer ihrer handynummer?',
         answer: '',
         use: 0
-    },
-    {//31
-        question: 'was sind die letzten drei ziffern ihrer handynummer?',
-        answer: '',
-        use: 0
-    }*/
+    }
 ];
 
 /**
@@ -174,13 +151,13 @@ var dynamicQuestions = [
     {//0
         question: 'Wieviel Geld in vollen Euro haben sie beim letzten Amazon Kauf ausgegeben?',
         answer: '20,00€',
-        use: 1
+        use: 0
     },
     {//1
         question: 'Wie hoch war Ihre letzte PayPal-Überweisung in vollen Euro?',
-        answer: '13,00€',
-        use: 1
-    }/*,
+        answer: '20,00€',
+        use: 0
+    },
     {//2
         question: 'Welches Festival oder Konzert haben Sie zuletzt besucht?',
         answer: 'rock am ring',
@@ -211,16 +188,16 @@ var dynamicQuestions = [
         answer: '',
         use: 0
     },
-    {//8
-        question: 'Was haben Sie zuletzt über Amazon bestellt?',
-        answer: '',
-        use: 0
-    },
-    {//9
+    {//10
         question: 'Was war das letzte Buch, welches Sie gelesen haben?',
         answer: 'zeit der krähen',
         use: 0
-    }*/
+    },
+    {//9
+        question: 'Was haben Sie zuletzt über Amazon bestellt?',
+        answer: '',
+        use: 0
+    }
 ];
 
 /**
@@ -228,6 +205,10 @@ var dynamicQuestions = [
  * @param {int} arrayNumber Nummerierung der Frage
  */
 function getStaticQuestion(arrayNumber) {
+    if (arrayNumber < 0 || arrayNumber >= staticQuestions.length) {
+        fct.printError(`getStaticQuestion, Array out of bound: ${arrayNumber}.`);
+        return '';
+    }
     return staticQuestions[arrayNumber].question;
 }
 
@@ -236,6 +217,10 @@ function getStaticQuestion(arrayNumber) {
  * @param {int} arrayNumber Nummerierung der Frage
  */
 function getDynamicQuestion(arrayNumber) {
+    if (arrayNumber < 0 || arrayNumber >= dynamicQuestions.length) {
+        fct.printError(`getDynamicQuestion, Array out of bound: ${arrayNumber}.`);
+        return '';
+    }
     return dynamicQuestions[arrayNumber].question;
 }
 
@@ -244,6 +229,10 @@ function getDynamicQuestion(arrayNumber) {
  * @param {int} arrayNumber Nummerierung der Frage
  */
 function getStaticAnswer(arrayNumber) {
+    if (arrayNumber < 0 || arrayNumber >= staticQuestions.length) {
+        fct.printError(`getStaticAnswer, Array out of bound: ${arrayNumber}.`);
+        return '';
+    }
     return staticQuestions[arrayNumber].answer;
 }
 
@@ -252,6 +241,10 @@ function getStaticAnswer(arrayNumber) {
  * @param {int} arrayNumber Nummerierung der Frage
  */
 function getDynamicAnswer(arrayNumber) {
+    if (arrayNumber < 0 || arrayNumber >= dynamicQuestions.length) {
+        fct.printError(`getDynamicAnswer, Array out of bound: ${arrayNumber}.`);
+        return '';
+    }
     return dynamicQuestions[arrayNumber].answer;
 }
 
@@ -261,6 +254,10 @@ function getDynamicAnswer(arrayNumber) {
  * @param {string} newAnswer neue Antwort
  */
 function setStaticAnswer(arrayNumber, newAnswer) {
+    if (arrayNumber < 0 || arrayNumber >= staticQuestions.length) {
+        fct.printError(`setStaticAnswer, Array out of bound: ${arrayNumber}.`);
+        return;
+    }
     staticQuestions[arrayNumber].answer = newAnswer;
 }
 
@@ -270,6 +267,10 @@ function setStaticAnswer(arrayNumber, newAnswer) {
  * @param {string} newAnswer neue Antwort
  */
 function setDynamicAnswer(arrayNumber, newAnswer) {
+    if (arrayNumber < 0 || arrayNumber >= dynamicQuestions.length) {
+        fct.printError(`setDynamicAnswer, Array out of bound: ${arrayNumber}.`);
+        return;
+    }
     dynamicQuestions[arrayNumber].answer = newAnswer;
 }
 
@@ -301,6 +302,10 @@ function getDynamicSize() {
  * @param {int} arrayNumber Nummer der Frage
  */
 function isStaticUsed(arrayNumber) {
+    if (arrayNumber < 0 || arrayNumber >= staticQuestions.length) {
+        fct.printError(`isStaticUsed, Array out of bound: ${arrayNumber}.`);
+        return 0;
+    }
     return staticQuestions[arrayNumber].use;
 }
 
@@ -310,6 +315,10 @@ function isStaticUsed(arrayNumber) {
  * @param {int} used wird die Frage benutzt? 
  */
 function setStaticUsed(arrayNumber, used) {
+    if (arrayNumber < 0 || arrayNumber >= staticQuestions.length) {
+        fct.printError(`setStaticUsed, Array out of bound: ${arrayNumber}.`);
+        return;
+    }
     (used) ? staticQuestions[arrayNumber].use = 1 : staticQuestions[arrayNumber].use = 0;
 }
 
@@ -318,6 +327,10 @@ function setStaticUsed(arrayNumber, used) {
  * @param {int} arrayNumber Nummer der Frage
  */
 function isDynamicUsed(arrayNumber) {
+    if (arrayNumber < 0 || arrayNumber >= dynamicQuestions.length) {
+        fct.printError(`isDynamicUsed, Array out of bound: ${arrayNumber}.`);
+        return 0;
+    }
     return dynamicQuestions[arrayNumber].use;
 }
 
@@ -327,7 +340,37 @@ function isDynamicUsed(arrayNumber) {
  * @param {int} used wird die Frage benutzt? 
  */
 function setDynamicUsed(arrayNumber, used) {
+    if (arrayNumber < 0 || arrayNumber >= dynamicQuestions.length) {
+        fct.printError(`setDynamicUsed, Array out of bound: ${arrayNumber}.`);
+        return;
+    }
     (used) ? dynamicQuestions[arrayNumber].use = 1 : dynamicQuestions[arrayNumber].use = 0;
+}
+
+/**
+ * Überprüft, welche statische Frage der übergebenen Frage am ähnlichsten ist.
+ * Beide Strings werden gesplittet und die Wörter anschließend einzeln verglichen.
+ * @param {string} quest übergebene Frage
+ */
+function compareStaticQuestion(quest) {
+    var splitted = quest.split(" ");
+    var bestCtr = 0;
+    var bestI = 0;
+    for (var i = 0; i < staticQuestions.length(); i++) {
+        var tmp = staticQuestions[i].question.split(" ");
+        var compareCtr = 0;
+        for (var j = 0; j < splitted.length(); j++) {
+            for (var k = 0; k < tmp.length(); k++) {
+                if (splitted[j].toLowerCase() == tmp[k].toLowerCase()) {
+                    compareCtr++;
+                }
+            }
+        }
+        if (bestCtr < compareCtr) {
+            bestCtr = compareCtr;
+            bestI = i;
+        }
+    }
 }
 
 /**

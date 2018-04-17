@@ -16,12 +16,31 @@
                     "samples": []
                 },
                 {
-                    "name": "AMAZON.StopIntent",
-                    "samples": []
+                    "name": "JaIntent",
+                    "samples": [
+                        "ja",
+                        "jawohl",
+                        "jawoll",
+                        "genau",
+                        "richtig"
+                    ]
                 },
                 {
-                    "name": "AMAZON.YesIntent",
-                    "samples": []
+                    "name": "NeinIntent",
+                    "samples": [
+                        "nein",
+                        "ne",
+                        "falsch"
+                    ]
+                },
+                {
+                    "name": "AntwortAendern",
+                    "smaples": [
+                        "Lass mich die Antwort einer Frage ändern",
+                        "Lass mich die Antwort einer statischen Frage ändern",
+                        "Antwort einer Frage ändern",
+                        "Antwort einer statischen Frage ändern"
+                    ]
                 },
                 {
                     "name": "AppIntent",
@@ -142,18 +161,6 @@
                     ]
                 },
                 {
-                    "name": "FussballIntent",
-                    "slots": [
-                        {
-                            "name": "verein",
-                            "type": "fussballClubs"
-                        }
-                    ],
-                    "samples": [
-                        "{verein}"
-                    ]
-                },
-                {
                     "name": "GeldsummeIntent",
                     "slots": [
                         {
@@ -208,6 +215,18 @@
                         "{landName}",
                         "in {landName}",
                         "auf {landName}"
+                    ]
+                },
+                {
+                    "name": "RadiosenderIntent",
+                    "slots": [
+                        {
+                            "name": "sender",
+                            "type": "radiosenderNamen"
+                        }
+                    ],
+                    "samples": [
+                        "{sender}"
                     ]
                 },
                 {
@@ -663,12 +682,32 @@
                         },
                         {
                             "name": {
+                                "value": "ale"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "altbier"
                             }
                         },
                         {
                             "name": {
-                                "value": "ale"
+                                "value": "astra"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "becks"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "berliner kindle"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "berliner weißbier"
                             }
                         },
                         {
@@ -678,7 +717,7 @@
                         },
                         {
                             "name": {
-                                "value": "berliner weißbier"
+                                "value": "bitburger"
                             }
                         },
                         {
@@ -689,6 +728,31 @@
                         {
                             "name": {
                                 "value": "braunbier"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "büble"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "budweiser"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "colabier"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "colaweizen"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "corona"
                             }
                         },
                         {
@@ -704,6 +768,11 @@
                         {
                             "name": {
                                 "value": "dunkelbier"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "edelweiss"
                             }
                         },
                         {
@@ -738,97 +807,17 @@
                         },
                         {
                             "name": {
+                                "value": "heineken"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "helles"
                             }
                         },
                         {
                             "name": {
                                 "value": "honigbier"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "kellerbier"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "kölsch"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "kwas"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "malz"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "malzbier"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "münchner dunkel"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "pils"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "pilsner"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "rauchbier"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "roggenbier"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "schwarzesbier"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "weißbier"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "weizen"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "wiener export"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "astra"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "becks"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "bitburger"
                             }
                         },
                         {
@@ -844,6 +833,16 @@
                         {
                             "name": {
                                 "value": "karlsberg urpils"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "kellerbier"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "kölsch"
                             }
                         },
                         {
@@ -868,7 +867,22 @@
                         },
                         {
                             "name": {
+                                "value": "kwas"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "licher"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "malz"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "malzbier"
                             }
                         },
                         {
@@ -878,42 +892,37 @@
                         },
                         {
                             "name": {
+                                "value": "münchner dunkel"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "pils"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "pilsner"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "radler"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "ratskrone"
                             }
                         },
                         {
                             "name": {
-                                "value": "sanwald"
+                                "value": "rauchbier"
                             }
                         },
                         {
                             "name": {
-                                "value": "büble"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "berliner kindle"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "corona"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "edelweiss"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "budweiser"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "heineken"
+                                "value": "roggenbier"
                             }
                         },
                         {
@@ -923,7 +932,47 @@
                         },
                         {
                             "name": {
+                                "value": "sanwald"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "schwarzesbier"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "tannenzäpfle"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "v plus"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "v plus energy"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "veltins"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "weißbier"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "weizen"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "wiener export"
                             }
                         }
                     ]
@@ -6803,6 +6852,11 @@
                         },
                         {
                             "name": {
+                                "value": "google"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "ha pe"
                             }
                         },
@@ -6859,6 +6913,11 @@
                         {
                             "name": {
                                 "value": "nokia"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "one plus"
                             }
                         },
                         {
@@ -7968,6 +8027,11 @@
                         },
                         {
                             "name": {
+                                "value": "Der Sex Pakt"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "Der Soldat James Ryan"
                             }
                         },
@@ -8123,6 +8187,11 @@
                         },
                         {
                             "name": {
+                                "value": "Die kleine Hexe"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "Die lächerlichen Sechs"
                             }
                         },
@@ -8164,6 +8233,11 @@
                         {
                             "name": {
                                 "value": "Die Schöne und das Biest"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Die Schtis in Paris"
                             }
                         },
                         {
@@ -8543,6 +8617,16 @@
                         },
                         {
                             "name": {
+                                "value": "Fünf Freunde"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Fünf Freunde Im Tal der Dinosaurier"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "Für ein paar Dollar mehr"
                             }
                         },
@@ -8589,6 +8673,16 @@
                         {
                             "name": {
                                 "value": "Ghostbusters"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Ghostland"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Ghost Stories"
                             }
                         },
                         {
@@ -8674,6 +8768,11 @@
                         {
                             "name": {
                                 "value": "Green Room"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Gringo"
                             }
                         },
                         {
@@ -8964,6 +9063,11 @@
                         {
                             "name": {
                                 "value": "Jason Bourne"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Jim Knopf und Lukas der Lokomotivführer"
                             }
                         },
                         {
@@ -9273,6 +9377,11 @@
                         },
                         {
                             "name": {
+                                "value": "Maria Magdalena"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "Mary and Max"
                             }
                         },
@@ -9339,6 +9448,11 @@
                         {
                             "name": {
                                 "value": "Metropolis"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Midnight Sun"
                             }
                         },
                         {
@@ -9524,6 +9638,16 @@
                         {
                             "name": {
                                 "value": "Operation 12 Strong"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Pacific Rim"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Pacific Rim Uprising"
                             }
                         },
                         {
@@ -9748,11 +9872,6 @@
                         },
                         {
                             "name": {
-                                "value": "Samson"
-                            }
-                        },
-                        {
-                            "name": {
                                 "value": "San Andreas"
                             }
                         },
@@ -9959,6 +10078,11 @@
                         {
                             "name": {
                                 "value": "Star Wars Rogue One"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Steig nicht aus"
                             }
                         },
                         {
@@ -10453,6 +10577,11 @@
                         },
                         {
                             "name": {
+                                "value": "Total Recall"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "Toy Story"
                             }
                         },
@@ -10474,6 +10603,31 @@
                         {
                             "name": {
                                 "value": "Trainspotting Neue Helden"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Transformers"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Transformers 1"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Transformers 2"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Transformers 3"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Transformers 4"
                             }
                         },
                         {
@@ -10513,6 +10667,11 @@
                         },
                         {
                             "name": {
+                                "value": "Unsane"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "Uncle Drew"
                             }
                         },
@@ -10524,6 +10683,16 @@
                         {
                             "name": {
                                 "value": "Unersetzlich"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Unsere Erde"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Unsere Erde 2"
                             }
                         },
                         {
@@ -10564,6 +10733,11 @@
                         {
                             "name": {
                                 "value": "Veronica"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Verpiss dich Schneewitchen"
                             }
                         },
                         {
@@ -10784,276 +10958,6 @@
                         {
                             "name": {
                                 "value": "Zwischen zwei Leben"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "name": "fussballClubs",
-                    "values": [
-                        {
-                            "name": {
-                                "value": "1860 münchen"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "aminia bielefeld"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "bayern 0 4 leverkusen"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "bayern leverkusen"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "bayern münchen"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "borussia dortmund"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "borussia mönchengladbach"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "dortmund"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "dynamo dresden"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "eintracht braunschweig"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "eintracht frankfurt"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "erster f c heidenheim"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "erster f c kaiserslautern"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "erster f c köln"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "erster f c nürnberg"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "erster f c union berlin"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "erster f s v mainz"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "erster f s v mainz 0 5"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "erzgebirge aue"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "f c augsburg"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "f c bayern münchen"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "f c erzgebirge aue"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "f c heidenheim"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "f c ingolstadt 0 4"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "f c kaiserslautern"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "f c nürnberg"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "f c sankt pauli"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "f c schalke"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "f c schalke 0 4"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "f c union berlin"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "fortuna düsseldorf"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "greuther fürth"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "hamburger s v"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "hannover 96"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "hertha b s c"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "k s c"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "karlsruher s c"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "lautern"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "r b leipzig"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "s c freiburg"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "s p v g g greuther fürth"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "s v darmstadt"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "s v darmstadt 98"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "s v sandhausen"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "sankt pauli"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "t s g 1899 hoffenheim"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "t s v 1860 münchen"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "union berlin"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "v f b stuttgart"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "v f l bochum"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "v f l wolfsburg"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "werder bremen"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "würzburger kickers"
                             }
                         }
                     ]
@@ -14223,6 +14127,11 @@
                         },
                         {
                             "name": {
+                                "value": "Haze"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "H-Blockx"
                             }
                         },
@@ -14324,11 +14233,6 @@
                         {
                             "name": {
                                 "value": "Hubert Kah"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "Hula Hawaiians"
                             }
                         },
                         {
@@ -14463,7 +14367,7 @@
                         },
                         {
                             "name": {
-                                "value": "Ja Rule"
+                                "value": "Dscha Rule"
                             }
                         },
                         {
@@ -20669,6 +20573,401 @@
                     ]
                 },
                 {
+                    "name": "radiosenderNamen",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "1 Live"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Absolut Hot"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "antenne 1"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Antenne Bayern"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "B 5 aktuell"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "B 5 plus"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "B R Heimat"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "B R Klassik"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "B R Verkehr"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "baden F M"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Ballermann Radio"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Bayern 1"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Bayern 2"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Bayern 3"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Bayern plus"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "big F M"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Das Ding"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Deutschlandfunk"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Deutschlandfunk Kultur"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Deutschlandfunk Nova"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Die neue Welle"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Dokumente und Debatten"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Domradio"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "ego F M"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Energy"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Energy Stuttgart"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "H R 1"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "H R 2"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "H R 3"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "H R 4"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "H R info"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Hitradio"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Kultradio"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "M D R Aktuell"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "M D R Jump"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "M D R Klassik"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "M D R Kultur"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "M D R Sachsen"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "M D R Sachsen-Anhalt"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "M D R Schlagerwelt"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "M D R Sputnik"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "M D R Thüringen"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Magaradio Bayern"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "N D R 1"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "N D R 1 Niedersachsen"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "N D R 2"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "N D R 90 3"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "N D R Blue"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "N D R Info"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "N D R Info Spezial"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "N D R Kultur"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "N D R Plus"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "N D R Radio M V"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "N D R Radio Nord"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "N Joy"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Puls"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Pure F M Bayern"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Querfunk"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Radio 7"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Radio F F N"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Radio Galaxy"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Radio Regenbogen"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Radio Teddy"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Rock Antenne"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "S W R 1 "
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "S W R 1 Baden-Württemberg"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "S W R 1 Rheinland-Pfalz"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "S W R 2"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "S W R 3"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "S W R 4 Baden-Württemberg"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "S W R 4 Rheinland-Pfalz"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "S W R Aktuell"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Sorbischer Rundfunk"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "W D R 2"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "W D R 3"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "W D R 4"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "W D R 5"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "You F M"
+                            }
+                        }
+                    ]
+                },
+                {
                     "name": "schulfaecher",
                     "values": [
                         {
@@ -20714,6 +21013,11 @@
                         {
                             "name": {
                                 "value": "erdkunde"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "ethik"
                             }
                         },
                         {
@@ -23728,6 +24032,11 @@
                         },
                         {
                             "name": {
+                                "value": "badminton"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "baseball"
                             }
                         },
@@ -23964,6 +24273,11 @@
                         {
                             "name": {
                                 "value": "ju-jutsu"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "kampfsport"
                             }
                         },
                         {
@@ -37363,7 +37677,42 @@
                         },
                         {
                             "name": {
+                                "value": "A D A C Pannenhilfe"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "A V G Antivirus"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "A V L"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Abnehmen in 30 Tagen"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "About you"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "About you Mode online"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Acrobat Reader"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Ada"
                             }
                         },
                         {
@@ -37374,6 +37723,11 @@
                         {
                             "name": {
                                 "value": "Adblock Plus"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Adidas"
                             }
                         },
                         {
@@ -37398,12 +37752,47 @@
                         },
                         {
                             "name": {
+                                "value": "Adobe Scan"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Air Bi N Bi"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Air Camera"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Akinator"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "Akku and Batterie HD Monitor"
                             }
                         },
                         {
                             "name": {
+                                "value": "ALDI Süd"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "ALDI TALK"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "AliExpress"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Amazon"
                             }
                         },
                         {
@@ -37423,7 +37812,37 @@
                         },
                         {
                             "name": {
+                                "value": "Amazon Fire TV"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Amazon Music"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Amazon Prime"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Amazon Prime Video"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Amazon Shopping"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "Amazon Underground"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Android Auto"
                             }
                         },
                         {
@@ -37443,6 +37862,11 @@
                         },
                         {
                             "name": {
+                                "value": "Angry Birds 2"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "Animal Crossing"
                             }
                         },
@@ -37453,12 +37877,67 @@
                         },
                         {
                             "name": {
+                                "value": "Anzahl Färbung"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Anzahl Färbung Spiel"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "APKPure"
                             }
                         },
                         {
                             "name": {
+                                "value": "Apus"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Apus Browser"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Asos"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Audible"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Audible Hörbücher"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Auto Scout"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Auto Scout 24"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Autodoc"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "Avast Security & Booster"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Avira Antivirus"
                             }
                         },
                         {
@@ -37478,7 +37957,17 @@
                         },
                         {
                             "name": {
+                                "value": "Babbel"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "bad piggies"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Badoo"
                             }
                         },
                         {
@@ -37508,12 +37997,57 @@
                         },
                         {
                             "name": {
+                                "value": "Baseball Boy"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Beihilfe N R W"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "bejeweled blitz"
                             }
                         },
                         {
                             "name": {
+                                "value": "Benzinpreis"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Bersiher"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "Bet365 Sport"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Bildbearbeitung"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Bitmoji"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Bitmoji dein Avatar-Emoji"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "BlaBlaCar"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Blitz Q R Scanner"
                             }
                         },
                         {
@@ -37528,7 +38062,52 @@
                         },
                         {
                             "name": {
+                                "value": "Bon Pri"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Booking.com"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Booking.com Hotel Buchungen"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Boomerang"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Boomerang von Instagram"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "Burger King"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Burger King Gutschein App"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "C Cleaner"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Call Flash"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Caller Ei Di"
                             }
                         },
                         {
@@ -37543,7 +38122,27 @@
                         },
                         {
                             "name": {
+                                "value": "Car Merger"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Cash"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "CCleaner"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Check 24"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Chefkoch"
                             }
                         },
                         {
@@ -37573,7 +38172,32 @@
                         },
                         {
                             "name": {
+                                "value": "Clever Tanken.de"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "CloudOn"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "CodeCheck"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Coin Dozer"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Commerzbank"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Cooking Fever"
                             }
                         },
                         {
@@ -37583,7 +38207,42 @@
                         },
                         {
                             "name": {
+                                "value": "D H L Paket"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "D S L Hilfe"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "D U Recorder"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Dame tu cosita"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "DAZoNe"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "DB Navigator"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Deezer"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Deutschland Card"
                             }
                         },
                         {
@@ -37593,7 +38252,17 @@
                         },
                         {
                             "name": {
+                                "value": "Die Sims"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "Die Sims Mobile"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Discord"
                             }
                         },
                         {
@@ -37613,7 +38282,22 @@
                         },
                         {
                             "name": {
+                                "value": "Dot to Doto to Coloring"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "Dragon Dictation"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Dropbox"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Dude Theft Wars"
                             }
                         },
                         {
@@ -37623,7 +38307,42 @@
                         },
                         {
                             "name": {
+                                "value": "Duolingo"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Duolingo Sprachkurse"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "ebay Kleinanzeigen"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Eight Fit Workout"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Emoji Telefon"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "ES Datei Explorer"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Face Camera"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Face Time"
                             }
                         },
                         {
@@ -37643,12 +38362,32 @@
                         },
                         {
                             "name": {
+                                "value": "Facebook Lite"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "Facebook Messenger"
                             }
                         },
                         {
                             "name": {
                                 "value": "Facebook Messenger Download"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Factory Market"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Fame Boom"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Fantasy Keyboard"
                             }
                         },
                         {
@@ -37673,6 +38412,11 @@
                         },
                         {
                             "name": {
+                                "value": "Find Now"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "Firefox"
                             }
                         },
@@ -37689,6 +38433,26 @@
                         {
                             "name": {
                                 "value": "Flappy Bird"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Flightradar 24"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Flixbus"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Flixbus App"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Flixbus Fernbus App"
                             }
                         },
                         {
@@ -37728,7 +38492,22 @@
                         },
                         {
                             "name": {
+                                "value": "Fußball.de"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "G M X Mail"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "g t a"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Galaxy Attack"
                             }
                         },
                         {
@@ -37743,7 +38522,32 @@
                         },
                         {
                             "name": {
+                                "value": "Geocaching"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "GetJar"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Glamour"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Glamour Shopping"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Go Musik"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Goal Live Scores"
                             }
                         },
                         {
@@ -37753,7 +38557,27 @@
                         },
                         {
                             "name": {
+                                "value": "Google Assistant"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "Google Earth"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Google Fotos"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Google Home"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Google Kalender"
                             }
                         },
                         {
@@ -37764,11 +38588,6 @@
                         {
                             "name": {
                                 "value": "Google Maps"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "Google Maps "
                             }
                         },
                         {
@@ -37798,7 +38617,32 @@
                         },
                         {
                             "name": {
+                                "value": "Google Umfrage"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Google Umfrage App"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Gratis Musik für Youtube"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "Gratis-Klingeltöne"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Groupon"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "H und M"
                             }
                         },
                         {
@@ -37818,6 +38662,11 @@
                         },
                         {
                             "name": {
+                                "value": "Helix Jump"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "HERE Maps"
                             }
                         },
@@ -37828,7 +38677,22 @@
                         },
                         {
                             "name": {
+                                "value": "Hermes Paket Versand"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "hill climb racing"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Hill Climb Racing 2"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Homescapes"
                             }
                         },
                         {
@@ -37848,6 +38712,11 @@
                         },
                         {
                             "name": {
+                                "value": "Idle Miner Tycoon"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "iFiles"
                             }
                         },
@@ -37858,12 +38727,32 @@
                         },
                         {
                             "name": {
+                                "value": "Immobilien Scout"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Immobilien Scout 24"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "iMusic"
                             }
                         },
                         {
                             "name": {
                                 "value": "iMusic BG"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "InShot"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Instabuttons"
                             }
                         },
                         {
@@ -37898,6 +38787,11 @@
                         },
                         {
                             "name": {
+                                "value": "Jaumo"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "jetpack joyride"
                             }
                         },
@@ -37908,7 +38802,52 @@
                         },
                         {
                             "name": {
+                                "value": "Joom"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Kaspersky"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Kaspersky Mobile"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Kaspersky Mobile Antivirus"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "Kaspersky QR Scanner"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Katwarn"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "KaufDa"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "keeper"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Kicker"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Kicker Fußball News"
                             }
                         },
                         {
@@ -37918,7 +38857,27 @@
                         },
                         {
                             "name": {
+                                "value": "Kik"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Kindle"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "KingRoot"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Klarna"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Kleiderkreisel"
                             }
                         },
                         {
@@ -37928,7 +38887,22 @@
                         },
                         {
                             "name": {
+                                "value": "Klondike Adventures"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Knife Hit"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "Kodi"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "komoot"
                             }
                         },
                         {
@@ -37943,6 +38917,11 @@
                         },
                         {
                             "name": {
+                                "value": "Layout for Instagram"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "laytons mystery journey"
                             }
                         },
@@ -37953,7 +38932,62 @@
                         },
                         {
                             "name": {
+                                "value": "Leo Wörterbuch"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Lesara"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Lidl"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Lieferando"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Lieferando.de"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Lieferheld"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Lifesum"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "LinkedIn"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Lovoo"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "M P 3 Video Converter"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "Mahjong Shanghai"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Malen nach Zahlen"
                             }
                         },
                         {
@@ -37963,7 +38997,42 @@
                         },
                         {
                             "name": {
+                                "value": "Marktguru"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Max Cleaner"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Max Cleaner Telefonreiniger"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "McDonalds"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "McDonalds App"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "McDonalds Deutschland"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "McDonalds Gutschein"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "McDonalds Gutschein App"
                             }
                         },
                         {
@@ -37973,7 +39042,57 @@
                         },
                         {
                             "name": {
+                                "value": "Mein Ou Two"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Mein Vodafone"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Menstruationskalender"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "Messenger"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Messenger Lite"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Microsoft Excel"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Microsoft Launcher"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Microsoft OneDrive"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Microsoft Outlook"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Microsoft PowerPoint"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Microsoft Word"
                             }
                         },
                         {
@@ -37988,12 +39107,42 @@
                         },
                         {
                             "name": {
+                                "value": "mobile d e"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "mobile d e mobile Autobörse"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Move to iOS"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "MSQRD"
                             }
                         },
                         {
                             "name": {
+                                "value": "Musically"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "MyPhoneExplorer Client"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Mytaxi"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "N T V Nachrichten"
                             }
                         },
                         {
@@ -38028,7 +39177,32 @@
                         },
                         {
                             "name": {
+                                "value": "News Republic"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "News Republic Nachrichten"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "nine gag"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "No.Draw"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Offline Maps"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Offline Maps und Navigation"
                             }
                         },
                         {
@@ -38043,12 +39217,52 @@
                         },
                         {
                             "name": {
+                                "value": "One Line"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "Opera Mini Web Browser"
                             }
                         },
                         {
                             "name": {
                                 "value": "Orbot"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Otto"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Otto Shopping"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "P D F Reader"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Payback"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "PayPal"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Peak"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Peak Gehirntraining"
                             }
                         },
                         {
@@ -38063,6 +39277,21 @@
                         },
                         {
                             "name": {
+                                "value": "Phone Clone"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Photo Editor Pro"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Photo Lab"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "Photon Flash Player"
                             }
                         },
@@ -38073,12 +39302,47 @@
                         },
                         {
                             "name": {
+                                "value": "PicsArt"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "PicsArt Photo Studio"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Pinterest"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "Pixel 2 Live Wallpaper"
                             }
                         },
                         {
                             "name": {
+                                "value": "Pixel Art"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Pizza d e"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Pizza.de"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "plants versus zombies"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Playstation App"
                             }
                         },
                         {
@@ -38089,6 +39353,11 @@
                         {
                             "name": {
                                 "value": "Pokémon GO"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Postident"
                             }
                         },
                         {
@@ -38108,12 +39377,17 @@
                         },
                         {
                             "name": {
-                                "value": "PUBG Mobile"
+                                "value": "PUB G Mobile"
                             }
                         },
                         {
                             "name": {
                                 "value": "Puffin Web Browser"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Q R Scanner"
                             }
                         },
                         {
@@ -38133,7 +39407,57 @@
                         },
                         {
                             "name": {
+                                "value": "Radarwarner"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Radarwarner gratis"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "radio de"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "radio.de"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Ratiopharm"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Rebuy"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Reddit"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Rider"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Rolly Vortex"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Rossmann"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Rossmann Coupons"
                             }
                         },
                         {
@@ -38143,7 +39467,42 @@
                         },
                         {
                             "name": {
+                                "value": "RoyalStats for Fortnite"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Runtastic"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Ryanair"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "S Photo Editor"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "S Push Tan"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "Samsung Max"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Samsung Smart Switch"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Samsung Smart Switch Mobile"
                             }
                         },
                         {
@@ -38153,7 +39512,22 @@
                         },
                         {
                             "name": {
+                                "value": "Scale"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "Schoener Fernsehen"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Schrittzähler"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Share it"
                             }
                         },
                         {
@@ -38163,12 +39537,52 @@
                         },
                         {
                             "name": {
+                                "value": "Shein"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Shpock"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Shpock die Flohmarkt App"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Shpock Flohmarkt"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "Signal Care"
                             }
                         },
                         {
                             "name": {
+                                "value": "Sing"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Sing by Smule"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Sixpack in 30 Tagen"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "Sky Go"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Sky Sport"
                             }
                         },
                         {
@@ -38183,6 +39597,11 @@
                         },
                         {
                             "name": {
+                                "value": "Slither Ei Ou"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "Slither io"
                             }
                         },
@@ -38193,7 +39612,17 @@
                         },
                         {
                             "name": {
+                                "value": "Snake versus Block"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "Snapchat"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Snapseed"
                             }
                         },
                         {
@@ -38213,7 +39642,27 @@
                         },
                         {
                             "name": {
+                                "value": "SoundCloud"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Sparkasse"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "SPB TV"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Spotify"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Spotify Music"
                             }
                         },
                         {
@@ -38228,6 +39677,26 @@
                         },
                         {
                             "name": {
+                                "value": "Steam"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Subway Surfers"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Sudoku"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Super Cleaner"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "Super Mario Run"
                             }
                         },
@@ -38238,7 +39707,32 @@
                         },
                         {
                             "name": {
+                                "value": "SuperFood"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Sweet Camera"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "SwiftKey Tastatur"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "T V Now "
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "T V Now Plus"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Tagesschau"
                             }
                         },
                         {
@@ -38253,17 +39747,37 @@
                         },
                         {
                             "name": {
-                                "value": "Taschenlampe Tiny Flashlight"
-                            }
-                        },
-                        {
-                            "name": {
                                 "value": "Taschenlampe"
                             }
                         },
                         {
                             "name": {
+                                "value": "Taschenlampe Tiny Flashlight"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Taschenrechner"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "Team Win Recovery Project"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Telegram"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Telekom Mail"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Tellonym"
                             }
                         },
                         {
@@ -38283,7 +39797,22 @@
                         },
                         {
                             "name": {
+                                "value": "Tinder"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "Tipico Sports"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Toggo Spiele"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Toon Blast"
                             }
                         },
                         {
@@ -38298,7 +39827,22 @@
                         },
                         {
                             "name": {
+                                "value": "TripAdvisor"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Trivago"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "TubeMate YouTube Downloader"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Tumbler"
                             }
                         },
                         {
@@ -38318,7 +39862,42 @@
                         },
                         {
                             "name": {
+                                "value": "Twitter"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Uber"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Unicorn"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "V L C for Android"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "V L C Player"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "V R Banking"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "Vero"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Very Fit Pro"
                             }
                         },
                         {
@@ -38333,6 +39912,11 @@
                         },
                         {
                             "name": {
+                                "value": "Viber Messenger"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "Viber: Free Calls & Messages"
                             }
                         },
@@ -38343,7 +39927,17 @@
                         },
                         {
                             "name": {
+                                "value": "Video Editor"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "Video Fly Lite "
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Video.me"
                             }
                         },
                         {
@@ -38354,6 +39948,16 @@
                         {
                             "name": {
                                 "value": "VidMate"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Virus Cleaner"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Viva Video"
                             }
                         },
                         {
@@ -38378,12 +39982,37 @@
                         },
                         {
                             "name": {
+                                "value": "Waipu"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Waipu.tv"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "war wings"
                             }
                         },
                         {
                             "name": {
+                                "value": "Watchbox"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Weight Watchers Mobile"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "wetter info"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Wetter Online"
                             }
                         },
                         {
@@ -38423,6 +40052,11 @@
                         },
                         {
                             "name": {
+                                "value": "Whatsapp Wallpaper"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "WhatsFapp"
                             }
                         },
@@ -38438,12 +40072,62 @@
                         },
                         {
                             "name": {
+                                "value": "Win Rar"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Wish"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "words with friends"
                             }
                         },
                         {
                             "name": {
+                                "value": "Workout Zuhause"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Wort Guru"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Wort Kreuz"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "X Box"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "yaBeat"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Yahoo Mail"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Yazio"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Yazio Kalorienzähler"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Youtube"
                             }
                         },
                         {
@@ -38458,7 +40142,32 @@
                         },
                         {
                             "name": {
+                                "value": "Youtube to M P 3"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Zalando"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Zara"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "Zattoo Live TV"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "ZDF Mediathek"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Zedge"
                             }
                         }
                     ]
@@ -38568,47 +40277,47 @@
                         },
                         {
                             "name": {
-                                "value": "einundzwanzig"
+                                "value": "ein und zwanzig"
                             }
                         },
                         {
                             "name": {
-                                "value": "zweiundzwanzig"
+                                "value": "zwei und zwanzig"
                             }
                         },
                         {
                             "name": {
-                                "value": "dreiundzwanzig"
+                                "value": "drei und zwanzig"
                             }
                         },
                         {
                             "name": {
-                                "value": "vierundzwanzig"
+                                "value": "vier und zwanzig"
                             }
                         },
                         {
                             "name": {
-                                "value": "fünfundzwanzig"
+                                "value": "fünf und zwanzig"
                             }
                         },
                         {
                             "name": {
-                                "value": "sechundzwanzig"
+                                "value": "sechs und zwanzig"
                             }
                         },
                         {
                             "name": {
-                                "value": "siebundzwanzig"
+                                "value": "sieben und zwanzig"
                             }
                         },
                         {
                             "name": {
-                                "value": "achtundzwanzig"
+                                "value": "acht und zwanzig"
                             }
                         },
                         {
                             "name": {
-                                "value": "neunundzwanzig"
+                                "value": "neun und zwanzig"
                             }
                         },
                         {
@@ -38618,47 +40327,47 @@
                         },
                         {
                             "name": {
-                                "value": "einunddreizig"
+                                "value": "ein und dreizig"
                             }
                         },
                         {
                             "name": {
-                                "value": "zweiunddreizig"
+                                "value": "zwei und dreizig"
                             }
                         },
                         {
                             "name": {
-                                "value": "dreiunddreizig"
+                                "value": "drei und dreizig"
                             }
                         },
                         {
                             "name": {
-                                "value": "vierunddreizig"
+                                "value": "vier und dreizig"
                             }
                         },
                         {
                             "name": {
-                                "value": "fünfunddreizig"
+                                "value": "fünf und dreizig"
                             }
                         },
                         {
                             "name": {
-                                "value": "sechunddreizig"
+                                "value": "sechs und dreizig"
                             }
                         },
                         {
                             "name": {
-                                "value": "siebunddreizig"
+                                "value": "sieben und dreizig"
                             }
                         },
                         {
                             "name": {
-                                "value": "achtunddreizig"
+                                "value": "acht und dreizig"
                             }
                         },
                         {
                             "name": {
-                                "value": "neununddreizig"
+                                "value": "neun und dreizig"
                             }
                         },
                         {

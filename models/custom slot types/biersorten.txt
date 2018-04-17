@@ -1,54 +1,60 @@
 abteibier
-altbier
 ale
-berliner weisse
+altbier
+astra
+becks
+berliner kindle
 berliner weißbier
+berliner weisse
+bitburger
 blond ale
 braunbier
+büble
+budweiser
+colabier
+colaweizen
+corona
 dampfbier
 doppelbock
 dunkelbier
+edelweiss
 export
 faro
 glühbier
 haferbier
 hanfbier
 hefe
+heineken
 helles
 honigbier
-kellerbier
-kölsch
-kwas
-malz
-malzbier
-münchner dunkel
-pils
-pilsner
-rauchbier
-roggenbier
-schwarzesbier
-weißbier
-weizen
-wiener export
-astra
-becks
-bitburger
 jever
 karlsberg
 karlsberg urpils
+kellerbier
+kölsch
 könig pilsner
 köstritzer
 köstritzer schwarzbier
 krombacher
+kwas
 licher
+malz
+malzbier
 mixery
+münchner dunkel
+pils
+pilsner
+radler
 ratskrone
-sanwald
-büble
-berliner kindle
-corona
-edelweiss
-budweiser
-heineken
+rauchbier
+roggenbier
 rothaus
+sanwald
+schwarzesbier
 tannenzäpfle
+v plus
+v plus energy
+veltins
+weißbier
+weizen
+wiener export

@@ -168,6 +168,7 @@ Der Pate 2
 Der Pianist
 Der Schatz der Sierra Madre
 Der seidene Faden
+Der Sex Pakt
 Der Soldat James Ryan
 Der Spiegel
 Der Spion und sein Bruder
@@ -199,6 +200,7 @@ Die Hütte
 Die Hütte Ein Wochenende mit Gott
 Die Insel der besonderen Kinder
 Die Jagd
+Die kleine Hexe
 Die lächerlichen Sechs
 Die letzten Glühwürmchen
 Die Monster AG
@@ -208,6 +210,7 @@ Die Ritter der Kokosnuß
 Die Rückkehr
 Die Rückkehr der Jedi-Ritter
 Die Schöne und das Biest
+Die Schtis in Paris
 Die sieben Samurai
 Die Spur des Falken
 Die Taschendiebin
@@ -283,6 +286,8 @@ Fremd in der Welt
 Früchte des Zorns
 Frühling, Sommer, Herbst, Winter und Frühling
 Full Metal Jacket
+Fünf Freunde
+Fünf Freunde Im Tal der Dinosaurier
 Für ein paar Dollar mehr
 Für immer Adaline
 Game Night
@@ -293,6 +298,8 @@ Geostorm
 Gesprengte Ketten
 Get Out
 Ghostbusters
+Ghostland
+Ghost Stories
 Girl on the Train
 Gladiator
 Gods of Egypt
@@ -310,6 +317,7 @@ Grand Budapest Hotel
 Grave
 Greatest Showman
 Green Room
+Gringo
 Guardians of the Galaxy
 Guardians of the Galaxy Vol. 2
 Hachiko
@@ -368,6 +376,7 @@ Jäger des verlorenen Schatzes
 James Bond 0 0 7
 James Bond 0 0 7 Spectre
 Jason Bourne
+Jim Knopf und Lukas der Lokomotivführer
 Johanna von Orléans
 John Wick
 John Wick 2
@@ -429,6 +438,7 @@ Manchester by the Sea
 Manifesto
 Marjorie Prime
 Marrowbone
+Maria Magdalena
 Mary and Max
 Mary and Max, oder Schrumpfen Schafe, wenn es regnet
 Mary Shelley
@@ -443,6 +453,7 @@ Memento
 Memories of Murder
 Message from the King
 Metropolis
+Midnight Sun
 Mike and Dave Need Wedding Dates
 Million Dollar Baby
 Minions
@@ -480,6 +491,8 @@ Okja
 Oldboy
 On Chesil Beach
 Operation 12 Strong
+Pacific Rim
+Pacific Rim Uprising
 Paddington 2
 Pan
 Pans Labyrinth
@@ -524,7 +537,6 @@ Rush
 Rush Alles für den Sieg
 Sadie
 Sadie Dunkle Begierde
-Samson
 San Andreas
 Sausage Party
 Sausage Party Es geht um die Wurst
@@ -567,6 +579,7 @@ Star Wars Episode VII Das Erwachen der Macht
 Star Wars Episode VIII
 Star Wars Episode VIII Die letzten Jedi
 Star Wars Rogue One
+Steig nicht aus
 Steve Jobs
 Stirb langsam
 Stolz und Vorurteil und Zombies
@@ -665,11 +678,17 @@ Three Billboards Outside Ebbing, Missouri
 three Idiots
 Titanic
 Tomb Raider
+Total Recall
 Toy Story
 Toy Story 3
 Train to Busan
 Trainspotting
 Trainspotting Neue Helden
+Transformers
+Transformers 1
+Transformers 2
+Transformers 3
+Transformers 4
 Triple 9
 Trolls
 Tulpenfieber
@@ -677,9 +696,12 @@ twelve Monkeys
 twelve Years a Slave
 Uhrwerk Orange
 Umi yori mo mada fukaku
+Unsane
 Uncle Drew
 und täglich grüßt das Murmeltier
 Unersetzlich
+Unsere Erde
+Unsere Erde 2
 V wie Vendetta
 Vacation
 Vacation Wir sind die Griswolds
@@ -688,6 +710,7 @@ Vaiana Das Paradies hat einen Haken
 Venom
 Vergiss mein nicht
 Veronica
+Verpiss dich Schneewitchen
 Verräter wie wir
 Vertigo
 Vertigo Aus dem Reich der Toten

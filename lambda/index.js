@@ -64,6 +64,9 @@ function handleQuestIntents(intent, callback) {
         case 'BuchIntent':
             auth.verifyBook(intent, callback);
             break;
+        case 'CalcIntent':
+            auth.verifyNumber(intent, callback);
+            break;
         case 'FahrzeugIntent':
             auth.verifyVehicle(intent, callback);
             break;
@@ -93,6 +96,9 @@ function handleQuestIntents(intent, callback) {
             break;
         case 'LandIntent':
             auth.verifyLand(intent, callback);
+            break;
+        case 'RadiosenderIntent':
+            auth.verifyRadio(intent, callback);
             break;
         case 'SportIntent':
             auth.verifySport(intent, callback);
@@ -137,9 +143,9 @@ function handleQuestIntents(intent, callback) {
  * @param {function} callback Callback
  */
 function handleConfirmQuestIntents(intent, callback) {
-    if (intent.name == 'AMAZON.YesIntent') {
+    if (intent.name == 'JaIntent') {
         auth.endAddQuest(callback);
-    } else if (intent.name == 'AMAZON.NoIntent') {
+    } else if (intent.name == 'NeinIntent') {
         auth.repromptCheck(callback);
     } else {
         auth.wrongIntent(callback);
@@ -152,9 +158,9 @@ function handleConfirmQuestIntents(intent, callback) {
  * @param {function} callback Callback
  */
 function handleConfirmAnswerIntents(intent, callback) {
-    if (intent.name == 'AMAZON.YesIntent') {
+    if (intent.name == 'JaIntent') {
         (auth.needSetup()) ? auth.addAnswer(callback, intent) : auth.endAddAnswer(callback);
-    } else if (intent.name == 'AMAZON.NoIntent') {
+    } else if (intent.name == 'NeinIntent') {
         auth.repromptCheck(callback);
     } else {
         auth.wrongIntent(callback);
@@ -167,10 +173,12 @@ function handleConfirmAnswerIntents(intent, callback) {
  * @param {function} callback Callback
  */
 function handleSuccessIntents(intent, callback) {
-    if (intent.name == 'Reset') {
-        auth.resetState(callback);
+    if (intent.name == 'AntwortAendern') {
+        // TODO
     } else if (intent.name == 'FrageHinzufuegen') {
         auth.addQuestion(callback);
+    } else if (intent.name == 'Reset') {
+        auth.resetState(callback);
     } else {
         auth.wrongIntent(callback);
     }
@@ -196,9 +204,9 @@ function handleAddQuestIntents(intent, callback) {
 }
 
 function handleYesNoIntent(intent, callback) {
-    if (intent.name == 'AMAZON.YesIntent') {
+    if (intent.name == 'JaIntent') {
         auth.repromptCheck(callback);
-    } else if (intent.name == 'AMAZON.NoIntent') {
+    } else if (intent.name == 'NeinIntent') {
         auth.getNextQuestion(callback);
     } else {
         auth.wrongIntent(callback);
@@ -213,7 +221,7 @@ function handleYesNoIntent(intent, callback) {
  */
 function onIntent(intentRequest, session, callback) {
     const intent = intentRequest.intent;
-    fct.printLog(`Authentication in state ${auth.getState()}.`);
+    //fct.printLog(`Authentication in state ${auth.getState()}.`);
     fct.printLog(intent);
 
     // Zuerst die global verfügbaren Befehle prüfen.
@@ -269,15 +277,20 @@ function onIntent(intentRequest, session, callback) {
 exports.handler = (event, context, callback) => {
     try {
         if (event.request.type === 'LaunchRequest') {
-            fct.printLog(`Authentication in state ${auth.getState()}.`);
+            //fct.printLog(`Authentication in state ${auth.getState()}.`);
             //var sys = event.context.System;
             //fct.printLog(sys);
             //quest.initAnswers(sys);
-            console.log('Setup needed:' + auth.needSetup());
             if (auth.needSetup()) {
-                auth.startSetup((sessionAttributes, speechletResponse) => {
-                    callback(null, alexa.buildResponse(sessionAttributes, speechletResponse));
-                });
+                if (auth.getSetupQuestCtr() >= 0) {
+                    auth.wrongIntent((sessionAttributes, speechletResponse) => {
+                        callback(null, alexa.buildResponse(sessionAttributes, speechletResponse));
+                    });
+                } else {
+                    auth.startSetup((sessionAttributes, speechletResponse) => {
+                        callback(null, alexa.buildResponse(sessionAttributes, speechletResponse));
+                    });
+                }
             } else {
             alexa.onLaunch(event.request,
                 event.session,
