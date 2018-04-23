@@ -26,7 +26,7 @@ var staticQuestions = [
         question: 'wie ist ihre schuhgröße?',
         answer: '42',
         use: 0
-    },
+    }/*,
     {//4
         question: 'wie ist ihre körpergröße in zentimetern?',
         answer: '',
@@ -141,7 +141,7 @@ var staticQuestions = [
         question: 'was ist die letzte ziffer ihrer handynummer?',
         answer: '',
         use: 0
-    }
+    }*/
 ];
 
 /**
@@ -167,7 +167,7 @@ var dynamicQuestions = [
         question: 'Welchen Film haben Sie zuletzt gesehen?',
         answer: 'Die Verurteilten',
         use: 0
-    },
+    }/*,
     {//4
         question: 'Welche Serie haben Sie zuletzt gesehen?',
         answer: 'Malcolm mittendrin',
@@ -197,7 +197,7 @@ var dynamicQuestions = [
         question: 'Was haben Sie zuletzt über Amazon bestellt?',
         answer: '',
         use: 0
-    }
+    }*/
 ];
 
 /**

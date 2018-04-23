@@ -3,6 +3,8 @@ ale
 altbier
 astra
 becks
+bellheimer
+bellheimer lord
 berliner kindle
 berliner weißbier
 berliner weisse
@@ -15,6 +17,8 @@ colabier
 colaweizen
 corona
 dampfbier
+distelhäuser
+distelhäuser pils
 doppelbock
 dunkelbier
 edelweiss
@@ -27,6 +31,7 @@ hefe
 heineken
 helles
 honigbier
+höpfner
 jever
 karlsberg
 karlsberg urpils

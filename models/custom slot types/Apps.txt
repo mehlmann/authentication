@@ -128,6 +128,7 @@ Dude Theft Wars
 dumb way to die
 Duolingo
 Duolingo Sprachkurse
+eBay
 ebay Kleinanzeigen
 Eight Fit Workout
 Emoji Telefon
@@ -280,6 +281,7 @@ Messenger
 Messenger Lite
 Microsoft Excel
 Microsoft Launcher
+Microsoft Office
 Microsoft OneDrive
 Microsoft Outlook
 Microsoft PowerPoint

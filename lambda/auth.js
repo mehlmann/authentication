@@ -50,7 +50,7 @@ var lastSaid = '';
 // 1 = Refresh, 0 = kein Refresh nach Authentifizierung
 var useRfrsh = false;
 var useRfrshCrt = statics.USE_REFRESH_COUNTER;
-var debug = false;
+var debug = true;
 var setup = true;
 // for research purpose
 var test = false;
@@ -188,14 +188,12 @@ function startSetup(callback) {
     currentQuest.question = questions.getStaticQuestion(setupQuestCtr);
     var speechOutput = 'Willkommen. Ihre Authentifizierungsfragen müssen erst eingerichtet werden. '
             + 'Ich werde Ihnen alle Fragen nun aufzählen. '
-            + 'Sagen Sie mir mit Ja oder Nein, ob Sie die Frage verwenden möchten und geben Sie mir anschließend die Antwort auf die Frage. '
-            + 'Sie sollten mindestens zwei Frage jeder Kategorie wählen. '
+            + 'Beantworten Sie bitte die Frage, falls Sie diese für die Authentifizierung verwenden möchten. '
+            + 'Andernfalls sagen Sie, nächste, oder, weiter, um die Frage zu überspringen. '
+            + 'Sie sollten mindestens zwei Fragen jeder Kategorie wählen. '
             + 'Die erste Frage ist. '
-            + currentQuest.question
-            + ' Wollen Sie diese Frage verwenden?';
-    lastSaid = 'Die erste Frage ist. '
-            + currentQuest.question
-            + ' Wollen Sie diese Frage verwenden?';
+            + currentQuest.question;
+    lastSaid = 'Die erste Frage ist. ' + currentQuest.question;
     auth_state.startToSetup();
     callback({}, alexa.buildSpeechletResponse(cardTitle, speechOutput, lastSaid, shouldEndSession));
 }
@@ -232,11 +230,9 @@ function getNextQuestion(callback) {
     } else if (setupQuestCtr < (questions.getStaticSize() + questions.getDynamicSize())) {
         currentQuest.question = questions.getDynamicQuestion(setupQuestCtr-questions.getStaticSize());
     } else {
-        auth_state.toSetup();
         endSetup(callback);
     }
-    var verwenden = phrases.VERWENDEN[Math.floor(Math.random() * phrases.VERWENDEN.length)];
-    lastSaid = 'Wollen Sie ' + currentQuest.question + verwenden + '?';
+    lastSaid = currentQuest.question;
     auth_state.toSetup();
     callback({}, alexa.buildSpeechletResponse(cardTitle, lastSaid, lastSaid, shouldEndSession));
 }
@@ -283,13 +279,14 @@ function onAuthenticated(callback) {
     if (testRun > 4) {
         const speechOutput = 'Der Authentifizierungsversuch ist zu Ende. '
         + 'Die Testreihe endet hiermit. Ich danke Ihnen für die Teilnahme. Fahren Sie nun fort mit dem Befehl, Aufgabe.';
+        lastSaid = 'Fahren Sie nun fort mit dem Befehl, Aufgabe.';
         fct.printLog(`Number of Errors: ${errorCtr}.`);
         test = false;
         errorCtr = 0;
         useRfrshCrt = statics.USE_REFRESH_COUNTER;
         statics.resetStaticThreshold();
         statics.resetDynamicThreshold();
-        fct.printLog('End of Testing.');
+        if (debug) fct.printLog('End of Testing.');
         auth_state.reset();
         testRun = 1;
         callback({}, alexa.buildSpeechletResponse(cardTitle, speechOutput, shouldEndSession));
@@ -389,7 +386,7 @@ function verifyAnswer(answer, callback) {
     if (isInState('addAnswer')) {
         checkInput(answer, callback);
     } else if (isInState('addQuest')) {
-        checkInput(answer, callback);   //HAXOR
+        checkInput(answer, callback);
     } else {
         if (typeof answer == 'number') {
             if ((test) || (answer == currentQuest.answer)) {

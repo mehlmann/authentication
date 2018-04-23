@@ -327,6 +327,14 @@
                     ]
                 },
                 {
+                    "name": "WeiterIntent",
+                    "samples": [
+                        "weiter",
+                        "nächste",
+                        "nächste Frage"
+                    ]
+                },
+                {
                     "name": "ZahlenDreiIntent",
                     "slots": [
                         {
@@ -697,7 +705,22 @@
                         },
                         {
                             "name": {
+                                "value": "augustina"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "becks"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "bellheimer"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "bellheimer lord"
                             }
                         },
                         {
@@ -762,6 +785,16 @@
                         },
                         {
                             "name": {
+                                "value": "distelhäuser"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "distelhäuser pils"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "doppelbock"
                             }
                         },
@@ -818,6 +851,11 @@
                         {
                             "name": {
                                 "value": "honigbier"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "höpfner"
                             }
                         },
                         {
@@ -2703,11 +2741,6 @@
                         {
                             "name": {
                                 "value": "Die Bibel"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "Die Biebel"
                             }
                         },
                         {
@@ -11198,7 +11231,7 @@
                     ]
                 },
                 {
-                    "name": "interpretNamen",
+                    "name": "InterpretNamen",
                     "values": [
                         {
                             "name": {
@@ -11507,6 +11540,11 @@
                         },
                         {
                             "name": {
+                                "value": "Amadeus Mozart"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "Amadou & Mariam"
                             }
                         },
@@ -11767,6 +11805,11 @@
                         },
                         {
                             "name": {
+                                "value": "Bach"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "Bachman-Turner Overdrive"
                             }
                         },
@@ -11878,6 +11921,11 @@
                         {
                             "name": {
                                 "value": "Bebe Rexha"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Beethoven"
                             }
                         },
                         {
@@ -14367,7 +14415,7 @@
                         },
                         {
                             "name": {
-                                "value": "Dscha Rule"
+                                "value": "dscha Rule"
                             }
                         },
                         {
@@ -14588,6 +14636,11 @@
                         {
                             "name": {
                                 "value": "Johanna Von Koczian"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Johann Sebastian Bach"
                             }
                         },
                         {
@@ -15422,6 +15475,11 @@
                         },
                         {
                             "name": {
+                                "value": "Ludwig van Beethoven"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "Luis Fonsi"
                             }
                         },
@@ -16188,6 +16246,11 @@
                         {
                             "name": {
                                 "value": "Mouth and MacNeal"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Mozart"
                             }
                         },
                         {
@@ -19002,6 +19065,11 @@
                         },
                         {
                             "name": {
+                                "value": "Volbeat"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "Walk The Moon"
                             }
                         },
@@ -19162,6 +19230,11 @@
                         },
                         {
                             "name": {
+                                "value": "Wolfgang Amadeus Mozart"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "Wolfgang Petry"
                             }
                         },
@@ -19288,6 +19361,11 @@
                         {
                             "name": {
                                 "value": "Zara Larsson"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Zayn"
                             }
                         },
                         {
@@ -34972,6 +35050,11 @@
                         },
                         {
                             "name": {
+                                "value": "Happiness Festival"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "Hardcore Springbreak"
                             }
                         },
@@ -35582,6 +35665,11 @@
                         },
                         {
                             "name": {
+                                "value": "Alin"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "Amelie"
                             }
                         },
@@ -36143,6 +36231,11 @@
                         {
                             "name": {
                                 "value": "Georg"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Gerda"
                             }
                         },
                         {
@@ -38317,6 +38410,11 @@
                         },
                         {
                             "name": {
+                                "value": "ebay"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "ebay Kleinanzeigen"
                             }
                         },
@@ -39073,6 +39171,11 @@
                         {
                             "name": {
                                 "value": "Microsoft Launcher"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Microsoft Office"
                             }
                         },
                         {

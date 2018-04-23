@@ -195,21 +195,26 @@ function handleFailedIntents(intent, callback) {
 
 /**
  * Nachdem das Hinzufügen einer Frage verlangt wurde, kann auch nur eine Frage angenommen werden.
- * @param {*} intent Intent 
- * @param {*} callback Callback
+ * @param {String} intent Intent 
+ * @param {function} callback Callback
  */
 function handleAddQuestIntents(intent, callback) {
-    //(intent.name == 'FrageIntent') ? auth.verifyQuestion(intent, callback) : auth.wrongIntent(callback);
     handleQuestIntents(intent, callback); 
 }
 
-function handleYesNoIntent(intent, callback) {
-    if (intent.name == 'JaIntent') {
-        auth.repromptCheck(callback);
-    } else if (intent.name == 'NeinIntent') {
+/**
+ * Während der Einrichtung hat der Benutzer zwei Optionen:
+ * (1) Frage überpringen
+ * (2) Frage beantworten
+ * @param {String} intent Intent 
+ * @param {function} callback Rückgabefunktion
+ */
+function handleSetupIntent(intent, callback) {
+    if (intent.name == 'WeiterIntent') {
         auth.getNextQuestion(callback);
     } else {
-        auth.wrongIntent(callback);
+        auth.auth_state.checkToAdd();
+        handleQuestIntents(intent, callback);
     }
 }
 
@@ -235,7 +240,7 @@ function onIntent(intentRequest, session, callback) {
             handleStartIntents(intent, callback);
             break;
         case 'setup':
-            handleYesNoIntent(intent, callback);
+            handleSetupIntent(intent, callback);
             break;
         case 'calc':
             handleCalcIntents(intent, callback);
