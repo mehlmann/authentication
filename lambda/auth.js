@@ -50,7 +50,7 @@ var lastSaid = '';
 // 1 = Refresh, 0 = kein Refresh nach Authentifizierung
 var useRfrsh = false;
 var useRfrshCrt = statics.USE_REFRESH_COUNTER;
-var debug = true;
+const debug = false;
 var setup = true;
 // for research purpose
 var test = false;
@@ -87,58 +87,9 @@ var auth_state = new StateMachine({
         { name: 'addQuestion',            from: 'success',     to: 'addQuest'    },
         { name: 'addToCheck',             from: 'addQuest',    to: 'checkQuest'  },
         { name: 'checkToAdd',             from: 'checkQuest',  to: 'addQuest'    },
-        { name: 'checkQuestToAddAnswer',  from: 'checkQuest',  to: 'addAnswer'   }
-    ]/*,
-    methods: {
-        onStartToCalc: function() {
-            fct.printLog('\nMoving from start to calc.');
-        },
-        onStartToSetup: function() {
-            fct.printLog('Performing setup. \nMoving from start to setup.');
-        },
-        onCalcToStatic: function(obj, claim, real) {
-            fct.printLog(`Answer was correct. You said ${claim}, it was ${real}.\nMoving from calc to static.`);
-        },
-        onStaticToStatic: function(obj, claim, real) {
-            fct.printLog(`Answer was correct. You said ${claim}, it was ${real}.\nMoving from static to static.`);
-        },
-        onStaticToDynamic: function(obj, claim, real) {
-            fct.printLog(`Answer was correct. You said ${claim}, it was ${real}.\nMoving from static to dynamic.`);
-        },
-        onDynamicToDynamic: function(obj, claim, real) {
-            fct.printLog(`Answer was correct. You said ${claim}, it was ${real}.\nMoving from dynamic to dynamic.`);
-        },
-        onDynamicToAddAnswer: function(obj, claim, real) {
-            fct.printLog(`Answer was correct. You said ${claim}, it was ${real}.\nMoving from dynamic to dynRefresh.`);
-        },
-        onDynamicToSuccess: function(obj, claim, real) {
-            fct.printLog(`Answer was correct. You said ${claim}, it was ${real}.\nMoving from dynamic to success.`);
-        },
-        onAnswerWrong:  function(obj, claim, real) {
-            fct.printLog(`Answer was wrong! You said ${claim}, it was ${real}.`);
-        },
-        onReset:  function() {
-            fct.printLog('Going back to start.');
-        },
-        onAddToCheck: function(obj, answer) {
-            fct.printLog(`User said: ${answer}.\nMoving from addAnswer to checkAnswer.`);
-        },
-        onCheckToAdd: function(obj, answer) {
-            fct.printLog(`User discarded answer: ${answer}.\nMoving from checkAnswer to addAnswer.`);
-        },
-        onCheckAnswerToSuccess: function(obj, answer) {
-            fct.printLog(`User confirmed answer: ${answer}.\nMoving from checkAnswer to success.`);
-        },
-        onAddQuestion: function() {
-            fct.printLog(`User wants to add a question.\nMoving from success to addQuest.`);
-        },
-        onCheckQuestToAddAnswer: function(obj, answer) {
-            fct.printLog(`User confirmed answer: ${answer}.\nMoving from addQuest to addAnswer.`);
-        },
-        onInvalidTransition: function(transition, from, to) {
-              fct.printError("transition not allowed from that state");
-        }
-    }*/
+        { name: 'checkQuestToAddAnswer',  from: 'checkQuest',  to: 'addAnswer'   },
+        { name: 'checkQuestToSuccess',   from: 'checkQuest', to: 'success'     }
+    ]
 });
 
 /**
@@ -177,28 +128,6 @@ function getSetupQuestCtr() {
 }
 
 /**
- * Startet den Setup der Applikation.
- * @param {function} callback Rückgabefunktion
- */
-function startSetup(callback) {
-    if (debug) fct.printLog('Starting to setup a question.');
-    setupQuestCtr = 0;
-    const cardTitle = 'Starte Setup';
-    const shouldEndSession = false;
-    currentQuest.question = questions.getStaticQuestion(setupQuestCtr);
-    var speechOutput = 'Willkommen. Ihre Authentifizierungsfragen müssen erst eingerichtet werden. '
-            + 'Ich werde Ihnen alle Fragen nun aufzählen. '
-            + 'Beantworten Sie bitte die Frage, falls Sie diese für die Authentifizierung verwenden möchten. '
-            + 'Andernfalls sagen Sie, nächste, oder, weiter, um die Frage zu überspringen. '
-            + 'Sie sollten mindestens zwei Fragen jeder Kategorie wählen. '
-            + 'Die erste Frage ist. '
-            + currentQuest.question;
-    lastSaid = 'Die erste Frage ist. ' + currentQuest.question;
-    auth_state.startToSetup();
-    callback({}, alexa.buildSpeechletResponse(cardTitle, speechOutput, lastSaid, shouldEndSession));
-}
-
-/**
  * Fügt eine bestätigte Antwort der Frage hinzu.
  * @param {function} callback Rückgabe 
  * @param {*} intent Intent 
@@ -216,6 +145,22 @@ function addAnswer(callback, intent) {
 }
 
 /**
+ * Der Benutzer möchte eine Frage hinzufügen.
+ * @param {function} callback Rückgabe
+ */
+function addQuestion(callback) {
+    if (debug) fct.printLog(`addQuestion...`);
+    const cardTitle = 'Frage hinzufügen';
+    currentQuest.question = "Nennen Sie mir die Frage, welche Sie hinzufügen möchten.";
+    lastSaid = currentQuest.question;
+    const shouldEndSession = false;
+
+    auth_state.addQuestion();
+
+    callback({}, alexa.buildSpeechletResponse(cardTitle, lastSaid, lastSaid, shouldEndSession));
+}
+
+/**
  * Gibt die nächste Frage für die Einrichtung aus. 
  * Sobald der Counter über der Summe der Fragen ist, ist die Einrichtung beendet.
  * @param {function} callback Rückgabefunktion 
@@ -230,6 +175,7 @@ function getNextQuestion(callback) {
     } else if (setupQuestCtr < (questions.getStaticSize() + questions.getDynamicSize())) {
         currentQuest.question = questions.getDynamicQuestion(setupQuestCtr-questions.getStaticSize());
     } else {
+        auth_state.toSetup();
         endSetup(callback);
     }
     lastSaid = currentQuest.question;
@@ -254,15 +200,162 @@ function endSetup(callback) {
 }
 
 /**
- * Sollte ein Intent eingehen, welcher nicht dem aktuellen Zustand der State-Machine entspricht,
- * wird das zuletzt gesagte wiederholt.
+ * Fragt den Benutzer seine Antwort zu verifizieren.
+ * @param {string} input Benutzereingabe
  * @param {function} callback Rückgabefunktion
  */
-function wrongIntent(callback) {
-    if (debug) fct.printLog(`Got in wrongIntent. Current state is: ${auth_state.state}.`);
-    const cardTitle = 'Falscher Intent';
+function checkInput(input, callback) {
+    const cardTitle = 'Check Input';
+    if (debug || test) fct.printLog(`checkInput-Input is ${input}.`);
+    lastSaid = `Sie sagten ${input}, Ist das richtig?`;
+    checkTmp = input;
     const shouldEndSession = false;
+
+    auth_state.addToCheck();
     callback({}, alexa.buildSpeechletResponse(cardTitle, lastSaid, lastSaid, shouldEndSession));
+}
+
+/**
+ * Alexa hat den Benutzer richtig verstanden. Die dynamische Antwort darf aktualisiert werden.
+ * @param {function} callback Rückgabefunktion
+ */
+function endAddAnswer(callback) {
+    if (debug) fct.printLog('endAddAnswer');
+    const cardTitle = 'Antwort akzeptiert';
+    var speechOutput = `Die Antwort auf die Frage wurde akzeptiert. Die Authentifizierung ist abgeschlossen.`;
+    lastSaid = `Die Authentifizierung ist beendet.`;
+    const shouldEndSession = false;
+    currentQuest.answer = checkTmp;
+    if (currentQuest.number == questions.getStaticSize()) {
+        questions.addStaticQuestion(currentQuest.question, currentQuest.answer);
+    } else {
+        questions.setDynamicAnswer(currentQuest.number, currentQuest.answer);
+    }
+    auth_state.checkAnswerToSuccess();
+
+    if (test) onAuthenticated(callback);
+
+    callback({}, alexa.buildSpeechletResponse(cardTitle, speechOutput, lastSaid, shouldEndSession));
+}
+
+/**
+ * Alexa hat den Benutzer richtig verstanden. Die dynamische Antwort darf aktualisiert werden.
+ * @param {function} callback Rückgabefunktion
+ */
+function endAddQuest(callback) {
+    if (debug) fct.printLog('endAddQuest');
+    currentQuest.number = questions.getStaticSize();
+    currentQuest.question = checkTmp;
+    const cardTitle = 'Frage akzeptiert';
+    var speechOutput = `Die Frage wurde akzeptiert. Bitte geben Sie mir nun die Antwort auf die Frage, ${currentQuest.question}.`;
+    lastSaid = `Bitte geben Sie mir die Antwort auf die Frage, ${currentQuest.question}.`;
+    const shouldEndSession = false;
+    auth_state.checkQuestToAddAnswer();
+
+    callback({}, alexa.buildSpeechletResponse(cardTitle, speechOutput, lastSaid, shouldEndSession));
+}
+
+/**
+ * Stellt dem Benutzer eine simple Additions-Aufgabe.
+ * @param {function} callback Rückgabefunktion 
+ */
+function getCalculation(callback) {
+    if (debug) fct.printLog(`getCalculation...`);
+    statThreshold = statics.getStaticThreshold();
+    dynThreshold = statics.getDynamicThreshold();
+    var summandA = Math.floor(Math.random() * 20);
+    var summandB = Math.floor(Math.random() * 20);
+    if (debug || test) fct.printLog(`Question: ${summandA} + ${summandB} = ${summandA+summandB}`);
+
+    const cardTitle = 'Aufgabe gestellt';
+    currentQuest.question = `Was ist ${summandA} plus ${summandB}?`;
+    lastSaid = `Lösen Sie bitte die Aufgabe ${summandA} plus ${summandB}.`;
+    const shouldEndSession = false;
+
+    currentQuest.answer = summandA + summandB;
+    auth_state.startToCalc();
+
+    callback({}, alexa.buildSpeechletResponse(cardTitle, currentQuest.question, lastSaid, shouldEndSession));
+}
+
+/**
+ * Stellt dem Benutzer eine Frage.
+ * @param {function} callback Rückgabefunktion
+ */
+function getDynamicQuestion(callback) {
+    if (debug) fct.printLog(`getDynamicQuestion...`);
+    const cardTitle = 'Frage gestellt';
+    currentQuest.number = Math.floor(Math.random() * questions.getDynamicSize());
+    while (!questions.isDynamicUsed(currentQuest.number) || (currentQuest.question == questions.getDynamicQuestion(currentQuest.number))) {
+        currentQuest.number = Math.floor(Math.random() * questions.getDynamicSize());
+    }
+    currentQuest.question = questions.getDynamicQuestion(currentQuest.number);
+    currentQuest.answer = questions.getDynamicAnswer(currentQuest.number);
+    lastSaid = currentQuest.question;
+    if (debug || test) fct.printLog(`[${currentQuest.number}]: ${currentQuest.question} -${currentQuest.answer}.`);
+    const shouldEndSession = false;
+    fct.printLog(`Authentication is in state ${auth_state.state}. CurrentQuestNr=${currentQuest.number}.`);
+
+    callback({}, alexa.buildSpeechletResponse(cardTitle, currentQuest.question, currentQuest.question, shouldEndSession));
+}
+
+/**
+ * Ermittelt abhängig vom Zustand (static, dynamic) und den aktuellen Thresholds den nächsten Zustand der Zustandsmaschine.
+ * @param {string} userAnswer die Antwort des Benutzers
+ * @param {string} correctAnswer die korrekte Antwort
+ * @param {function} callback Rückgabefunktion
+ */
+function getNextState(userAnswer, correctAnswer, callback) {
+    if (debug) fct.printLog(`Getting next state. \nCurrent state is: ${auth_state.state}. \nstatThr: ${statThreshold} \ndynThr: ${dynThreshold}`);
+    if (isInState('static')) {
+        statThreshold--;
+        if (statThreshold > 0) {
+            auth_state.staticToStatic();
+            getStaticQuestion(callback);
+        } else {
+            auth_state.staticToDynamic();
+            getDynamicQuestion(callback);
+        }
+    } else {
+        dynThreshold--;
+        if (dynThreshold > 0) {
+            auth_state.dynamicToDynamic();
+            getDynamicQuestion(callback);
+        } else {
+            if (useRfrshCrt < 2) useRfrsh = true; 
+            if (useRfrsh) {
+                auth_state.dynamicToAddAnswer();
+                useRfrshCrt = statics.getUseRefreshCounter();
+                useRfrsh = false;
+                startDynamicRefresh(callback);
+            } else {
+                useRfrshCrt--;
+                auth_state.dynamicToSuccess();
+                onAuthenticated(callback);
+            }
+        }
+    }
+}
+
+/**
+ * Stellt dem Benutzer eine Frage.
+ * @param {function} callback Rückgabefunktion
+ */
+function getStaticQuestion(callback) {
+    if (debug) fct.printLog(`getStaticQuestion...`);
+    const cardTitle = 'Frage gestellt';
+    currentQuest.number = Math.floor(Math.random() * questions.getStaticSize());
+    while (!questions.isStaticUsed(currentQuest.number) || (currentQuest.question == questions.getStaticQuestion(currentQuest.number))) {
+        currentQuest.number = Math.floor(Math.random() * questions.getStaticSize());
+    }
+    currentQuest.question = questions.getStaticQuestion(currentQuest.number);
+    currentQuest.answer = questions.getStaticAnswer(currentQuest.number);
+    lastSaid = currentQuest.question;
+    if (debug || test) fct.printLog(`[${currentQuest.number}]: ${currentQuest.question} -${currentQuest.answer}.`);
+    const shouldEndSession = false;
+    fct.printLog(`Authentication is in state ${auth_state.state}. CurrentQuestNr=${currentQuest.number}.`);
+
+    callback({}, alexa.buildSpeechletResponse(cardTitle, currentQuest.question, currentQuest.question, shouldEndSession));
 }
 
 /**
@@ -324,6 +417,25 @@ function onFailed(callback) {
 }
 
 /**
+ * Alexa hat den Benuzer falsch verstanden. Die Antwort muss wiederholt werden.
+ * @param {function} callback Rückgabefunktion
+ */
+function repromptCheck(callback) {
+    if (debug) fct.printLog('repromptCheck');
+    const cardTitle = 'Check-Frage wiederholen';
+    if (setup) {
+        lastSaid = currentQuest.question;
+    } else {
+        lastSaid = `Geben Sie mir bitte die aktuelle Antwort auf die Frage, ${currentQuest.question}`;
+    }
+    
+    const shouldEndSession = false;
+    auth_state.checkToAdd();
+
+    callback({}, alexa.buildSpeechletResponse(cardTitle, lastSaid, lastSaid, shouldEndSession));
+}
+
+/**
  * Setzt die Authentifizierung zurück.
  * @param {function} callback Rückgabefunktion
  */
@@ -336,83 +448,6 @@ function resetState(callback) {
     auth_state.reset();
 
     callback({}, alexa.buildSpeechletResponse(cardTitle, lastSaid, repromptText, shouldEndSession));
-}
-
-/**
- * Ermittelt abhängig vom Zustand (static, dynamic) und den aktuellen Thresholds den nächsten Zustand der Zustandsmaschine.
- * @param {string} userAnswer die Antwort des Benutzers
- * @param {string} correctAnswer die korrekte Antwort
- * @param {function} callback Rückgabefunktion
- */
-function getNextState(userAnswer, correctAnswer, callback) {
-    if (debug) fct.printLog(`Getting next state. \nCurrent state is: ${auth_state.state}. \nstatThr: ${statThreshold} \ndynThr: ${dynThreshold}`);
-    if (isInState('static')) {
-        statThreshold--;
-        if (statThreshold > 0) {
-            auth_state.staticToStatic(userAnswer, correctAnswer);
-            getStaticQuestion(callback);
-        } else {
-            auth_state.staticToDynamic(userAnswer, correctAnswer);
-            getDynamicQuestion(callback);
-        }
-    } else {
-        dynThreshold--;
-        if (dynThreshold > 0) {
-            auth_state.dynamicToDynamic(userAnswer, correctAnswer);
-            getDynamicQuestion(callback);
-        } else {
-            if (useRfrshCrt < 2) useRfrsh = true; 
-            if (useRfrsh) {
-                auth_state.dynamicToAddAnswer(userAnswer, correctAnswer);
-                useRfrshCrt = statics.getUseRefreshCounter();
-                useRfrsh = false;
-                startDynamicRefresh(callback);
-            } else {
-                useRfrshCrt--;
-                auth_state.dynamicToSuccess(currentQuest.question, currentQuest.answer);
-                onAuthenticated(callback);
-            }
-        }
-    }
-}
-
-/**
- * Überprüft, ob der übergebene Text mit der aktuellen Antwort übereinstimmt.
- * @param {string} answer Antwort des Benutzers
- * @param {function} callback Rückgabefunktion
- */
-function verifyAnswer(answer, callback) {
-    if (debug || test) fct.printLog('Type: ' + (typeof answer) + ', answer= ' + answer);
-    if (isInState('addAnswer')) {
-        checkInput(answer, callback);
-    } else if (isInState('addQuest')) {
-        checkInput(answer, callback);
-    } else {
-        if (typeof answer == 'number') {
-            if ((test) || (answer == currentQuest.answer)) {
-                if (answer != currentQuest.answer) {
-                    errorCtr++;
-                    fct.printLog(`Wrong Answer!!! Answer was: ${answer}, but it should have been: ${currentQuest.answer}!!! ErrorCtr = ${errorCtr}.`);
-                }
-                auth_state.calcToStatic(answer, currentQuest.answer);
-                getStaticQuestion(callback);
-            } else {
-                auth_state.answerWrong(answer, currentQuest.answer);
-                onFailed(callback);
-            }
-        } else {
-            if ((test) || (answer.toLowerCase() == currentQuest.answer.toLowerCase())) {
-                if (answer != currentQuest.answer) {
-                    errorCtr++;
-                    fct.printLog(`Wrong Answer!!! Answer was: ${answer}, but it should have been: ${currentQuest.answer}!!! ErrorCtr = ${errorCtr}.`);
-                }
-                getNextState(answer, currentQuest.answer, callback);
-            } else {
-                auth_state.answerWrong(answer, currentQuest.answer);
-                onFailed(callback);
-            }
-        }
-    }
 }
 
 /**
@@ -439,143 +474,25 @@ function startDynamicRefresh(callback) {
 }
 
 /**
- * Fragt den Benutzer seine Antwort zu verifizieren.
- * @param {string} input Benutzereingabe
+ * Startet den Setup der Applikation.
  * @param {function} callback Rückgabefunktion
  */
-function checkInput(input, callback) {
-    const cardTitle = 'Check Input';
-    if (debug || test) fct.printLog(`checkInput-Input is ${input}.`);
-    lastSaid = `Sie sagten ${input}, Ist das richtig?`;
-    checkTmp = input;
+function startSetup(callback) {
+    if (debug) fct.printLog('Starting to setup a question.');
+    setupQuestCtr = 0;
+    const cardTitle = 'Starte Setup';
     const shouldEndSession = false;
-
-    auth_state.addToCheck(input);
-    callback({}, alexa.buildSpeechletResponse(cardTitle, lastSaid, lastSaid, shouldEndSession));
-}
-
-/**
- * Alexa hat den Benuzer falsch verstanden. Die Antwort muss wiederholt werden.
- * @param {function} callback Rückgabefunktion
- */
-function repromptCheck(callback) {
-    if (debug) fct.printLog('repromptCheck');
-    const cardTitle = 'Check-Frage wiederholen';
-    if (setup) {
-        lastSaid = currentQuest.question;
-    } else {
-        lastSaid = `Geben Sie mir bitte die aktuelle Antwort auf die Frage, ${currentQuest.question}`;
-    }
-    
-    const shouldEndSession = false;
-    auth_state.checkToAdd(checkTmp);
-
-    callback({}, alexa.buildSpeechletResponse(cardTitle, lastSaid, lastSaid, shouldEndSession));
-}
-
-/**
- * Alexa hat den Benutzer richtig verstanden. Die dynamische Antwort darf aktualisiert werden.
- * @param {function} callback Rückgabefunktion
- */
-function endAddAnswer(callback) {
-    if (debug) fct.printLog('endAddAnswer');
-    const cardTitle = 'Antwort akzeptiert';
-    var speechOutput = `Die Antwort auf die Frage wurde akzeptiert. Die Authentifizierung ist abgeschlossen.`;
-    lastSaid = `Die Authentifizierung ist beendet.`;
-    const shouldEndSession = false;
-    currentQuest.answer = checkTmp;
-    if (currentQuest.number == questions.getStaticSize()) {
-        questions.addStaticQuestion(currentQuest.question, currentQuest.answer);
-    } else {
-        questions.setDynamicAnswer(currentQuest.number, currentQuest.answer);
-    }
-    auth_state.checkAnswerToSuccess(currentQuest.answer);
-
-    if (test) onAuthenticated(callback);
-
+    currentQuest.question = questions.getStaticQuestion(setupQuestCtr);
+    var speechOutput = 'Willkommen. Ihre Authentifizierungsfragen müssen erst eingerichtet werden. '
+            + 'Ich werde Ihnen alle Fragen nun aufzählen. '
+            + 'Beantworten Sie bitte die Frage, falls Sie diese für die Authentifizierung verwenden möchten. '
+            + 'Andernfalls sagen Sie, nächste, oder, weiter, um die Frage zu überspringen. '
+            + 'Sie sollten mindestens zwei Fragen jeder Kategorie wählen. '
+            + 'Die erste Frage ist. '
+            + currentQuest.question;
+    lastSaid = 'Die erste Frage ist. ' + currentQuest.question;
+    auth_state.startToSetup();
     callback({}, alexa.buildSpeechletResponse(cardTitle, speechOutput, lastSaid, shouldEndSession));
-}
-
-/**
- * Alexa hat den Benutzer richtig verstanden. Die dynamische Antwort darf aktualisiert werden.
- * @param {function} callback Rückgabefunktion
- */
-function endAddQuest(callback) {
-    if (debug) fct.printLog('endAddQuest');
-    currentQuest.number = questions.getStaticSize();
-    currentQuest.question = checkTmp;
-    const cardTitle = 'Frage akzeptiert';
-    var speechOutput = `Die Frage wurde akzeptiert. Bitte geben Sie mir nun die Antwort auf die Frage, ${currentQuest.question}.`;
-    lastSaid = `Bitte geben Sie mir die Antwort auf die Frage, ${currentQuest.question}.`;
-    const shouldEndSession = false;
-    auth_state.checkQuestToAddAnswer(currentQuest.answer);
-
-    callback({}, alexa.buildSpeechletResponse(cardTitle, speechOutput, lastSaid, shouldEndSession));
-}
-
-/**
- * Stellt dem Benutzer eine simple Additions-Aufgabe.
- * @param {function} callback Rückgabefunktion 
- */
-function getCalculation(callback) {
-    if (debug) fct.printLog(`getCalculation...`);
-    statThreshold = statics.getStaticThreshold();
-    dynThreshold = statics.getDynamicThreshold();
-    var summandA = Math.floor(Math.random() * 20);
-    var summandB = Math.floor(Math.random() * 20);
-    if (debug || test) fct.printLog(`Question: ${summandA} + ${summandB} = ${summandA+summandB}`);
-
-    const cardTitle = 'Aufgabe gestellt';
-    currentQuest.question = `Was ist ${summandA} plus ${summandB}?`;
-    lastSaid = `Lösen Sie bitte die Aufgabe ${summandA} plus ${summandB}.`;
-    const shouldEndSession = false;
-
-    currentQuest.answer = summandA + summandB;
-    auth_state.startToCalc(currentQuest.question);
-
-    callback({}, alexa.buildSpeechletResponse(cardTitle, currentQuest.question, lastSaid, shouldEndSession));
-}
-
-/**
- * Stellt dem Benutzer eine Frage.
- * @param {function} callback Rückgabefunktion
- */
-function getStaticQuestion(callback) {
-    if (debug) fct.printLog(`getStaticQuestion...`);
-    const cardTitle = 'Frage gestellt';
-    currentQuest.number = Math.floor(Math.random() * questions.getStaticSize());
-    while (!questions.isStaticUsed(currentQuest.number) || (currentQuest.question == questions.getStaticQuestion(currentQuest.number))) {
-        currentQuest.number = Math.floor(Math.random() * questions.getStaticSize());
-    }
-    currentQuest.question = questions.getStaticQuestion(currentQuest.number);
-    currentQuest.answer = questions.getStaticAnswer(currentQuest.number);
-    lastSaid = currentQuest.question;
-    if (debug || test) fct.printLog(`[${currentQuest.number}]: ${currentQuest.question} -${currentQuest.answer}.`);
-    const shouldEndSession = false;
-    fct.printLog(`Authentication is in state ${auth_state.state}. CurrentQuestNr=${currentQuest.number}.`);
-
-    callback({}, alexa.buildSpeechletResponse(cardTitle, currentQuest.question, currentQuest.question, shouldEndSession));
-}
-
-/**
- * Stellt dem Benutzer eine Frage.
- * @param {function} callback Rückgabefunktion
- */
-function getDynamicQuestion(callback) {
-    if (debug) fct.printLog(`getDynamicQuestion...`);
-    const cardTitle = 'Frage gestellt';
-    currentQuest.number = Math.floor(Math.random() * questions.getDynamicSize());
-    while (!questions.isDynamicUsed(currentQuest.number) || (currentQuest.question == questions.getDynamicQuestion(currentQuest.number))) {
-        currentQuest.number = Math.floor(Math.random() * questions.getDynamicSize());
-    }
-    currentQuest.question = questions.getDynamicQuestion(currentQuest.number);
-    currentQuest.answer = questions.getDynamicAnswer(currentQuest.number);
-    lastSaid = currentQuest.question;
-    if (debug || test) fct.printLog(`[${currentQuest.number}]: ${currentQuest.question} -${currentQuest.answer}.`);
-    const shouldEndSession = false;
-    fct.printLog(`Authentication is in state ${auth_state.state}. CurrentQuestNr=${currentQuest.number}.`);
-
-    callback({}, alexa.buildSpeechletResponse(cardTitle, currentQuest.question, currentQuest.question, shouldEndSession));
 }
 
 /**
@@ -600,9 +517,60 @@ function startTesting(callback, speechOutput) {
     lastSaid = `Lösen Sie bitte die Aufgabe ${summandA} plus ${summandB}.`;
     speechOutput += currentQuest.question;
     currentQuest.answer = summandA + summandB;
-    auth_state.startToCalc(currentQuest.question);
+    auth_state.startToCalc();
 
     callback({}, alexa.buildSpeechletResponse(cardTitle, speechOutput, lastSaid, shouldEndSession));
+}
+
+/**
+ * Überprüft ob eine Sport-Antwort korrekt ist.
+ * @param {*} intent der Intent der Anfrage 
+ * @param {function} callback Rückgabefunktion
+ */
+function verifyAnimal(intent, callback) {
+    if (debug) fct.printLog(`Tier: ${intent.slots.tier.value}`);
+    var answer = intent.slots.tier.value;
+    if (!answer) fct.printError('VerifyAnimal failed! No animal was given!');
+    verifyAnswer(answer, callback);
+}
+
+/**
+ * Überprüft, ob der übergebene Text mit der aktuellen Antwort übereinstimmt.
+ * @param {string} answer Antwort des Benutzers
+ * @param {function} callback Rückgabefunktion
+ */
+function verifyAnswer(answer, callback) {
+    if (debug || test) fct.printLog('Type: ' + (typeof answer) + ', answer= ' + answer);
+    if (isInState('addAnswer')) {
+        checkInput(answer, callback);
+    } else if (isInState('addQuest')) {
+        checkInput(answer, callback);
+    } else {
+        if (typeof answer == 'number') {
+            if ((test) || (answer == currentQuest.answer)) {
+                if (answer != currentQuest.answer) {
+                    errorCtr++;
+                    fct.printLog(`Wrong Answer!!! Answer was: ${answer}, but it should have been: ${currentQuest.answer}!!! ErrorCtr = ${errorCtr}.`);
+                }
+                auth_state.calcToStatic();
+                getStaticQuestion(callback);
+            } else {
+                auth_state.answerWrong();
+                onFailed(callback);
+            }
+        } else {
+            if ((test) || (answer.toLowerCase() == currentQuest.answer.toLowerCase())) {
+                if (answer != currentQuest.answer) {
+                    errorCtr++;
+                    fct.printLog(`Wrong Answer!!! Answer was: ${answer}, but it should have been: ${currentQuest.answer}!!! ErrorCtr = ${errorCtr}.`);
+                }
+                getNextState(answer, currentQuest.answer, callback);
+            } else {
+                auth_state.answerWrong();
+                onFailed(callback);
+            }
+        }
+    }
 }
 
 /**
@@ -620,138 +588,12 @@ function verifyCalc(intent, callback) {
     if (!result) fct.printError('verifyCalc failed! No number was given!');
     if ((test) || (result == currentQuest.answer)) {
         if (result != currentQuest.answer) fct.printLog(`Wrong Answer!!! Answer was: ${result}, but it should have been: ${currentQuest.answer}!!!`);
-        auth_state.calcToStatic(result, currentQuest.answer);
+        auth_state.calcToStatic();
         getStaticQuestion(callback);
     } else {
-        auth_state.answerWrong(result, currentQuest.answer);
+        auth_state.answerWrong();
         onFailed(callback);
     }
-}
-
-/**
- * Überprüft eine allgemeine Antwort.
- * @param {*} intent 
- * @param {function} callback Rückgabefunktion 
- */
-function verifyCommonAnswer(intent, callback) {
-    var answer = '';
-    if (!intent.slots.antwortEins) fct.printError('verifyCommonAnswer failed! No answer was given!');
-    if (intent.slots.antwortEins && intent.slots.antwortEins.value) answer += `${intent.slots.antwortEins.value}`;
-    if (intent.slots.antwortZwei && intent.slots.antwortZwei.value) answer += ` ${intent.slots.antwortZwei.value}`;
-    if (intent.slots.antwortDrei && intent.slots.antwortDrei.value) answer += ` ${intent.slots.antwortDrei.value}`;
-    if (intent.slots.antwortVier && intent.slots.antwortVier.value) answer += ` ${intent.slots.antwortVier.value}`;
-    if (intent.slots.antwortFuenf && intent.slots.antwortFuenf.value) answer += ` ${intent.slots.antwortFuenf.value}`;
-    if (debug) fct.printLog(`Answer: ${answer}`);
-    
-    verifyAnswer(answer, callback);
-}
-
-/**
- * Überprüft eine App-antwort.
- * @param {*} intent der Intent der Anfrage 
- * @param {function} callback Rückgabefunktion
- */
-function verifyApp(intent, callback) {
-    if (debug) fct.printLog('Verstandene App: ' + intent.slots.app.value);
-    var answer = intent.slots.app.value;
-    if (!answer) fct.printError('verifyApp failed! No app was given!');
-    verifyAnswer(answer, callback);
-}
-
-/**
- * Überprüft eine Interpretantwort.
- * @param {*} intent der Intent der Anfrage 
- * @param {function} callback Rückgabefunktion
- */
-function verifyArtist(intent, callback) {
-    if (debug) fct.printLog('Verstandener Interpret: ' + intent.slots.interpret.value);
-    var answer = intent.slots.interpret.value;
-    if (!answer) fct.printError('verifyArtist failed! No artist was given!');
-    verifyAnswer(answer, callback);
-}
-
-/**
- * Überprüft eine Bierantwort.
- * @param {*} intent der Intent der Anfrage 
- * @param {function} callback Rückgabefunktion
- */
-function verifyBeer(intent, callback) {
-    if (debug) fct.printLog('Verstandenes Bier: ' + intent.slots.bier.value);
-    var answer = intent.slots.bier.value;
-    if (!answer) fct.printError('verifyBeer failed! No beer was given!');
-    verifyAnswer(answer, callback);
-}
-
-/**
- * Überprüft eine Buchantwort.
- * @param {*} intent der Intent der Anfrage 
- * @param {function} callback Rückgabefunktion
- */
-function verifyBook(intent, callback) {
-    if (debug) fct.printLog('Verstandenes Buch: ' + intent.slots.buch.value);
-    var answer = intent.slots.buch.value;
-    if (!answer) fct.printError('verifyBook failed! No book was given!');
-    verifyAnswer(answer, callback);
-}
-
-/**
- * Überprüft eine Fahrzeugantwort.
- * @param {*} intent der Intent der Anfrage 
- * @param {function} callback Rückgabefunktion
- */
-function verifyVehicle(intent, callback) {
-    if (debug) fct.printLog('Verstandenes Fahrzeug: ' + intent.slots.auto.value);
-    var answer = intent.slots.auto.value;
-    if (!answer) fct.printError('verifyVehicle failed! No vehicle was given!');
-    verifyAnswer(answer, callback);
-}
-
-/**
- * Überprüft eine Farbenantwort.
- * @param {*} intent der Intent der Anfrage 
- * @param {function} callback Rückgabefunktion
- */
-function verifyColor(intent, callback) {
-    if (debug) fct.printLog('Verstandene Farbe: ' + intent.slots.farbe.value);
-    var answer = intent.slots.farbe.value;
-    if (!answer) fct.printError('verifyColor failed! No color was given!');
-    verifyAnswer(answer, callback);
-}
-
-/**
- * Überprüft eine Festivalantwort.
- * @param {*} intent der Intent der Anfrage 
- * @param {function} callback Rückgabefunktion
- */
-function verifyFestival(intent, callback) {
-    if (debug) fct.printLog('Verstandenes Festival: ' + intent.slots.festival.value);
-    var answer = intent.slots.festival.value;
-    if (!answer) fct.printError('verifyFestival failed! No festival was given!');
-    verifyAnswer(answer, callback);
-}
-
-/**
- * Überprüft ob ein Land richtig ist.
- * @param {*} intent der Intent der Anfrage 
- * @param {function} callback Rückgabefunktion
- */
-function verifyLand(intent, callback) {
-    if (debug) fct.printLog('Verstandenes Land: ' + intent.slots.landName.value);
-    var answer = intent.slots.landName.value;
-    if (!answer) fct.printError('verifyLand failed! No land was given!');
-    verifyAnswer(answer, callback);
-}
-
-/**
- * Überprüft ob ein Fußball-Verein richtig ist.
- * @param {*} intent der Intent der Anfrage 
- * @param {function} callback Rückgabefunktion
- */
-function verifySoccer(intent, callback) {
-    if (debug) fct.printLog('Verein: ' + intent.slots.verein.value);
-    var answer = intent.slots.verein.value;
-    if (!answer) fct.printError('verifySoccer failed! No Soccer-Team was given!');
-    verifyAnswer(answer, callback);
 }
 
 /**
@@ -767,18 +609,6 @@ function verifyMoney(intent, callback) {
 
     var answer = fct.formatMoneyAmount(amountEuro, amountCent);
 
-    verifyAnswer(answer, callback);
-}
-
-/**
- * Überprüft ob ein Instrument richtig ist.
- * @param {*} intent der Intent der Anfrage 
- * @param {function} callback Rückgabefunktion
- */
-function verifyInstrument(intent, callback) {
-    if (debug) fct.printLog('Instrument: ' + intent.slots.instrument.value);
-    var answer = intent.slots.instrument.value;
-    if (!answer) fct.printError('verifyInstrument failed! No instrument was given!');
     verifyAnswer(answer, callback);
 }
 
@@ -805,190 +635,70 @@ function verifyNumber(intent, callback) {
     }
 }
 
-/**
- * Überprüft ob eine Städte-Antwort korrekt ist.
- * @param {*} intent der Intent der Anfrage 
- * @param {function} callback Rückgabefunktion
- */
-function verifyCity(intent, callback) {
-    if (debug) fct.printLog(`City: ${intent.slots.stadtName.value}`);
-    var answer = intent.slots.stadtName.value;
-    if (!answer) fct.printError('VerifyCity failed! No city was given!');
-    verifyAnswer(answer, callback);
-}
-
-/**
- * Überprüft ob eine Film-Antwort korrekt ist.
- * @param {*} intent der Intent der Anfrage 
- * @param {function} callback Rückgabefunktion
- */
-function verifyMovie(intent, callback) {
-    if (debug) fct.printLog(`Movie: ${intent.slots.film.value}`);
-    var answer = intent.slots.film.value;
-    if (!answer) fct.printError('VerifyMovie failed! No movie was given!');
-    verifyAnswer(answer, callback);
-}
-
-/**
- * Überprüft ob eine Sport-Antwort korrekt ist.
- * @param {*} intent der Intent der Anfrage 
- * @param {function} callback Rückgabefunktion
- */
-function verifySport(intent, callback) {
-    if (debug) fct.printLog(`Sport: ${intent.slots.sport.value}`);
-    var answer = intent.slots.sport.value;
-    if (!answer) fct.printError('VerifySport failed! No sport was given!');
-    verifyAnswer(answer, callback);
-}
-
-/**
- * Überprüft ob eine Sport-Antwort korrekt ist.
- * @param {*} intent der Intent der Anfrage 
- * @param {function} callback Rückgabefunktion
- */
-function verifyAnimal(intent, callback) {
-    if (debug) fct.printLog(`Tier: ${intent.slots.tier.value}`);
-    var answer = intent.slots.tier.value;
-    if (!answer) fct.printError('VerifyAnimal failed! No animal was given!');
-    verifyAnswer(answer, callback);
-}
-
-/**
- * Überprüft ob eine Radiosender-Antwort korrekt ist.
- * @param {*} intent der Intent der Anfrage 
- * @param {function} callback Rückgabefunktion
- */
-function verifyRadio(intent, callback) {
-    if (debug) fct.printLog(`Radio: ${intent.slots.sender.value}`);
-    var answer = intent.slots.sender.value;
-    if (!answer) fct.printError('VerifyRadio failed! No radio was given!');
-    verifyAnswer(answer, callback);
-}
-
-/**
- * Überprüft ob eine Sport-Antwort korrekt ist.
- * @param {*} intent der Intent der Anfrage 
- * @param {function} callback Rückgabefunktion
- */
-function verifySchoolSubject(intent, callback) {
-    if (debug) fct.printLog(`Subject: ${intent.slots.unterricht.value}`);
-    var answer = intent.slots.unterricht.value;
-    if (!answer) fct.printError('VerifySchoolSubject failed! No subject was given!');
-    verifyAnswer(answer, callback);
-}
-
-/**
- * Überprüfe ob eine Show-Antwort korrekt ist.
- * @param {*} intent Intent
- * @param {function} callback Rückgabe
- */
-function verifyShow(intent, callback) {
-    if (debug) fct.printLog(`Show: ${intent.slots.serie.value}`);
-    var answer = intent.slots.serie.value;
-    if (!answer) fct.printError('VerifyShow failed! No show was given!');
-    verifyAnswer(answer, callback);
-}
-
-/**
- * Überprüft ob eine Sport-Antwort korrekt ist.
- * @param {*} intent der Intent der Anfrage 
- * @param {function} callback Rückgabefunktion
- */
-function verifyFirstname(intent, callback) {
-    if (debug) fct.printLog(`Name: ${intent.slots.name.value}`);
-    var answer = intent.slots.name.value;
-    if (!answer) fct.printError('VerifyFirstname failed! No name was given!');
-    verifyAnswer(answer, callback);
-}
-
-/**
- * Überprüft ob eine Handy-Marken-Antwort korrekt ist.
- * @param {*} intent der Intent der Anfrage 
- * @param {function} callback Rückgabefunktion
- */
-function verifyCellphone(intent, callback) {
-    var answer = intent.slots.marke.value;
-    if (debug) fct.printLog(`City: ${answer}`);
-    if (!answer) fct.printError('verifyCellphone failed! No brand was given!');
-    verifyAnswer(answer, callback);
-}
-
-/**
- * Der Benutzer möchte eine Frage hinzufügen.
- * @param {function} callback Rückgabe
- */
-function addQuestion(callback) {
-    if (debug) fct.printLog(`addQuestion...`);
-    const cardTitle = 'Frage hinzufügen';
-    currentQuest.question = "Nennen Sie mir die Frage, welche Sie hinzufügen möchten.";
-    lastSaid = currentQuest.question;
+function abort(callback) {
+    if (debug) fct.printLog(`Aborting. User was in state ${auth_state.state}. Going to state success.`);
+    const cardTitle = 'Abort';
+    const output = 'Ich breche den Vorgang für sie ab.';
+    lastSaid = 'Der Vorgang wurde abgebrochen.';
     const shouldEndSession = false;
+    if (auth_state.state == 'checkAnswer') {
+        if (!needSetup) auth_state.checkAnswerToSuccess();
+    } else if (auth_state.state == 'checkQuest') {
+        auth_state.checkQuestToSuccess();
+    } else {
+        noWayOut(callback);
+    }
 
-    auth_state.addQuestion();
-
-    callback({}, alexa.buildSpeechletResponse(cardTitle, lastSaid, lastSaid, shouldEndSession));
+    callback({}, alexa.buildSpeechletResponse(cardTitle, output, lastSaid, shouldEndSession));
 }
 
 /**
- * Bereitet die Frage, welche vom Benutzer gegebn wurde vor.
- * {fragewort} {verb} {wortEins} {wortZwei} {wortDrei} {wortVier} {wortFuenf} {wortSechs}
- * @param {*} intent Intent
- * @param {function} callback Callback
+ * Sollte der Benutzer in einem Zustand abbrechen, in welchem nicht abgebrochen werden kann.
+ * @param {function} callback Rückgabe
  */
-function verifyQuestion(intent, callback) {
-    var quest = '';
-    if (intent.slots.fragewort.value) quest += `${intent.slots.fragewort.value}`;
-    if (intent.slots.verb.value)      quest += ` ${intent.slots.verb.value}`;
-    if (intent.slots.wortEins.value)  quest += ` ${intent.slots.wortEins.value}`;
-    if (intent.slots.wortZwei.value)  quest += ` ${intent.slots.wortZwei.value}`;
-    if (intent.slots.wortDrei.value)  quest += ` ${intent.slots.wortDrei.value}`;
-    if (intent.slots.wortVier.value)  quest += ` ${intent.slots.wortVier.value}`;
-    if (intent.slots.wortFuenf.value) quest += ` ${intent.slots.wortFuenf.value}`;
-    if (intent.slots.wortSechs.value) quest += ` ${intent.slots.wortSechs.value}`;
-    quest += '?';
-    if (debug) fct.printLog(`${quest}`);
-    checkInput(quest, callback);
+function noWayOut(callback) {
+    if (debug) fct.printLog(`There is no way out of state ${auth_state.state}.`);
+     const cardTitle = 'No Way Out';
+     const output = 'Sie können nicht abbrechen.';
+     const shouldEndSession = false;
+
+     callback({}, alexa.buildSpeechletResponse(cardTitle, output, output, shouldEndSession));
+}
+
+/**
+ * Sollte ein Intent eingehen, welcher nicht dem aktuellen Zustand der State-Machine entspricht,
+ * wird das zuletzt gesagte wiederholt.
+ * @param {function} callback Rückgabefunktion
+ */
+function wrongIntent(callback) {
+    if (debug) fct.printLog(`Got in wrongIntent. Current state is: ${auth_state.state}.`);
+    const cardTitle = 'Falscher Intent';
+    const shouldEndSession = false;
+    callback({}, alexa.buildSpeechletResponse(cardTitle, lastSaid, lastSaid, shouldEndSession));
 }
 
 
 module.exports = {auth_state,
                 getState,
                 isInState,
-                getSetupQuestCtr,
                 needSetup,
-                startSetup,
                 addAnswer,
-                getNextQuestion,
-                wrongIntent,
-                resetState,
+                addQuestion,
                 endAddAnswer,
                 endAddQuest,
-                repromptCheck,
                 getCalculation,
-                startTesting,
-                verifyApp,
-                verifyArtist,
-                verifyBook,
-                verifyCalc,
-                verifyCommonAnswer,
-                verifyBeer,
-                verifyVehicle,
-                verifyColor,
-                verifyFestival,
-                verifyLand,
-                verifySoccer,
-                verifyMoney,
-                verifyMovie,
-                verifyInstrument,
-                verifyNumber,
-                verifyCity,
-                verifyRadio,
-                verifySport,
-                verifyShow,
-                verifyAnimal,
-                verifySchoolSubject,
-                verifyCellphone,
-                verifyFirstname,
+                getNextQuestion,
+                getSetupQuestCtr,
                 onAuthenticated,
                 onFailed,
-                addQuestion};
+                repromptCheck,
+                resetState,
+                startSetup,
+                startTesting,
+                verifyAnswer,
+                verifyCalc,
+                verifyMoney,
+                verifyNumber,
+                abort,
+                noWayOut,
+                wrongIntent};

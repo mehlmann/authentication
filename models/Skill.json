@@ -34,6 +34,14 @@
                     ]
                 },
                 {
+                    "name": "AbbruchIntent",
+                    "samples":[
+                        "abbruch",
+                        "brech ab",
+                        "raus"
+                    ]
+                },
+                {
                     "name": "AntwortAendern",
                     "smaples": [
                         "Lass mich die Antwort einer Frage ändern",
@@ -11231,7 +11239,7 @@
                     ]
                 },
                 {
-                    "name": "InterpretNamen",
+                    "name": "interpretNamen",
                     "values": [
                         {
                             "name": {

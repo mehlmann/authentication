@@ -217,15 +217,18 @@ const numbers = [
  * @param {int} cent Betrag in Cent
  */
 function formatMoneyAmount(euro, cent) {
+    if (!euro && !cent) return undefined;
     var formatCent = formatNumberLength(cent, 2);
     var answer = '';
     if (euro) {
         answer += `${euro}`;
-        if (formatCent) { 
+        // Changed!
+        (formatCent) ? answer += `,${formatCent}€` : answer += `,00€` ;
+        /*if (formatCent) { 
             answer += `,${formatCent}€`;
         } else {
             answer += `,00€`;
-        }
+        }*/
     }  else {
         answer += `0,${formatCent}€`;
     }

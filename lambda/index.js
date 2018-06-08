@@ -4,6 +4,77 @@ const alexa = require('./alexa');
 const auth = require('./auth');
 const fct = require('./help-functions');
 
+const debug = false;
+
+/**
+ * Nachdem eine Zahlenaufgabe gestellt wurde, sollte sie mit einer Zahl beantwortet werden.
+ * @param {*} intent Intent
+ * @param {function} callback Callback
+ */
+function handleCalcIntents(intent, callback) {
+    if (intent.name == 'AbbruchIntent') auth.noWayOut(callback);
+    (intent.name == 'CalcIntent' || intent.name == 'ZahlIntent') ? auth.verifyCalc(intent, callback) : auth.wrongIntent(callback);
+}
+
+/**
+ * Nachdem eine Ja/Nein-Frage gestellt wurde, sollte man auch mit Ja oder Nein antworten.
+ * @param {*} intent Intent
+ * @param {function} callback Callback
+ */
+function handleConfirmAnswerIntents(intent, callback) {
+    if (intent.name == 'JaIntent') {
+        (auth.needSetup()) ? auth.addAnswer(callback, intent) : auth.endAddAnswer(callback);
+    } else if (intent.name == 'NeinIntent') {
+        auth.repromptCheck(callback);
+    } else if (intent.name == 'AbbruchIntent') {
+        auth.abort(callback);
+    } else {
+        auth.wrongIntent(callback);
+    }
+}
+
+/**
+ * Nachdem eine Ja/Nein-Frage gestellt wurde, sollte man auch mit Ja oder Nein antworten.
+ * @param {*} intent Intent
+ * @param {function} callback Callback
+ */
+function handleConfirmQuestIntents(intent, callback) {
+    if (intent.name == 'JaIntent') {
+        auth.endAddQuest(callback);
+    } else if (intent.name == 'NeinIntent') {
+        auth.repromptCheck(callback);
+    } else if (intent.name == 'AbbruchIntent') {
+        auth.abort(callback);
+    } else {
+        auth.wrongIntent(callback);
+    }
+}
+
+/**
+ * Nachdem die Authentifizierung fehlgeschlagen ist, kann man nur neustarten.
+ * @param {*} intent Intent
+ * @param {function} callback Callback
+ */
+function handleFailedIntents(intent, callback) {
+    (intent.name == 'Reset') ? auth.resetState(callback) : auth.wrongIntent(callback);
+}
+
+/**
+ * Während der Einrichtung hat der Benutzer zwei Optionen:
+ * (1) Frage überpringen
+ * (2) Frage beantworten
+ * @param {String} intent Intent 
+ * @param {function} callback Rückgabefunktion
+ */
+function handleSetupIntent(intent, callback) {
+    if (intent.name == 'WeiterIntent') {
+        auth.getNextQuestion(callback);
+    } else {
+        auth.auth_state.checkToAdd();
+        handleQuestIntents(intent, callback);
+    }
+}
+
 /**
  * Beim Start ist nur Aufgabe erlaubt.
  * @param {function} callback Callback
@@ -19,18 +90,30 @@ function handleStartIntents(intent, callback) {
         + 'um zu ermitteln, was die angenehmste Variante für einen Benutzer ist. '
         + 'Beginnen wir mit dem ersten Durchlauf. Ihre erste Aufgabe lautet, ';
          auth.startTesting(callback, speechOutput);
+    } else if (intent.name == 'AbbruchIntent') {
+        auth.noWayOut(callback);
     } else {
         alexa.getHelpResponse(callback);
     }
 }
 
 /**
- * Nachdem eine Aufgabe gestellt wurde, sollte sie mit einer Zahl beantwortet werden.
+ * Nachdem die Authentifizierung erfolgreich abgeschlossen wurde, kann man entweder Fragen hinzufügen oder neustarten.
  * @param {*} intent Intent
  * @param {function} callback Callback
  */
-function handleCalcIntents(intent, callback) {
-    (intent.name == 'CalcIntent' || intent.name == 'ZahlIntent') ? auth.verifyCalc(intent, callback) : auth.wrongIntent(callback);
+function handleSuccessIntents(intent, callback) {
+    if (intent.name == 'AbbruchIntent') {
+        auth.noWayOut(callback);
+    } else if (intent.name == 'AntwortAendern') {
+        // TODO
+    } else if (intent.name == 'FrageHinzufuegen') {
+        auth.addQuestion(callback);
+    } else if (intent.name == 'Reset') {
+        auth.resetState(callback);
+    } else {
+        auth.wrongIntent(callback);
+    }
 }
 
 /**
@@ -40,83 +123,128 @@ function handleCalcIntents(intent, callback) {
  */
 function handleQuestIntents(intent, callback) {
     switch (intent.name) {
-        case 'AntwortenEinsIntent':
-            auth.verifyCommonAnswer(intent, callback);
+        case 'AbbruchIntent':
+            auth.noWayOut(callback);
             break;
-        case 'AntwortenZweiIntent':
-            auth.verifyCommonAnswer(intent, callback);
-            break;
-        case 'AntwortenDreiIntent':
-            auth.verifyCommonAnswer(intent, callback);
-            break;
-        case 'AntwortenVierIntent':
-            auth.verifyCommonAnswer(intent, callback);
-            break;
-        case 'AntwortenFuenfIntent':
-            auth.verifyCommonAnswer(intent, callback);
+        case 'AntwortAendern':
+            // TODO
             break;
         case 'AppIntent':
-            auth.verifyApp(intent, callback);
+            if (debug) fct.printLog('Verstandene App: ' + intent.slots.app.value);
+            var answer = intent.slots.app.value;
+            if (!answer) fct.printError('verifyApp failed! No app was given!');
+            auth.verifyAnswer(answer, callback);
             break;
         case 'BierIntent':
-            auth.verifyBeer(intent, callback);
+            if (debug) fct.printLog('Verstandenes Bier: ' + intent.slots.bier.value);
+            var answer = intent.slots.bier.value;
+            if (!answer) fct.printError('verifyBeer failed! No beer was given!');
+            auth.verifyAnswer(answer, callback);
             break;
         case 'BuchIntent':
-            auth.verifyBook(intent, callback);
+            if (debug) fct.printLog('Verstandenes Buch: ' + intent.slots.buch.value);
+            var answer = intent.slots.buch.value;
+            if (!answer) fct.printError('verifyBook failed! No book was given!');
+            auth.verifyAnswer(answer, callback);
             break;
         case 'CalcIntent':
-            auth.verifyNumber(intent, callback);
+            auth.verifyCalc(intent, callback);
             break;
         case 'FahrzeugIntent':
-            auth.verifyVehicle(intent, callback);
+            if (debug) fct.printLog('Verstandenes Fahrzeug: ' + intent.slots.auto.value);
+            var answer = intent.slots.auto.value;
+            if (!answer) fct.printError('verifyVehicle failed! No vehicle was given!');
+            auth.verifyAnswer(answer, callback);
             break;
         case 'ElektronikMarkenIntent':
-            auth.verifyCellphone(intent, callback);
+            var answer = intent.slots.marke.value;
+            if (debug) fct.printLog(`City: ${answer}`);
+            if (!answer) fct.printError('verifyCellphone failed! No brand was given!');
+            auth.verifyAnswer(answer, callback);
             break;
         case 'FarbeIntent':
-            auth.verifyColor(intent, callback);
+            if (debug) fct.printLog('Verstandene Farbe: ' + intent.slots.farbe.value);
+            var answer = intent.slots.farbe.value;
+            if (!answer) fct.printError('verifyColor failed! No color was given!');
+            auth.verifyAnswer(answer, callback);
             break;
         case 'FestivalIntent':
-            auth.verifyFestival(intent, callback);
+            if (debug) fct.printLog('Verstandenes Festival: ' + intent.slots.festival.value);
+            var answer = intent.slots.festival.value;
+            if (!answer) fct.printError('verifyFestival failed! No festival was given!');
+            auth.verifyAnswer(answer, callback);
             break;
         case 'FilmIntent':
-            auth.verifyMovie(intent, callback);
+            if (debug) fct.printLog(`Movie: ${intent.slots.film.value}`);
+            var answer = intent.slots.film.value;
+            if (!answer) fct.printError('VerifyMovie failed! No movie was given!');
+            auth.verifyAnswer(answer, callback);
             break;
         case 'FussballIntent':
-            auth.verifySoccer(intent, callback);
+            if (debug) fct.printLog('Verein: ' + intent.slots.verein.value);
+            var answer = intent.slots.verein.value;
+            if (!answer) fct.printError('verifySoccer failed! No Soccer-Team was given!');
+            auth.verifyAnswer(answer, callback);
             break;
         case 'GeldsummeIntent':
             auth.verifyMoney(intent, callback);
             break;
         case 'InstrumentIntent':
-            auth.verifyInstrument(intent, callback);
+            if (debug) fct.printLog('Instrument: ' + intent.slots.instrument.value);
+            var answer = intent.slots.instrument.value;
+            if (!answer) fct.printError('verifyInstrument failed! No instrument was given!');
+            auth.verifyAnswer(answer, callback);
             break;
         case 'InterpretIntent':
-            auth.verifyArtist(intent, callback);
+            if (debug) fct.printLog('Verstandener Interpret: ' + intent.slots.interpret.value);
+            var answer = intent.slots.interpret.value;
+            if (!answer) fct.printError('verifyArtist failed! No artist was given!');
+            auth.verifyAnswer(answer, callback);
             break;
         case 'LandIntent':
-            auth.verifyLand(intent, callback);
+            if (debug) fct.printLog('Verstandenes Land: ' + intent.slots.landName.value);
+            var answer = intent.slots.landName.value;
+            if (!answer) fct.printError('verifyLand failed! No land was given!');
+            auth.verifyAnswer(answer, callback);
             break;
         case 'RadiosenderIntent':
-            auth.verifyRadio(intent, callback);
+            if (debug) fct.printLog(`Radio: ${intent.slots.sender.value}`);
+            var answer = intent.slots.sender.value;
+            if (!answer) fct.printError('VerifyRadio failed! No radio was given!');
+            auth.verifyAnswer(answer, callback);
             break;
         case 'SportIntent':
-            auth.verifySport(intent, callback);
+            if (debug) fct.printLog(`Sport: ${intent.slots.sport.value}`);
+            var answer = intent.slots.sport.value;
+            if (!answer) fct.printError('VerifySport failed! No sport was given!');
+            auth.verifyAnswer(answer, callback);
             break;
         case 'SerienIntent':
-            auth.verifyShow(intent, callback);
+            if (debug) fct.printLog(`Show: ${intent.slots.serie.value}`);
+            var answer = intent.slots.serie.value;
+            if (!answer) fct.printError('VerifyShow failed! No show was given!');
+            auth.verifyAnswer(answer, callback);
             break;
         case 'StadtIntent':
-            auth.verifyCity(intent, callback);
+            if (debug) fct.printLog(`City: ${intent.slots.stadtName.value}`);
+            var answer = intent.slots.stadtName.value;
+            if (!answer) fct.printError('VerifyCity failed! No city was given!');
+            auth.verifyAnswer(answer, callback);
             break;
         case 'TierIntent':
-            auth.verifyAnimal(intent, callback);
+            if (debug) fct.printLog(`Tier: ${intent.slots.tier.value}`);
+            var answer = intent.slots.tier.value;
+            if (!answer) fct.printError('VerifyAnimal failed! No animal was given!');
+            auth.verifyAnswer(answer, callback);
             break;
         case 'UnterrichtIntent':
             auth.verifySchoolSubject(intent, callback);
             break;
         case 'VornameIntent':
-            auth.verifyFirstname(intent, callback);
+            if (debug) fct.printLog(`Name: ${intent.slots.name.value}`);
+            var answer = intent.slots.name.value;
+            if (!answer) fct.printError('VerifyFirstname failed! No name was given!');
+            auth.verifyAnswer(answer, callback);
             break;
         case 'ZahlIntent':
             auth.verifyNumber(intent, callback);
@@ -138,87 +266,6 @@ function handleQuestIntents(intent, callback) {
 }
 
 /**
- * Nachdem eine Ja/Nein-Frage gestellt wurde, sollte man auch mit Ja oder Nein antworten.
- * @param {*} intent Intent
- * @param {function} callback Callback
- */
-function handleConfirmQuestIntents(intent, callback) {
-    if (intent.name == 'JaIntent') {
-        auth.endAddQuest(callback);
-    } else if (intent.name == 'NeinIntent') {
-        auth.repromptCheck(callback);
-    } else {
-        auth.wrongIntent(callback);
-    }
-}
-
-/**
- * Nachdem eine Ja/Nein-Frage gestellt wurde, sollte man auch mit Ja oder Nein antworten.
- * @param {*} intent Intent
- * @param {function} callback Callback
- */
-function handleConfirmAnswerIntents(intent, callback) {
-    if (intent.name == 'JaIntent') {
-        (auth.needSetup()) ? auth.addAnswer(callback, intent) : auth.endAddAnswer(callback);
-    } else if (intent.name == 'NeinIntent') {
-        auth.repromptCheck(callback);
-    } else {
-        auth.wrongIntent(callback);
-    }
-}
-
-/**
- * Nachdem die Authentifizierung erfolgreich abgeschlossen wurde, kann man entweder Fragen hinzufügen oder neustarten.
- * @param {*} intent Intent
- * @param {function} callback Callback
- */
-function handleSuccessIntents(intent, callback) {
-    if (intent.name == 'AntwortAendern') {
-        // TODO
-    } else if (intent.name == 'FrageHinzufuegen') {
-        auth.addQuestion(callback);
-    } else if (intent.name == 'Reset') {
-        auth.resetState(callback);
-    } else {
-        auth.wrongIntent(callback);
-    }
-}
-
-/**
- * Nachdem die Authentifizierung fehlgeschlagen ist, kann man nur neustarten.
- * @param {*} intent Intent
- * @param {function} callback Callback
- */
-function handleFailedIntents(intent, callback) {
-    (intent.name == 'Reset') ? auth.resetState(callback) : auth.wrongIntent(callback);
-}
-
-/**
- * Nachdem das Hinzufügen einer Frage verlangt wurde, kann auch nur eine Frage angenommen werden.
- * @param {String} intent Intent 
- * @param {function} callback Callback
- */
-function handleAddQuestIntents(intent, callback) {
-    handleQuestIntents(intent, callback); 
-}
-
-/**
- * Während der Einrichtung hat der Benutzer zwei Optionen:
- * (1) Frage überpringen
- * (2) Frage beantworten
- * @param {String} intent Intent 
- * @param {function} callback Rückgabefunktion
- */
-function handleSetupIntent(intent, callback) {
-    if (intent.name == 'WeiterIntent') {
-        auth.getNextQuestion(callback);
-    } else {
-        auth.auth_state.checkToAdd();
-        handleQuestIntents(intent, callback);
-    }
-}
-
-/**
  * Ruft die verschiedenen intents auf.
  * @param {*} intentRequest Anfrage
  * @param {*} session aktuelle Sitzung
@@ -226,7 +273,7 @@ function handleSetupIntent(intent, callback) {
  */
 function onIntent(intentRequest, session, callback) {
     const intent = intentRequest.intent;
-    //fct.printLog(`Authentication in state ${auth.getState()}.`);
+    fct.printLog(`Authentication in state ${auth.getState()}.`);
     fct.printLog(intent);
 
     // Zuerst die global verfügbaren Befehle prüfen.
@@ -252,7 +299,7 @@ function onIntent(intentRequest, session, callback) {
             handleQuestIntents(intent, callback);
             break;
         case 'addQuest':
-            handleAddQuestIntents(intent, callback);
+            handleQuestIntents(intent, callback);
             break;
         case 'addAnswer':
             handleQuestIntents(intent, callback);
@@ -282,10 +329,6 @@ function onIntent(intentRequest, session, callback) {
 exports.handler = (event, context, callback) => {
     try {
         if (event.request.type === 'LaunchRequest') {
-            //fct.printLog(`Authentication in state ${auth.getState()}.`);
-            //var sys = event.context.System;
-            //fct.printLog(sys);
-            //quest.initAnswers(sys);
             if (auth.needSetup()) {
                 if (auth.getSetupQuestCtr() >= 0) {
                     auth.wrongIntent((sessionAttributes, speechletResponse) => {
