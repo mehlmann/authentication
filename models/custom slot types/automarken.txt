@@ -25,6 +25,7 @@ smart
 subaru
 tesla
 toyota
+volkswagen
 volvo
 v w
 bentley

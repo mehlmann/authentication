@@ -25,7 +25,7 @@ function handleConfirmAnswerIntents(intent, callback) {
     if (intent.name == 'JaIntent') {
         (auth.needSetup()) ? auth.addAnswer(callback, intent) : auth.endAddAnswer(callback);
     } else if (intent.name == 'NeinIntent') {
-        auth.repromptCheck(callback);
+        auth.reprompt(callback);
     } else if (intent.name == 'AbbruchIntent') {
         auth.abort(callback);
     } else {
@@ -42,7 +42,7 @@ function handleConfirmQuestIntents(intent, callback) {
     if (intent.name == 'JaIntent') {
         auth.endAddQuest(callback);
     } else if (intent.name == 'NeinIntent') {
-        auth.repromptCheck(callback);
+        auth.reprompt(callback);
     } else if (intent.name == 'AbbruchIntent') {
         auth.abort(callback);
     } else {
@@ -93,7 +93,7 @@ function handleStartIntents(intent, callback) {
     } else if (intent.name == 'AbbruchIntent') {
         auth.noWayOut(callback);
     } else {
-        alexa.getHelpResponse(callback);
+        auth.getHelpResponse(callback);
     }
 }
 
@@ -105,8 +105,8 @@ function handleStartIntents(intent, callback) {
 function handleSuccessIntents(intent, callback) {
     if (intent.name == 'AbbruchIntent') {
         auth.noWayOut(callback);
-    } else if (intent.name == 'AntwortAendern') {
-        // TODO
+    } else if (intent.name == 'AntwortAendernIntent') {
+        auth.changeAnswer(callback);
     } else if (intent.name == 'FrageHinzufuegen') {
         auth.addQuestion(callback);
     } else if (intent.name == 'Reset') {
@@ -124,10 +124,10 @@ function handleSuccessIntents(intent, callback) {
 function handleQuestIntents(intent, callback) {
     switch (intent.name) {
         case 'AbbruchIntent':
-            auth.noWayOut(callback);
+            (auth.isAuthenticated()) ? auth.abort(callback) : auth.noWayOut(callback);
             break;
-        case 'AntwortAendern':
-            // TODO
+        case 'AntwortAendernIntent':
+            auth.noChanging(callback);
             break;
         case 'AppIntent':
             if (debug) fct.printLog('Verstandene App: ' + intent.slots.app.value);
@@ -238,7 +238,10 @@ function handleQuestIntents(intent, callback) {
             auth.verifyAnswer(answer, callback);
             break;
         case 'UnterrichtIntent':
-            auth.verifySchoolSubject(intent, callback);
+            if (debug) fct.printLog(`Unterricht: ${intent.slots.tier.value}`);
+            var answer = intent.slots.unterricht.value;
+            if (!answer) fct.printError('VerifySchoolsubject failed! No subject was given!');
+            auth.verifyAnswer(answer, callback);
             break;
         case 'VornameIntent':
             if (debug) fct.printLog(`Name: ${intent.slots.name.value}`);
@@ -279,7 +282,7 @@ function onIntent(intentRequest, session, callback) {
     // Zuerst die global verfügbaren Befehle prüfen.
     if (intent.name == 'AMAZON.StopIntent') alexa.getEndResponse(callback);
     if (intent.name == 'AMAZON.CancelIntent') alexa.getEndResponse(callback);
-    if (intent.name == 'AMAZON.HelpIntent') alexa.getHelpResponse(callback);
+    if (intent.name == 'AMAZON.HelpIntent') auth.getHelpResponse(callback);
 
     // abhängig vom Zustand werden nur bestimmte Intents zugelassen.
     switch (auth.getState()) {
@@ -309,6 +312,9 @@ function onIntent(intentRequest, session, callback) {
             break;
         case 'checkAnswer':
             handleConfirmAnswerIntents(intent, callback);
+            break;
+        case 'getQuest':
+            handleQuestIntents(intent, callback);
             break;
         case 'success':
             handleSuccessIntents(intent, callback);

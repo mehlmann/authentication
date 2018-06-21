@@ -9,24 +9,24 @@ const fct = require('../help-functions');
 var staticQuestions = [
     {//0
         question: 'was ist ihre lieblingsfarbe?',
-        answer: 'blau',
+        answer: '',
         use: 0
     },
     {//1
         question: 'In welcher stadt wohnen sie?' ,
-        answer: 'wörth am rhein',
+        answer: '',
         use: 0
     },
     {//2
         question: 'in welcher stadt wurden sie geboren?',
-        answer: 'erfurt',
+        answer: '',
         use: 0
     },
     {//3
         question: 'wie ist ihre schuhgröße?',
-        answer: '42',
+        answer: '',
         use: 0
-    }/*,
+    },
     {//4
         question: 'wie ist ihre körpergröße in zentimetern?',
         answer: '',
@@ -141,7 +141,7 @@ var staticQuestions = [
         question: 'was ist die letzte ziffer ihrer handynummer?',
         answer: '',
         use: 0
-    }*/
+    }
 ];
 
 /**
@@ -150,27 +150,27 @@ var staticQuestions = [
 var dynamicQuestions = [
     {//0
         question: 'Wieviel Geld in vollen Euro haben sie beim letzten Amazon Kauf ausgegeben?',
-        answer: '20,00€',
+        answer: '',
         use: 0
     },
     {//1
         question: 'Wie hoch war Ihre letzte PayPal-Überweisung in vollen Euro?',
-        answer: '20,00€',
+        answer: '',
         use: 0
     },
     {//2
         question: 'Welches Festival oder Konzert haben Sie zuletzt besucht?',
-        answer: 'rock am ring',
+        answer: '',
         use: 0
     },
     {//3
         question: 'Welchen Film haben Sie zuletzt gesehen?',
-        answer: 'Die Verurteilten',
+        answer: '',
         use: 0
-    }/*,
+    },
     {//4
         question: 'Welche Serie haben Sie zuletzt gesehen?',
-        answer: 'Malcolm mittendrin',
+        answer: '',
         use: 0
     },
     {//5
@@ -197,7 +197,7 @@ var dynamicQuestions = [
         question: 'Was haben Sie zuletzt über Amazon bestellt?',
         answer: '',
         use: 0
-    }*/
+    }
 ];
 
 /**
@@ -275,12 +275,17 @@ function setDynamicAnswer(arrayNumber, newAnswer) {
 }
 
 /**
- * Fügt den statischen Fragen eine neue Frage hinzu.
+ * Fügt den statischen Fragen eine neue Frage hinzu oder aktualisiert eine Antwort.
+ * @param {int} newNumber neue nummer
  * @param {string} newQuestion neue Frage
  * @param {string} newAnswer neue Antwort
  */
-function addStaticQuestion(newQuestion, newAnswer) {
-    staticQuestions.push({question: newQuestion, answer: newAnswer, use: 1});
+function changeStaticQuestions(newNumber, newQuestion, newAnswer) {
+    if (newNumber < staticQuestions.length) {
+        setStaticAnswer(newNumber, newAnswer);
+    } else {
+        staticQuestions.push({question: newQuestion, answer: newAnswer, use: 1});
+    }
 }
 
 /**
@@ -345,32 +350,6 @@ function setDynamicUsed(arrayNumber, used) {
         return;
     }
     (used) ? dynamicQuestions[arrayNumber].use = 1 : dynamicQuestions[arrayNumber].use = 0;
-}
-
-/**
- * Überprüft, welche statische Frage der übergebenen Frage am ähnlichsten ist.
- * Beide Strings werden gesplittet und die Wörter anschließend einzeln verglichen.
- * @param {string} quest übergebene Frage
- */
-function compareStaticQuestion(quest) {
-    var splitted = quest.split(" ");
-    var bestCtr = 0;
-    var bestI = 0;
-    for (var i = 0; i < staticQuestions.length(); i++) {
-        var tmp = staticQuestions[i].question.split(" ");
-        var compareCtr = 0;
-        for (var j = 0; j < splitted.length(); j++) {
-            for (var k = 0; k < tmp.length(); k++) {
-                if (splitted[j].toLowerCase() == tmp[k].toLowerCase()) {
-                    compareCtr++;
-                }
-            }
-        }
-        if (bestCtr < compareCtr) {
-            bestCtr = compareCtr;
-            bestI = i;
-        }
-    }
 }
 
 /**
@@ -539,17 +518,53 @@ function initPLZ(sys) {
     });
 }
 
+/**
+ * Gibt den Speicherplatz der statischen Frage aus, welche $answer am ähnlichsten ist.
+ * @param {string} answer Frage des Nutzers
+ */
+function searchQuestion(answer) {
+    var answerQuest = answer + '?';
+    var words = answerQuest.split(" ");
+    var wordCtr = 0;
+    var best = -1;
+    var bestI = -1;
+    for (var i = 0; i < staticQuestions.length; i++) {
+        var splitQuest = staticQuestions[i].question.split(" ");
+        // weg mit dem Fragezeichen
+        splitQuest[splitQuest.length-1] = splitQuest[splitQuest.length-1].substring(0, splitQuest[splitQuest.length-1]-1);
+        wordCtr = 0;
+        for (var j = 0; j < words.length; j++) {
+            if (splitQuest[j]) {
+                if (words[j].toLowerCase() == splitQuest[j].toLowerCase()) wordCtr++;
+                if (words[j-1]) {
+                    if (words[j-1].toLowerCase() == splitQuest[j].toLowerCase()) wordCtr = wordCtr + 0.5;
+                } else if (words[j+1]) {
+                    if (words[j+1].toLowerCase() == splitQuest[j].toLowerCase()) wordCtr = wordCtr + 0.5;
+                }
+            }
+            console.log(`${staticQuestions[i].question}, ${wordCtr}`);
+        }
+        if (best < wordCtr) {
+            bestI = i;
+            best = wordCtr;
+        }
+    }
+    return bestI;
+}
+
 module.exports = {getStaticQuestion,
                 getStaticAnswer,
                 getDynamicQuestion,
                 getDynamicAnswer,
                 setStaticAnswer,
                 setDynamicAnswer,
-                addStaticQuestion,
+                changeStaticQuestions,
                 getStaticSize,
                 getDynamicSize,
                 isStaticUsed,
                 setStaticUsed,
                 isDynamicUsed,
                 setDynamicUsed,
-                initAnswers};
+                initAnswers,
+                searchQuestion
+            };

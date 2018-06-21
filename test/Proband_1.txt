@@ -1,0 +1,1903 @@
+START RequestId: 1ab0e663-3cdd-11e8-8b9f-f1e842655565 Version: $LATEST
+2018-04-10T16:34:57.124Z	1ab0e663-3cdd-11e8-8b9f-f1e842655565	Performing setup. 
+Moving from start to setup.
+END RequestId: 1ab0e663-3cdd-11e8-8b9f-f1e842655565
+REPORT RequestId: 1ab0e663-3cdd-11e8-8b9f-f1e842655565	Duration: 40.27 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 22 MB	
+START RequestId: 28c7ecc4-3cdd-11e8-aa15-e71b077c93aa Version: $LATEST
+2018-04-10T16:35:20.481Z	28c7ecc4-3cdd-11e8-aa15-e71b077c93aa	Authentication in state setup.
+2018-04-10T16:35:20.481Z	28c7ecc4-3cdd-11e8-aa15-e71b077c93aa	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+2018-04-10T16:35:20.484Z	28c7ecc4-3cdd-11e8-aa15-e71b077c93aa	User discarded answer: undefined.
+Moving from checkAnswer to addAnswer.
+END RequestId: 28c7ecc4-3cdd-11e8-aa15-e71b077c93aa
+REPORT RequestId: 28c7ecc4-3cdd-11e8-aa15-e71b077c93aa	Duration: 11.85 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 22 MB	
+START RequestId: 2bab84bb-3cdd-11e8-a409-97bb2677887e Version: $LATEST
+2018-04-10T16:35:25.324Z	2bab84bb-3cdd-11e8-a409-97bb2677887e	Authentication in state addAnswer.
+2018-04-10T16:35:25.324Z	2bab84bb-3cdd-11e8-a409-97bb2677887e	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+END RequestId: 2bab84bb-3cdd-11e8-a409-97bb2677887e
+REPORT RequestId: 2bab84bb-3cdd-11e8-a409-97bb2677887e	Duration: 1.41 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 23 MB	
+START RequestId: 2e42839b-3cdd-11e8-8e8b-0d8ef0bd7b3d Version: $LATEST
+2018-04-10T16:35:29.663Z	2e42839b-3cdd-11e8-8e8b-0d8ef0bd7b3d	Authentication in state addAnswer.
+2018-04-10T16:35:29.680Z	2e42839b-3cdd-11e8-8e8b-0d8ef0bd7b3d	{ name: 'StadtIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ stadtName: 
+{ name: 'stadtName',
+value: 'wildau',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:35:29.681Z	2e42839b-3cdd-11e8-8e8b-0d8ef0bd7b3d	User said: wildau.
+Moving from addAnswer to checkAnswer.
+END RequestId: 2e42839b-3cdd-11e8-8e8b-0d8ef0bd7b3d
+REPORT RequestId: 2e42839b-3cdd-11e8-8e8b-0d8ef0bd7b3d	Duration: 19.27 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 23 MB	
+START RequestId: 31754d7f-3cdd-11e8-9603-b15d2b144b60 Version: $LATEST
+2018-04-10T16:35:35.035Z	31754d7f-3cdd-11e8-9603-b15d2b144b60	Authentication in state checkAnswer.
+2018-04-10T16:35:35.035Z	31754d7f-3cdd-11e8-9603-b15d2b144b60	{ name: 'FarbeIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ farbe: 
+{ name: 'farbe',
+value: 'blau',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+END RequestId: 31754d7f-3cdd-11e8-9603-b15d2b144b60
+REPORT RequestId: 31754d7f-3cdd-11e8-9603-b15d2b144b60	Duration: 6.00 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 23 MB	
+START RequestId: 355a2830-3cdd-11e8-a885-03dee68677ef Version: $LATEST
+2018-04-10T16:35:41.564Z	355a2830-3cdd-11e8-a885-03dee68677ef	Authentication in state checkAnswer.
+2018-04-10T16:35:41.564Z	355a2830-3cdd-11e8-a885-03dee68677ef	{ name: 'FarbeIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ farbe: 
+{ name: 'farbe',
+value: 'rot',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+END RequestId: 355a2830-3cdd-11e8-a885-03dee68677ef
+REPORT RequestId: 355a2830-3cdd-11e8-a885-03dee68677ef	Duration: 0.78 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 23 MB	
+START RequestId: 384895fa-3cdd-11e8-860d-4ba66fecf0e2 Version: $LATEST
+2018-04-10T16:35:46.483Z	384895fa-3cdd-11e8-860d-4ba66fecf0e2	Authentication in state checkAnswer.
+2018-04-10T16:35:46.483Z	384895fa-3cdd-11e8-860d-4ba66fecf0e2	{ name: 'NeinIntent', confirmationStatus: 'NONE' }
+2018-04-10T16:35:46.484Z	384895fa-3cdd-11e8-860d-4ba66fecf0e2	User discarded answer: wildau.
+Moving from checkAnswer to addAnswer.
+END RequestId: 384895fa-3cdd-11e8-860d-4ba66fecf0e2
+REPORT RequestId: 384895fa-3cdd-11e8-860d-4ba66fecf0e2	Duration: 1.19 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 23 MB	
+START RequestId: 3ad27480-3cdd-11e8-9d55-e79647f48ff0 Version: $LATEST
+2018-04-10T16:35:50.748Z	3ad27480-3cdd-11e8-9d55-e79647f48ff0	Authentication in state addAnswer.
+2018-04-10T16:35:50.748Z	3ad27480-3cdd-11e8-9d55-e79647f48ff0	{ name: 'StadtIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ stadtName: 
+{ name: 'stadtName',
+value: 'Roth',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:35:50.749Z	3ad27480-3cdd-11e8-9d55-e79647f48ff0	User said: Roth.
+Moving from addAnswer to checkAnswer.
+END RequestId: 3ad27480-3cdd-11e8-9d55-e79647f48ff0
+REPORT RequestId: 3ad27480-3cdd-11e8-9d55-e79647f48ff0	Duration: 1.36 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 23 MB	
+START RequestId: 3d98c14d-3cdd-11e8-86f9-97465386e855 Version: $LATEST
+2018-04-10T16:35:55.398Z	3d98c14d-3cdd-11e8-86f9-97465386e855	Authentication in state checkAnswer.
+2018-04-10T16:35:55.399Z	3d98c14d-3cdd-11e8-86f9-97465386e855	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+END RequestId: 3d98c14d-3cdd-11e8-86f9-97465386e855
+REPORT RequestId: 3d98c14d-3cdd-11e8-86f9-97465386e855	Duration: 1.52 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 23 MB	
+START RequestId: 415ddf29-3cdd-11e8-bf75-89809a138e4b Version: $LATEST
+2018-04-10T16:36:01.729Z	415ddf29-3cdd-11e8-bf75-89809a138e4b	Authentication in state setup.
+2018-04-10T16:36:01.729Z	415ddf29-3cdd-11e8-bf75-89809a138e4b	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+2018-04-10T16:36:01.729Z	415ddf29-3cdd-11e8-bf75-89809a138e4b	User discarded answer: Roth.
+Moving from checkAnswer to addAnswer.
+END RequestId: 415ddf29-3cdd-11e8-bf75-89809a138e4b
+REPORT RequestId: 415ddf29-3cdd-11e8-bf75-89809a138e4b	Duration: 0.97 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 23 MB	
+START RequestId: 43fb4616-3cdd-11e8-96f0-e3c52a5cc0db Version: $LATEST
+2018-04-10T16:36:06.111Z	43fb4616-3cdd-11e8-96f0-e3c52a5cc0db	Authentication in state addAnswer.
+2018-04-10T16:36:06.111Z	43fb4616-3cdd-11e8-96f0-e3c52a5cc0db	{ name: 'StadtIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ stadtName: 
+{ name: 'stadtName',
+value: 'karlsruhe',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:36:06.111Z	43fb4616-3cdd-11e8-96f0-e3c52a5cc0db	User said: karlsruhe.
+Moving from addAnswer to checkAnswer.
+END RequestId: 43fb4616-3cdd-11e8-96f0-e3c52a5cc0db
+REPORT RequestId: 43fb4616-3cdd-11e8-96f0-e3c52a5cc0db	Duration: 0.81 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 23 MB	
+START RequestId: 46f8f584-3cdd-11e8-bba4-d1efd3565878 Version: $LATEST
+2018-04-10T16:36:11.131Z	46f8f584-3cdd-11e8-bba4-d1efd3565878	Authentication in state checkAnswer.
+2018-04-10T16:36:11.131Z	46f8f584-3cdd-11e8-bba4-d1efd3565878	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+END RequestId: 46f8f584-3cdd-11e8-bba4-d1efd3565878
+REPORT RequestId: 46f8f584-3cdd-11e8-bba4-d1efd3565878	Duration: 0.87 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 23 MB	
+START RequestId: 4a75c05e-3cdd-11e8-bd08-5761a46ef5e6 Version: $LATEST
+2018-04-10T16:36:16.981Z	4a75c05e-3cdd-11e8-bd08-5761a46ef5e6	Authentication in state setup.
+2018-04-10T16:36:16.981Z	4a75c05e-3cdd-11e8-bd08-5761a46ef5e6	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+2018-04-10T16:36:16.981Z	4a75c05e-3cdd-11e8-bd08-5761a46ef5e6	User discarded answer: karlsruhe.
+Moving from checkAnswer to addAnswer.
+END RequestId: 4a75c05e-3cdd-11e8-bd08-5761a46ef5e6
+REPORT RequestId: 4a75c05e-3cdd-11e8-bd08-5761a46ef5e6	Duration: 2.03 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 23 MB	
+START RequestId: 4d1375c0-3cdd-11e8-a562-dff233b8367b Version: $LATEST
+2018-04-10T16:36:21.372Z	4d1375c0-3cdd-11e8-a562-dff233b8367b	Authentication in state addAnswer.
+2018-04-10T16:36:21.372Z	4d1375c0-3cdd-11e8-a562-dff233b8367b	{ name: 'StadtIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ stadtName: 
+{ name: 'stadtName',
+value: 'Gera',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:36:21.372Z	4d1375c0-3cdd-11e8-a562-dff233b8367b	User said: Gera.
+Moving from addAnswer to checkAnswer.
+END RequestId: 4d1375c0-3cdd-11e8-a562-dff233b8367b
+REPORT RequestId: 4d1375c0-3cdd-11e8-a562-dff233b8367b	Duration: 0.97 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 23 MB	
+START RequestId: 4fd9258b-3cdd-11e8-a19e-036de9469172 Version: $LATEST
+2018-04-10T16:36:26.024Z	4fd9258b-3cdd-11e8-a19e-036de9469172	Authentication in state checkAnswer.
+2018-04-10T16:36:26.024Z	4fd9258b-3cdd-11e8-a19e-036de9469172	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+END RequestId: 4fd9258b-3cdd-11e8-a19e-036de9469172
+REPORT RequestId: 4fd9258b-3cdd-11e8-a19e-036de9469172	Duration: 0.81 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 23 MB	
+START RequestId: 53abff95-3cdd-11e8-9938-3b9017955640 Version: $LATEST
+2018-04-10T16:36:32.440Z	53abff95-3cdd-11e8-9938-3b9017955640	Authentication in state setup.
+2018-04-10T16:36:32.440Z	53abff95-3cdd-11e8-9938-3b9017955640	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+2018-04-10T16:36:32.441Z	53abff95-3cdd-11e8-9938-3b9017955640	User discarded answer: Gera.
+Moving from checkAnswer to addAnswer.
+END RequestId: 53abff95-3cdd-11e8-9938-3b9017955640
+REPORT RequestId: 53abff95-3cdd-11e8-9938-3b9017955640	Duration: 5.04 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 23 MB	
+START RequestId: 561b793e-3cdd-11e8-9952-8dddd9db0e54 Version: $LATEST
+2018-04-10T16:36:36.525Z	561b793e-3cdd-11e8-9952-8dddd9db0e54	Authentication in state addAnswer.
+2018-04-10T16:36:36.525Z	561b793e-3cdd-11e8-9952-8dddd9db0e54	{ name: 'ZahlIntent',
+confirmationStatus: 'NONE',
+slots: { erste: { name: 'erste', value: '42', confirmationStatus: 'NONE' } } }
+2018-04-10T16:36:36.525Z	561b793e-3cdd-11e8-9952-8dddd9db0e54	User said: 42.
+Moving from addAnswer to checkAnswer.
+END RequestId: 561b793e-3cdd-11e8-9952-8dddd9db0e54
+REPORT RequestId: 561b793e-3cdd-11e8-9952-8dddd9db0e54	Duration: 16.02 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 23 MB	
+START RequestId: 591fb7f1-3cdd-11e8-af50-816efcbab9ef Version: $LATEST
+2018-04-10T16:36:41.584Z	591fb7f1-3cdd-11e8-af50-816efcbab9ef	Authentication in state checkAnswer.
+2018-04-10T16:36:41.584Z	591fb7f1-3cdd-11e8-af50-816efcbab9ef	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+END RequestId: 591fb7f1-3cdd-11e8-af50-816efcbab9ef
+REPORT RequestId: 591fb7f1-3cdd-11e8-af50-816efcbab9ef	Duration: 0.70 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 23 MB	
+START RequestId: 5dd21c52-3cdd-11e8-86f9-97465386e855 Version: $LATEST
+2018-04-10T16:36:49.466Z	5dd21c52-3cdd-11e8-86f9-97465386e855	Authentication in state setup.
+2018-04-10T16:36:49.480Z	5dd21c52-3cdd-11e8-86f9-97465386e855	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+2018-04-10T16:36:49.480Z	5dd21c52-3cdd-11e8-86f9-97465386e855	User discarded answer: 42.
+Moving from checkAnswer to addAnswer.
+END RequestId: 5dd21c52-3cdd-11e8-86f9-97465386e855
+REPORT RequestId: 5dd21c52-3cdd-11e8-86f9-97465386e855	Duration: 14.82 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 23 MB	
+START RequestId: 618c6610-3cdd-11e8-ae8c-0bdcbbebbffd Version: $LATEST
+2018-04-10T16:36:55.731Z	618c6610-3cdd-11e8-ae8c-0bdcbbebbffd	Authentication in state addAnswer.
+2018-04-10T16:36:55.731Z	618c6610-3cdd-11e8-ae8c-0bdcbbebbffd	{ name: 'ZahlIntent',
+confirmationStatus: 'NONE',
+slots: { erste: { name: 'erste', value: '170', confirmationStatus: 'NONE' } } }
+2018-04-10T16:36:55.732Z	618c6610-3cdd-11e8-ae8c-0bdcbbebbffd	User said: 170.
+Moving from addAnswer to checkAnswer.
+END RequestId: 618c6610-3cdd-11e8-ae8c-0bdcbbebbffd
+REPORT RequestId: 618c6610-3cdd-11e8-ae8c-0bdcbbebbffd	Duration: 1.26 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 23 MB	
+START RequestId: 64a9ab10-3cdd-11e8-94ee-01583eb4a0e8 Version: $LATEST
+2018-04-10T16:37:00.945Z	64a9ab10-3cdd-11e8-94ee-01583eb4a0e8	Authentication in state checkAnswer.
+2018-04-10T16:37:00.945Z	64a9ab10-3cdd-11e8-94ee-01583eb4a0e8	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+END RequestId: 64a9ab10-3cdd-11e8-94ee-01583eb4a0e8
+REPORT RequestId: 64a9ab10-3cdd-11e8-94ee-01583eb4a0e8	Duration: 1.65 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 23 MB	
+START RequestId: 684fd03f-3cdd-11e8-abdf-3bc8a1530828 Version: $LATEST
+2018-04-10T16:37:07.080Z	684fd03f-3cdd-11e8-abdf-3bc8a1530828	Authentication in state setup.
+2018-04-10T16:37:07.080Z	684fd03f-3cdd-11e8-abdf-3bc8a1530828	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+2018-04-10T16:37:07.080Z	684fd03f-3cdd-11e8-abdf-3bc8a1530828	User discarded answer: 170.
+Moving from checkAnswer to addAnswer.
+END RequestId: 684fd03f-3cdd-11e8-abdf-3bc8a1530828
+REPORT RequestId: 684fd03f-3cdd-11e8-abdf-3bc8a1530828	Duration: 12.55 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 23 MB	
+START RequestId: 6b403916-3cdd-11e8-b6d9-395aafac552d Version: $LATEST
+2018-04-10T16:37:12.000Z	6b403916-3cdd-11e8-b6d9-395aafac552d	Authentication in state addAnswer.
+2018-04-10T16:37:12.000Z	6b403916-3cdd-11e8-b6d9-395aafac552d	{ name: 'ElektronikMarkenIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ marke: 
+{ name: 'marke',
+value: 'Samsung',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:37:12.001Z	6b403916-3cdd-11e8-b6d9-395aafac552d	User said: Samsung.
+Moving from addAnswer to checkAnswer.
+END RequestId: 6b403916-3cdd-11e8-b6d9-395aafac552d
+REPORT RequestId: 6b403916-3cdd-11e8-b6d9-395aafac552d	Duration: 1.52 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 23 MB	
+START RequestId: 6df03e32-3cdd-11e8-a08e-c7157fbe8408 Version: $LATEST
+2018-04-10T16:37:16.510Z	6df03e32-3cdd-11e8-a08e-c7157fbe8408	Authentication in state checkAnswer.
+2018-04-10T16:37:16.520Z	6df03e32-3cdd-11e8-a08e-c7157fbe8408	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+END RequestId: 6df03e32-3cdd-11e8-a08e-c7157fbe8408
+REPORT RequestId: 6df03e32-3cdd-11e8-a08e-c7157fbe8408	Duration: 10.66 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 23 MB	
+START RequestId: 7152a27b-3cdd-11e8-a5e4-498f37af0e0a Version: $LATEST
+2018-04-10T16:37:22.184Z	7152a27b-3cdd-11e8-a5e4-498f37af0e0a	Authentication in state setup.
+2018-04-10T16:37:22.184Z	7152a27b-3cdd-11e8-a5e4-498f37af0e0a	{ name: 'VornameIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ name: 
+{ name: 'name',
+value: 'lea',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+END RequestId: 7152a27b-3cdd-11e8-a5e4-498f37af0e0a
+REPORT RequestId: 7152a27b-3cdd-11e8-a5e4-498f37af0e0a	Duration: 0.88 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 23 MB	
+START RequestId: 7494ae6f-3cdd-11e8-9263-37e8512759f4 Version: $LATEST
+2018-04-10T16:37:27.656Z	7494ae6f-3cdd-11e8-9263-37e8512759f4	Authentication in state setup.
+2018-04-10T16:37:27.656Z	7494ae6f-3cdd-11e8-9263-37e8512759f4	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+2018-04-10T16:37:27.657Z	7494ae6f-3cdd-11e8-9263-37e8512759f4	User discarded answer: Samsung.
+Moving from checkAnswer to addAnswer.
+END RequestId: 7494ae6f-3cdd-11e8-9263-37e8512759f4
+REPORT RequestId: 7494ae6f-3cdd-11e8-9263-37e8512759f4	Duration: 1.39 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 23 MB	
+START RequestId: 774ec5c8-3cdd-11e8-99b7-6395db80eff2 Version: $LATEST
+2018-04-10T16:37:32.229Z	774ec5c8-3cdd-11e8-99b7-6395db80eff2	Authentication in state addAnswer.
+2018-04-10T16:37:32.229Z	774ec5c8-3cdd-11e8-99b7-6395db80eff2	{ name: 'CalcIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ zahl: 
+{ name: 'zahl',
+value: 'vier',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:37:32.240Z	774ec5c8-3cdd-11e8-99b7-6395db80eff2	User said: vier.
+Moving from addAnswer to checkAnswer.
+END RequestId: 774ec5c8-3cdd-11e8-99b7-6395db80eff2
+REPORT RequestId: 774ec5c8-3cdd-11e8-99b7-6395db80eff2	Duration: 12.08 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 23 MB	
+START RequestId: 7a6eca2d-3cdd-11e8-8201-577b006d5e09 Version: $LATEST
+2018-04-10T16:37:37.475Z	7a6eca2d-3cdd-11e8-8201-577b006d5e09	Authentication in state checkAnswer.
+2018-04-10T16:37:37.475Z	7a6eca2d-3cdd-11e8-8201-577b006d5e09	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+END RequestId: 7a6eca2d-3cdd-11e8-8201-577b006d5e09
+REPORT RequestId: 7a6eca2d-3cdd-11e8-8201-577b006d5e09	Duration: 1.27 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 23 MB	
+START RequestId: 7e3595a7-3cdd-11e8-9d9d-87716ad3aafc Version: $LATEST
+2018-04-10T16:37:43.811Z	7e3595a7-3cdd-11e8-9d9d-87716ad3aafc	Authentication in state setup.
+2018-04-10T16:37:43.812Z	7e3595a7-3cdd-11e8-9d9d-87716ad3aafc	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+2018-04-10T16:37:43.812Z	7e3595a7-3cdd-11e8-9d9d-87716ad3aafc	User discarded answer: vier.
+Moving from checkAnswer to addAnswer.
+END RequestId: 7e3595a7-3cdd-11e8-9d9d-87716ad3aafc
+REPORT RequestId: 7e3595a7-3cdd-11e8-9d9d-87716ad3aafc	Duration: 0.94 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 23 MB	
+START RequestId: 811891f2-3cdd-11e8-8a44-bb698fc59411 Version: $LATEST
+2018-04-10T16:37:48.660Z	811891f2-3cdd-11e8-8a44-bb698fc59411	Authentication in state addAnswer.
+2018-04-10T16:37:48.660Z	811891f2-3cdd-11e8-8a44-bb698fc59411	{ name: 'StadtIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ stadtName: 
+{ name: 'stadtName',
+value: 'egeln',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:37:48.660Z	811891f2-3cdd-11e8-8a44-bb698fc59411	User said: egeln.
+Moving from addAnswer to checkAnswer.
+END RequestId: 811891f2-3cdd-11e8-8a44-bb698fc59411
+REPORT RequestId: 811891f2-3cdd-11e8-8a44-bb698fc59411	Duration: 0.88 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 23 MB	
+START RequestId: 85898008-3cdd-11e8-be8e-45597334af82 Version: $LATEST
+2018-04-10T16:37:56.106Z	85898008-3cdd-11e8-be8e-45597334af82	Authentication in state checkAnswer.
+2018-04-10T16:37:56.120Z	85898008-3cdd-11e8-be8e-45597334af82	{ name: 'NeinIntent', confirmationStatus: 'NONE' }
+2018-04-10T16:37:56.123Z	85898008-3cdd-11e8-be8e-45597334af82	User discarded answer: egeln.
+Moving from checkAnswer to addAnswer.
+END RequestId: 85898008-3cdd-11e8-be8e-45597334af82
+REPORT RequestId: 85898008-3cdd-11e8-be8e-45597334af82	Duration: 34.68 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 23 MB	
+START RequestId: 88e2219e-3cdd-11e8-a308-cd328c672116 Version: $LATEST
+2018-04-10T16:38:01.724Z	88e2219e-3cdd-11e8-a308-cd328c672116	Authentication in state addAnswer.
+2018-04-10T16:38:01.724Z	88e2219e-3cdd-11e8-a308-cd328c672116	{ name: 'BuchIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ buch: 
+{ name: 'buch',
+value: 'unterwelt',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:38:01.725Z	88e2219e-3cdd-11e8-a308-cd328c672116	User said: unterwelt.
+Moving from addAnswer to checkAnswer.
+END RequestId: 88e2219e-3cdd-11e8-a308-cd328c672116
+REPORT RequestId: 88e2219e-3cdd-11e8-a308-cd328c672116	Duration: 21.47 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 23 MB	
+START RequestId: 8bf183b6-3cdd-11e8-b0c6-79ccc410ee20 Version: $LATEST
+2018-04-10T16:38:06.853Z	8bf183b6-3cdd-11e8-b0c6-79ccc410ee20	Authentication in state checkAnswer.
+2018-04-10T16:38:06.853Z	8bf183b6-3cdd-11e8-b0c6-79ccc410ee20	{ name: 'NeinIntent', confirmationStatus: 'NONE' }
+2018-04-10T16:38:06.853Z	8bf183b6-3cdd-11e8-b0c6-79ccc410ee20	User discarded answer: unterwelt.
+Moving from checkAnswer to addAnswer.
+END RequestId: 8bf183b6-3cdd-11e8-b0c6-79ccc410ee20
+REPORT RequestId: 8bf183b6-3cdd-11e8-b0c6-79ccc410ee20	Duration: 0.76 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 23 MB	
+START RequestId: 8e9d4374-3cdd-11e8-9c8f-47197cd44156 Version: $LATEST
+2018-04-10T16:38:11.338Z	8e9d4374-3cdd-11e8-9c8f-47197cd44156	Authentication in state addAnswer.
+2018-04-10T16:38:11.338Z	8e9d4374-3cdd-11e8-9c8f-47197cd44156	{ name: 'InterpretIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ interpret: 
+{ name: 'interpret',
+value: 'wanz',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:38:11.340Z	8e9d4374-3cdd-11e8-9c8f-47197cd44156	User said: wanz.
+Moving from addAnswer to checkAnswer.
+END RequestId: 8e9d4374-3cdd-11e8-9c8f-47197cd44156
+REPORT RequestId: 8e9d4374-3cdd-11e8-9c8f-47197cd44156	Duration: 3.01 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 23 MB	
+START RequestId: 919993b2-3cdd-11e8-9a18-919ab570db51 Version: $LATEST
+2018-04-10T16:38:16.343Z	919993b2-3cdd-11e8-9a18-919ab570db51	Authentication in state checkAnswer.
+2018-04-10T16:38:16.343Z	919993b2-3cdd-11e8-9a18-919ab570db51	{ name: 'NeinIntent', confirmationStatus: 'NONE' }
+2018-04-10T16:38:16.343Z	919993b2-3cdd-11e8-9a18-919ab570db51	User discarded answer: wanz.
+Moving from checkAnswer to addAnswer.
+END RequestId: 919993b2-3cdd-11e8-9a18-919ab570db51
+REPORT RequestId: 919993b2-3cdd-11e8-9a18-919ab570db51	Duration: 0.79 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 23 MB	
+START RequestId: 943facaf-3cdd-11e8-8daa-494ec3168209 Version: $LATEST
+2018-04-10T16:38:20.788Z	943facaf-3cdd-11e8-8daa-494ec3168209	Authentication in state addAnswer.
+2018-04-10T16:38:20.788Z	943facaf-3cdd-11e8-8daa-494ec3168209	{ name: 'TierIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ tier: 
+{ name: 'tier',
+value: 'katze',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:38:20.789Z	943facaf-3cdd-11e8-8daa-494ec3168209	User said: katze.
+Moving from addAnswer to checkAnswer.
+END RequestId: 943facaf-3cdd-11e8-8daa-494ec3168209
+REPORT RequestId: 943facaf-3cdd-11e8-8daa-494ec3168209	Duration: 1.09 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 23 MB	
+START RequestId: 96e18131-3cdd-11e8-8e0b-aff848f203db Version: $LATEST
+2018-04-10T16:38:25.212Z	96e18131-3cdd-11e8-8e0b-aff848f203db	Authentication in state checkAnswer.
+2018-04-10T16:38:25.212Z	96e18131-3cdd-11e8-8e0b-aff848f203db	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+END RequestId: 96e18131-3cdd-11e8-8e0b-aff848f203db
+REPORT RequestId: 96e18131-3cdd-11e8-8e0b-aff848f203db	Duration: 12.16 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 23 MB	
+START RequestId: 9a2588e9-3cdd-11e8-a3d0-fb17a933b6c2 Version: $LATEST
+2018-04-10T16:38:30.684Z	9a2588e9-3cdd-11e8-a3d0-fb17a933b6c2	Authentication in state setup.
+2018-04-10T16:38:30.684Z	9a2588e9-3cdd-11e8-a3d0-fb17a933b6c2	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+2018-04-10T16:38:30.684Z	9a2588e9-3cdd-11e8-a3d0-fb17a933b6c2	User discarded answer: katze.
+Moving from checkAnswer to addAnswer.
+END RequestId: 9a2588e9-3cdd-11e8-a3d0-fb17a933b6c2
+REPORT RequestId: 9a2588e9-3cdd-11e8-a3d0-fb17a933b6c2	Duration: 0.79 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 23 MB	
+START RequestId: 9cc909d6-3cdd-11e8-b78c-1f1092494612 Version: $LATEST
+2018-04-10T16:38:35.123Z	9cc909d6-3cdd-11e8-b78c-1f1092494612	Authentication in state addAnswer.
+2018-04-10T16:38:35.123Z	9cc909d6-3cdd-11e8-b78c-1f1092494612	{ name: 'TierIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ tier: 
+{ name: 'tier',
+value: 'katze',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:38:35.140Z	9cc909d6-3cdd-11e8-b78c-1f1092494612	User said: katze.
+Moving from addAnswer to checkAnswer.
+END RequestId: 9cc909d6-3cdd-11e8-b78c-1f1092494612
+REPORT RequestId: 9cc909d6-3cdd-11e8-b78c-1f1092494612	Duration: 17.78 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 23 MB	
+START RequestId: 9f8ee0d6-3cdd-11e8-b2bf-f146a7e87f44 Version: $LATEST
+2018-04-10T16:38:39.763Z	9f8ee0d6-3cdd-11e8-b2bf-f146a7e87f44	Authentication in state checkAnswer.
+2018-04-10T16:38:39.763Z	9f8ee0d6-3cdd-11e8-b2bf-f146a7e87f44	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+END RequestId: 9f8ee0d6-3cdd-11e8-b2bf-f146a7e87f44
+REPORT RequestId: 9f8ee0d6-3cdd-11e8-b2bf-f146a7e87f44	Duration: 0.76 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 23 MB	
+START RequestId: a3355338-3cdd-11e8-ad0f-a52d966fdbb3 Version: $LATEST
+2018-04-10T16:38:45.888Z	a3355338-3cdd-11e8-ad0f-a52d966fdbb3	Authentication in state setup.
+2018-04-10T16:38:45.888Z	a3355338-3cdd-11e8-ad0f-a52d966fdbb3	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+2018-04-10T16:38:45.889Z	a3355338-3cdd-11e8-ad0f-a52d966fdbb3	User discarded answer: katze.
+Moving from checkAnswer to addAnswer.
+END RequestId: a3355338-3cdd-11e8-ad0f-a52d966fdbb3
+REPORT RequestId: a3355338-3cdd-11e8-ad0f-a52d966fdbb3	Duration: 0.74 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 23 MB	
+START RequestId: a6bd8fba-3cdd-11e8-a3af-939957ab911a Version: $LATEST
+2018-04-10T16:38:51.820Z	a6bd8fba-3cdd-11e8-a3af-939957ab911a	Authentication in state addAnswer.
+2018-04-10T16:38:51.820Z	a6bd8fba-3cdd-11e8-a3af-939957ab911a	{ name: 'SerienIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ serie: 
+{ name: 'serie',
+value: 'Sherlock Holmes',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:38:51.821Z	a6bd8fba-3cdd-11e8-a3af-939957ab911a	User said: Sherlock Holmes.
+Moving from addAnswer to checkAnswer.
+END RequestId: a6bd8fba-3cdd-11e8-a3af-939957ab911a
+REPORT RequestId: a6bd8fba-3cdd-11e8-a3af-939957ab911a	Duration: 1.01 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 23 MB	
+START RequestId: aa41d500-3cdd-11e8-a223-2b0739c9658b Version: $LATEST
+2018-04-10T16:38:57.721Z	aa41d500-3cdd-11e8-a223-2b0739c9658b	Authentication in state checkAnswer.
+2018-04-10T16:38:57.721Z	aa41d500-3cdd-11e8-a223-2b0739c9658b	{ name: 'VornameIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ name: 
+{ name: 'name',
+value: 'Jan',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+END RequestId: aa41d500-3cdd-11e8-a223-2b0739c9658b
+REPORT RequestId: aa41d500-3cdd-11e8-a223-2b0739c9658b	Duration: 0.94 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 23 MB	
+START RequestId: ae165cd5-3cdd-11e8-8b83-63a8162cef21 Version: $LATEST
+2018-04-10T16:39:04.144Z	ae165cd5-3cdd-11e8-8b83-63a8162cef21	Authentication in state checkAnswer.
+2018-04-10T16:39:04.144Z	ae165cd5-3cdd-11e8-8b83-63a8162cef21	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+END RequestId: ae165cd5-3cdd-11e8-8b83-63a8162cef21
+REPORT RequestId: ae165cd5-3cdd-11e8-8b83-63a8162cef21	Duration: 16.54 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 23 MB	
+START RequestId: b2e8f348-3cdd-11e8-a3af-939957ab911a Version: $LATEST
+2018-04-10T16:39:12.235Z	b2e8f348-3cdd-11e8-a3af-939957ab911a	Authentication in state setup.
+2018-04-10T16:39:12.235Z	b2e8f348-3cdd-11e8-a3af-939957ab911a	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+2018-04-10T16:39:12.235Z	b2e8f348-3cdd-11e8-a3af-939957ab911a	User discarded answer: Sherlock Holmes.
+Moving from checkAnswer to addAnswer.
+END RequestId: b2e8f348-3cdd-11e8-a3af-939957ab911a
+REPORT RequestId: b2e8f348-3cdd-11e8-a3af-939957ab911a	Duration: 0.75 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 23 MB	
+START RequestId: b574f505-3cdd-11e8-8ff2-5708ae8d5cbf Version: $LATEST
+2018-04-10T16:39:16.506Z	b574f505-3cdd-11e8-8ff2-5708ae8d5cbf	Authentication in state addAnswer.
+2018-04-10T16:39:16.506Z	b574f505-3cdd-11e8-8ff2-5708ae8d5cbf	{ name: 'FilmIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ film: 
+{ name: 'film',
+value: 'harry potter',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:39:16.507Z	b574f505-3cdd-11e8-8ff2-5708ae8d5cbf	User said: harry potter.
+Moving from addAnswer to checkAnswer.
+END RequestId: b574f505-3cdd-11e8-8ff2-5708ae8d5cbf
+REPORT RequestId: b574f505-3cdd-11e8-8ff2-5708ae8d5cbf	Duration: 1.10 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 23 MB	
+START RequestId: b8a37879-3cdd-11e8-b4eb-3f86f94c2c78 Version: $LATEST
+2018-04-10T16:39:21.847Z	b8a37879-3cdd-11e8-b4eb-3f86f94c2c78	Authentication in state checkAnswer.
+2018-04-10T16:39:21.847Z	b8a37879-3cdd-11e8-b4eb-3f86f94c2c78	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+END RequestId: b8a37879-3cdd-11e8-b4eb-3f86f94c2c78
+REPORT RequestId: b8a37879-3cdd-11e8-b4eb-3f86f94c2c78	Duration: 13.37 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 23 MB	
+START RequestId: bc091268-3cdd-11e8-983d-2925aa9f2960 Version: $LATEST
+2018-04-10T16:39:27.547Z	bc091268-3cdd-11e8-983d-2925aa9f2960	Authentication in state setup.
+2018-04-10T16:39:27.547Z	bc091268-3cdd-11e8-983d-2925aa9f2960	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+2018-04-10T16:39:27.547Z	bc091268-3cdd-11e8-983d-2925aa9f2960	User discarded answer: harry potter.
+Moving from checkAnswer to addAnswer.
+END RequestId: bc091268-3cdd-11e8-983d-2925aa9f2960
+REPORT RequestId: bc091268-3cdd-11e8-983d-2925aa9f2960	Duration: 0.71 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 23 MB	
+START RequestId: beb65723-3cdd-11e8-af21-9fbd0ccdb0b1 Version: $LATEST
+2018-04-10T16:39:32.044Z	beb65723-3cdd-11e8-af21-9fbd0ccdb0b1	Authentication in state addAnswer.
+2018-04-10T16:39:32.044Z	beb65723-3cdd-11e8-af21-9fbd0ccdb0b1	{ name: 'StadtIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ stadtName: 
+{ name: 'stadtName',
+value: 'lage',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:39:32.045Z	beb65723-3cdd-11e8-af21-9fbd0ccdb0b1	User said: lage.
+Moving from addAnswer to checkAnswer.
+END RequestId: beb65723-3cdd-11e8-af21-9fbd0ccdb0b1
+REPORT RequestId: beb65723-3cdd-11e8-af21-9fbd0ccdb0b1	Duration: 16.90 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 23 MB	
+START RequestId: c20b27df-3cdd-11e8-8ae0-43ef79798231 Version: $LATEST
+2018-04-10T16:39:37.629Z	c20b27df-3cdd-11e8-8ae0-43ef79798231	Authentication in state checkAnswer.
+2018-04-10T16:39:37.629Z	c20b27df-3cdd-11e8-8ae0-43ef79798231	{ name: 'NeinIntent', confirmationStatus: 'NONE' }
+2018-04-10T16:39:37.640Z	c20b27df-3cdd-11e8-8ae0-43ef79798231	User discarded answer: lage.
+Moving from checkAnswer to addAnswer.
+END RequestId: c20b27df-3cdd-11e8-8ae0-43ef79798231
+REPORT RequestId: c20b27df-3cdd-11e8-8ae0-43ef79798231	Duration: 13.03 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: c5251285-3cdd-11e8-9263-37e8512759f4 Version: $LATEST
+2018-04-10T16:39:42.833Z	c5251285-3cdd-11e8-9263-37e8512759f4	Authentication in state addAnswer.
+2018-04-10T16:39:42.833Z	c5251285-3cdd-11e8-9263-37e8512759f4	{ name: 'UnterrichtIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ unterricht: 
+{ name: 'unterricht',
+value: 'biologie',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:39:42.834Z	c5251285-3cdd-11e8-9263-37e8512759f4	User said: biologie.
+Moving from addAnswer to checkAnswer.
+END RequestId: c5251285-3cdd-11e8-9263-37e8512759f4
+REPORT RequestId: c5251285-3cdd-11e8-9263-37e8512759f4	Duration: 1.04 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: c7f28a0c-3cdd-11e8-94df-bb5e3bd15688 Version: $LATEST
+2018-04-10T16:39:47.531Z	c7f28a0c-3cdd-11e8-94df-bb5e3bd15688	Authentication in state checkAnswer.
+2018-04-10T16:39:47.531Z	c7f28a0c-3cdd-11e8-94df-bb5e3bd15688	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+END RequestId: c7f28a0c-3cdd-11e8-94df-bb5e3bd15688
+REPORT RequestId: c7f28a0c-3cdd-11e8-94df-bb5e3bd15688	Duration: 0.92 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: cc0a5c80-3cdd-11e8-8e8b-0d8ef0bd7b3d Version: $LATEST
+2018-04-10T16:39:54.404Z	cc0a5c80-3cdd-11e8-8e8b-0d8ef0bd7b3d	Authentication in state setup.
+2018-04-10T16:39:54.404Z	cc0a5c80-3cdd-11e8-8e8b-0d8ef0bd7b3d	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+2018-04-10T16:39:54.404Z	cc0a5c80-3cdd-11e8-8e8b-0d8ef0bd7b3d	User discarded answer: biologie.
+Moving from checkAnswer to addAnswer.
+END RequestId: cc0a5c80-3cdd-11e8-8e8b-0d8ef0bd7b3d
+REPORT RequestId: cc0a5c80-3cdd-11e8-8e8b-0d8ef0bd7b3d	Duration: 4.59 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: cf4c40c5-3cdd-11e8-b433-1dc7bd4c6209 Version: $LATEST
+2018-04-10T16:39:59.864Z	cf4c40c5-3cdd-11e8-b433-1dc7bd4c6209	Authentication in state addAnswer.
+2018-04-10T16:39:59.864Z	cf4c40c5-3cdd-11e8-b433-1dc7bd4c6209	{ name: 'UnterrichtIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ unterricht: 
+{ name: 'unterricht',
+value: 'mathematik',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:39:59.880Z	cf4c40c5-3cdd-11e8-b433-1dc7bd4c6209	User said: mathematik.
+Moving from addAnswer to checkAnswer.
+END RequestId: cf4c40c5-3cdd-11e8-b433-1dc7bd4c6209
+REPORT RequestId: cf4c40c5-3cdd-11e8-b433-1dc7bd4c6209	Duration: 16.88 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: d2206f99-3cdd-11e8-9bee-737095740bfe Version: $LATEST
+2018-04-10T16:40:04.619Z	d2206f99-3cdd-11e8-9bee-737095740bfe	Authentication in state checkAnswer.
+2018-04-10T16:40:04.619Z	d2206f99-3cdd-11e8-9bee-737095740bfe	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+END RequestId: d2206f99-3cdd-11e8-9bee-737095740bfe
+REPORT RequestId: d2206f99-3cdd-11e8-9bee-737095740bfe	Duration: 0.78 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: d56d0292-3cdd-11e8-a9d4-5f05f0b5cfb3 Version: $LATEST
+2018-04-10T16:40:10.149Z	d56d0292-3cdd-11e8-a9d4-5f05f0b5cfb3	Authentication in state setup.
+2018-04-10T16:40:10.149Z	d56d0292-3cdd-11e8-a9d4-5f05f0b5cfb3	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+2018-04-10T16:40:10.149Z	d56d0292-3cdd-11e8-a9d4-5f05f0b5cfb3	User discarded answer: mathematik.
+Moving from checkAnswer to addAnswer.
+END RequestId: d56d0292-3cdd-11e8-a9d4-5f05f0b5cfb3
+REPORT RequestId: d56d0292-3cdd-11e8-a9d4-5f05f0b5cfb3	Duration: 0.65 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: d80a420e-3cdd-11e8-8164-9d8df34b2314 Version: $LATEST
+2018-04-10T16:40:14.535Z	d80a420e-3cdd-11e8-8164-9d8df34b2314	Authentication in state addAnswer.
+2018-04-10T16:40:14.535Z	d80a420e-3cdd-11e8-8164-9d8df34b2314	{ name: 'SportIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ sport: 
+{ name: 'sport',
+value: 'fussball',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:40:14.536Z	d80a420e-3cdd-11e8-8164-9d8df34b2314	User said: fussball.
+Moving from addAnswer to checkAnswer.
+END RequestId: d80a420e-3cdd-11e8-8164-9d8df34b2314
+REPORT RequestId: d80a420e-3cdd-11e8-8164-9d8df34b2314	Duration: 1.11 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: daa38b17-3cdd-11e8-aff6-377d7d46366e Version: $LATEST
+2018-04-10T16:40:18.902Z	daa38b17-3cdd-11e8-aff6-377d7d46366e	Authentication in state checkAnswer.
+2018-04-10T16:40:18.902Z	daa38b17-3cdd-11e8-aff6-377d7d46366e	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+END RequestId: daa38b17-3cdd-11e8-aff6-377d7d46366e
+REPORT RequestId: daa38b17-3cdd-11e8-aff6-377d7d46366e	Duration: 0.71 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: df1367b3-3cdd-11e8-bc1a-f7bde9f1a0b3 Version: $LATEST
+2018-04-10T16:40:26.360Z	df1367b3-3cdd-11e8-bc1a-f7bde9f1a0b3	Authentication in state setup.
+2018-04-10T16:40:26.360Z	df1367b3-3cdd-11e8-bc1a-f7bde9f1a0b3	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+2018-04-10T16:40:26.360Z	df1367b3-3cdd-11e8-bc1a-f7bde9f1a0b3	User discarded answer: fussball.
+Moving from checkAnswer to addAnswer.
+END RequestId: df1367b3-3cdd-11e8-bc1a-f7bde9f1a0b3
+REPORT RequestId: df1367b3-3cdd-11e8-bc1a-f7bde9f1a0b3	Duration: 20.80 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: e2866f32-3cdd-11e8-b4e3-f55163b9b0b6 Version: $LATEST
+2018-04-10T16:40:32.129Z	e2866f32-3cdd-11e8-b4e3-f55163b9b0b6	Authentication in state addAnswer.
+2018-04-10T16:40:32.129Z	e2866f32-3cdd-11e8-b4e3-f55163b9b0b6	{ name: 'VornameIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ name: 
+{ name: 'name',
+value: 'Alexander',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:40:32.129Z	e2866f32-3cdd-11e8-b4e3-f55163b9b0b6	User said: Alexander.
+Moving from addAnswer to checkAnswer.
+END RequestId: e2866f32-3cdd-11e8-b4e3-f55163b9b0b6
+REPORT RequestId: e2866f32-3cdd-11e8-b4e3-f55163b9b0b6	Duration: 1.04 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: e5b51959-3cdd-11e8-a906-cb494b7c4b47 Version: $LATEST
+2018-04-10T16:40:37.465Z	e5b51959-3cdd-11e8-a906-cb494b7c4b47	Authentication in state checkAnswer.
+2018-04-10T16:40:37.466Z	e5b51959-3cdd-11e8-a906-cb494b7c4b47	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+END RequestId: e5b51959-3cdd-11e8-a906-cb494b7c4b47
+REPORT RequestId: e5b51959-3cdd-11e8-a906-cb494b7c4b47	Duration: 0.67 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: ea3e23f2-3cdd-11e8-92f9-7b7f3e9c3939 Version: $LATEST
+2018-04-10T16:40:45.084Z	ea3e23f2-3cdd-11e8-92f9-7b7f3e9c3939	Authentication in state setup.
+2018-04-10T16:40:45.084Z	ea3e23f2-3cdd-11e8-92f9-7b7f3e9c3939	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+2018-04-10T16:40:45.084Z	ea3e23f2-3cdd-11e8-92f9-7b7f3e9c3939	User discarded answer: Alexander.
+Moving from checkAnswer to addAnswer.
+END RequestId: ea3e23f2-3cdd-11e8-92f9-7b7f3e9c3939
+REPORT RequestId: ea3e23f2-3cdd-11e8-92f9-7b7f3e9c3939	Duration: 0.89 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: ed92a659-3cdd-11e8-9063-1d8ec9722e2d Version: $LATEST
+2018-04-10T16:40:50.664Z	ed92a659-3cdd-11e8-9063-1d8ec9722e2d	Authentication in state addAnswer.
+2018-04-10T16:40:50.664Z	ed92a659-3cdd-11e8-9063-1d8ec9722e2d	{ name: 'VornameIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ name: 
+{ name: 'name',
+value: 'galina',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:40:50.681Z	ed92a659-3cdd-11e8-9063-1d8ec9722e2d	User said: galina.
+Moving from addAnswer to checkAnswer.
+END RequestId: ed92a659-3cdd-11e8-9063-1d8ec9722e2d
+REPORT RequestId: ed92a659-3cdd-11e8-9063-1d8ec9722e2d	Duration: 17.64 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: f05018cb-3cdd-11e8-88bb-8385b54c4027 Version: $LATEST
+2018-04-10T16:40:55.259Z	f05018cb-3cdd-11e8-88bb-8385b54c4027	Authentication in state checkAnswer.
+2018-04-10T16:40:55.259Z	f05018cb-3cdd-11e8-88bb-8385b54c4027	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+END RequestId: f05018cb-3cdd-11e8-88bb-8385b54c4027
+REPORT RequestId: f05018cb-3cdd-11e8-88bb-8385b54c4027	Duration: 0.80 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: f3b1e1a6-3cdd-11e8-8787-798f23318aa5 Version: $LATEST
+2018-04-10T16:41:00.936Z	f3b1e1a6-3cdd-11e8-8787-798f23318aa5	Authentication in state setup.
+2018-04-10T16:41:00.936Z	f3b1e1a6-3cdd-11e8-8787-798f23318aa5	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+2018-04-10T16:41:00.937Z	f3b1e1a6-3cdd-11e8-8787-798f23318aa5	User discarded answer: galina.
+Moving from checkAnswer to addAnswer.
+END RequestId: f3b1e1a6-3cdd-11e8-8787-798f23318aa5
+REPORT RequestId: f3b1e1a6-3cdd-11e8-8787-798f23318aa5	Duration: 0.90 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: f6ab7225-3cdd-11e8-892c-293e4c1e7f9b Version: $LATEST
+2018-04-10T16:41:05.935Z	f6ab7225-3cdd-11e8-892c-293e4c1e7f9b	Authentication in state addAnswer.
+2018-04-10T16:41:05.935Z	f6ab7225-3cdd-11e8-892c-293e4c1e7f9b	{ name: 'FahrzeugIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ auto: 
+{ name: 'auto',
+value: 'Mercedes',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:41:05.936Z	f6ab7225-3cdd-11e8-892c-293e4c1e7f9b	User said: Mercedes.
+Moving from addAnswer to checkAnswer.
+END RequestId: f6ab7225-3cdd-11e8-892c-293e4c1e7f9b
+REPORT RequestId: f6ab7225-3cdd-11e8-892c-293e4c1e7f9b	Duration: 0.99 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: f9980ad6-3cdd-11e8-b53f-a5b09c117a61 Version: $LATEST
+2018-04-10T16:41:10.835Z	f9980ad6-3cdd-11e8-b53f-a5b09c117a61	Authentication in state checkAnswer.
+2018-04-10T16:41:10.835Z	f9980ad6-3cdd-11e8-b53f-a5b09c117a61	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+END RequestId: f9980ad6-3cdd-11e8-b53f-a5b09c117a61
+REPORT RequestId: f9980ad6-3cdd-11e8-b53f-a5b09c117a61	Duration: 1.28 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: fd7ff382-3cdd-11e8-b1bb-a7c4a84516a7 Version: $LATEST
+2018-04-10T16:41:17.392Z	fd7ff382-3cdd-11e8-b1bb-a7c4a84516a7	Authentication in state setup.
+2018-04-10T16:41:17.392Z	fd7ff382-3cdd-11e8-b1bb-a7c4a84516a7	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+2018-04-10T16:41:17.392Z	fd7ff382-3cdd-11e8-b1bb-a7c4a84516a7	User discarded answer: Mercedes.
+Moving from checkAnswer to addAnswer.
+END RequestId: fd7ff382-3cdd-11e8-b1bb-a7c4a84516a7
+REPORT RequestId: fd7ff382-3cdd-11e8-b1bb-a7c4a84516a7	Duration: 5.09 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 00644e2c-3cde-11e8-bca6-a501ae0ff9fd Version: $LATEST
+2018-04-10T16:41:22.246Z	00644e2c-3cde-11e8-bca6-a501ae0ff9fd	Authentication in state addAnswer.
+2018-04-10T16:41:22.246Z	00644e2c-3cde-11e8-bca6-a501ae0ff9fd	{ name: 'VornameIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ name: 
+{ name: 'name',
+value: 'Rafael',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:41:22.246Z	00644e2c-3cde-11e8-bca6-a501ae0ff9fd	User said: Rafael.
+Moving from addAnswer to checkAnswer.
+END RequestId: 00644e2c-3cde-11e8-bca6-a501ae0ff9fd
+REPORT RequestId: 00644e2c-3cde-11e8-bca6-a501ae0ff9fd	Duration: 0.92 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 040961de-3cde-11e8-b153-95bdbe004a40 Version: $LATEST
+2018-04-10T16:41:28.357Z	040961de-3cde-11e8-b153-95bdbe004a40	Authentication in state checkAnswer.
+2018-04-10T16:41:28.357Z	040961de-3cde-11e8-b153-95bdbe004a40	{ name: 'NeinIntent', confirmationStatus: 'NONE' }
+2018-04-10T16:41:28.357Z	040961de-3cde-11e8-b153-95bdbe004a40	User discarded answer: Rafael.
+Moving from checkAnswer to addAnswer.
+END RequestId: 040961de-3cde-11e8-b153-95bdbe004a40
+REPORT RequestId: 040961de-3cde-11e8-b153-95bdbe004a40	Duration: 0.72 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 06e7a26f-3cde-11e8-b1a4-8946fc4e2e4c Version: $LATEST
+2018-04-10T16:41:33.165Z	06e7a26f-3cde-11e8-b1a4-8946fc4e2e4c	Authentication in state addAnswer.
+2018-04-10T16:41:33.165Z	06e7a26f-3cde-11e8-b1a4-8946fc4e2e4c	{ name: 'InterpretIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ interpret: 
+{ name: 'interpret',
+value: 'Kelis',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:41:33.165Z	06e7a26f-3cde-11e8-b1a4-8946fc4e2e4c	User said: Kelis.
+Moving from addAnswer to checkAnswer.
+END RequestId: 06e7a26f-3cde-11e8-b1a4-8946fc4e2e4c
+REPORT RequestId: 06e7a26f-3cde-11e8-b1a4-8946fc4e2e4c	Duration: 1.01 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 0a59bec1-3cde-11e8-ba18-ff35127af70a Version: $LATEST
+2018-04-10T16:41:38.954Z	0a59bec1-3cde-11e8-ba18-ff35127af70a	Authentication in state checkAnswer.
+2018-04-10T16:41:38.954Z	0a59bec1-3cde-11e8-ba18-ff35127af70a	{ name: 'NeinIntent', confirmationStatus: 'NONE' }
+2018-04-10T16:41:38.954Z	0a59bec1-3cde-11e8-ba18-ff35127af70a	User discarded answer: Kelis.
+Moving from checkAnswer to addAnswer.
+END RequestId: 0a59bec1-3cde-11e8-ba18-ff35127af70a
+REPORT RequestId: 0a59bec1-3cde-11e8-ba18-ff35127af70a	Duration: 0.66 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 0dc96a1d-3cde-11e8-990f-0fb0ddfaed16 Version: $LATEST
+2018-04-10T16:41:44.719Z	0dc96a1d-3cde-11e8-990f-0fb0ddfaed16	Authentication in state addAnswer.
+2018-04-10T16:41:44.719Z	0dc96a1d-3cde-11e8-990f-0fb0ddfaed16	{ name: 'FahrzeugIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ auto: 
+{ name: 'auto',
+value: 'Mercedes',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:41:44.720Z	0dc96a1d-3cde-11e8-990f-0fb0ddfaed16	User said: Mercedes.
+Moving from addAnswer to checkAnswer.
+END RequestId: 0dc96a1d-3cde-11e8-990f-0fb0ddfaed16
+REPORT RequestId: 0dc96a1d-3cde-11e8-990f-0fb0ddfaed16	Duration: 1.88 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 10d6f817-3cde-11e8-9a44-5d24ad5c6384 Version: $LATEST
+2018-04-10T16:41:49.837Z	10d6f817-3cde-11e8-9a44-5d24ad5c6384	Authentication in state checkAnswer.
+2018-04-10T16:41:49.837Z	10d6f817-3cde-11e8-9a44-5d24ad5c6384	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+END RequestId: 10d6f817-3cde-11e8-9a44-5d24ad5c6384
+REPORT RequestId: 10d6f817-3cde-11e8-9a44-5d24ad5c6384	Duration: 0.78 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 15858c71-3cde-11e8-b67a-65ae1aa3ddd6 Version: $LATEST
+2018-04-10T16:41:57.700Z	15858c71-3cde-11e8-b67a-65ae1aa3ddd6	Authentication in state setup.
+2018-04-10T16:41:57.700Z	15858c71-3cde-11e8-b67a-65ae1aa3ddd6	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+2018-04-10T16:41:57.720Z	15858c71-3cde-11e8-b67a-65ae1aa3ddd6	User discarded answer: Mercedes.
+Moving from checkAnswer to addAnswer.
+END RequestId: 15858c71-3cde-11e8-b67a-65ae1aa3ddd6
+REPORT RequestId: 15858c71-3cde-11e8-b67a-65ae1aa3ddd6	Duration: 31.76 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 1d90df46-3cde-11e8-ab8d-9deaf530e366 Version: $LATEST
+2018-04-10T16:42:11.201Z	1d90df46-3cde-11e8-ab8d-9deaf530e366	Authentication in state addAnswer.
+2018-04-10T16:42:11.201Z	1d90df46-3cde-11e8-ab8d-9deaf530e366	{ name: 'VornameIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ name: 
+{ name: 'name',
+value: 'Matthias',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:42:11.202Z	1d90df46-3cde-11e8-ab8d-9deaf530e366	User said: Matthias.
+Moving from addAnswer to checkAnswer.
+END RequestId: 1d90df46-3cde-11e8-ab8d-9deaf530e366
+REPORT RequestId: 1d90df46-3cde-11e8-ab8d-9deaf530e366	Duration: 7.16 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 20323ecf-3cde-11e8-8bb3-818aa3eeb3d2 Version: $LATEST
+2018-04-10T16:42:15.604Z	20323ecf-3cde-11e8-8bb3-818aa3eeb3d2	Authentication in state checkAnswer.
+2018-04-10T16:42:15.604Z	20323ecf-3cde-11e8-8bb3-818aa3eeb3d2	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+END RequestId: 20323ecf-3cde-11e8-8bb3-818aa3eeb3d2
+REPORT RequestId: 20323ecf-3cde-11e8-8bb3-818aa3eeb3d2	Duration: 0.73 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 23c13193-3cde-11e8-932c-157a042e8576 Version: $LATEST
+2018-04-10T16:42:21.574Z	23c13193-3cde-11e8-932c-157a042e8576	Authentication in state setup.
+2018-04-10T16:42:21.574Z	23c13193-3cde-11e8-932c-157a042e8576	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+2018-04-10T16:42:21.574Z	23c13193-3cde-11e8-932c-157a042e8576	User discarded answer: Matthias.
+Moving from checkAnswer to addAnswer.
+END RequestId: 23c13193-3cde-11e8-932c-157a042e8576
+REPORT RequestId: 23c13193-3cde-11e8-932c-157a042e8576	Duration: 0.72 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 2a3cbd7d-3cde-11e8-af6e-1f77d3be1a07 Version: $LATEST
+2018-04-10T16:42:32.449Z	2a3cbd7d-3cde-11e8-af6e-1f77d3be1a07	Authentication in state addAnswer.
+2018-04-10T16:42:32.449Z	2a3cbd7d-3cde-11e8-af6e-1f77d3be1a07	{ name: 'TierIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ tier: 
+{ name: 'tier',
+value: 'schlange',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:42:32.449Z	2a3cbd7d-3cde-11e8-af6e-1f77d3be1a07	User said: schlange.
+Moving from addAnswer to checkAnswer.
+END RequestId: 2a3cbd7d-3cde-11e8-af6e-1f77d3be1a07
+REPORT RequestId: 2a3cbd7d-3cde-11e8-af6e-1f77d3be1a07	Duration: 11.58 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 2dbf5453-3cde-11e8-abd9-5b5d956d6935 Version: $LATEST
+2018-04-10T16:42:38.342Z	2dbf5453-3cde-11e8-abd9-5b5d956d6935	Authentication in state checkAnswer.
+2018-04-10T16:42:38.342Z	2dbf5453-3cde-11e8-abd9-5b5d956d6935	{ name: 'NeinIntent', confirmationStatus: 'NONE' }
+2018-04-10T16:42:38.342Z	2dbf5453-3cde-11e8-abd9-5b5d956d6935	User discarded answer: schlange.
+Moving from checkAnswer to addAnswer.
+END RequestId: 2dbf5453-3cde-11e8-abd9-5b5d956d6935
+REPORT RequestId: 2dbf5453-3cde-11e8-abd9-5b5d956d6935	Duration: 0.64 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 30e2660d-3cde-11e8-8023-051a2b413055 Version: $LATEST
+2018-04-10T16:42:43.621Z	30e2660d-3cde-11e8-8023-051a2b413055	Authentication in state addAnswer.
+2018-04-10T16:42:43.621Z	30e2660d-3cde-11e8-8023-051a2b413055	{ name: 'LandIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ landName: 
+{ name: 'landName',
+value: 'Deutschland',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:42:43.640Z	30e2660d-3cde-11e8-8023-051a2b413055	User said: Deutschland.
+Moving from addAnswer to checkAnswer.
+END RequestId: 30e2660d-3cde-11e8-8023-051a2b413055
+REPORT RequestId: 30e2660d-3cde-11e8-8023-051a2b413055	Duration: 19.75 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 33f6f9b5-3cde-11e8-bd08-b364f82c64f6 Version: $LATEST
+2018-04-10T16:42:48.770Z	33f6f9b5-3cde-11e8-bd08-b364f82c64f6	Authentication in state checkAnswer.
+2018-04-10T16:42:48.770Z	33f6f9b5-3cde-11e8-bd08-b364f82c64f6	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+END RequestId: 33f6f9b5-3cde-11e8-bd08-b364f82c64f6
+REPORT RequestId: 33f6f9b5-3cde-11e8-bd08-b364f82c64f6	Duration: 0.78 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 37662fcd-3cde-11e8-abe1-cfbf715fc926 Version: $LATEST
+2018-04-10T16:42:54.535Z	37662fcd-3cde-11e8-abe1-cfbf715fc926	Authentication in state setup.
+2018-04-10T16:42:54.535Z	37662fcd-3cde-11e8-abe1-cfbf715fc926	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+2018-04-10T16:42:54.535Z	37662fcd-3cde-11e8-abe1-cfbf715fc926	User discarded answer: Deutschland.
+Moving from checkAnswer to addAnswer.
+END RequestId: 37662fcd-3cde-11e8-abe1-cfbf715fc926
+REPORT RequestId: 37662fcd-3cde-11e8-abe1-cfbf715fc926	Duration: 5.42 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 39ff50ed-3cde-11e8-a458-1d5b10375b22 Version: $LATEST
+2018-04-10T16:42:58.900Z	39ff50ed-3cde-11e8-a458-1d5b10375b22	Authentication in state addAnswer.
+2018-04-10T16:42:58.900Z	39ff50ed-3cde-11e8-a458-1d5b10375b22	{ name: 'ElektronikMarkenIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ marke: 
+{ name: 'marke',
+value: 'apple',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:42:58.900Z	39ff50ed-3cde-11e8-a458-1d5b10375b22	User said: apple.
+Moving from addAnswer to checkAnswer.
+END RequestId: 39ff50ed-3cde-11e8-a458-1d5b10375b22
+REPORT RequestId: 39ff50ed-3cde-11e8-a458-1d5b10375b22	Duration: 20.81 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 3cb410d1-3cde-11e8-8382-0b2408ab7e3b Version: $LATEST
+2018-04-10T16:43:03.438Z	3cb410d1-3cde-11e8-8382-0b2408ab7e3b	Authentication in state checkAnswer.
+2018-04-10T16:43:03.438Z	3cb410d1-3cde-11e8-8382-0b2408ab7e3b	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+END RequestId: 3cb410d1-3cde-11e8-8382-0b2408ab7e3b
+REPORT RequestId: 3cb410d1-3cde-11e8-8382-0b2408ab7e3b	Duration: 0.73 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 40225c98-3cde-11e8-953d-499feeffc3f6 Version: $LATEST
+2018-04-10T16:43:09.191Z	40225c98-3cde-11e8-953d-499feeffc3f6	Authentication in state setup.
+2018-04-10T16:43:09.191Z	40225c98-3cde-11e8-953d-499feeffc3f6	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+2018-04-10T16:43:09.191Z	40225c98-3cde-11e8-953d-499feeffc3f6	User discarded answer: apple.
+Moving from checkAnswer to addAnswer.
+END RequestId: 40225c98-3cde-11e8-953d-499feeffc3f6
+REPORT RequestId: 40225c98-3cde-11e8-953d-499feeffc3f6	Duration: 0.93 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 43220771-3cde-11e8-995c-8d997d268cd1 Version: $LATEST
+2018-04-10T16:43:14.223Z	43220771-3cde-11e8-995c-8d997d268cd1	Authentication in state addAnswer.
+2018-04-10T16:43:14.223Z	43220771-3cde-11e8-995c-8d997d268cd1	{ name: 'ElektronikMarkenIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ marke: 
+{ name: 'marke',
+value: 'apple',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:43:14.224Z	43220771-3cde-11e8-995c-8d997d268cd1	User said: apple.
+Moving from addAnswer to checkAnswer.
+END RequestId: 43220771-3cde-11e8-995c-8d997d268cd1
+REPORT RequestId: 43220771-3cde-11e8-995c-8d997d268cd1	Duration: 17.09 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 45d085af-3cde-11e8-a562-dff233b8367b Version: $LATEST
+2018-04-10T16:43:18.722Z	45d085af-3cde-11e8-a562-dff233b8367b	Authentication in state checkAnswer.
+2018-04-10T16:43:18.722Z	45d085af-3cde-11e8-a562-dff233b8367b	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+END RequestId: 45d085af-3cde-11e8-a562-dff233b8367b
+REPORT RequestId: 45d085af-3cde-11e8-a562-dff233b8367b	Duration: 0.77 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 49e412c8-3cde-11e8-a2c0-292a1fed28d1 Version: $LATEST
+2018-04-10T16:43:25.561Z	49e412c8-3cde-11e8-a2c0-292a1fed28d1	Authentication in state setup.
+2018-04-10T16:43:25.561Z	49e412c8-3cde-11e8-a2c0-292a1fed28d1	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+2018-04-10T16:43:25.562Z	49e412c8-3cde-11e8-a2c0-292a1fed28d1	User discarded answer: apple.
+Moving from checkAnswer to addAnswer.
+END RequestId: 49e412c8-3cde-11e8-a2c0-292a1fed28d1
+REPORT RequestId: 49e412c8-3cde-11e8-a2c0-292a1fed28d1	Duration: 0.76 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 4cbb4ed0-3cde-11e8-a7eb-77660bd8495d Version: $LATEST
+2018-04-10T16:43:30.328Z	4cbb4ed0-3cde-11e8-a7eb-77660bd8495d	Authentication in state addAnswer.
+2018-04-10T16:43:30.328Z	4cbb4ed0-3cde-11e8-a7eb-77660bd8495d	{ name: 'InstrumentIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ instrument: 
+{ name: 'instrument',
+value: 'orgel',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:43:30.328Z	4cbb4ed0-3cde-11e8-a7eb-77660bd8495d	User said: orgel.
+Moving from addAnswer to checkAnswer.
+END RequestId: 4cbb4ed0-3cde-11e8-a7eb-77660bd8495d
+REPORT RequestId: 4cbb4ed0-3cde-11e8-a7eb-77660bd8495d	Duration: 12.54 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 4f77d6b3-3cde-11e8-b5e9-1f095f0ac32a Version: $LATEST
+2018-04-10T16:43:34.921Z	4f77d6b3-3cde-11e8-b5e9-1f095f0ac32a	Authentication in state checkAnswer.
+2018-04-10T16:43:34.921Z	4f77d6b3-3cde-11e8-b5e9-1f095f0ac32a	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+END RequestId: 4f77d6b3-3cde-11e8-b5e9-1f095f0ac32a
+REPORT RequestId: 4f77d6b3-3cde-11e8-b5e9-1f095f0ac32a	Duration: 0.74 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 53871cf1-3cde-11e8-94df-bb5e3bd15688 Version: $LATEST
+2018-04-10T16:43:41.729Z	53871cf1-3cde-11e8-94df-bb5e3bd15688	Authentication in state setup.
+2018-04-10T16:43:41.729Z	53871cf1-3cde-11e8-94df-bb5e3bd15688	{ name: 'NeinIntent', confirmationStatus: 'NONE' }
+END RequestId: 53871cf1-3cde-11e8-94df-bb5e3bd15688
+REPORT RequestId: 53871cf1-3cde-11e8-94df-bb5e3bd15688	Duration: 1.15 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 570dd25d-3cde-11e8-bd0a-8b99da20c1e1 Version: $LATEST
+2018-04-10T16:43:47.646Z	570dd25d-3cde-11e8-bd0a-8b99da20c1e1	Authentication in state setup.
+2018-04-10T16:43:47.646Z	570dd25d-3cde-11e8-bd0a-8b99da20c1e1	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+2018-04-10T16:43:47.647Z	570dd25d-3cde-11e8-bd0a-8b99da20c1e1	User discarded answer: orgel.
+Moving from checkAnswer to addAnswer.
+END RequestId: 570dd25d-3cde-11e8-bd0a-8b99da20c1e1
+REPORT RequestId: 570dd25d-3cde-11e8-bd0a-8b99da20c1e1	Duration: 13.98 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 59e0efb8-3cde-11e8-86a1-4959bd2fafaa Version: $LATEST
+2018-04-10T16:43:52.393Z	59e0efb8-3cde-11e8-86a1-4959bd2fafaa	Authentication in state addAnswer.
+2018-04-10T16:43:52.393Z	59e0efb8-3cde-11e8-86a1-4959bd2fafaa	{ name: 'SerienIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ serie: 
+{ name: 'serie',
+value: 'dark',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:43:52.400Z	59e0efb8-3cde-11e8-86a1-4959bd2fafaa	User said: dark.
+Moving from addAnswer to checkAnswer.
+END RequestId: 59e0efb8-3cde-11e8-86a1-4959bd2fafaa
+REPORT RequestId: 59e0efb8-3cde-11e8-86a1-4959bd2fafaa	Duration: 8.11 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 5c9820e0-3cde-11e8-87b4-0b8f3fffc583 Version: $LATEST
+2018-04-10T16:43:56.943Z	5c9820e0-3cde-11e8-87b4-0b8f3fffc583	Authentication in state checkAnswer.
+2018-04-10T16:43:56.943Z	5c9820e0-3cde-11e8-87b4-0b8f3fffc583	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+END RequestId: 5c9820e0-3cde-11e8-87b4-0b8f3fffc583
+REPORT RequestId: 5c9820e0-3cde-11e8-87b4-0b8f3fffc583	Duration: 1.20 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 605f6170-3cde-11e8-9396-7db26c5449c4 Version: $LATEST
+2018-04-10T16:44:03.282Z	605f6170-3cde-11e8-9396-7db26c5449c4	Authentication in state setup.
+2018-04-10T16:44:03.282Z	605f6170-3cde-11e8-9396-7db26c5449c4	{ name: 'InterpretIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ interpret: 
+{ name: 'interpret',
+value: 'fox',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+END RequestId: 605f6170-3cde-11e8-9396-7db26c5449c4
+REPORT RequestId: 605f6170-3cde-11e8-9396-7db26c5449c4	Duration: 0.75 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 641034d2-3cde-11e8-bd11-d34d469dd882 Version: $LATEST
+2018-04-10T16:44:09.477Z	641034d2-3cde-11e8-bd11-d34d469dd882	Authentication in state setup.
+2018-04-10T16:44:09.477Z	641034d2-3cde-11e8-bd11-d34d469dd882	{ name: 'InterpretIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ interpret: 
+{ name: 'interpret',
+value: 'Eminem',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+END RequestId: 641034d2-3cde-11e8-bd11-d34d469dd882
+REPORT RequestId: 641034d2-3cde-11e8-bd11-d34d469dd882	Duration: 0.81 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 6804049e-3cde-11e8-8f37-0fd013f608a3 Version: $LATEST
+2018-04-10T16:44:16.105Z	6804049e-3cde-11e8-8f37-0fd013f608a3	Authentication in state setup.
+2018-04-10T16:44:16.105Z	6804049e-3cde-11e8-8f37-0fd013f608a3	{ name: 'FilmIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ film: 
+{ name: 'film',
+value: 'Hass',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+END RequestId: 6804049e-3cde-11e8-8f37-0fd013f608a3
+REPORT RequestId: 6804049e-3cde-11e8-8f37-0fd013f608a3	Duration: 1.28 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 6b94302f-3cde-11e8-8acb-a7b9f44ab0df Version: $LATEST
+2018-04-10T16:44:22.086Z	6b94302f-3cde-11e8-8acb-a7b9f44ab0df	Authentication in state setup.
+2018-04-10T16:44:22.086Z	6b94302f-3cde-11e8-8acb-a7b9f44ab0df	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+2018-04-10T16:44:22.086Z	6b94302f-3cde-11e8-8acb-a7b9f44ab0df	User discarded answer: dark.
+Moving from checkAnswer to addAnswer.
+END RequestId: 6b94302f-3cde-11e8-8acb-a7b9f44ab0df
+REPORT RequestId: 6b94302f-3cde-11e8-8acb-a7b9f44ab0df	Duration: 14.35 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 7051917c-3cde-11e8-adde-8b7f7fb89274 Version: $LATEST
+2018-04-10T16:44:30.043Z	7051917c-3cde-11e8-adde-8b7f7fb89274	Authentication in state addAnswer.
+2018-04-10T16:44:30.043Z	7051917c-3cde-11e8-adde-8b7f7fb89274	{ name: 'InterpretIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ interpret: 
+{ name: 'interpret',
+value: 'Eminem',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:44:30.044Z	7051917c-3cde-11e8-adde-8b7f7fb89274	User said: Eminem.
+Moving from addAnswer to checkAnswer.
+END RequestId: 7051917c-3cde-11e8-adde-8b7f7fb89274
+REPORT RequestId: 7051917c-3cde-11e8-adde-8b7f7fb89274	Duration: 0.88 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 73162f1f-3cde-11e8-a9f6-2fc42e36ba0c Version: $LATEST
+2018-04-10T16:44:34.682Z	73162f1f-3cde-11e8-a9f6-2fc42e36ba0c	Authentication in state checkAnswer.
+2018-04-10T16:44:34.682Z	73162f1f-3cde-11e8-a9f6-2fc42e36ba0c	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+END RequestId: 73162f1f-3cde-11e8-a9f6-2fc42e36ba0c
+REPORT RequestId: 73162f1f-3cde-11e8-a9f6-2fc42e36ba0c	Duration: 0.73 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 76e9a5e4-3cde-11e8-8208-a7af740fef3a Version: $LATEST
+2018-04-10T16:44:41.111Z	76e9a5e4-3cde-11e8-8208-a7af740fef3a	Authentication in state setup.
+2018-04-10T16:44:41.111Z	76e9a5e4-3cde-11e8-8208-a7af740fef3a	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+2018-04-10T16:44:41.111Z	76e9a5e4-3cde-11e8-8208-a7af740fef3a	User discarded answer: Eminem.
+Moving from checkAnswer to addAnswer.
+END RequestId: 76e9a5e4-3cde-11e8-8208-a7af740fef3a
+REPORT RequestId: 76e9a5e4-3cde-11e8-8208-a7af740fef3a	Duration: 9.75 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 7ad5106c-3cde-11e8-9910-396be3961932 Version: $LATEST
+2018-04-10T16:44:47.678Z	7ad5106c-3cde-11e8-9910-396be3961932	Authentication in state addAnswer.
+2018-04-10T16:44:47.678Z	7ad5106c-3cde-11e8-9910-396be3961932	{ name: 'ZahlIntent',
+confirmationStatus: 'NONE',
+slots: { erste: { name: 'erste', value: '615', confirmationStatus: 'NONE' } } }
+2018-04-10T16:44:47.679Z	7ad5106c-3cde-11e8-9910-396be3961932	User said: 615.
+Moving from addAnswer to checkAnswer.
+END RequestId: 7ad5106c-3cde-11e8-9910-396be3961932
+REPORT RequestId: 7ad5106c-3cde-11e8-9910-396be3961932	Duration: 0.79 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 7e198cc1-3cde-11e8-9c1d-6b4e9b37a62c Version: $LATEST
+2018-04-10T16:44:53.162Z	7e198cc1-3cde-11e8-9c1d-6b4e9b37a62c	Authentication in state checkAnswer.
+2018-04-10T16:44:53.162Z	7e198cc1-3cde-11e8-9c1d-6b4e9b37a62c	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+END RequestId: 7e198cc1-3cde-11e8-9c1d-6b4e9b37a62c
+REPORT RequestId: 7e198cc1-3cde-11e8-9c1d-6b4e9b37a62c	Duration: 1.15 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 82d1e557-3cde-11e8-a1b5-fd835051e6c1 Version: $LATEST
+2018-04-10T16:45:01.081Z	82d1e557-3cde-11e8-a1b5-fd835051e6c1	Authentication in state setup.
+2018-04-10T16:45:01.081Z	82d1e557-3cde-11e8-a1b5-fd835051e6c1	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+2018-04-10T16:45:01.081Z	82d1e557-3cde-11e8-a1b5-fd835051e6c1	User discarded answer: 615.
+Moving from checkAnswer to addAnswer.
+END RequestId: 82d1e557-3cde-11e8-a1b5-fd835051e6c1
+REPORT RequestId: 82d1e557-3cde-11e8-a1b5-fd835051e6c1	Duration: 0.72 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 875e7194-3cde-11e8-affd-c71f1ba4c923 Version: $LATEST
+2018-04-10T16:45:08.713Z	875e7194-3cde-11e8-affd-c71f1ba4c923	Authentication in state addAnswer.
+2018-04-10T16:45:08.713Z	875e7194-3cde-11e8-affd-c71f1ba4c923	{ name: 'GeldsummeIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ euro: { name: 'euro', value: '20', confirmationStatus: 'NONE' },
+cent: { name: 'cent', confirmationStatus: 'NONE' } } }
+2018-04-10T16:45:08.713Z	875e7194-3cde-11e8-affd-c71f1ba4c923	User said: 20,00€.
+Moving from addAnswer to checkAnswer.
+END RequestId: 875e7194-3cde-11e8-affd-c71f1ba4c923
+REPORT RequestId: 875e7194-3cde-11e8-affd-c71f1ba4c923	Duration: 1.20 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 8a5d3317-3cde-11e8-890d-87c10a5f9553 Version: $LATEST
+2018-04-10T16:45:13.739Z	8a5d3317-3cde-11e8-890d-87c10a5f9553	Authentication in state checkAnswer.
+2018-04-10T16:45:13.739Z	8a5d3317-3cde-11e8-890d-87c10a5f9553	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+END RequestId: 8a5d3317-3cde-11e8-890d-87c10a5f9553
+REPORT RequestId: 8a5d3317-3cde-11e8-890d-87c10a5f9553	Duration: 0.97 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 8e9b2acc-3cde-11e8-98e8-b9de5c62643f Version: $LATEST
+2018-04-10T16:45:20.855Z	8e9b2acc-3cde-11e8-98e8-b9de5c62643f	Authentication in state setup.
+2018-04-10T16:45:20.855Z	8e9b2acc-3cde-11e8-98e8-b9de5c62643f	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+2018-04-10T16:45:20.860Z	8e9b2acc-3cde-11e8-98e8-b9de5c62643f	User discarded answer: 20,00€.
+Moving from checkAnswer to addAnswer.
+END RequestId: 8e9b2acc-3cde-11e8-98e8-b9de5c62643f
+REPORT RequestId: 8e9b2acc-3cde-11e8-98e8-b9de5c62643f	Duration: 5.87 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 92aba9a6-3cde-11e8-af73-43bc34ee5b85 Version: $LATEST
+2018-04-10T16:45:27.682Z	92aba9a6-3cde-11e8-af73-43bc34ee5b85	Authentication in state addAnswer.
+2018-04-10T16:45:27.682Z	92aba9a6-3cde-11e8-af73-43bc34ee5b85	{ name: 'GeldsummeIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ euro: { name: 'euro', value: '50', confirmationStatus: 'NONE' },
+cent: { name: 'cent', confirmationStatus: 'NONE' } } }
+2018-04-10T16:45:27.683Z	92aba9a6-3cde-11e8-af73-43bc34ee5b85	User said: 50,00€.
+Moving from addAnswer to checkAnswer.
+END RequestId: 92aba9a6-3cde-11e8-af73-43bc34ee5b85
+REPORT RequestId: 92aba9a6-3cde-11e8-af73-43bc34ee5b85	Duration: 1.16 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 958d6d48-3cde-11e8-8951-afa4b9051d03 Version: $LATEST
+2018-04-10T16:45:32.509Z	958d6d48-3cde-11e8-8951-afa4b9051d03	Authentication in state checkAnswer.
+2018-04-10T16:45:32.509Z	958d6d48-3cde-11e8-8951-afa4b9051d03	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+END RequestId: 958d6d48-3cde-11e8-8951-afa4b9051d03
+REPORT RequestId: 958d6d48-3cde-11e8-8951-afa4b9051d03	Duration: 11.79 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 9a07d1f1-3cde-11e8-af42-678fcab25f89 Version: $LATEST
+2018-04-10T16:45:40.029Z	9a07d1f1-3cde-11e8-af42-678fcab25f89	Authentication in state setup.
+2018-04-10T16:45:40.029Z	9a07d1f1-3cde-11e8-af42-678fcab25f89	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+2018-04-10T16:45:40.029Z	9a07d1f1-3cde-11e8-af42-678fcab25f89	User discarded answer: 50,00€.
+Moving from checkAnswer to addAnswer.
+END RequestId: 9a07d1f1-3cde-11e8-af42-678fcab25f89
+REPORT RequestId: 9a07d1f1-3cde-11e8-af42-678fcab25f89	Duration: 0.88 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 9e23e977-3cde-11e8-9203-5ff4bfc76f8e Version: $LATEST
+2018-04-10T16:45:46.921Z	9e23e977-3cde-11e8-9203-5ff4bfc76f8e	Authentication in state addAnswer.
+2018-04-10T16:45:46.921Z	9e23e977-3cde-11e8-9203-5ff4bfc76f8e	{ name: 'FestivalIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ festival: 
+{ name: 'festival',
+value: 'rock am ring',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:45:46.922Z	9e23e977-3cde-11e8-9203-5ff4bfc76f8e	User said: rock am ring.
+Moving from addAnswer to checkAnswer.
+END RequestId: 9e23e977-3cde-11e8-9203-5ff4bfc76f8e
+REPORT RequestId: 9e23e977-3cde-11e8-9203-5ff4bfc76f8e	Duration: 19.28 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: a13918a4-3cde-11e8-bd08-5761a46ef5e6 Version: $LATEST
+2018-04-10T16:45:52.094Z	a13918a4-3cde-11e8-bd08-5761a46ef5e6	Authentication in state checkAnswer.
+2018-04-10T16:45:52.094Z	a13918a4-3cde-11e8-bd08-5761a46ef5e6	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+END RequestId: a13918a4-3cde-11e8-bd08-5761a46ef5e6
+REPORT RequestId: a13918a4-3cde-11e8-bd08-5761a46ef5e6	Duration: 0.72 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: a690e5b6-3cde-11e8-995f-b53658f16e22 Version: $LATEST
+2018-04-10T16:46:01.060Z	a690e5b6-3cde-11e8-995f-b53658f16e22	Authentication in state setup.
+2018-04-10T16:46:01.060Z	a690e5b6-3cde-11e8-995f-b53658f16e22	{ name: 'NeinIntent', confirmationStatus: 'NONE' }
+END RequestId: a690e5b6-3cde-11e8-995f-b53658f16e22
+REPORT RequestId: a690e5b6-3cde-11e8-995f-b53658f16e22	Duration: 3.59 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: aa2f692c-3cde-11e8-8240-ab12fd8f273a Version: $LATEST
+2018-04-10T16:46:07.131Z	aa2f692c-3cde-11e8-8240-ab12fd8f273a	Authentication in state setup.
+2018-04-10T16:46:07.131Z	aa2f692c-3cde-11e8-8240-ab12fd8f273a	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+2018-04-10T16:46:07.131Z	aa2f692c-3cde-11e8-8240-ab12fd8f273a	User discarded answer: rock am ring.
+Moving from checkAnswer to addAnswer.
+END RequestId: aa2f692c-3cde-11e8-8240-ab12fd8f273a
+REPORT RequestId: aa2f692c-3cde-11e8-8240-ab12fd8f273a	Duration: 0.77 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: ad4c602f-3cde-11e8-80da-63021c57ad00 Version: $LATEST
+2018-04-10T16:46:12.355Z	ad4c602f-3cde-11e8-80da-63021c57ad00	Authentication in state addAnswer.
+2018-04-10T16:46:12.355Z	ad4c602f-3cde-11e8-80da-63021c57ad00	{ name: 'SerienIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ serie: 
+{ name: 'serie',
+value: 'dark',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:46:12.355Z	ad4c602f-3cde-11e8-80da-63021c57ad00	User said: dark.
+Moving from addAnswer to checkAnswer.
+END RequestId: ad4c602f-3cde-11e8-80da-63021c57ad00
+REPORT RequestId: ad4c602f-3cde-11e8-80da-63021c57ad00	Duration: 5.73 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: aff8463e-3cde-11e8-8b5a-01cb0340193e Version: $LATEST
+2018-04-10T16:46:16.836Z	aff8463e-3cde-11e8-8b5a-01cb0340193e	Authentication in state checkAnswer.
+2018-04-10T16:46:16.836Z	aff8463e-3cde-11e8-8b5a-01cb0340193e	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+END RequestId: aff8463e-3cde-11e8-8b5a-01cb0340193e
+REPORT RequestId: aff8463e-3cde-11e8-8b5a-01cb0340193e	Duration: 0.78 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: b3e5865f-3cde-11e8-bb6a-9585dc376b7c Version: $LATEST
+2018-04-10T16:46:23.427Z	b3e5865f-3cde-11e8-bb6a-9585dc376b7c	Authentication in state setup.
+2018-04-10T16:46:23.427Z	b3e5865f-3cde-11e8-bb6a-9585dc376b7c	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+2018-04-10T16:46:23.427Z	b3e5865f-3cde-11e8-bb6a-9585dc376b7c	User discarded answer: dark.
+Moving from checkAnswer to addAnswer.
+END RequestId: b3e5865f-3cde-11e8-bb6a-9585dc376b7c
+REPORT RequestId: b3e5865f-3cde-11e8-bb6a-9585dc376b7c	Duration: 0.98 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: b70f4f2a-3cde-11e8-80da-63021c57ad00 Version: $LATEST
+2018-04-10T16:46:28.736Z	b70f4f2a-3cde-11e8-80da-63021c57ad00	Authentication in state addAnswer.
+2018-04-10T16:46:28.736Z	b70f4f2a-3cde-11e8-80da-63021c57ad00	{ name: 'StadtIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ stadtName: 
+{ name: 'stadtName',
+value: 'querfurt',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:46:28.737Z	b70f4f2a-3cde-11e8-80da-63021c57ad00	User said: querfurt.
+Moving from addAnswer to checkAnswer.
+END RequestId: b70f4f2a-3cde-11e8-80da-63021c57ad00
+REPORT RequestId: b70f4f2a-3cde-11e8-80da-63021c57ad00	Duration: 4.28 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: ba08b834-3cde-11e8-96b2-f178d7a318b3 Version: $LATEST
+2018-04-10T16:46:33.723Z	ba08b834-3cde-11e8-96b2-f178d7a318b3	Authentication in state checkAnswer.
+2018-04-10T16:46:33.723Z	ba08b834-3cde-11e8-96b2-f178d7a318b3	{ name: 'NeinIntent', confirmationStatus: 'NONE' }
+2018-04-10T16:46:33.724Z	ba08b834-3cde-11e8-96b2-f178d7a318b3	User discarded answer: querfurt.
+Moving from checkAnswer to addAnswer.
+END RequestId: ba08b834-3cde-11e8-96b2-f178d7a318b3
+REPORT RequestId: ba08b834-3cde-11e8-96b2-f178d7a318b3	Duration: 0.98 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: bd79ead3-3cde-11e8-bc57-af007ac0d79b Version: $LATEST
+2018-04-10T16:46:39.500Z	bd79ead3-3cde-11e8-bc57-af007ac0d79b	Authentication in state addAnswer.
+2018-04-10T16:46:39.500Z	bd79ead3-3cde-11e8-bc57-af007ac0d79b	{ name: 'RadiosenderIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ sender: 
+{ name: 'sender',
+value: 'radio regenbogen',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:46:39.500Z	bd79ead3-3cde-11e8-bc57-af007ac0d79b	User said: radio regenbogen.
+Moving from addAnswer to checkAnswer.
+END RequestId: bd79ead3-3cde-11e8-bc57-af007ac0d79b
+REPORT RequestId: bd79ead3-3cde-11e8-bc57-af007ac0d79b	Duration: 1.23 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: c0ba6fb6-3cde-11e8-834d-1f7a1674925a Version: $LATEST
+2018-04-10T16:46:44.953Z	c0ba6fb6-3cde-11e8-834d-1f7a1674925a	Authentication in state checkAnswer.
+2018-04-10T16:46:44.953Z	c0ba6fb6-3cde-11e8-834d-1f7a1674925a	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+END RequestId: c0ba6fb6-3cde-11e8-834d-1f7a1674925a
+REPORT RequestId: c0ba6fb6-3cde-11e8-834d-1f7a1674925a	Duration: 7.87 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: c54268ac-3cde-11e8-bf5f-b12779d3f37f Version: $LATEST
+2018-04-10T16:46:52.558Z	c54268ac-3cde-11e8-bf5f-b12779d3f37f	Authentication in state setup.
+2018-04-10T16:46:52.558Z	c54268ac-3cde-11e8-bf5f-b12779d3f37f	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+2018-04-10T16:46:52.560Z	c54268ac-3cde-11e8-bf5f-b12779d3f37f	User discarded answer: radio regenbogen.
+Moving from checkAnswer to addAnswer.
+END RequestId: c54268ac-3cde-11e8-bf5f-b12779d3f37f
+REPORT RequestId: c54268ac-3cde-11e8-bf5f-b12779d3f37f	Duration: 2.47 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: cd5e5da6-3cde-11e8-bd8d-395d4538e8e2 Version: $LATEST
+2018-04-10T16:47:06.169Z	cd5e5da6-3cde-11e8-bd8d-395d4538e8e2	Skill requestId=amzn1.echo-api.request.774541d3-065a-4135-99c4-d80433cdba04, sessionId=amzn1.echo-api.session.1511e41c-6bd2-41ec-bd4c-3b917de4ef69 beendet.
+END RequestId: cd5e5da6-3cde-11e8-bd8d-395d4538e8e2
+REPORT RequestId: cd5e5da6-3cde-11e8-bd8d-395d4538e8e2	Duration: 13.34 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: d26571d3-3cde-11e8-aef4-cd7471432592 Version: $LATEST
+2018-04-10T16:47:14.598Z	d26571d3-3cde-11e8-aef4-cd7471432592	Authentication in state addAnswer.
+2018-04-10T16:47:14.598Z	d26571d3-3cde-11e8-aef4-cd7471432592	{ name: 'LandIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ landName: 
+{ name: 'landName',
+value: 'jordanien',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:47:14.598Z	d26571d3-3cde-11e8-aef4-cd7471432592	User said: jordanien.
+Moving from addAnswer to checkAnswer.
+END RequestId: d26571d3-3cde-11e8-aef4-cd7471432592
+REPORT RequestId: d26571d3-3cde-11e8-aef4-cd7471432592	Duration: 0.89 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: d5a4e59c-3cde-11e8-a792-2354c281ea02 Version: $LATEST
+2018-04-10T16:47:20.048Z	d5a4e59c-3cde-11e8-a792-2354c281ea02	Authentication in state checkAnswer.
+2018-04-10T16:47:20.048Z	d5a4e59c-3cde-11e8-a792-2354c281ea02	{ name: 'NeinIntent', confirmationStatus: 'NONE' }
+2018-04-10T16:47:20.048Z	d5a4e59c-3cde-11e8-a792-2354c281ea02	User discarded answer: jordanien.
+Moving from checkAnswer to addAnswer.
+END RequestId: d5a4e59c-3cde-11e8-a792-2354c281ea02
+REPORT RequestId: d5a4e59c-3cde-11e8-a792-2354c281ea02	Duration: 0.73 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: d9e2b6ec-3cde-11e8-8a03-a1095dcd99f5 Version: $LATEST
+2018-04-10T16:47:27.166Z	d9e2b6ec-3cde-11e8-8a03-a1095dcd99f5	Authentication in state addAnswer.
+2018-04-10T16:47:27.166Z	d9e2b6ec-3cde-11e8-8a03-a1095dcd99f5	{ name: 'ElektronikMarkenIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ marke: 
+{ name: 'marke',
+value: 'amazon',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:47:27.167Z	d9e2b6ec-3cde-11e8-8a03-a1095dcd99f5	User said: amazon.
+Moving from addAnswer to checkAnswer.
+END RequestId: d9e2b6ec-3cde-11e8-8a03-a1095dcd99f5
+REPORT RequestId: d9e2b6ec-3cde-11e8-8a03-a1095dcd99f5	Duration: 1.01 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: dcbb7950-3cde-11e8-b1ed-aba07bc9e9e5 Version: $LATEST
+2018-04-10T16:47:31.952Z	dcbb7950-3cde-11e8-b1ed-aba07bc9e9e5	Authentication in state checkAnswer.
+2018-04-10T16:47:31.952Z	dcbb7950-3cde-11e8-b1ed-aba07bc9e9e5	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+END RequestId: dcbb7950-3cde-11e8-b1ed-aba07bc9e9e5
+REPORT RequestId: dcbb7950-3cde-11e8-b1ed-aba07bc9e9e5	Duration: 7.94 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: e0b53b6d-3cde-11e8-8a73-014a0b453d2c Version: $LATEST
+2018-04-10T16:47:38.608Z	e0b53b6d-3cde-11e8-8a73-014a0b453d2c	Authentication in state setup.
+2018-04-10T16:47:38.608Z	e0b53b6d-3cde-11e8-8a73-014a0b453d2c	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+2018-04-10T16:47:38.608Z	e0b53b6d-3cde-11e8-8a73-014a0b453d2c	User discarded answer: amazon.
+Moving from checkAnswer to addAnswer.
+END RequestId: e0b53b6d-3cde-11e8-8a73-014a0b453d2c
+REPORT RequestId: e0b53b6d-3cde-11e8-8a73-014a0b453d2c	Duration: 0.84 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: e440ac7b-3cde-11e8-937d-0bcf0e579b1a Version: $LATEST
+2018-04-10T16:47:44.559Z	e440ac7b-3cde-11e8-937d-0bcf0e579b1a	Authentication in state addAnswer.
+2018-04-10T16:47:44.559Z	e440ac7b-3cde-11e8-937d-0bcf0e579b1a	{ name: 'StadtIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ stadtName: 
+{ name: 'stadtName',
+value: 'hersbruck',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:47:44.560Z	e440ac7b-3cde-11e8-937d-0bcf0e579b1a	User said: hersbruck.
+Moving from addAnswer to checkAnswer.
+END RequestId: e440ac7b-3cde-11e8-937d-0bcf0e579b1a
+REPORT RequestId: e440ac7b-3cde-11e8-937d-0bcf0e579b1a	Duration: 1.30 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: e810c73b-3cde-11e8-9d55-e79647f48ff0 Version: $LATEST
+2018-04-10T16:47:50.981Z	e810c73b-3cde-11e8-9d55-e79647f48ff0	Authentication in state checkAnswer.
+2018-04-10T16:47:50.981Z	e810c73b-3cde-11e8-9d55-e79647f48ff0	{ name: 'NeinIntent', confirmationStatus: 'NONE' }
+2018-04-10T16:47:50.981Z	e810c73b-3cde-11e8-9d55-e79647f48ff0	User discarded answer: hersbruck.
+Moving from checkAnswer to addAnswer.
+END RequestId: e810c73b-3cde-11e8-9d55-e79647f48ff0
+REPORT RequestId: e810c73b-3cde-11e8-9d55-e79647f48ff0	Duration: 28.77 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: ef7ddeca-3cde-11e8-8454-ab0b5b71cd5f Version: $LATEST
+2018-04-10T16:48:03.411Z	ef7ddeca-3cde-11e8-8454-ab0b5b71cd5f	Authentication in state addAnswer.
+2018-04-10T16:48:03.411Z	ef7ddeca-3cde-11e8-8454-ab0b5b71cd5f	{ name: 'ElektronikMarkenIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ marke: 
+{ name: 'marke',
+value: 'amazon',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:48:03.411Z	ef7ddeca-3cde-11e8-8454-ab0b5b71cd5f	User said: amazon.
+Moving from addAnswer to checkAnswer.
+END RequestId: ef7ddeca-3cde-11e8-8454-ab0b5b71cd5f
+REPORT RequestId: ef7ddeca-3cde-11e8-8454-ab0b5b71cd5f	Duration: 10.14 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: f235ac16-3cde-11e8-869d-fbc1d3d925b5 Version: $LATEST
+2018-04-10T16:48:07.992Z	f235ac16-3cde-11e8-869d-fbc1d3d925b5	Authentication in state checkAnswer.
+2018-04-10T16:48:07.992Z	f235ac16-3cde-11e8-869d-fbc1d3d925b5	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+END RequestId: f235ac16-3cde-11e8-869d-fbc1d3d925b5
+REPORT RequestId: f235ac16-3cde-11e8-869d-fbc1d3d925b5	Duration: 1.00 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: f642a89a-3cde-11e8-8ac1-2505fd37baa7 Version: $LATEST
+2018-04-10T16:48:14.769Z	f642a89a-3cde-11e8-8ac1-2505fd37baa7	Authentication in state setup.
+2018-04-10T16:48:14.769Z	f642a89a-3cde-11e8-8ac1-2505fd37baa7	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+2018-04-10T16:48:14.780Z	f642a89a-3cde-11e8-8ac1-2505fd37baa7	User discarded answer: amazon.
+Moving from checkAnswer to addAnswer.
+END RequestId: f642a89a-3cde-11e8-8ac1-2505fd37baa7
+REPORT RequestId: f642a89a-3cde-11e8-8ac1-2505fd37baa7	Duration: 11.94 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: f9e4aeb0-3cde-11e8-9fd1-d7694a4206ea Version: $LATEST
+2018-04-10T16:48:20.865Z	f9e4aeb0-3cde-11e8-9fd1-d7694a4206ea	Authentication in state addAnswer.
+2018-04-10T16:48:20.865Z	f9e4aeb0-3cde-11e8-9fd1-d7694a4206ea	{ name: 'InstrumentIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ instrument: 
+{ name: 'instrument',
+value: 'kugelschreiber',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:48:20.865Z	f9e4aeb0-3cde-11e8-9fd1-d7694a4206ea	User said: kugelschreiber.
+Moving from addAnswer to checkAnswer.
+END RequestId: f9e4aeb0-3cde-11e8-9fd1-d7694a4206ea
+REPORT RequestId: f9e4aeb0-3cde-11e8-9fd1-d7694a4206ea	Duration: 1.01 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: fcbf6ce6-3cde-11e8-9ac4-a1734f9e5549 Version: $LATEST
+2018-04-10T16:48:25.650Z	fcbf6ce6-3cde-11e8-9ac4-a1734f9e5549	Authentication in state checkAnswer.
+2018-04-10T16:48:25.650Z	fcbf6ce6-3cde-11e8-9ac4-a1734f9e5549	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+END RequestId: fcbf6ce6-3cde-11e8-9ac4-a1734f9e5549
+REPORT RequestId: fcbf6ce6-3cde-11e8-9ac4-a1734f9e5549	Duration: 10.46 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 01109f24-3cdf-11e8-a94f-4d8b4f73c2e3 Version: $LATEST
+2018-04-10T16:48:32.903Z	01109f24-3cdf-11e8-a94f-4d8b4f73c2e3	Authentication in state setup.
+2018-04-10T16:48:32.903Z	01109f24-3cdf-11e8-a94f-4d8b4f73c2e3	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+2018-04-10T16:48:32.903Z	01109f24-3cdf-11e8-a94f-4d8b4f73c2e3	User discarded answer: kugelschreiber.
+Moving from checkAnswer to addAnswer.
+END RequestId: 01109f24-3cdf-11e8-a94f-4d8b4f73c2e3
+REPORT RequestId: 01109f24-3cdf-11e8-a94f-4d8b4f73c2e3	Duration: 0.90 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 0526276e-3cdf-11e8-832b-c9a9a7cb551e Version: $LATEST
+2018-04-10T16:48:39.750Z	0526276e-3cdf-11e8-832b-c9a9a7cb551e	Authentication in state addAnswer.
+2018-04-10T16:48:39.750Z	0526276e-3cdf-11e8-832b-c9a9a7cb551e	{ name: 'BuchIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ buch: 
+{ name: 'buch',
+value: 'IM westen nichts neues',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:48:39.750Z	0526276e-3cdf-11e8-832b-c9a9a7cb551e	User said: IM westen nichts neues.
+Moving from addAnswer to checkAnswer.
+END RequestId: 0526276e-3cdf-11e8-832b-c9a9a7cb551e
+REPORT RequestId: 0526276e-3cdf-11e8-832b-c9a9a7cb551e	Duration: 0.99 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 084bf88e-3cdf-11e8-9239-0d38f2444c16 Version: $LATEST
+2018-04-10T16:48:45.028Z	084bf88e-3cdf-11e8-9239-0d38f2444c16	Authentication in state checkAnswer.
+2018-04-10T16:48:45.028Z	084bf88e-3cdf-11e8-9239-0d38f2444c16	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+2018-04-10T16:48:45.028Z	084bf88e-3cdf-11e8-9239-0d38f2444c16	End of Setup.
+2018-04-10T16:48:45.041Z	084bf88e-3cdf-11e8-9239-0d38f2444c16	transition not allowed from that state
+END RequestId: 084bf88e-3cdf-11e8-9239-0d38f2444c16
+REPORT RequestId: 084bf88e-3cdf-11e8-9239-0d38f2444c16	Duration: 13.30 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 0d1da407-3cdf-11e8-afb1-f94822892817 Version: $LATEST
+2018-04-10T16:48:53.116Z	0d1da407-3cdf-11e8-afb1-f94822892817	Authentication in state start.
+2018-04-10T16:48:53.116Z	0d1da407-3cdf-11e8-afb1-f94822892817	{ name: 'LandIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ landName: 
+{ name: 'landName',
+value: 'Togo',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+END RequestId: 0d1da407-3cdf-11e8-afb1-f94822892817
+REPORT RequestId: 0d1da407-3cdf-11e8-afb1-f94822892817	Duration: 0.98 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 117e8d7c-3cdf-11e8-a9b1-c9d836d51b56 Version: $LATEST
+2018-04-10T16:49:00.460Z	117e8d7c-3cdf-11e8-a9b1-c9d836d51b56	Authentication in state start.
+2018-04-10T16:49:00.460Z	117e8d7c-3cdf-11e8-a9b1-c9d836d51b56	{ name: 'SportIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ sport: 
+{ name: 'sport',
+value: 'schach',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+END RequestId: 117e8d7c-3cdf-11e8-a9b1-c9d836d51b56
+REPORT RequestId: 117e8d7c-3cdf-11e8-a9b1-c9d836d51b56	Duration: 21.11 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 168f3ea0-3cdf-11e8-ae07-bdde7daca6a7 Version: $LATEST
+2018-04-10T16:49:08.973Z	168f3ea0-3cdf-11e8-ae07-bdde7daca6a7	Authentication in state start.
+2018-04-10T16:49:08.973Z	168f3ea0-3cdf-11e8-ae07-bdde7daca6a7	{ name: 'InterpretIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ interpret: 
+{ name: 'interpret',
+value: 'the sweet',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+END RequestId: 168f3ea0-3cdf-11e8-ae07-bdde7daca6a7
+REPORT RequestId: 168f3ea0-3cdf-11e8-ae07-bdde7daca6a7	Duration: 1.26 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 1b0f6fb8-3cdf-11e8-b9f4-8b50e38429fe Version: $LATEST
+2018-04-10T16:49:16.511Z	1b0f6fb8-3cdf-11e8-b9f4-8b50e38429fe	Authentication in state start.
+2018-04-10T16:49:16.511Z	1b0f6fb8-3cdf-11e8-b9f4-8b50e38429fe	{ name: 'TestIntent', confirmationStatus: 'NONE' }
+2018-04-10T16:49:16.511Z	1b0f6fb8-3cdf-11e8-b9f4-8b50e38429fe	Starting test...
+2018-04-10T16:49:16.512Z	1b0f6fb8-3cdf-11e8-b9f4-8b50e38429fe	
+Moving from start to calc.
+END RequestId: 1b0f6fb8-3cdf-11e8-b9f4-8b50e38429fe
+REPORT RequestId: 1b0f6fb8-3cdf-11e8-b9f4-8b50e38429fe	Duration: 1.75 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 300dbc24-3cdf-11e8-8b7c-11db7637f43c Version: $LATEST
+2018-04-10T16:49:51.780Z	300dbc24-3cdf-11e8-8b7c-11db7637f43c	Authentication in state calc.
+2018-04-10T16:49:51.780Z	300dbc24-3cdf-11e8-8b7c-11db7637f43c	{ name: 'ZahlIntent',
+confirmationStatus: 'NONE',
+slots: { erste: { name: 'erste', value: '12', confirmationStatus: 'NONE' } } }
+2018-04-10T16:49:51.781Z	300dbc24-3cdf-11e8-8b7c-11db7637f43c	Answer was correct. You said 12, it was 12.
+Moving from calc to static.
+2018-04-10T16:49:51.781Z	300dbc24-3cdf-11e8-8b7c-11db7637f43c	[12]: Welches Fach mochten Sie am wenigsten in der Schule? -mathematik.
+2018-04-10T16:49:51.781Z	300dbc24-3cdf-11e8-8b7c-11db7637f43c	Authentication is in state static. CurrentQuestNr=12.
+END RequestId: 300dbc24-3cdf-11e8-8b7c-11db7637f43c
+REPORT RequestId: 300dbc24-3cdf-11e8-8b7c-11db7637f43c	Duration: 33.45 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 34487eff-3cdf-11e8-b4eb-3f86f94c2c78 Version: $LATEST
+2018-04-10T16:49:58.826Z	34487eff-3cdf-11e8-b4eb-3f86f94c2c78	Authentication in state static.
+2018-04-10T16:49:58.826Z	34487eff-3cdf-11e8-b4eb-3f86f94c2c78	{ name: 'UnterrichtIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ unterricht: 
+{ name: 'unterricht',
+value: 'mathematik',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:49:58.826Z	34487eff-3cdf-11e8-b4eb-3f86f94c2c78	Type: string, answer= mathematik
+2018-04-10T16:49:58.826Z	34487eff-3cdf-11e8-b4eb-3f86f94c2c78	Answer was correct. You said mathematik, it was mathematik.
+Moving from static to dynamic.
+2018-04-10T16:49:58.827Z	34487eff-3cdf-11e8-b4eb-3f86f94c2c78	[8]: Was haben Sie zuletzt über Amazon bestellt? -kugelschreiber.
+2018-04-10T16:49:58.827Z	34487eff-3cdf-11e8-b4eb-3f86f94c2c78	Authentication is in state dynamic. CurrentQuestNr=8.
+END RequestId: 34487eff-3cdf-11e8-b4eb-3f86f94c2c78
+REPORT RequestId: 34487eff-3cdf-11e8-b4eb-3f86f94c2c78	Duration: 14.63 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 38391a7e-3cdf-11e8-8dcd-19904827e370 Version: $LATEST
+2018-04-10T16:50:05.437Z	38391a7e-3cdf-11e8-8dcd-19904827e370	Authentication in state dynamic.
+2018-04-10T16:50:05.437Z	38391a7e-3cdf-11e8-8dcd-19904827e370	{ name: 'InstrumentIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ instrument: 
+{ name: 'instrument',
+value: 'kugelschreiber',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:50:05.437Z	38391a7e-3cdf-11e8-8dcd-19904827e370	Type: string, answer= kugelschreiber
+2018-04-10T16:50:05.437Z	38391a7e-3cdf-11e8-8dcd-19904827e370	Answer was correct. You said Was haben Sie zuletzt über Amazon bestellt?, it was kugelschreiber.
+Moving from dynamic to success.
+2018-04-10T16:50:05.438Z	38391a7e-3cdf-11e8-8dcd-19904827e370	testRun: 2, ordinal: zweiten, statThreshold: 2, dynThreshold: 1
+2018-04-10T16:50:05.438Z	38391a7e-3cdf-11e8-8dcd-19904827e370	Going back to start.
+2018-04-10T16:50:05.438Z	38391a7e-3cdf-11e8-8dcd-19904827e370	Starting test...
+2018-04-10T16:50:05.438Z	38391a7e-3cdf-11e8-8dcd-19904827e370	
+Moving from start to calc.
+END RequestId: 38391a7e-3cdf-11e8-8dcd-19904827e370
+REPORT RequestId: 38391a7e-3cdf-11e8-8dcd-19904827e370	Duration: 1.84 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 413de998-3cdf-11e8-86f3-bb6794029727 Version: $LATEST
+2018-04-10T16:50:20.572Z	413de998-3cdf-11e8-86f3-bb6794029727	Authentication in state calc.
+2018-04-10T16:50:20.573Z	413de998-3cdf-11e8-86f3-bb6794029727	{ name: 'CalcIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ zahl: 
+{ name: 'zahl',
+value: 'vier und zwanzig',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:50:20.573Z	413de998-3cdf-11e8-86f3-bb6794029727	Answer was correct. You said 24, it was 24.
+Moving from calc to static.
+2018-04-10T16:50:20.573Z	413de998-3cdf-11e8-86f3-bb6794029727	[21]: Von welcher Marke ist Ihr Tablet? -apple.
+2018-04-10T16:50:20.573Z	413de998-3cdf-11e8-86f3-bb6794029727	Authentication is in state static. CurrentQuestNr=21.
+END RequestId: 413de998-3cdf-11e8-86f3-bb6794029727
+REPORT RequestId: 413de998-3cdf-11e8-86f3-bb6794029727	Duration: 15.02 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 44dd2fc7-3cdf-11e8-9bd7-03c6e5cf4a69 Version: $LATEST
+2018-04-10T16:50:26.643Z	44dd2fc7-3cdf-11e8-9bd7-03c6e5cf4a69	Authentication in state static.
+2018-04-10T16:50:26.643Z	44dd2fc7-3cdf-11e8-9bd7-03c6e5cf4a69	{ name: 'ElektronikMarkenIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ marke: 
+{ name: 'marke',
+value: 'apple',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:50:26.644Z	44dd2fc7-3cdf-11e8-9bd7-03c6e5cf4a69	Type: string, answer= apple
+2018-04-10T16:50:26.644Z	44dd2fc7-3cdf-11e8-9bd7-03c6e5cf4a69	Answer was correct. You said apple, it was apple.
+Moving from static to static.
+2018-04-10T16:50:26.644Z	44dd2fc7-3cdf-11e8-9bd7-03c6e5cf4a69	[22]: Was war ihr erstes Musikinstrument? -orgel.
+2018-04-10T16:50:26.644Z	44dd2fc7-3cdf-11e8-9bd7-03c6e5cf4a69	Authentication is in state static. CurrentQuestNr=22.
+END RequestId: 44dd2fc7-3cdf-11e8-9bd7-03c6e5cf4a69
+REPORT RequestId: 44dd2fc7-3cdf-11e8-9bd7-03c6e5cf4a69	Duration: 1.06 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 48438c1b-3cdf-11e8-8a3d-733991fe165e Version: $LATEST
+2018-04-10T16:50:32.351Z	48438c1b-3cdf-11e8-8a3d-733991fe165e	Authentication in state static.
+2018-04-10T16:50:32.351Z	48438c1b-3cdf-11e8-8a3d-733991fe165e	{ name: 'InstrumentIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ instrument: 
+{ name: 'instrument',
+value: 'orgel',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:50:32.352Z	48438c1b-3cdf-11e8-8a3d-733991fe165e	Type: string, answer= orgel
+2018-04-10T16:50:32.352Z	48438c1b-3cdf-11e8-8a3d-733991fe165e	Answer was correct. You said orgel, it was orgel.
+Moving from static to dynamic.
+2018-04-10T16:50:32.360Z	48438c1b-3cdf-11e8-8a3d-733991fe165e	[1]: Wie hoch war Ihre letzte PayPal-Überweisung in vollen Euro? -50,00€.
+2018-04-10T16:50:32.360Z	48438c1b-3cdf-11e8-8a3d-733991fe165e	Authentication is in state dynamic. CurrentQuestNr=1.
+END RequestId: 48438c1b-3cdf-11e8-8a3d-733991fe165e
+REPORT RequestId: 48438c1b-3cdf-11e8-8a3d-733991fe165e	Duration: 9.23 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 4c98dd25-3cdf-11e8-9a45-e9cd5bf03ccd Version: $LATEST
+2018-04-10T16:50:39.617Z	4c98dd25-3cdf-11e8-9a45-e9cd5bf03ccd	Authentication in state dynamic.
+2018-04-10T16:50:39.617Z	4c98dd25-3cdf-11e8-9a45-e9cd5bf03ccd	{ name: 'GeldsummeIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ euro: { name: 'euro', value: '50', confirmationStatus: 'NONE' },
+cent: { name: 'cent', confirmationStatus: 'NONE' } } }
+2018-04-10T16:50:39.618Z	4c98dd25-3cdf-11e8-9a45-e9cd5bf03ccd	Type: string, answer= 50,00€
+2018-04-10T16:50:39.618Z	4c98dd25-3cdf-11e8-9a45-e9cd5bf03ccd	Answer was correct. You said 50,00€, it was 50,00€.
+Moving from dynamic to dynRefresh.
+END RequestId: 4c98dd25-3cdf-11e8-9a45-e9cd5bf03ccd
+REPORT RequestId: 4c98dd25-3cdf-11e8-9a45-e9cd5bf03ccd	Duration: 1.52 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 55a8a870-3cdf-11e8-bcbd-59032f1f8af9 Version: $LATEST
+2018-04-10T16:50:54.832Z	55a8a870-3cdf-11e8-bcbd-59032f1f8af9	Authentication in state addAnswer.
+2018-04-10T16:50:54.832Z	55a8a870-3cdf-11e8-bcbd-59032f1f8af9	{ name: 'SerienIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ serie: 
+{ name: 'serie',
+value: 'dark',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:50:54.832Z	55a8a870-3cdf-11e8-bcbd-59032f1f8af9	Type: string, answer= dark
+2018-04-10T16:50:54.832Z	55a8a870-3cdf-11e8-bcbd-59032f1f8af9	checkInput-Input is dark.
+2018-04-10T16:50:54.832Z	55a8a870-3cdf-11e8-bcbd-59032f1f8af9	User said: dark.
+Moving from addAnswer to checkAnswer.
+END RequestId: 55a8a870-3cdf-11e8-bcbd-59032f1f8af9
+REPORT RequestId: 55a8a870-3cdf-11e8-bcbd-59032f1f8af9	Duration: 1.16 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 585c5622-3cdf-11e8-85dc-a5eb538d92e3 Version: $LATEST
+2018-04-10T16:50:59.353Z	585c5622-3cdf-11e8-85dc-a5eb538d92e3	Authentication in state checkAnswer.
+2018-04-10T16:50:59.353Z	585c5622-3cdf-11e8-85dc-a5eb538d92e3	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+2018-04-10T16:50:59.354Z	585c5622-3cdf-11e8-85dc-a5eb538d92e3	User confirmed answer: dark.
+Moving from checkAnswer to success.
+2018-04-10T16:50:59.354Z	585c5622-3cdf-11e8-85dc-a5eb538d92e3	testRun: 3, ordinal: dritten, statThreshold: 2, dynThreshold: 2
+2018-04-10T16:50:59.354Z	585c5622-3cdf-11e8-85dc-a5eb538d92e3	Going back to start.
+2018-04-10T16:50:59.354Z	585c5622-3cdf-11e8-85dc-a5eb538d92e3	Starting test...
+2018-04-10T16:50:59.354Z	585c5622-3cdf-11e8-85dc-a5eb538d92e3	
+Moving from start to calc.
+END RequestId: 585c5622-3cdf-11e8-85dc-a5eb538d92e3
+REPORT RequestId: 585c5622-3cdf-11e8-85dc-a5eb538d92e3	Duration: 7.00 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 62f61c9f-3cdf-11e8-b77c-6952d37bbe8f Version: $LATEST
+2018-04-10T16:51:17.160Z	62f61c9f-3cdf-11e8-b77c-6952d37bbe8f	Authentication in state calc.
+2018-04-10T16:51:17.160Z	62f61c9f-3cdf-11e8-b77c-6952d37bbe8f	{ name: 'CalcIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ zahl: 
+{ name: 'zahl',
+value: 'ein und zwanzig',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:51:17.160Z	62f61c9f-3cdf-11e8-b77c-6952d37bbe8f	Answer was correct. You said 21, it was 21.
+Moving from calc to static.
+2018-04-10T16:51:17.160Z	62f61c9f-3cdf-11e8-b77c-6952d37bbe8f	[5]: Von welcher Marke ist Ihr Handy? -Samsung.
+2018-04-10T16:51:17.160Z	62f61c9f-3cdf-11e8-b77c-6952d37bbe8f	Authentication is in state static. CurrentQuestNr=5.
+END RequestId: 62f61c9f-3cdf-11e8-b77c-6952d37bbe8f
+REPORT RequestId: 62f61c9f-3cdf-11e8-b77c-6952d37bbe8f	Duration: 13.86 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 6677f0b3-3cdf-11e8-877c-338e7b062697 Version: $LATEST
+2018-04-10T16:51:23.023Z	6677f0b3-3cdf-11e8-877c-338e7b062697	Authentication in state static.
+2018-04-10T16:51:23.023Z	6677f0b3-3cdf-11e8-877c-338e7b062697	{ name: 'ElektronikMarkenIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ marke: 
+{ name: 'marke',
+value: 'Samsung',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:51:23.023Z	6677f0b3-3cdf-11e8-877c-338e7b062697	Type: string, answer= Samsung
+2018-04-10T16:51:23.023Z	6677f0b3-3cdf-11e8-877c-338e7b062697	Answer was correct. You said Samsung, it was Samsung.
+Moving from static to static.
+2018-04-10T16:51:23.023Z	6677f0b3-3cdf-11e8-877c-338e7b062697	[12]: Welches Fach mochten Sie am wenigsten in der Schule? -mathematik.
+2018-04-10T16:51:23.023Z	6677f0b3-3cdf-11e8-877c-338e7b062697	Authentication is in state static. CurrentQuestNr=12.
+END RequestId: 6677f0b3-3cdf-11e8-877c-338e7b062697
+REPORT RequestId: 6677f0b3-3cdf-11e8-877c-338e7b062697	Duration: 1.01 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 69c239f1-3cdf-11e8-9b72-c59ab26f3ee8 Version: $LATEST
+2018-04-10T16:51:28.541Z	69c239f1-3cdf-11e8-9b72-c59ab26f3ee8	Authentication in state static.
+2018-04-10T16:51:28.541Z	69c239f1-3cdf-11e8-9b72-c59ab26f3ee8	{ name: 'UnterrichtIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ unterricht: 
+{ name: 'unterricht',
+value: 'mathematik',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:51:28.542Z	69c239f1-3cdf-11e8-9b72-c59ab26f3ee8	Type: string, answer= mathematik
+2018-04-10T16:51:28.542Z	69c239f1-3cdf-11e8-9b72-c59ab26f3ee8	Answer was correct. You said mathematik, it was mathematik.
+Moving from static to dynamic.
+2018-04-10T16:51:28.542Z	69c239f1-3cdf-11e8-9b72-c59ab26f3ee8	[8]: Was haben Sie zuletzt über Amazon bestellt? -kugelschreiber.
+2018-04-10T16:51:28.542Z	69c239f1-3cdf-11e8-9b72-c59ab26f3ee8	Authentication is in state dynamic. CurrentQuestNr=8.
+END RequestId: 69c239f1-3cdf-11e8-9b72-c59ab26f3ee8
+REPORT RequestId: 69c239f1-3cdf-11e8-9b72-c59ab26f3ee8	Duration: 0.82 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 6e661f0c-3cdf-11e8-b9b7-71b119cbdb1e Version: $LATEST
+2018-04-10T16:51:36.330Z	6e661f0c-3cdf-11e8-b9b7-71b119cbdb1e	Authentication in state dynamic.
+2018-04-10T16:51:36.330Z	6e661f0c-3cdf-11e8-b9b7-71b119cbdb1e	{ name: 'BuchIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ buch: 
+{ name: 'buch',
+value: 'einem kugelschreiber',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:51:36.330Z	6e661f0c-3cdf-11e8-b9b7-71b119cbdb1e	Type: string, answer= einem kugelschreiber
+2018-04-10T16:51:36.330Z	6e661f0c-3cdf-11e8-b9b7-71b119cbdb1e	Wrong Answer!!! Answer was: einem kugelschreiber, but it should have been: kugelschreiber!!!
+2018-04-10T16:51:36.330Z	6e661f0c-3cdf-11e8-b9b7-71b119cbdb1e	Answer was correct. You said einem kugelschreiber, it was kugelschreiber.
+Moving from dynamic to dynamic.
+2018-04-10T16:51:36.330Z	6e661f0c-3cdf-11e8-b9b7-71b119cbdb1e	[6]: Was war die zuletzt installierte App auf Ihrem Smartphone? -amazon.
+2018-04-10T16:51:36.330Z	6e661f0c-3cdf-11e8-b9b7-71b119cbdb1e	Authentication is in state dynamic. CurrentQuestNr=6.
+END RequestId: 6e661f0c-3cdf-11e8-b9b7-71b119cbdb1e
+REPORT RequestId: 6e661f0c-3cdf-11e8-b9b7-71b119cbdb1e	Duration: 1.21 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 729040ec-3cdf-11e8-b10d-d983465d33dc Version: $LATEST
+2018-04-10T16:51:43.319Z	729040ec-3cdf-11e8-b10d-d983465d33dc	Authentication in state dynamic.
+2018-04-10T16:51:43.319Z	729040ec-3cdf-11e8-b10d-d983465d33dc	{ name: 'ElektronikMarkenIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ marke: 
+{ name: 'marke',
+value: 'amazon',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:51:43.319Z	729040ec-3cdf-11e8-b10d-d983465d33dc	Type: string, answer= amazon
+2018-04-10T16:51:43.319Z	729040ec-3cdf-11e8-b10d-d983465d33dc	Answer was correct. You said Was war die zuletzt installierte App auf Ihrem Smartphone?, it was amazon.
+Moving from dynamic to success.
+2018-04-10T16:51:43.319Z	729040ec-3cdf-11e8-b10d-d983465d33dc	testRun: 4, ordinal: vierten, statThreshold: 3, dynThreshold: 2
+2018-04-10T16:51:43.319Z	729040ec-3cdf-11e8-b10d-d983465d33dc	Going back to start.
+2018-04-10T16:51:43.319Z	729040ec-3cdf-11e8-b10d-d983465d33dc	Starting test...
+2018-04-10T16:51:43.319Z	729040ec-3cdf-11e8-b10d-d983465d33dc	
+Moving from start to calc.
+END RequestId: 729040ec-3cdf-11e8-b10d-d983465d33dc
+REPORT RequestId: 729040ec-3cdf-11e8-b10d-d983465d33dc	Duration: 1.84 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 7b61075f-3cdf-11e8-ab52-c3e0e86dff66 Version: $LATEST
+2018-04-10T16:51:58.120Z	7b61075f-3cdf-11e8-ab52-c3e0e86dff66	Authentication in state calc.
+2018-04-10T16:51:58.120Z	7b61075f-3cdf-11e8-ab52-c3e0e86dff66	{ name: 'CalcIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ zahl: 
+{ name: 'zahl',
+value: 'sieben und zwanzig',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:51:58.120Z	7b61075f-3cdf-11e8-ab52-c3e0e86dff66	Answer was correct. You said 27, it was 27.
+Moving from calc to static.
+2018-04-10T16:51:58.120Z	7b61075f-3cdf-11e8-ab52-c3e0e86dff66	[25]: Wie lautet Ihr Lieblingsinterpret? -Eminem.
+2018-04-10T16:51:58.120Z	7b61075f-3cdf-11e8-ab52-c3e0e86dff66	Authentication is in state static. CurrentQuestNr=25.
+END RequestId: 7b61075f-3cdf-11e8-ab52-c3e0e86dff66
+REPORT RequestId: 7b61075f-3cdf-11e8-ab52-c3e0e86dff66	Duration: 15.89 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 7f22ca8a-3cdf-11e8-b7cb-c7a5c04859d8 Version: $LATEST
+2018-04-10T16:52:04.408Z	7f22ca8a-3cdf-11e8-b7cb-c7a5c04859d8	Authentication in state static.
+2018-04-10T16:52:04.408Z	7f22ca8a-3cdf-11e8-b7cb-c7a5c04859d8	{ name: 'InterpretIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ interpret: 
+{ name: 'interpret',
+value: 'Eminem',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:52:04.408Z	7f22ca8a-3cdf-11e8-b7cb-c7a5c04859d8	Type: string, answer= Eminem
+2018-04-10T16:52:04.409Z	7f22ca8a-3cdf-11e8-b7cb-c7a5c04859d8	Answer was correct. You said Eminem, it was Eminem.
+Moving from static to static.
+2018-04-10T16:52:04.409Z	7f22ca8a-3cdf-11e8-b7cb-c7a5c04859d8	[19]: Was ist Ihr Lieblingsurlaubsland? -Deutschland.
+2018-04-10T16:52:04.409Z	7f22ca8a-3cdf-11e8-b7cb-c7a5c04859d8	Authentication is in state static. CurrentQuestNr=19.
+END RequestId: 7f22ca8a-3cdf-11e8-b7cb-c7a5c04859d8
+REPORT RequestId: 7f22ca8a-3cdf-11e8-b7cb-c7a5c04859d8	Duration: 12.18 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 87853e7d-3cdf-11e8-a562-0b564eacadc5 Version: $LATEST
+2018-04-10T16:52:18.496Z	87853e7d-3cdf-11e8-a562-0b564eacadc5	Authentication in state static.
+2018-04-10T16:52:18.496Z	87853e7d-3cdf-11e8-a562-0b564eacadc5	{ name: 'LandIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ landName: 
+{ name: 'landName',
+value: 'Deutschland',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:52:18.496Z	87853e7d-3cdf-11e8-a562-0b564eacadc5	Type: string, answer= Deutschland
+2018-04-10T16:52:18.496Z	87853e7d-3cdf-11e8-a562-0b564eacadc5	Answer was correct. You said Deutschland, it was Deutschland.
+Moving from static to static.
+2018-04-10T16:52:18.496Z	87853e7d-3cdf-11e8-a562-0b564eacadc5	[24]: Was ist Ihre Lieblingsserie? -dark.
+2018-04-10T16:52:18.496Z	87853e7d-3cdf-11e8-a562-0b564eacadc5	Authentication is in state static. CurrentQuestNr=24.
+END RequestId: 87853e7d-3cdf-11e8-a562-0b564eacadc5
+REPORT RequestId: 87853e7d-3cdf-11e8-a562-0b564eacadc5	Duration: 1.04 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 8b2c7481-3cdf-11e8-b978-cdb207903fb2 Version: $LATEST
+2018-04-10T16:52:24.604Z	8b2c7481-3cdf-11e8-b978-cdb207903fb2	Authentication in state static.
+2018-04-10T16:52:24.604Z	8b2c7481-3cdf-11e8-b978-cdb207903fb2	{ name: 'SerienIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ serie: 
+{ name: 'serie',
+value: 'dark',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:52:24.605Z	8b2c7481-3cdf-11e8-b978-cdb207903fb2	Type: string, answer= dark
+2018-04-10T16:52:24.605Z	8b2c7481-3cdf-11e8-b978-cdb207903fb2	Answer was correct. You said dark, it was dark.
+Moving from static to dynamic.
+2018-04-10T16:52:24.605Z	8b2c7481-3cdf-11e8-b978-cdb207903fb2	[0]: Wieviel Geld in vollen Euro haben sie beim letzten Amazon Kauf ausgegeben? -20,00€.
+2018-04-10T16:52:24.605Z	8b2c7481-3cdf-11e8-b978-cdb207903fb2	Authentication is in state dynamic. CurrentQuestNr=0.
+END RequestId: 8b2c7481-3cdf-11e8-b978-cdb207903fb2
+REPORT RequestId: 8b2c7481-3cdf-11e8-b978-cdb207903fb2	Duration: 16.09 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 8f92dc48-3cdf-11e8-a157-6de3681de3de Version: $LATEST
+2018-04-10T16:52:31.991Z	8f92dc48-3cdf-11e8-a157-6de3681de3de	Authentication in state dynamic.
+2018-04-10T16:52:31.991Z	8f92dc48-3cdf-11e8-a157-6de3681de3de	{ name: 'CalcIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ zahl: 
+{ name: 'zahl',
+value: 'zwanzig',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:52:31.991Z	8f92dc48-3cdf-11e8-a157-6de3681de3de	Type: string, answer= zwanzig
+2018-04-10T16:52:31.991Z	8f92dc48-3cdf-11e8-a157-6de3681de3de	Wrong Answer!!! Answer was: zwanzig, but it should have been: 20,00€!!!
+2018-04-10T16:52:31.992Z	8f92dc48-3cdf-11e8-a157-6de3681de3de	Answer was correct. You said zwanzig, it was 20,00€.
+Moving from dynamic to dynamic.
+2018-04-10T16:52:31.992Z	8f92dc48-3cdf-11e8-a157-6de3681de3de	[6]: Was war die zuletzt installierte App auf Ihrem Smartphone? -amazon.
+2018-04-10T16:52:31.992Z	8f92dc48-3cdf-11e8-a157-6de3681de3de	Authentication is in state dynamic. CurrentQuestNr=6.
+END RequestId: 8f92dc48-3cdf-11e8-a157-6de3681de3de
+REPORT RequestId: 8f92dc48-3cdf-11e8-a157-6de3681de3de	Duration: 1.15 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 936826d4-3cdf-11e8-8e5f-0996ae26c31a Version: $LATEST
+2018-04-10T16:52:38.416Z	936826d4-3cdf-11e8-8e5f-0996ae26c31a	Authentication in state dynamic.
+2018-04-10T16:52:38.416Z	936826d4-3cdf-11e8-8e5f-0996ae26c31a	{ name: 'ElektronikMarkenIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ marke: 
+{ name: 'marke',
+value: 'amazon',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:52:38.416Z	936826d4-3cdf-11e8-8e5f-0996ae26c31a	Type: string, answer= amazon
+2018-04-10T16:52:38.417Z	936826d4-3cdf-11e8-8e5f-0996ae26c31a	Answer was correct. You said amazon, it was amazon.
+Moving from dynamic to dynRefresh.
+END RequestId: 936826d4-3cdf-11e8-8e5f-0996ae26c31a
+REPORT RequestId: 936826d4-3cdf-11e8-8e5f-0996ae26c31a	Duration: 4.38 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 9c0cfab8-3cdf-11e8-ba09-df6a4ae2c7be Version: $LATEST
+2018-04-10T16:52:52.919Z	9c0cfab8-3cdf-11e8-ba09-df6a4ae2c7be	Authentication in state addAnswer.
+2018-04-10T16:52:52.919Z	9c0cfab8-3cdf-11e8-ba09-df6a4ae2c7be	{ name: 'SerienIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ serie: 
+{ name: 'serie',
+value: 'dark',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:52:52.919Z	9c0cfab8-3cdf-11e8-ba09-df6a4ae2c7be	Type: string, answer= dark
+2018-04-10T16:52:52.919Z	9c0cfab8-3cdf-11e8-ba09-df6a4ae2c7be	checkInput-Input is dark.
+2018-04-10T16:52:52.919Z	9c0cfab8-3cdf-11e8-ba09-df6a4ae2c7be	User said: dark.
+Moving from addAnswer to checkAnswer.
+END RequestId: 9c0cfab8-3cdf-11e8-ba09-df6a4ae2c7be
+REPORT RequestId: 9c0cfab8-3cdf-11e8-ba09-df6a4ae2c7be	Duration: 0.76 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 9e9023f9-3cdf-11e8-8284-4fd87c27cf54 Version: $LATEST
+2018-04-10T16:52:57.135Z	9e9023f9-3cdf-11e8-8284-4fd87c27cf54	Authentication in state checkAnswer.
+2018-04-10T16:52:57.135Z	9e9023f9-3cdf-11e8-8284-4fd87c27cf54	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+2018-04-10T16:52:57.135Z	9e9023f9-3cdf-11e8-8284-4fd87c27cf54	User confirmed answer: dark.
+Moving from checkAnswer to success.
+2018-04-10T16:52:57.136Z	9e9023f9-3cdf-11e8-8284-4fd87c27cf54	testRun: 5, ordinal: fünften, statThreshold: 3, dynThreshold: 3
+2018-04-10T16:52:57.136Z	9e9023f9-3cdf-11e8-8284-4fd87c27cf54	Going back to start.
+2018-04-10T16:52:57.136Z	9e9023f9-3cdf-11e8-8284-4fd87c27cf54	Starting test...
+2018-04-10T16:52:57.136Z	9e9023f9-3cdf-11e8-8284-4fd87c27cf54	
+Moving from start to calc.
+END RequestId: 9e9023f9-3cdf-11e8-8284-4fd87c27cf54
+REPORT RequestId: 9e9023f9-3cdf-11e8-8284-4fd87c27cf54	Duration: 1.33 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: a78fc22a-3cdf-11e8-a068-e59a06c86462 Version: $LATEST
+2018-04-10T16:53:12.260Z	a78fc22a-3cdf-11e8-a068-e59a06c86462	Authentication in state calc.
+2018-04-10T16:53:12.280Z	a78fc22a-3cdf-11e8-a068-e59a06c86462	{ name: 'VornameIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ name: 
+{ name: 'name',
+value: 'Luca',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+END RequestId: a78fc22a-3cdf-11e8-a068-e59a06c86462
+REPORT RequestId: a78fc22a-3cdf-11e8-a068-e59a06c86462	Duration: 50.92 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: acd90f43-3cdf-11e8-8cde-ab43066273bd Version: $LATEST
+2018-04-10T16:53:21.102Z	acd90f43-3cdf-11e8-8cde-ab43066273bd	Authentication in state calc.
+2018-04-10T16:53:21.102Z	acd90f43-3cdf-11e8-8cde-ab43066273bd	{ name: 'CalcIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ zahl: 
+{ name: 'zahl',
+value: 'ein und dreizig',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:53:21.102Z	acd90f43-3cdf-11e8-8cde-ab43066273bd	Answer was correct. You said 31, it was 31.
+Moving from calc to static.
+2018-04-10T16:53:21.102Z	acd90f43-3cdf-11e8-8cde-ab43066273bd	[26]: was ist die letzte ziffer ihrer handynummer? -615.
+2018-04-10T16:53:21.102Z	acd90f43-3cdf-11e8-8cde-ab43066273bd	Authentication is in state static. CurrentQuestNr=26.
+END RequestId: acd90f43-3cdf-11e8-8cde-ab43066273bd
+REPORT RequestId: acd90f43-3cdf-11e8-8cde-ab43066273bd	Duration: 1.23 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: b0346f3c-3cdf-11e8-8e5f-0996ae26c31a Version: $LATEST
+2018-04-10T16:53:26.731Z	b0346f3c-3cdf-11e8-8e5f-0996ae26c31a	Authentication in state static.
+2018-04-10T16:53:26.740Z	b0346f3c-3cdf-11e8-8e5f-0996ae26c31a	{ name: 'CalcIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ zahl: 
+{ name: 'zahl',
+value: 'fünf',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:53:26.740Z	b0346f3c-3cdf-11e8-8e5f-0996ae26c31a	Type: string, answer= fünf
+2018-04-10T16:53:26.740Z	b0346f3c-3cdf-11e8-8e5f-0996ae26c31a	Wrong Answer!!! Answer was: fünf, but it should have been: 615!!!
+2018-04-10T16:53:26.740Z	b0346f3c-3cdf-11e8-8e5f-0996ae26c31a	Answer was correct. You said fünf, it was 615.
+Moving from static to static.
+2018-04-10T16:53:26.740Z	b0346f3c-3cdf-11e8-8e5f-0996ae26c31a	[22]: Was war ihr erstes Musikinstrument? -orgel.
+2018-04-10T16:53:26.740Z	b0346f3c-3cdf-11e8-8e5f-0996ae26c31a	Authentication is in state static. CurrentQuestNr=22.
+END RequestId: b0346f3c-3cdf-11e8-8e5f-0996ae26c31a
+REPORT RequestId: b0346f3c-3cdf-11e8-8e5f-0996ae26c31a	Duration: 10.07 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: b3a5c846-3cdf-11e8-ae8c-0bdcbbebbffd Version: $LATEST
+2018-04-10T16:53:32.518Z	b3a5c846-3cdf-11e8-ae8c-0bdcbbebbffd	Authentication in state static.
+2018-04-10T16:53:32.518Z	b3a5c846-3cdf-11e8-ae8c-0bdcbbebbffd	{ name: 'InstrumentIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ instrument: 
+{ name: 'instrument',
+value: 'orgel',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:53:32.518Z	b3a5c846-3cdf-11e8-ae8c-0bdcbbebbffd	Type: string, answer= orgel
+2018-04-10T16:53:32.518Z	b3a5c846-3cdf-11e8-ae8c-0bdcbbebbffd	Answer was correct. You said orgel, it was orgel.
+Moving from static to static.
+2018-04-10T16:53:32.518Z	b3a5c846-3cdf-11e8-ae8c-0bdcbbebbffd	[10]: Was ist Ihr Lieblingsfilm? -harry potter.
+2018-04-10T16:53:32.518Z	b3a5c846-3cdf-11e8-ae8c-0bdcbbebbffd	Authentication is in state static. CurrentQuestNr=10.
+END RequestId: b3a5c846-3cdf-11e8-ae8c-0bdcbbebbffd
+REPORT RequestId: b3a5c846-3cdf-11e8-ae8c-0bdcbbebbffd	Duration: 1.03 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: b87b6c3d-3cdf-11e8-85dc-a5eb538d92e3 Version: $LATEST
+2018-04-10T16:53:40.620Z	b87b6c3d-3cdf-11e8-85dc-a5eb538d92e3	Authentication in state static.
+2018-04-10T16:53:40.620Z	b87b6c3d-3cdf-11e8-85dc-a5eb538d92e3	{ name: 'StadtIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ stadtName: 
+{ name: 'stadtName',
+value: 'memmingen',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:53:40.620Z	b87b6c3d-3cdf-11e8-85dc-a5eb538d92e3	Type: string, answer= memmingen
+2018-04-10T16:53:40.620Z	b87b6c3d-3cdf-11e8-85dc-a5eb538d92e3	Wrong Answer!!! Answer was: memmingen, but it should have been: harry potter!!!
+2018-04-10T16:53:40.620Z	b87b6c3d-3cdf-11e8-85dc-a5eb538d92e3	Answer was correct. You said memmingen, it was harry potter.
+Moving from static to dynamic.
+2018-04-10T16:53:40.620Z	b87b6c3d-3cdf-11e8-85dc-a5eb538d92e3	[9]: Was war das letzte Buch, welches Sie gelesen haben? -IM westen nichts neues.
+2018-04-10T16:53:40.620Z	b87b6c3d-3cdf-11e8-85dc-a5eb538d92e3	Authentication is in state dynamic. CurrentQuestNr=9.
+END RequestId: b87b6c3d-3cdf-11e8-85dc-a5eb538d92e3
+REPORT RequestId: b87b6c3d-3cdf-11e8-85dc-a5eb538d92e3	Duration: 2.64 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: bd3c0169-3cdf-11e8-b10d-d983465d33dc Version: $LATEST
+2018-04-10T16:53:48.590Z	bd3c0169-3cdf-11e8-b10d-d983465d33dc	Authentication in state dynamic.
+2018-04-10T16:53:48.590Z	bd3c0169-3cdf-11e8-b10d-d983465d33dc	{ name: 'BuchIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ buch: 
+{ name: 'buch',
+value: 'IM westen nichts neues',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:53:48.590Z	bd3c0169-3cdf-11e8-b10d-d983465d33dc	Type: string, answer= IM westen nichts neues
+2018-04-10T16:53:48.590Z	bd3c0169-3cdf-11e8-b10d-d983465d33dc	Answer was correct. You said IM westen nichts neues, it was IM westen nichts neues.
+Moving from dynamic to dynamic.
+2018-04-10T16:53:48.590Z	bd3c0169-3cdf-11e8-b10d-d983465d33dc	[7]: Was war die zuletzt installierte App auf Ihrem Tablet? -amazon.
+2018-04-10T16:53:48.590Z	bd3c0169-3cdf-11e8-b10d-d983465d33dc	Authentication is in state dynamic. CurrentQuestNr=7.
+END RequestId: bd3c0169-3cdf-11e8-b10d-d983465d33dc
+REPORT RequestId: bd3c0169-3cdf-11e8-b10d-d983465d33dc	Duration: 0.84 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: c0ecd478-3cdf-11e8-93fc-6dd992174114 Version: $LATEST
+2018-04-10T16:53:54.790Z	c0ecd478-3cdf-11e8-93fc-6dd992174114	Authentication in state dynamic.
+2018-04-10T16:53:54.790Z	c0ecd478-3cdf-11e8-93fc-6dd992174114	{ name: 'ElektronikMarkenIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ marke: 
+{ name: 'marke',
+value: 'amazon',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:53:54.790Z	c0ecd478-3cdf-11e8-93fc-6dd992174114	Type: string, answer= amazon
+2018-04-10T16:53:54.790Z	c0ecd478-3cdf-11e8-93fc-6dd992174114	Answer was correct. You said amazon, it was amazon.
+Moving from dynamic to dynamic.
+2018-04-10T16:53:54.790Z	c0ecd478-3cdf-11e8-93fc-6dd992174114	[6]: Was war die zuletzt installierte App auf Ihrem Smartphone? -amazon.
+2018-04-10T16:53:54.790Z	c0ecd478-3cdf-11e8-93fc-6dd992174114	Authentication is in state dynamic. CurrentQuestNr=6.
+END RequestId: c0ecd478-3cdf-11e8-93fc-6dd992174114
+REPORT RequestId: c0ecd478-3cdf-11e8-93fc-6dd992174114	Duration: 10.30 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: c4b0ba74-3cdf-11e8-90e4-33aa472c10eb Version: $LATEST
+2018-04-10T16:54:01.103Z	c4b0ba74-3cdf-11e8-90e4-33aa472c10eb	Authentication in state dynamic.
+2018-04-10T16:54:01.103Z	c4b0ba74-3cdf-11e8-90e4-33aa472c10eb	{ name: 'ElektronikMarkenIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ marke: 
+{ name: 'marke',
+value: 'amazon',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:54:01.103Z	c4b0ba74-3cdf-11e8-90e4-33aa472c10eb	Type: string, answer= amazon
+2018-04-10T16:54:01.103Z	c4b0ba74-3cdf-11e8-90e4-33aa472c10eb	Answer was correct. You said Was war die zuletzt installierte App auf Ihrem Smartphone?, it was amazon.
+Moving from dynamic to success.
+2018-04-10T16:54:01.103Z	c4b0ba74-3cdf-11e8-90e4-33aa472c10eb	End of Testing.
+2018-04-10T16:54:01.103Z	c4b0ba74-3cdf-11e8-90e4-33aa472c10eb	Going back to start.
+END RequestId: c4b0ba74-3cdf-11e8-90e4-33aa472c10eb
+REPORT RequestId: c4b0ba74-3cdf-11e8-90e4-33aa472c10eb	Duration: 1.17 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: ee9a8ebb-3cdf-11e8-83b7-95e6e7c6b65f Version: $LATEST
+2018-04-10T16:55:11.441Z	ee9a8ebb-3cdf-11e8-83b7-95e6e7c6b65f	Authentication in state start.
+2018-04-10T16:55:11.441Z	ee9a8ebb-3cdf-11e8-83b7-95e6e7c6b65f	{ name: 'InterpretIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ interpret: 
+{ name: 'interpret',
+value: 'John martin',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+END RequestId: ee9a8ebb-3cdf-11e8-83b7-95e6e7c6b65f
+REPORT RequestId: ee9a8ebb-3cdf-11e8-83b7-95e6e7c6b65f	Duration: 20.59 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: f30b7d0a-3cdf-11e8-83fd-7d8117bdf4dd Version: $LATEST
+2018-04-10T16:55:18.867Z	f30b7d0a-3cdf-11e8-83fd-7d8117bdf4dd	Authentication in state start.
+2018-04-10T16:55:18.867Z	f30b7d0a-3cdf-11e8-83fd-7d8117bdf4dd	{ name: 'RechenaufgabeIntent', confirmationStatus: 'NONE' }
+2018-04-10T16:55:18.868Z	f30b7d0a-3cdf-11e8-83fd-7d8117bdf4dd	
+Moving from start to calc.
+END RequestId: f30b7d0a-3cdf-11e8-83fd-7d8117bdf4dd
+REPORT RequestId: f30b7d0a-3cdf-11e8-83fd-7d8117bdf4dd	Duration: 1.03 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: f6786917-3cdf-11e8-a3e3-ff98ca9f627e Version: $LATEST
+2018-04-10T16:55:24.607Z	f6786917-3cdf-11e8-a3e3-ff98ca9f627e	Authentication in state calc.
+2018-04-10T16:55:24.607Z	f6786917-3cdf-11e8-a3e3-ff98ca9f627e	{ name: 'CalcIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ zahl: 
+{ name: 'zahl',
+value: 'zwei und zwanzig',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:55:24.620Z	f6786917-3cdf-11e8-a3e3-ff98ca9f627e	Answer was correct. You said 22, it was 22.
+Moving from calc to static.
+2018-04-10T16:55:24.620Z	f6786917-3cdf-11e8-a3e3-ff98ca9f627e	Authentication is in state static. CurrentQuestNr=1.
+END RequestId: f6786917-3cdf-11e8-a3e3-ff98ca9f627e
+REPORT RequestId: f6786917-3cdf-11e8-a3e3-ff98ca9f627e	Duration: 13.45 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: f95152a9-3cdf-11e8-a360-3b18a361139d Version: $LATEST
+2018-04-10T16:55:29.384Z	f95152a9-3cdf-11e8-a360-3b18a361139d	Authentication in state static.
+2018-04-10T16:55:29.384Z	f95152a9-3cdf-11e8-a360-3b18a361139d	{ name: 'StadtIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ stadtName: 
+{ name: 'stadtName',
+value: 'karlsruhe',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:55:29.384Z	f95152a9-3cdf-11e8-a360-3b18a361139d	Answer was correct. You said karlsruhe, it was karlsruhe.
+Moving from static to dynamic.
+2018-04-10T16:55:29.384Z	f95152a9-3cdf-11e8-a360-3b18a361139d	Authentication is in state dynamic. CurrentQuestNr=1.
+END RequestId: f95152a9-3cdf-11e8-a360-3b18a361139d
+REPORT RequestId: f95152a9-3cdf-11e8-a360-3b18a361139d	Duration: 0.89 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: fd3f2f6d-3cdf-11e8-8db1-81b868aad385 Version: $LATEST
+2018-04-10T16:55:35.974Z	fd3f2f6d-3cdf-11e8-8db1-81b868aad385	Authentication in state dynamic.
+2018-04-10T16:55:35.974Z	fd3f2f6d-3cdf-11e8-8db1-81b868aad385	{ name: 'GeldsummeIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ euro: { name: 'euro', value: '50', confirmationStatus: 'NONE' },
+cent: { name: 'cent', confirmationStatus: 'NONE' } } }
+2018-04-10T16:55:35.974Z	fd3f2f6d-3cdf-11e8-8db1-81b868aad385	Answer was correct. You said 50,00€, it was 50,00€.
+Moving from dynamic to dynRefresh.
+END RequestId: fd3f2f6d-3cdf-11e8-8db1-81b868aad385
+REPORT RequestId: fd3f2f6d-3cdf-11e8-8db1-81b868aad385	Duration: 6.61 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 06c3dbd6-3ce0-11e8-85fe-77c1b5cc6385 Version: $LATEST
+2018-04-10T16:55:51.948Z	06c3dbd6-3ce0-11e8-85fe-77c1b5cc6385	Authentication in state addAnswer.
+2018-04-10T16:55:51.948Z	06c3dbd6-3ce0-11e8-85fe-77c1b5cc6385	{ name: 'GeldsummeIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ euro: { name: 'euro', value: '50', confirmationStatus: 'NONE' },
+cent: { name: 'cent', confirmationStatus: 'NONE' } } }
+2018-04-10T16:55:51.948Z	06c3dbd6-3ce0-11e8-85fe-77c1b5cc6385	User said: 50,00€.
+Moving from addAnswer to checkAnswer.
+END RequestId: 06c3dbd6-3ce0-11e8-85fe-77c1b5cc6385
+REPORT RequestId: 06c3dbd6-3ce0-11e8-85fe-77c1b5cc6385	Duration: 24.82 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 09e87482-3ce0-11e8-bfb7-0db9254aa95b Version: $LATEST
+2018-04-10T16:55:57.210Z	09e87482-3ce0-11e8-bfb7-0db9254aa95b	Authentication in state checkAnswer.
+2018-04-10T16:55:57.210Z	09e87482-3ce0-11e8-bfb7-0db9254aa95b	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+2018-04-10T16:55:57.210Z	09e87482-3ce0-11e8-bfb7-0db9254aa95b	User confirmed answer: 50,00€.
+Moving from checkAnswer to success.
+END RequestId: 09e87482-3ce0-11e8-bfb7-0db9254aa95b
+REPORT RequestId: 09e87482-3ce0-11e8-bfb7-0db9254aa95b	Duration: 0.74 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 0ff75b69-3ce0-11e8-9c20-11b157c8801e Version: $LATEST
+2018-04-10T16:56:07.375Z	0ff75b69-3ce0-11e8-9c20-11b157c8801e	Authentication in state success.
+2018-04-10T16:56:07.375Z	0ff75b69-3ce0-11e8-9c20-11b157c8801e	{ name: 'FrageHinzufuegen', confirmationStatus: 'NONE' }
+2018-04-10T16:56:07.375Z	0ff75b69-3ce0-11e8-9c20-11b157c8801e	User wants to add a question.
+Moving from success to addQuest.
+END RequestId: 0ff75b69-3ce0-11e8-9c20-11b157c8801e
+REPORT RequestId: 0ff75b69-3ce0-11e8-9c20-11b157c8801e	Duration: 1.15 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 1534c1f5-3ce0-11e8-90a8-2b907695e730 Version: $LATEST
+2018-04-10T16:56:16.160Z	1534c1f5-3ce0-11e8-90a8-2b907695e730	Authentication in state addQuest.
+2018-04-10T16:56:16.160Z	1534c1f5-3ce0-11e8-90a8-2b907695e730	{ name: 'SerienIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ serie: 
+{ name: 'serie',
+value: 'was ist ihr lieblingsfußballverein',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:56:16.161Z	1534c1f5-3ce0-11e8-90a8-2b907695e730	User said: was ist ihr lieblingsfußballverein.
+Moving from addAnswer to checkAnswer.
+END RequestId: 1534c1f5-3ce0-11e8-90a8-2b907695e730
+REPORT RequestId: 1534c1f5-3ce0-11e8-90a8-2b907695e730	Duration: 0.94 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 18b16626-3ce0-11e8-a562-d941fcade5cc Version: $LATEST
+2018-04-10T16:56:22.009Z	18b16626-3ce0-11e8-a562-d941fcade5cc	Authentication in state checkQuest.
+2018-04-10T16:56:22.009Z	18b16626-3ce0-11e8-a562-d941fcade5cc	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+2018-04-10T16:56:22.020Z	18b16626-3ce0-11e8-a562-d941fcade5cc	User confirmed answer: 50,00€.
+Moving from addQuest to addAnswer.
+END RequestId: 18b16626-3ce0-11e8-a562-d941fcade5cc
+REPORT RequestId: 18b16626-3ce0-11e8-a562-d941fcade5cc	Duration: 11.93 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 1fafdd04-3ce0-11e8-b150-f9e97009e6b9 Version: $LATEST
+2018-04-10T16:56:33.760Z	1fafdd04-3ce0-11e8-b150-f9e97009e6b9	Authentication in state addAnswer.
+2018-04-10T16:56:33.760Z	1fafdd04-3ce0-11e8-b150-f9e97009e6b9	{ name: 'StadtIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ stadtName: 
+{ name: 'stadtName',
+value: 'Frankfurt am main',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+2018-04-10T16:56:33.760Z	1fafdd04-3ce0-11e8-b150-f9e97009e6b9	User said: Frankfurt am main.
+Moving from addAnswer to checkAnswer.
+END RequestId: 1fafdd04-3ce0-11e8-b150-f9e97009e6b9
+REPORT RequestId: 1fafdd04-3ce0-11e8-b150-f9e97009e6b9	Duration: 20.47 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 22afaf92-3ce0-11e8-ada8-77787c90e995 Version: $LATEST
+2018-04-10T16:56:38.769Z	22afaf92-3ce0-11e8-ada8-77787c90e995	Authentication in state checkAnswer.
+2018-04-10T16:56:38.769Z	22afaf92-3ce0-11e8-ada8-77787c90e995	{ name: 'JaIntent', confirmationStatus: 'NONE' }
+2018-04-10T16:56:38.769Z	22afaf92-3ce0-11e8-ada8-77787c90e995	User confirmed answer: Frankfurt am main.
+Moving from checkAnswer to success.
+END RequestId: 22afaf92-3ce0-11e8-ada8-77787c90e995
+REPORT RequestId: 22afaf92-3ce0-11e8-ada8-77787c90e995	Duration: 0.84 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 2b57b89d-3ce0-11e8-8c48-477b9adbc80f Version: $LATEST
+2018-04-10T16:56:53.297Z	2b57b89d-3ce0-11e8-8c48-477b9adbc80f	Authentication in state success.
+2018-04-10T16:56:53.297Z	2b57b89d-3ce0-11e8-8c48-477b9adbc80f	{ name: 'CalcIntent',
+confirmationStatus: 'NONE',
+slots: 
+{ zahl: 
+{ name: 'zahl',
+value: 'neunzehn minuten',
+resolutions: [Object],
+confirmationStatus: 'NONE' } } }
+END RequestId: 2b57b89d-3ce0-11e8-8c48-477b9adbc80f
+REPORT RequestId: 2b57b89d-3ce0-11e8-8c48-477b9adbc80f	Duration: 0.76 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	
+START RequestId: 30cca9d2-3ce0-11e8-b1a4-8946fc4e2e4c Version: $LATEST
+2018-04-10T16:57:02.445Z	30cca9d2-3ce0-11e8-b1a4-8946fc4e2e4c	Skill requestId=amzn1.echo-api.request.af34c07c-a3c4-48fe-8d16-3e6ec660fd3a, sessionId=amzn1.echo-api.session.29181fbd-f744-4933-ad4e-2fbf394d6f5d beendet.
+END RequestId: 30cca9d2-3ce0-11e8-b1a4-8946fc4e2e4c
+REPORT RequestId: 30cca9d2-3ce0-11e8-b1a4-8946fc4e2e4c	Duration: 0.54 ms	Billed Duration: 100 ms Memory Size: 128 MB	Max Memory Used: 24 MB	

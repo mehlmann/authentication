@@ -1,0 +1,44 @@
+Error-Rates															Fragen-
+		Proband		1	2	3	4	5	6	7	8	9	10		all anzahl		%
+Durchlauf	
+1.					0	0	0	1	0	0	0	0	0	0		1		200		0,5
+2.					0	0	0	0	0	1	0	1	1	0		3		300		1
+3.					1	0	0	0	0	1	0	2	2	0		6		400		1,5
+4.					1	0	0	2	0	0	0	0	0	0		3		500		0,6
+5.					2	0	0	1	0	1	1	0	0	0		5		600		0,8
+																				
+all					4	0	0	4	0	3	1	3	3	0	   18	  2000		0,9
+
+
+Fragebogen
+Fragen														summe	durchschnitt
+2					2	2	1	2	2	3	1	2	2	2	   19		1.9
+3					5	2	2	3	4	4	3	2	3	5	   32		3.2
+4					5	2	4	4	4	4	4	3	4	4      38		3.8
+5					1	5	3	4	3	3	3	4	4	3	   33		3.3
+6					1	2	1	4	2	1	2	5	1	3	   22		2.2
+														
+Einrichtung			4	4	4	2	4	5	5	4	4	2
+
+
+Fragen
+Proband 1: Was ist Ihr Lieblingsfußballverein? -Frankfurt (nein)
+Proband 2: Was ist drei mal drei? -9 (ja)
+Proband 3: (nein)
+Proband 4: Was ist mein Lieblingsgericht? - Rise (nein)
+Proband 5: (nein)
+Proband 6: Was trinkst du am liebsten? - wasser (ja)
+Proband 7: Was ist dein Zweitname? - marcus (ja)
+Proband 8: Ist eine Birke ein Baum? - ja (nein)
+Proband 9: Was trinken Sie am liebsten? - wasser (ja)
+Proband 10: Was ist Ihr Lieblingsfernsehsender? - MTV (ja)
+
+
+Fehler:
+1. einem kugelschreiber - kugelschreiber, zwanzig - 20€, fünf - 615
+4. fedor - sido, 18 - 28, Vogel - VW, lary - huawei
+6. 7€ - 7, die biebel - die biebel, 9 - 7
+7. p festival - hapiness festival
+8. fahrenheit - dragonball super, bedburg - bitburger, 18 - 8
+9. horn - animal farm, ich bin theory - big bang theory, einer von uns - animal farm
+

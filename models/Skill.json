@@ -12,6 +12,10 @@
                     "samples": []
                 },
                 {
+                    "name": "AMAZON.StopIntent",
+                    "samples": []
+                },
+                {
                     "name": "AMAZON.NoIntent",
                     "samples": []
                 },
@@ -42,8 +46,8 @@
                     ]
                 },
                 {
-                    "name": "AntwortAendern",
-                    "smaples": [
+                    "name": "AntwortAendernIntent",
+                    "samples": [
                         "Lass mich die Antwort einer Frage ändern",
                         "Lass mich die Antwort einer statischen Frage ändern",
                         "Antwort einer Frage ändern",
@@ -574,6 +578,11 @@
                         {
                             "name": {
                                 "value": "toyota"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "volkswagen"
                             }
                         },
                         {
@@ -8543,6 +8552,11 @@
                         },
                         {
                             "name": {
+                                "value": "Fahrenheit"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "Fanny und Alexander"
                             }
                         },
@@ -8863,6 +8877,11 @@
                         },
                         {
                             "name": {
+                                "value": "Hangover"
+                            }
+                        },
+                        {
+                            "name": {
                                 "value": "Hardcore"
                             }
                         },
@@ -9174,6 +9193,11 @@
                         {
                             "name": {
                                 "value": "Justice League"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Kaufhauscop"
                             }
                         },
                         {

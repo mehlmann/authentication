@@ -49,19 +49,6 @@ function getWelcomeResponse(callback) {
     const speechOutput = 'Willkommen.';
     const repromptText = 'Willkommen.';
     const shouldEndSession = false;
-    callback({}, buildSpeechletResponse(cardTitle, 'Willkommen', 'Willkommen', shouldEndSession));
-}
-
-/**
- * getHelpResponse wird ausgeführt, wenn der Benutzer Hilfe benötigt.
- * @param {function} callback Rückgabe an die App
- */
-function getHelpResponse(callback) {
-    const cardTitle = 'Hilfe';
-    const speechOutput = 'Sie sollten sich authentifizieren. Starten Sie mit dem Befehl, Aufgabe.';
-    const repromptText = 'Wollen sie sich nicht authentifizieren?';
-    const shouldEndSession = false;
-
     callback({}, buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
 }
 
@@ -115,7 +102,6 @@ function onUnknownIntent(callback) {
 module.exports = {buildSpeechletResponse,
                 buildResponse,
                 getWelcomeResponse,
-                getHelpResponse,
                 getEndResponse,
                 onLaunch,
                 onSessionEnded,
